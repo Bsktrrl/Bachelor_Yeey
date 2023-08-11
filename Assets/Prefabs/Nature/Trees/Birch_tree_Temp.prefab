@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 7984517006550196535}
   - component: {fileID: 7973344286594398415}
   - component: {fileID: 7966052137671028675}
+  - component: {fileID: 272239177951863915}
   - component: {fileID: 8015204535154059635}
   - component: {fileID: 3194821921848526076}
   m_Layer: 0
@@ -86,6 +87,19 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!135 &272239177951863915
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7988137816538554583}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 5
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!136 &8015204535154059635
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -113,3 +127,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ItemName: Birch Tree
+  playerInRange: 0

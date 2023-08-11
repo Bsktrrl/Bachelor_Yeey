@@ -4,9 +4,30 @@ using UnityEngine.UI;
 
 public class SelectionManager : MonoBehaviour
 {
+    //Singleton "instance"
+    public static SelectionManager instance { get; set; }
+
     public GameObject interaction_Info_UI;
     TextMeshProUGUI interaction_text;
 
+    public bool onTarget = false;
+
+
+    //--------------------
+
+
+    private void Awake()
+    {
+        //Singleton check
+        if (instance != null && instance != this)
+        {
+            Destroy(gameObject);
+        }
+        else
+        {
+            instance = this;
+        }
+    }
     private void Start()
     {
         interaction_text = interaction_Info_UI.GetComponent<TextMeshProUGUI>();
@@ -22,15 +43,30 @@ public class SelectionManager : MonoBehaviour
             var selectionTransform = hit.transform;
 
             //When reycasting something that is an InteractableObject
-            if (selectionTransform.GetComponent<InteractableObject>())
+            InteractableObject interacteable = selectionTransform.GetComponent<InteractableObject>();
+
+            if (interacteable && interacteable.playerInRange)
             {
-                interaction_text.text = selectionTransform.GetComponent<InteractableObject>().GetItemName();
+                interaction_text.text = interacteable.GetItemName();
                 interaction_Info_UI.SetActive(true);
+                onTarget = true;
             }
+            //If there is a Hit without an interacteable script
             else
             {
                 interaction_Info_UI.SetActive(false);
+                onTarget = false;
             }
         }
+        //If there is no script attached at all
+        else
+        {
+            interaction_Info_UI.SetActive(false);
+            onTarget = false;
+        }
     }
+
+    //--------------------
+
+
 }
