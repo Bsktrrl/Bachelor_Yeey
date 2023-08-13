@@ -1,12 +1,8 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.Xml.Serialization;
 using TMPro;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
-using static UnityEditor.Progress;
 
 public class InventorySystem : MonoBehaviour
 {
@@ -29,8 +25,8 @@ public class InventorySystem : MonoBehaviour
     [Header("Lists")]
     public List<GameObject> inventorySlotList = new List<GameObject>();
     public List<InventoryItem> inventoryItemList = new List<InventoryItem>();
-
-    //public List<string> itemList = new List<string>();
+    public int activeInventorySlotList_Index;
+    public int targetInventorySlotList_Index;
 
     GameObject itemToAdd;
     GameObject whatSlotToEquip;
@@ -92,15 +88,15 @@ public class InventorySystem : MonoBehaviour
             inventoryItemList.Add(item);
         }
     }
-    void UpdateInventoryDisplay()
+    public void UpdateInventoryDisplay()
     {
         for (int i = 0; i < inventoryItemList.Count; i++)
         {
             if (inventoryItemList[i].itemName == Items.None)
             {
                 //Set empty ItemSlot if inventoryItemList[i] is empty
-                inventorySlotList[i].GetComponentInChildren<DragDrop>().gameObject.GetComponentInChildren<Image>().sprite = emptySprite;
-                inventorySlotList[i].GetComponentInChildren<DragDrop>().gameObject.GetComponentInChildren<TextMeshProUGUI>().text = "";
+                inventorySlotList[i].GetComponentInChildren<DragDrop>().itemImage.sprite = emptySprite;
+                inventorySlotList[i].GetComponentInChildren<DragDrop>().amountText.text = "";
             }
             else
             {
@@ -108,8 +104,8 @@ public class InventorySystem : MonoBehaviour
                 Item itemTemp = FindSO_Item(inventoryItemList[i]);
 
                 //Insert data from this _SO item
-                inventorySlotList[i].GetComponentInChildren<DragDrop>().gameObject.GetComponentInChildren<Image>().sprite = itemTemp.itemSprite;
-                inventorySlotList[i].GetComponentInChildren<DragDrop>().gameObject.GetComponentInChildren<TextMeshProUGUI>().text = inventoryItemList[i].amount.ToString();
+                inventorySlotList[i].GetComponentInChildren<DragDrop>().itemImage.sprite = itemTemp.itemSprite;
+                inventorySlotList[i].GetComponentInChildren<DragDrop>().amountText.text = inventoryItemList[i].amount.ToString();
             }
         }
     }
@@ -155,6 +151,7 @@ public class InventorySystem : MonoBehaviour
     }
     public void RemoveSlotFromInventory()
     {
+
 
     }
 
@@ -246,22 +243,157 @@ public class InventorySystem : MonoBehaviour
 
     }
 
-    public void ItemStackOverflow()
+    public void SortInventoryItemsBy_SOPosition()
     {
+        List<InventoryItem> inventoryItemListChecker = new List<InventoryItem>();
 
-    }
-    public bool CheckIfInventorySlotIsFull()
-    {
-        return false;
-    }
-    public bool CheckIfInventoryIsFull()
-    {
-        return false;
-    }
+        //Fill inventoryItemList with items, pushing all items as far to the left as possible
+        for (int i = 1; i < SO_Item.itemList.Count; i++)
+        {
+            int itemAmountCounter = 0;
 
-    public void SortInventoryItems()
-    {
+            //Get Item Amount
+            for (int j = 0; j < inventoryItemList.Count;)
+            {
+                if (inventoryItemList[j].itemName == SO_Item.itemList[i].itemName)
+                {
+                    itemAmountCounter += inventoryItemList[j].amount;
 
+                    inventoryItemList.RemoveAt(j);
+                }
+                else
+                {
+                    j++;
+                }
+            }
+
+            //Set item in correct order
+            while (itemAmountCounter > 0)
+            {
+                InventoryItem itemTemp = new InventoryItem();
+
+                inventoryItemListChecker.Add(itemTemp);
+                inventoryItemListChecker[inventoryItemListChecker.Count - 1].itemName = SO_Item.itemList[i].itemName;
+
+                if (itemAmountCounter >= SO_Item.itemList[i].itemStackMax)
+                {
+                    inventoryItemListChecker[inventoryItemListChecker.Count - 1].amount = SO_Item.itemList[i].itemStackMax;
+                    itemAmountCounter -= SO_Item.itemList[i].itemStackMax;
+                }
+                else
+                {
+                    inventoryItemListChecker[inventoryItemListChecker.Count - 1].amount = itemAmountCounter;
+                    itemAmountCounter -= itemAmountCounter;
+                }
+            }
+        }
+
+        //Fill the rest with "None"-Items
+        for (int i = inventoryItemListChecker.Count; i < inventorySize; i++)
+        {
+            InventoryItem itemNonetemp = new InventoryItem();
+
+            inventoryItemListChecker.Add(itemNonetemp);
+            inventoryItemListChecker[inventoryItemListChecker.Count - 1].itemName = Items.None;
+            inventoryItemListChecker[inventoryItemListChecker.Count - 1].amount = 0;
+        }
+
+        inventoryItemList = inventoryItemListChecker;
+
+        UpdateInventoryDisplay();
+    }
+    public void SortInventoryItemsByInventoryPosition()
+    {
+        List<Items> itemNameList = new List<Items>();
+        Items itemNameTemp = new Items();
+
+        //Make a list of unique itemNames in the inventory
+        #region
+        for (int i = 0; i < inventoryItemList.Count; i++)
+        {
+            //Check if itemNameList is empty
+            if (itemNameList.Count <= 0)
+            {
+                itemNameList.Add(itemNameTemp);
+            }
+            
+            for (int j = 0; j < itemNameList.Count; j++)
+            {
+                if (inventoryItemList[i].itemName != itemNameList[j] && inventoryItemList[i].itemName != Items.None)
+                {
+                    itemNameList.Add(itemNameTemp);
+                    itemNameList[itemNameList.Count - 1] = inventoryItemList[i].itemName;
+                }
+            }
+        }
+        #endregion
+
+        //Sort inventory based on itemNameList
+        #region
+        List<InventoryItem> inventoryItemListChecker = new List<InventoryItem>();
+
+        //Fill inventoryItemList with items, pushing all items as far to the left as possible
+        for (int i = 0; i < itemNameList.Count; i++)
+        {
+            int itemAmountCounter = 0;
+
+            //Get Item Amount
+            for (int j = 0; j < inventoryItemList.Count;)
+            {
+                if (inventoryItemList[j].itemName == itemNameList[i])
+                {
+                    itemAmountCounter += inventoryItemList[j].amount;
+
+                    inventoryItemList.RemoveAt(j);
+                }
+                else
+                {
+                    j++;
+                }
+            }
+
+            //Set item in correct order
+            while (itemAmountCounter > 0)
+            {
+                InventoryItem itemTemp = new InventoryItem();
+
+                inventoryItemListChecker.Add(itemTemp);
+                inventoryItemListChecker[inventoryItemListChecker.Count - 1].itemName = itemNameList[i];
+
+                for (int j = 0; j < SO_Item.itemList.Count; j++)
+                {
+                    //Find correct position in the SO_Item.itemList based on the current itemNameList
+                    if (itemNameList[i] == SO_Item.itemList[j].itemName)
+                    {
+                        if (itemAmountCounter >= SO_Item.itemList[j].itemStackMax)
+                        {
+                            inventoryItemListChecker[inventoryItemListChecker.Count - 1].amount = SO_Item.itemList[j].itemStackMax;
+                            itemAmountCounter -= SO_Item.itemList[j].itemStackMax;
+                        }
+                        else
+                        {
+                            inventoryItemListChecker[inventoryItemListChecker.Count - 1].amount = itemAmountCounter;
+                            itemAmountCounter -= itemAmountCounter;
+                        }
+                    }
+                }
+            }
+        }
+
+        //Fill the rest with "None"-Items
+        for (int i = inventoryItemListChecker.Count; i < inventorySize; i++)
+        {
+            InventoryItem itemNonetemp = new InventoryItem();
+
+            inventoryItemListChecker.Add(itemNonetemp);
+            inventoryItemListChecker[inventoryItemListChecker.Count - 1].itemName = Items.None;
+            inventoryItemListChecker[inventoryItemListChecker.Count - 1].amount = 0;
+        }
+
+        inventoryItemList = inventoryItemListChecker;
+        #endregion
+
+        UpdateInventoryDisplay();
     }
 
     public void UpdateInventoryItemListOrder()
@@ -373,11 +505,12 @@ public class InventorySystem : MonoBehaviour
     {
         if (!isOpen)
         {
+            UpdateInventoryDisplay();
+
             inventoryScreenUI.SetActive(true);
             Cursor.lockState = CursorLockMode.None;
 
             isOpen = true;
-
         }
         else if (isOpen)
         {

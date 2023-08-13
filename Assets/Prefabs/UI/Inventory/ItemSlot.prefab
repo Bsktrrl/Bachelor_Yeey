@@ -111,7 +111,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 30, y: -15}
+  m_AnchoredPosition: {x: 34.4, y: -18.2}
   m_SizeDelta: {x: 60, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &6780934529076364202
@@ -169,8 +169,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 40
-  m_fontSizeBase: 40
+  m_fontSize: 35
+  m_fontSizeBase: 35
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -275,6 +275,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e44499f05ec41164ba882b0509cc9201, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  startParent: {fileID: 0}
+  dragging_Parent: {fileID: 0}
+  startItemslotPos: {x: 0, y: 0}
+  endItemslotPos: {x: 0, y: 0}
+  itemImage: {fileID: 169916118359588396}
+  amountText: {fileID: 8275704741618899201}
 --- !u!1 &8900039587488921060
 GameObject:
   m_ObjectHideFlags: 0

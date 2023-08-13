@@ -48,7 +48,10 @@ public class InteractableObject : MonoBehaviour
         {
             if (InventorySystem.instance.AddItemToInventory(itemName, amount))
             {
-                print("Successfully added Items");
+                //Remove Subscription to Event
+                PlayerButtonManager.mouse0_isPressedDown -= PickUpItem;
+
+                Destroy(gameObject);
             }
             else
             {
@@ -56,11 +59,6 @@ public class InteractableObject : MonoBehaviour
 
                 //Spawn a box in the world with this item and its amount to be picked up later
             }
-
-            //Remove Subscription to Event
-            PlayerButtonManager.mouse0_isPressedDown -= PickUpItem;
-
-            Destroy(gameObject);
 
             ////If there are room in the inventory
             //if (!InventorySystem.instance.CheckIfFull())

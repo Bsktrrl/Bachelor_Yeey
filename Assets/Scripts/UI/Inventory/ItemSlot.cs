@@ -30,11 +30,25 @@ public class ItemSlot : MonoBehaviour, IDropHandler
     //If something is dropped on this GameObject
     public void OnDrop(PointerEventData eventData)
     {
-        //if there is not an item on this GameObject
-        if (!Item)
+        for (int i = 0; i < InventorySystem.instance.inventorySlotList.Count; i++)
         {
-            DragDrop.itemBeingDragged.transform.SetParent(transform);
-            DragDrop.itemBeingDragged.transform.localPosition = new Vector2(0, 0);
+            if (InventorySystem.instance.inventorySlotList[i].GetComponent<ItemSlot>() == this)
+            {
+                InventorySystem.instance.targetInventorySlotList_Index = i;
+
+                break;
+            }
         }
+
+        InventoryItem temp = new InventoryItem();
+
+        temp = InventorySystem.instance.inventoryItemList[InventorySystem.instance.activeInventorySlotList_Index];
+        InventorySystem.instance.inventoryItemList[InventorySystem.instance.activeInventorySlotList_Index] = InventorySystem.instance.inventoryItemList[InventorySystem.instance.targetInventorySlotList_Index];
+        InventorySystem.instance.inventoryItemList[InventorySystem.instance.targetInventorySlotList_Index] = temp;
+
+        DragDrop.itemBeingDragged.transform.SetParent(DragDrop.itemBeingDragged.GetComponent<DragDrop>().startParent);
+        DragDrop.itemBeingDragged.transform.localPosition = new Vector2(0, 0);
+
+        InventorySystem.instance.UpdateInventoryDisplay();
     }
 }

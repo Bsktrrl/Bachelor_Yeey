@@ -4,3 +4,5 @@ Inventory/Items:
 - Make each inventorySlot have a stack (not just a single item) in it.
 - Make UI for each item, so it displays more info (Name, amount and weight)
 - Pickups pointed at must give more information based on the item pointed at (like the "Skyrim" I've done)
+
+- Make it possible to swap places with "DrageableObjects" in the inventory
