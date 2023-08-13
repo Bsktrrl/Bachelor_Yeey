@@ -1,8 +1,17 @@
 Inventory/Items:
 - Make "InventorySlotList" dynamic so that further itemslots can be added (like a backpack).
 	- Make a scaler for the inventory UI BG to fit any amount of itemslots.
-- Make each inventorySlot have a stack (not just a single item) in it.
 - Make UI for each item, so it displays more info (Name, amount and weight)
 - Pickups pointed at must give more information based on the item pointed at (like the "Skyrim" I've done)
 
-- Make it possible to swap places with "DrageableObjects" in the inventory
+Inventory Management:
+- DragDrop element needs to be picked 1 of when right-clicking
+- While right-clicking a DragDrop element, scroll mouse wheel to add more to the amount
+- DragDrop element needs to be picked Half (rounded up) of when mouse wheel is clicked
+- If dropped on the same slot, just reset the action, with no change in result
+
+- Add Slot to Inventory
+- Remove Slot from Inventory
+- Remove Item from Inventory
+
+- Change "CreafteableItemDisplay" to match the new Inventory System

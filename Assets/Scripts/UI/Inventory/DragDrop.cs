@@ -5,7 +5,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class DragDrop : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDragHandler
+public class DragDrop : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDragHandler, IPointerEnterHandler, IPointerExitHandler
 {
     private RectTransform rectTransform;
     private CanvasGroup canvasGroup;
@@ -20,6 +20,9 @@ public class DragDrop : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDrag
 
     public Image itemImage;
     public TextMeshProUGUI amountText;
+    public Image selectedFrameImage;
+
+    
 
 
     //--------------------
@@ -32,6 +35,10 @@ public class DragDrop : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDrag
 
         dragging_Parent = InventorySystem.instance.inventoryDraggingParent;
     }
+    private void Start()
+    {
+        selectedFrameImage.gameObject.SetActive(false);
+    }
 
 
     //--------------------
@@ -39,6 +46,8 @@ public class DragDrop : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDrag
 
     public void OnBeginDrag(PointerEventData eventData)
     {
+        InventorySystem.instance.itemIsDragging = true;
+
         for (int i = 0; i < InventorySystem.instance.inventorySlotList.Count; i++)
         {
             if (InventorySystem.instance.inventorySlotList[i].GetComponent<ItemSlot>().gameObject.GetComponentInChildren<DragDrop>() == this)
@@ -63,6 +72,7 @@ public class DragDrop : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDrag
         transform.SetAsLastSibling();
         itemBeingDragged = gameObject;
 
+        EnterDisplayItem();
     }
 
     public void OnDrag(PointerEventData eventData)
@@ -85,5 +95,79 @@ public class DragDrop : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDrag
 
         canvasGroup.alpha = 1f;
         canvasGroup.blocksRaycasts = true;
+
+        InventorySystem.instance.itemIsDragging = false;
+    }
+
+
+    //--------------------
+
+
+    public void OnPointerEnter(PointerEventData eventData)
+    {
+        EnterDisplayItem();
+    }
+
+    public void OnPointerExit(PointerEventData eventData)
+    {
+        ExitDisplayItem();
+    }
+
+
+    //--------------------
+
+    
+    void EnterDisplayItem()
+    {
+        selectedFrameImage.gameObject.SetActive(true);
+
+        if (!InventorySystem.instance.itemIsDragging)
+        {
+            for (int i = 0; i < InventorySystem.instance.inventorySlotList.Count; i++)
+            {
+                if (InventorySystem.instance.inventorySlotList[i].GetComponent<ItemSlot>().gameObject.GetComponentInChildren<DragDrop>() == this)
+                {
+                    Item_SO SO_Item = InventorySystem.instance.SO_Item;
+
+                    for (int j = 0; j < SO_Item.itemList.Count; j++)
+                    {
+                        if (InventorySystem.instance.inventoryItemList[i].itemName == SO_Item.itemList[j].itemName
+                            && InventorySystem.instance.inventoryItemList[i].itemName != Items.None)
+                        {
+                            print("Hover Item");
+
+                            InventorySystem.instance.selecteditemImage.sprite = SO_Item.itemList[j].itemSprite;
+                            InventorySystem.instance.selecteditemName.text = SO_Item.itemList[j].itemName.ToString();
+                            InventorySystem.instance.selecteditemDescription.text = SO_Item.itemList[j].itemDescription;
+
+                            break;
+                        }
+                        else
+                        {
+                            print("Hover None");
+
+                            InventorySystem.instance.selecteditemImage.sprite = SO_Item.itemList[0].itemSprite;
+                            InventorySystem.instance.selecteditemName.text = "";
+                            InventorySystem.instance.selecteditemDescription.text = "";
+                        }
+                    }
+
+                    break;
+                }
+            }
+        }
+    }
+    void ExitDisplayItem()
+    {
+        selectedFrameImage.gameObject.SetActive(false);
+
+        if (!InventorySystem.instance.itemIsDragging)
+        {
+            Item_SO SO_Item = InventorySystem.instance.SO_Item;
+
+            InventorySystem.instance.selecteditemImage.sprite = SO_Item.itemList[0].itemSprite;
+            InventorySystem.instance.selecteditemName.text = "";
+            InventorySystem.instance.selecteditemDescription.text = "";
+        }
     }
 }

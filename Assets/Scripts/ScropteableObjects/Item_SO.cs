@@ -18,6 +18,5 @@ public class Item
     [TextArea (5, 10)] public string itemDescription;
 
     [Header("Stats")]
-    public int itemIndex;
     public int itemStackMax;
 }

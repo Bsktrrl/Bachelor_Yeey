@@ -9,14 +9,17 @@ public class InventorySystem : MonoBehaviour
     public static InventorySystem instance { get; set; } //Singleton
 
     [Header("References")]
-    [SerializeField] Item_SO SO_Item;
+    public Item_SO SO_Item;
     [SerializeField] Sprite emptySprite;
 
     [Header("GameObjects")]
     public GameObject inventoryScreenUI;
-    //public GameObject inventoryPanelUI;
     public GameObject inventoryDraggingParent;
 
+    [Header("itemDisplay")]
+    public Image selecteditemImage;
+    public TextMeshProUGUI selecteditemName;
+    public TextMeshProUGUI selecteditemDescription;
 
     [Header("InventorySlots")]
     [SerializeField] GameObject InventorySlot_Parent;
@@ -32,6 +35,7 @@ public class InventorySystem : MonoBehaviour
     GameObject whatSlotToEquip;
 
     [HideInInspector] public bool isOpen;
+    public bool itemIsDragging;
 
     [Header("Inventory Size")]
     [SerializeField] int inventorySize = 15;
@@ -149,7 +153,7 @@ public class InventorySystem : MonoBehaviour
 
 
     }
-    public void RemoveSlotFromInventory()
+    public void RemoveSlotFromInventory(Items itemName)
     {
 
 
@@ -429,82 +433,11 @@ public class InventorySystem : MonoBehaviour
     //--------------------
 
 
-    public void AddtoInventory(Items itemName)
-    {
-        //Insert item into the next available slot
-        whatSlotToEquip = FindNextEmptySlot();
-
-        //Find which item to add
-        itemToAdd = Instantiate(Resources.Load<GameObject>(itemName.ToString()), whatSlotToEquip.transform.position, whatSlotToEquip.transform.rotation);
-        itemToAdd.transform.SetParent(whatSlotToEquip.transform);
-
-        //itemList.Add(itemName.ToString());
-    }
-    public void RemoveItemFromInventory(List<Requirement> item)
-    {
-        for (int i = 0; i < item.Count; i++)
-        {
-            int counter = item[i].itemAmount;
-
-            for (int j = inventorySlotList.Count - 1; j >= 0; j--)
-            {
-                if (inventorySlotList[j].transform.GetChild(0).name == item[i].itemName.ToString() + "(Clone)" && counter > 0)
-                {
-                    Destroy(inventorySlotList[j].transform.GetChild(0).gameObject);
-
-                    counter--;
-                }
-            }
-        }
-    }
-    public void RecalculateList()
-    {
-
-    }
-
-    public bool CheckIfFull()
-    {
-        int counter = 0;
-
-        foreach (GameObject slot in inventorySlotList)
-        {
-            if (slot.transform.childCount > 0)
-            {
-                counter++;
-            }
-        }
-
-        if (counter >= inventorySize)
-        {
-            return true;
-        }
-        else
-        {
-            return false;
-        }
-    }
-
-    private GameObject FindNextEmptySlot()
-    {
-        foreach (GameObject slot in inventorySlotList)
-        {
-            if (slot.transform.childCount == 0)
-            {
-                return slot;
-            }
-        }
-
-        return new GameObject();
-    }
-
-
-    //--------------------
-
-
     void OpenInventoryScreen()
     {
         if (!isOpen)
         {
+            MainManager.instance.menuStates = MenuStates.InventoryMenu;
             UpdateInventoryDisplay();
 
             inventoryScreenUI.SetActive(true);
@@ -522,6 +455,14 @@ public class InventorySystem : MonoBehaviour
             }
             
             isOpen = false;
+
+            //Turn off all SelectedFrames
+            for (int i = 0; i < inventorySlotList.Count; i++)
+            {
+                inventorySlotList[i].GetComponent<ItemSlot>().gameObject.GetComponentInChildren<DragDrop>().selectedFrameImage.gameObject.SetActive(false);
+            }
+
+            MainManager.instance.menuStates = MenuStates.None;
         }
     }
     void CloseInventoryScreen()
@@ -535,6 +476,14 @@ public class InventorySystem : MonoBehaviour
             }
 
             isOpen = false;
+
+            //Turn off all SelectedFrames
+            for (int i = 0; i < inventorySlotList.Count; i++)
+            {
+                inventorySlotList[i].GetComponent<ItemSlot>().gameObject.GetComponentInChildren<DragDrop>().selectedFrameImage.gameObject.SetActive(false);
+            }
+
+            MainManager.instance.menuStates = MenuStates.None;
         }
     }
 }

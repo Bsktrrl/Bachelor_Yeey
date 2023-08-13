@@ -44,7 +44,8 @@ public class InteractableObject : MonoBehaviour
 
     void PickUpItem()
     {
-        if (playerInRange && SelectionManager.instance.onTarget && SelectionManager.instance.selecedObject == gameObject)
+        if (playerInRange && SelectionManager.instance.onTarget && SelectionManager.instance.selecedObject == gameObject
+            && MainManager.instance.menuStates == MenuStates.None)
         {
             if (InventorySystem.instance.AddItemToInventory(itemName, amount))
             {
@@ -59,21 +60,6 @@ public class InteractableObject : MonoBehaviour
 
                 //Spawn a box in the world with this item and its amount to be picked up later
             }
-
-            ////If there are room in the inventory
-            //if (!InventorySystem.instance.CheckIfFull())
-            //{
-            //    
-
-            //    //Add item to inventory
-            //    InventorySystem.instance.AddItemToInventory(itemName, amount);
-
-            //    Destroy(gameObject);
-            //}
-            //else
-            //{
-
-            //}
         }
     }
 

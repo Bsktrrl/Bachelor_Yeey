@@ -43,13 +43,13 @@ public class CreafteableItemDisplay : MonoBehaviour
     public void CraftAnyItem()
     {
         //Remove items from inventory
-        InventorySystem.instance.RemoveItemFromInventory(requirement);
+        //InventorySystem.instance.RemoveItemFromInventory(requirement);
 
         //Add item to inventory
         //InventorySystem.instance.AddtoInventory();
 
         //Refresh List
-        InventorySystem.instance.RecalculateList();
+        //InventorySystem.instance.RecalculateList();
 
         //Refresh requiredItems
         RefreshRequiredItems();
