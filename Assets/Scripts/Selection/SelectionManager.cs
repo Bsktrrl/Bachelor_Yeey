@@ -12,6 +12,8 @@ public class SelectionManager : MonoBehaviour
 
     public bool onTarget = false;
 
+    public GameObject selecedObject;
+
 
     //--------------------
 
@@ -47,9 +49,11 @@ public class SelectionManager : MonoBehaviour
 
             if (interacteable && interacteable.playerInRange)
             {
-                interaction_text.text = interacteable.GetItemName();
+                interaction_text.text = interacteable.GetItemName().ToString();
                 interaction_Info_UI.SetActive(true);
                 onTarget = true;
+
+                selecedObject = interacteable.gameObject;
             }
             //If there is a Hit without an interacteable script
             else
