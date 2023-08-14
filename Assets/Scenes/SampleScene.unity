@@ -1722,7 +1722,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &362078208
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2058,7 +2058,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: M
+  m_text: S
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -3236,7 +3236,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: S
+  m_text: I
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -9248,7 +9248,9 @@ MonoBehaviour:
   itemIsDragging: 0
   itemAmountSelected: 0
   maxItemInSelectedStack: 0
+  itemAmountLeftBehind: 0
   inventorySize: 15
+  dragDropTemp_Prefab: {fileID: 5866262886286474543, guid: 9eee74d1f93af89468450cee4f5135fc, type: 3}
 --- !u!1001 &2087536520
 PrefabInstance:
   m_ObjectHideFlags: 0

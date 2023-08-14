@@ -35,12 +35,21 @@ public class InventorySystem : MonoBehaviour
 
     [HideInInspector] public bool isOpen;
     public bool itemIsDragging;
-    [SerializeField] int itemAmountSelected;
-    [SerializeField] int maxItemInSelectedStack;
-    [SerializeField] int itemAmountLeftBehind;
+    public bool itemIsClicked;
+    public bool itemIsSplitted;
+
+    public int itemAmountSelected;
+    public int maxItemInSelectedStack;
+    public int itemAmountLeftBehind;
+
+    public bool selectedItemIsEmpty;
 
     [Header("Inventory Size")]
     [SerializeField] int inventorySize = 15;
+
+    [Header("dragDropTemp")]
+    [SerializeField] GameObject dragDropTemp_Prefab;
+    public List<GameObject> dragDropTempList = new List<GameObject>();
 
 
     //--------------------
@@ -77,6 +86,13 @@ public class InventorySystem : MonoBehaviour
 
         SetupSlotsInInventory();
         UpdateInventoryDisplay();
+    }
+    private void Update()
+    {
+        if (!itemIsDragging && !itemIsClicked)
+        {
+            UpdateInventoryDisplay();
+        }
     }
 
 
@@ -168,7 +184,7 @@ public class InventorySystem : MonoBehaviour
     //--------------------
 
 
-    public void AddSlotToInventory()
+    void AddSlotToInventory()
     {
         //Add ItemSlot
 
@@ -176,12 +192,12 @@ public class InventorySystem : MonoBehaviour
         //Resize Frame
 
 
-    }
-    public void RemoveSlotFromInventory(Items itemName)
+    } //
+    void RemoveSlotFromInventory(Items itemName)
     {
 
 
-    }
+    } //
 
     #region Add Item To Inventory
     public bool AddItemToInventory(Items itemName, int amount)
@@ -266,12 +282,12 @@ public class InventorySystem : MonoBehaviour
     }
     #endregion
 
-    public void RemoveItemFromInventory()
+    void RemoveItemFromInventory()
     {
 
-    }
+    } //
 
-    public void SortInventoryItemsBy_SOPosition()
+    void SortInventoryItemsBy_SOPosition()
     {
         List<InventoryItem> inventoryItemListChecker = new List<InventoryItem>();
 
@@ -330,7 +346,7 @@ public class InventorySystem : MonoBehaviour
 
         UpdateInventoryDisplay();
     }
-    public void SortInventoryItemsByInventoryPosition()
+    void SortInventoryItemsByInventoryPosition()
     {
         List<Items> itemNameList = new List<Items>();
         Items itemNameTemp = new Items();
@@ -424,7 +440,7 @@ public class InventorySystem : MonoBehaviour
         UpdateInventoryDisplay();
     }
 
-    public void UpdateInventoryItemListOrder()
+    void UpdateInventoryItemListOrder()
     {
         //Update the inventoryItemList to match the items and amount in each slot
         List<InventoryItem> inventoryItemListTemp = new List<InventoryItem>();
@@ -457,9 +473,10 @@ public class InventorySystem : MonoBehaviour
     //--------------------
 
 
-    public void IncreaseItemAmountHolding()
+    void IncreaseItemAmountHolding()
     {
-        DragDrop dragDropTemp = new DragDrop();
+        DragDrop dragDropTemp;
+        itemIsSplitted = true;
 
         if (itemIsDragging)
         {
@@ -479,10 +496,13 @@ public class InventorySystem : MonoBehaviour
 
             DisplayCurrentItemAmountHolding(dragDropTemp);
         }
+
+        UpdateDragDropTemp();
     }
-    public void DecreaseItemAmountHolding()
+    void DecreaseItemAmountHolding()
     {
-        DragDrop dragDropTemp = new DragDrop();
+        DragDrop dragDropTemp;
+        itemIsSplitted = true;
 
         if (itemIsDragging)
         {
@@ -500,10 +520,13 @@ public class InventorySystem : MonoBehaviour
 
             DisplayCurrentItemAmountHolding(dragDropTemp);
         }
+
+        UpdateDragDropTemp();
     }
-    public void ItemStack_PickOne()
+    void ItemStack_PickOne()
     {
         DragDrop dragDropTemp = FindCorrectDragDropElementClicked();
+        itemIsSplitted = true;
 
         if (dragDropTemp.amountText.text == "")
         {
@@ -529,12 +552,22 @@ public class InventorySystem : MonoBehaviour
 
             DisplayCurrentItemAmountHolding(dragDropTemp);
         }
+
+        UpdateDragDropTemp();
     }
-    public void ItemStack_PickHalf()
+    void ItemStack_PickHalf()
     {
         DragDrop dragDropTemp = FindCorrectDragDropElementClicked();
+        itemIsSplitted = true;
 
-        maxItemInSelectedStack = int.Parse(dragDropTemp.amountText.text);
+        if (dragDropTemp.amountText.text == "")
+        {
+            maxItemInSelectedStack = 0;
+        }
+        else
+        {
+            maxItemInSelectedStack = int.Parse(dragDropTemp.amountText.text);
+        }
 
         if (dragDropTemp)
         {
@@ -560,10 +593,13 @@ public class InventorySystem : MonoBehaviour
 
             DisplayCurrentItemAmountHolding(dragDropTemp);
         }
+
+        UpdateDragDropTemp();
     }
-    public void ItemStack_PickAll()
+    void ItemStack_PickAll()
     {
         DragDrop dragDropTemp = FindCorrectDragDropElementClicked();
+        itemIsSplitted = true;
 
         if (dragDropTemp.amountText.text == "")
         {
@@ -589,6 +625,8 @@ public class InventorySystem : MonoBehaviour
 
             DisplayCurrentItemAmountHolding(dragDropTemp);
         }
+
+        UpdateDragDropTemp();
     }
 
     DragDrop FindCorrectDragDropElementClicked()
@@ -597,9 +635,11 @@ public class InventorySystem : MonoBehaviour
         {
             if (inventorySlotList[i].transform.childCount > 0)
             {
-                if (inventorySlotList[i].GetComponent<ItemSlot>().gameObject.GetComponentInChildren<DragDrop>().isClicked)
+                int count = inventorySlotList[i].GetComponent<ItemSlot>().gameObject.transform.childCount;
+
+                if (inventorySlotList[i].GetComponent<ItemSlot>().gameObject.transform.GetChild(count - 1).GetComponent<DragDrop>().isClicked)
                 {
-                    return inventorySlotList[i].GetComponent<ItemSlot>().gameObject.GetComponentInChildren<DragDrop>();
+                    return inventorySlotList[i].GetComponent<ItemSlot>().gameObject.transform.GetChild(count - 1).GetComponent<DragDrop>();
                 }
             }
         }
@@ -645,7 +685,7 @@ public class InventorySystem : MonoBehaviour
 
         return null;
     }
-    public void DisplayCurrentItemAmountHolding(DragDrop dragDrop)
+    void DisplayCurrentItemAmountHolding(DragDrop dragDrop)
     {
         dragDrop.amountText.text = itemAmountSelected.ToString();
     }
@@ -654,9 +694,59 @@ public class InventorySystem : MonoBehaviour
     //--------------------
 
 
+    public void CreateDragDropTemp(Transform parent, DragDrop dragDrop)
+    {
+        if (inventoryItemList[activeInventorySlotList_Index].itemName == Items.None)
+        {
+            selectedItemIsEmpty = true;
+
+            return;
+        }
+
+        selectedItemIsEmpty = false;
+
+        //Instantiate new dragDropTemp_Prefab
+        dragDropTempList.Add(Instantiate(dragDropTemp_Prefab) as GameObject);
+        dragDropTempList[dragDropTempList.Count - 1].transform.SetParent(parent);
+        dragDropTempList[dragDropTempList.Count - 1].transform.position = parent.position;
+
+        //Insert info
+        dragDropTempList[dragDropTempList.Count - 1].GetComponent<DragDrop>().itemImage.sprite = inventorySlotList[activeInventorySlotList_Index].GetComponent<ItemSlot>().gameObject.GetComponentInChildren<DragDrop>().itemImage.sprite;
+        dragDropTempList[dragDropTempList.Count - 1].GetComponent<DragDrop>().amountText.text = inventorySlotList[activeInventorySlotList_Index].GetComponent<ItemSlot>().gameObject.GetComponentInChildren<DragDrop>().amountText.text;
+
+        dragDrop.selectedFrameImage.gameObject.SetActive(false);
+
+        dragDropTempList[dragDropTempList.Count - 1].GetComponent<DragDrop>().amountText.gameObject.SetActive(false);
+
+        inventorySlotList[activeInventorySlotList_Index].GetComponent<ItemSlot>().GetComponentInChildren<DragDrop>().transform.SetAsLastSibling();
+
+        //inventorySlotList[activeInventorySlotList_Index].GetComponent<ItemSlot>().GetComponentInChildren<DragDrop>().transform.position = dragDropTemp_Prefab.transform.position;
+        //inventorySlotList[activeInventorySlotList_Index].GetComponent<ItemSlot>().GetComponentInChildren<DragDrop>().transform.position = parent.position;
+    }
     void CalculateItemAmountLeftBehind()
     {
         itemAmountLeftBehind = maxItemInSelectedStack - itemAmountSelected;
+    }
+    void UpdateDragDropTemp()
+    {
+        if (dragDropTempList.Count > 0)
+        {
+            dragDropTempList[0].GetComponent<DragDrop>().amountText.text = itemAmountLeftBehind.ToString();
+        }
+    }
+    public void DeleteDragDropTemp(DragDrop dragDrop)
+    {
+        for (int i = 0; i < dragDropTempList.Count; i++)
+        {
+            dragDropTempList[i].GetComponent<DragDrop>().DeleteThisObject();
+        }
+        
+        dragDropTempList.Clear();
+
+        if (!selectedItemIsEmpty)
+        {
+            dragDrop.selectedFrameImage.gameObject.SetActive(false);
+        }
     }
 
 

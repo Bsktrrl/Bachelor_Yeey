@@ -50,37 +50,43 @@ public class DragDrop : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, I
 
     public void OnPointerDown(PointerEventData eventData)
     {
-        isClicked = true;
-        canvasGroup.alpha = .75f;
-    }
-
-    public void OnPointerUp(PointerEventData eventData)
-    {
-        isClicked = false;
-        canvasGroup.alpha = 1f;
-
-        if (transform.parent == startParent)
-        {
-            InventorySystem.instance.UpdateInventoryDisplay();
-        }
-    }
-
-    public void OnBeginDrag(PointerEventData eventData)
-    {
-        InventorySystem.instance.itemIsDragging = true;
+        InventorySystem.instance.itemIsClicked = true;
 
         //Get index to the original activeInventorySlotList_Index
         for (int i = 0; i < InventorySystem.instance.inventorySlotList.Count; i++)
         {
             if (InventorySystem.instance.inventorySlotList[i].GetComponent<ItemSlot>().gameObject.GetComponentInChildren<DragDrop>() == this)
             {
-                print("OnBeginDrag");
-
                 InventorySystem.instance.activeInventorySlotList_Index = i;
 
                 break;
             }
         }
+
+        isClicked = true;
+        //canvasGroup.alpha = .75f;
+
+        InventorySystem.instance.CreateDragDropTemp(startParent, this);
+    }
+
+    public void OnPointerUp(PointerEventData eventData)
+    {
+        isClicked = false;
+        //canvasGroup.alpha = 1f;
+
+        if (transform.parent == startParent)
+        {
+            InventorySystem.instance.UpdateInventoryDisplay();
+        }
+
+        InventorySystem.instance.itemIsClicked = false;
+
+        InventorySystem.instance.DeleteDragDropTemp(this);
+    }
+
+    public void OnBeginDrag(PointerEventData eventData)
+    {
+        InventorySystem.instance.itemIsDragging = true;
 
         //So the ray cast will ignore the item itself.
         canvasGroup.blocksRaycasts = false;
@@ -94,6 +100,8 @@ public class DragDrop : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, I
         isDragged = true;
 
         EnterDisplayItem();
+
+        InventorySystem.instance.dragDropTempList[InventorySystem.instance.dragDropTempList.Count - 1].GetComponent<DragDrop>().amountText.gameObject.SetActive(true);
     }
 
     public void OnDrag(PointerEventData eventData)
@@ -120,6 +128,7 @@ public class DragDrop : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, I
         canvasGroup.blocksRaycasts = true;
 
         InventorySystem.instance.itemIsDragging = false;
+        InventorySystem.instance.itemIsSplitted = false;
     }
 
 
@@ -142,7 +151,17 @@ public class DragDrop : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, I
     
     void EnterDisplayItem()
     {
-        selectedFrameImage.gameObject.SetActive(true);
+        if (!isDragged)
+        {
+            selectedFrameImage.gameObject.SetActive(true);
+        }
+        else
+        {
+            if (!InventorySystem.instance.selectedItemIsEmpty)
+            {
+                selectedFrameImage.gameObject.SetActive(false);
+            }
+        }
 
         if (!InventorySystem.instance.itemIsDragging)
         {
@@ -188,5 +207,14 @@ public class DragDrop : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, I
             InventorySystem.instance.selecteditemName.text = "";
             InventorySystem.instance.selecteditemDescription.text = "";
         }
+    }
+
+
+    //--------------------
+
+    
+    public void DeleteThisObject()
+    {
+        Destroy(gameObject);
     }
 }

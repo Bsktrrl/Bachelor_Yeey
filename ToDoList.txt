@@ -5,8 +5,17 @@ Inventory/Items:
 - Pickups pointed at must give more information based on the item pointed at (like the "Skyrim" I've done)
 
 Inventory Management:
-- Ctrl+Right Mouse Button shold pick up the whole stack, with the possebility of going lower
 - If dropped on the same slot, just reset the action, with no change in result
+- LeaveItemBehind():
+	- Instantiate en ny "DragDrop" i samme parent som "DragDrop" forlater når den dragges.
+	- OnDrop() må endres til å endre utgangspunktItemSloten med antallet som overføres.
+		- Instantiated "DragDrop" må slettes
+		- "DragDrop" som er igjen i originalt felt må oppdateres til ny verdi minus verdien som er selected.
+			- Dersom verdien = 0, så gjør feltet = Items.None
+			- Dersom verdien > 0, så må feltet oppdateres til Items.x med "itemAmountLeftBehind" som verdi
+	- Til slutt må UpdateInventoryDisplay().
+- Når man flytter valig til et felt av samme type, ikke bytt plass på dem dersom det går an å slå amount sammen til 1 slot
+- Hvis man splitter og treffer et felt av en ny type, flytt over hele stacken til dette nye feltet, og bytt plass på de to.
 
 - Add Slot to Inventory
 - Remove Slot from Inventory
