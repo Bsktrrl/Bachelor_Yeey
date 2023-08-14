@@ -41,6 +41,7 @@ public class DragDrop : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, I
     private void Start()
     {
         selectedFrameImage.gameObject.SetActive(false);
+        startParent = transform.parent;
     }
 
 
@@ -50,11 +51,18 @@ public class DragDrop : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, I
     public void OnPointerDown(PointerEventData eventData)
     {
         isClicked = true;
+        canvasGroup.alpha = .75f;
     }
 
     public void OnPointerUp(PointerEventData eventData)
     {
         isClicked = false;
+        canvasGroup.alpha = 1f;
+
+        if (transform.parent == startParent)
+        {
+            InventorySystem.instance.UpdateInventoryDisplay();
+        }
     }
 
     public void OnBeginDrag(PointerEventData eventData)
@@ -74,14 +82,12 @@ public class DragDrop : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, I
             }
         }
 
-        canvasGroup.alpha = .75f;
-
         //So the ray cast will ignore the item itself.
         canvasGroup.blocksRaycasts = false;
         startPosition = transform.position;
         startParent = transform.parent;
 
-        transform.position = eventData.position;
+        //transform.position = eventData.position;
         transform.SetParent(dragging_Parent.transform);
         transform.SetAsLastSibling();
         itemBeingDragged = gameObject;
@@ -105,11 +111,12 @@ public class DragDrop : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, I
 
         if (transform.parent == startParent || transform.parent == dragging_Parent.transform)
         {
+            InventorySystem.instance.UpdateInventoryDisplay();
+
             transform.position = startPosition;
             transform.SetParent(startParent);
         }
 
-        canvasGroup.alpha = 1f;
         canvasGroup.blocksRaycasts = true;
 
         InventorySystem.instance.itemIsDragging = false;

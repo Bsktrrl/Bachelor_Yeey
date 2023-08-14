@@ -11,6 +11,7 @@ public class PlayerButtonManager : MonoBehaviour
     public static Action C_isPressedDown;       //Crafting Screen
 
     public static Action inventory_RightMouse_isPressedDown;
+    public static Action inventory_CTRL_and_RightMouse_isPressedDown;
     public static Action inventory_ScrollMouse_isPressedDown;
     public static Action inventory_ScrollMouse_isRolledUP;
     public static Action inventory_ScrollMouse_isRolledDown;
@@ -40,11 +41,18 @@ public class PlayerButtonManager : MonoBehaviour
         }
 
         //Inventory Buttons
-        if (Input.GetKeyDown(KeyCode.Mouse1))
+        if (Input.GetKeyDown(KeyCode.Mouse1) && !Input.GetKey(KeyCode.LeftControl))
         {
             if (MainManager.instance.menuStates == MenuStates.InventoryMenu)
             {
                 inventory_RightMouse_isPressedDown?.Invoke();
+            }
+        }
+        if (Input.GetKeyDown(KeyCode.Mouse1) && Input.GetKey(KeyCode.LeftControl))
+        {
+            if (MainManager.instance.menuStates == MenuStates.InventoryMenu)
+            {
+                inventory_CTRL_and_RightMouse_isPressedDown?.Invoke();
             }
         }
         if (Input.GetKeyDown(KeyCode.Mouse2))
@@ -54,16 +62,13 @@ public class PlayerButtonManager : MonoBehaviour
                 inventory_ScrollMouse_isPressedDown?.Invoke();
             }
         }
-        if (Input.GetKeyDown(KeyCode.Mouse1) && MainManager.instance.menuStates == MenuStates.InventoryMenu)
+        if (Input.GetKey(KeyCode.Mouse1) && MainManager.instance.menuStates == MenuStates.InventoryMenu && Input.GetAxis("Mouse ScrollWheel") > 0)
         {
-            if (Input.GetAxis("Mouse ScrollWheel") > 0)
-            {
-                inventory_ScrollMouse_isRolledUP?.Invoke();
-            }
-            else if (Input.GetAxis("Mouse ScrollWheel") < 0)
-            {
-                inventory_ScrollMouse_isRolledDown?.Invoke();
-            }
+            inventory_ScrollMouse_isRolledUP?.Invoke();
+        }
+        if (Input.GetKey(KeyCode.Mouse1) && MainManager.instance.menuStates == MenuStates.InventoryMenu && Input.GetAxis("Mouse ScrollWheel") < 0)
+        {
+            inventory_ScrollMouse_isRolledDown?.Invoke();
         }
     }
 }

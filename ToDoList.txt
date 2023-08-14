@@ -5,9 +5,7 @@ Inventory/Items:
 - Pickups pointed at must give more information based on the item pointed at (like the "Skyrim" I've done)
 
 Inventory Management:
-- DragDrop element needs to be picked 1 of when right-clicking
-- While right-clicking a DragDrop element, scroll mouse wheel to add more to the amount
-- DragDrop element needs to be picked Half (rounded up) of when mouse wheel is clicked
+- Ctrl+Right Mouse Button shold pick up the whole stack, with the possebility of going lower
 - If dropped on the same slot, just reset the action, with no change in result
 
 - Add Slot to Inventory

@@ -35,7 +35,9 @@ public class InventorySystem : MonoBehaviour
 
     [HideInInspector] public bool isOpen;
     public bool itemIsDragging;
-    public int itemAmountSelected;
+    [SerializeField] int itemAmountSelected;
+    [SerializeField] int maxItemInSelectedStack;
+    [SerializeField] int itemAmountLeftBehind;
 
     [Header("Inventory Size")]
     [SerializeField] int inventorySize = 15;
@@ -67,6 +69,7 @@ public class InventorySystem : MonoBehaviour
         PlayerButtonManager.inventory_ScrollMouse_isPressedDown += ItemStack_PickHalf;
         PlayerButtonManager.inventory_ScrollMouse_isRolledUP += IncreaseItemAmountHolding;
         PlayerButtonManager.inventory_ScrollMouse_isRolledDown += DecreaseItemAmountHolding;
+        PlayerButtonManager.inventory_CTRL_and_RightMouse_isPressedDown += ItemStack_PickAll;
 
         isOpen = false;
 
@@ -456,58 +459,89 @@ public class InventorySystem : MonoBehaviour
 
     public void IncreaseItemAmountHolding()
     {
-        DragDrop dragDropTemp = FindCorrectDragDropElementClicked();
+        DragDrop dragDropTemp = new DragDrop();
+
+        if (itemIsDragging)
+        {
+            dragDropTemp = FindDragDropOfDraggingParentLocation();
+        }
+        else
+        {
+            dragDropTemp = FindCorrectDragDropElementClicked();
+        }
+
         Item itemTemp = FindCorrectSO_Item();
 
-        if (dragDropTemp && itemAmountSelected < itemTemp.itemStackMax)
+        if (dragDropTemp && itemAmountSelected < maxItemInSelectedStack)
         {
             itemAmountSelected += 1;
+            CalculateItemAmountLeftBehind();
 
-            DisplayCurrentItemAmountHolding();
-
-            print("Scroll Up - Amount: " + itemAmountSelected);
+            DisplayCurrentItemAmountHolding(dragDropTemp);
         }
     }
     public void DecreaseItemAmountHolding()
     {
-        DragDrop dragDropTemp = FindCorrectDragDropElementClicked();
+        DragDrop dragDropTemp = new DragDrop();
+
+        if (itemIsDragging)
+        {
+            dragDropTemp = FindDragDropOfDraggingParentLocation();
+        }
+        else
+        {
+            dragDropTemp = FindCorrectDragDropElementClicked();
+        }
 
         if (dragDropTemp && itemAmountSelected > 1)
         {
             itemAmountSelected -= 1;
+            CalculateItemAmountLeftBehind();
 
-            DisplayCurrentItemAmountHolding();
-
-            print("Scroll Down - Amount: " + itemAmountSelected);
+            DisplayCurrentItemAmountHolding(dragDropTemp);
         }
     }
     public void ItemStack_PickOne()
     {
         DragDrop dragDropTemp = FindCorrectDragDropElementClicked();
 
+        if (dragDropTemp.amountText.text == "")
+        {
+            maxItemInSelectedStack = 0;
+        }
+        else
+        {
+            maxItemInSelectedStack = int.Parse(dragDropTemp.amountText.text);
+        }
+
         if (dragDropTemp)
         {
             if (dragDropTemp.amountText.text == "" || dragDropTemp.amountText.text == "0")
             {
                 itemAmountSelected = 0;
+                CalculateItemAmountLeftBehind();
 
                 return;
             }
 
             itemAmountSelected = 1;
+            CalculateItemAmountLeftBehind();
 
-            DisplayCurrentItemAmountHolding();
+            DisplayCurrentItemAmountHolding(dragDropTemp);
         }
     }
     public void ItemStack_PickHalf()
     {
         DragDrop dragDropTemp = FindCorrectDragDropElementClicked();
 
+        maxItemInSelectedStack = int.Parse(dragDropTemp.amountText.text);
+
         if (dragDropTemp)
         {
             if (dragDropTemp.amountText.text == "" || dragDropTemp.amountText.text == "0")
             {
                 itemAmountSelected = 0;
+                CalculateItemAmountLeftBehind();
 
                 return;
             }
@@ -522,8 +556,38 @@ public class InventorySystem : MonoBehaviour
             {
                 itemAmountSelected = (temp + 1) / 2;
             }
+            CalculateItemAmountLeftBehind();
 
-            DisplayCurrentItemAmountHolding();
+            DisplayCurrentItemAmountHolding(dragDropTemp);
+        }
+    }
+    public void ItemStack_PickAll()
+    {
+        DragDrop dragDropTemp = FindCorrectDragDropElementClicked();
+
+        if (dragDropTemp.amountText.text == "")
+        {
+            maxItemInSelectedStack = 0;
+        }
+        else
+        {
+            maxItemInSelectedStack = int.Parse(dragDropTemp.amountText.text);
+        }
+
+        if (dragDropTemp)
+        {
+            if (dragDropTemp.amountText.text == "" || dragDropTemp.amountText.text == "0")
+            {
+                itemAmountSelected = 0;
+                CalculateItemAmountLeftBehind();
+
+                return;
+            }
+
+            itemAmountSelected = maxItemInSelectedStack;
+            CalculateItemAmountLeftBehind();
+
+            DisplayCurrentItemAmountHolding(dragDropTemp);
         }
     }
 
@@ -531,12 +595,27 @@ public class InventorySystem : MonoBehaviour
     {
         for (int i = 0; i < inventorySlotList.Count; i++)
         {
-            if (inventorySlotList[i].GetComponent<ItemSlot>().gameObject.GetComponentInChildren<DragDrop>().isClicked)
+            if (inventorySlotList[i].transform.childCount > 0)
             {
-                return inventorySlotList[i].GetComponent<ItemSlot>().gameObject.GetComponentInChildren<DragDrop>();
+                if (inventorySlotList[i].GetComponent<ItemSlot>().gameObject.GetComponentInChildren<DragDrop>().isClicked)
+                {
+                    return inventorySlotList[i].GetComponent<ItemSlot>().gameObject.GetComponentInChildren<DragDrop>();
+                }
             }
         }
 
+        return null;
+    }
+    DragDrop FindDragDropOfDraggingParentLocation()
+    {
+        if (inventoryDraggingParent.transform.childCount > 0)
+        {
+            if (inventoryDraggingParent.GetComponentInChildren<DragDrop>().isClicked)
+            {
+                return inventoryDraggingParent.GetComponentInChildren<DragDrop>();
+            }
+        }
+        
         return null;
     }
     ItemSlot FindCorrectItemSlot()
@@ -566,10 +645,20 @@ public class InventorySystem : MonoBehaviour
 
         return null;
     }
-    public void DisplayCurrentItemAmountHolding()
+    public void DisplayCurrentItemAmountHolding(DragDrop dragDrop)
     {
-        FindCorrectDragDropElementClicked().amountText.text = itemAmountSelected.ToString();
+        dragDrop.amountText.text = itemAmountSelected.ToString();
     }
+
+
+    //--------------------
+
+
+    void CalculateItemAmountLeftBehind()
+    {
+        itemAmountLeftBehind = maxItemInSelectedStack - itemAmountSelected;
+    }
+
 
     //--------------------
 
