@@ -61,7 +61,7 @@ public class DragDrop : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDrag
             }
         }
 
-        canvasGroup.alpha = .6f;
+        canvasGroup.alpha = .75f;
 
         //So the ray cast will ignore the item itself.
         canvasGroup.blocksRaycasts = false;

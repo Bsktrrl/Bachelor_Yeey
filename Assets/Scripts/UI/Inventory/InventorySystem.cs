@@ -107,7 +107,23 @@ public class InventorySystem : MonoBehaviour
 
                 //Insert data from this _SO item
                 inventorySlotList[i].GetComponentInChildren<DragDrop>().itemImage.sprite = itemTemp.itemSprite;
-                inventorySlotList[i].GetComponentInChildren<DragDrop>().amountText.text = inventoryItemList[i].amount.ToString();
+
+                for (int j = 0; j < SO_Item.itemList.Count; j++)
+                {
+                    if (inventoryItemList[i].itemName == SO_Item.itemList[j].itemName)
+                    {
+                        if (SO_Item.itemList[j].itemStackMax <= 1)
+                        {
+                            inventorySlotList[i].GetComponentInChildren<DragDrop>().amountText.text = "";
+                        }
+                        else
+                        {
+                            inventorySlotList[i].GetComponentInChildren<DragDrop>().amountText.text = inventoryItemList[i].amount.ToString();
+                        }
+
+                        break;
+                    }
+                }
             }
         }
     }
