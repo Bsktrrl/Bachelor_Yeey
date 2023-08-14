@@ -5,7 +5,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class DragDrop : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDragHandler, IPointerEnterHandler, IPointerExitHandler
+public class DragDrop : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IBeginDragHandler, IEndDragHandler, IDragHandler, IPointerEnterHandler, IPointerExitHandler
 {
     private RectTransform rectTransform;
     private CanvasGroup canvasGroup;
@@ -22,7 +22,10 @@ public class DragDrop : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDrag
     public TextMeshProUGUI amountText;
     public Image selectedFrameImage;
 
-    
+    public bool isDragged;
+    public bool isClicked;
+
+
 
 
     //--------------------
@@ -44,11 +47,21 @@ public class DragDrop : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDrag
     //--------------------
 
 
+    public void OnPointerDown(PointerEventData eventData)
+    {
+        isClicked = true;
+    }
+
+    public void OnPointerUp(PointerEventData eventData)
+    {
+        isClicked = false;
+    }
+
     public void OnBeginDrag(PointerEventData eventData)
     {
         InventorySystem.instance.itemIsDragging = true;
 
-        //Get index to the original field
+        //Get index to the original activeInventorySlotList_Index
         for (int i = 0; i < InventorySystem.instance.inventorySlotList.Count; i++)
         {
             if (InventorySystem.instance.inventorySlotList[i].GetComponent<ItemSlot>().gameObject.GetComponentInChildren<DragDrop>() == this)
@@ -69,9 +82,10 @@ public class DragDrop : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDrag
         startParent = transform.parent;
 
         transform.position = eventData.position;
-        transform.parent = dragging_Parent.transform;
+        transform.SetParent(dragging_Parent.transform);
         transform.SetAsLastSibling();
         itemBeingDragged = gameObject;
+        isDragged = true;
 
         EnterDisplayItem();
     }
@@ -85,6 +99,7 @@ public class DragDrop : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDrag
     public void OnEndDrag(PointerEventData eventData)
     {
         itemBeingDragged = null;
+        isDragged = false;
 
         transform.SetParent(startParent);
 
@@ -135,8 +150,6 @@ public class DragDrop : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDrag
                         if (InventorySystem.instance.inventoryItemList[i].itemName == SO_Item.itemList[j].itemName
                             && InventorySystem.instance.inventoryItemList[i].itemName != Items.None)
                         {
-                            print("Hover Item");
-
                             InventorySystem.instance.selecteditemImage.sprite = SO_Item.itemList[j].itemSprite;
                             InventorySystem.instance.selecteditemName.text = SO_Item.itemList[j].itemName.ToString();
                             InventorySystem.instance.selecteditemDescription.text = SO_Item.itemList[j].itemDescription;
@@ -145,8 +158,6 @@ public class DragDrop : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDrag
                         }
                         else
                         {
-                            print("Hover None");
-
                             InventorySystem.instance.selecteditemImage.sprite = SO_Item.itemList[0].itemSprite;
                             InventorySystem.instance.selecteditemName.text = "";
                             InventorySystem.instance.selecteditemDescription.text = "";

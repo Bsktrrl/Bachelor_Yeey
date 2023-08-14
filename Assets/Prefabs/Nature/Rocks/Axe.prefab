@@ -110,6 +110,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e768e2dfbf2c25747836569db7e8e4d9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  itemName: 3
+  itemName: 4
   amount: 1
   playerInRange: 0

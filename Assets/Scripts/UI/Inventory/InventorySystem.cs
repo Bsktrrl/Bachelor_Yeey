@@ -1,3 +1,4 @@
+using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using TMPro;
@@ -34,6 +35,7 @@ public class InventorySystem : MonoBehaviour
 
     [HideInInspector] public bool isOpen;
     public bool itemIsDragging;
+    public int itemAmountSelected;
 
     [Header("Inventory Size")]
     [SerializeField] int inventorySize = 15;
@@ -61,6 +63,11 @@ public class InventorySystem : MonoBehaviour
         PlayerButtonManager.E_isPressedDown += OpenInventoryScreen;
         PlayerButtonManager.Esc_isPressedDown += CloseInventoryScreen;
 
+        PlayerButtonManager.inventory_RightMouse_isPressedDown += ItemStack_PickOne;
+        PlayerButtonManager.inventory_ScrollMouse_isPressedDown += ItemStack_PickHalf;
+        PlayerButtonManager.inventory_ScrollMouse_isRolledUP += IncreaseItemAmountHolding;
+        PlayerButtonManager.inventory_ScrollMouse_isRolledDown += DecreaseItemAmountHolding;
+
         isOpen = false;
 
         inventoryScreenUI.SetActive(false);
@@ -79,7 +86,7 @@ public class InventorySystem : MonoBehaviour
         for (int i = 0; i < inventorySize; i++)
         {
             inventorySlotList.Add(Instantiate(InventorySlot_Prefab) as GameObject);
-            inventorySlotList[inventorySlotList.Count - 1].transform.parent = InventorySlot_Parent.transform;
+            inventorySlotList[inventorySlotList.Count - 1].transform.SetParent(InventorySlot_Parent.transform);
         }
 
         //Instantiate inventoryItemList based on the inventorySize
@@ -443,6 +450,126 @@ public class InventorySystem : MonoBehaviour
         return Items.None;
     }
 
+
+    //--------------------
+
+
+    public void IncreaseItemAmountHolding()
+    {
+        DragDrop dragDropTemp = FindCorrectDragDropElementClicked();
+        Item itemTemp = FindCorrectSO_Item();
+
+        if (dragDropTemp && itemAmountSelected < itemTemp.itemStackMax)
+        {
+            itemAmountSelected += 1;
+
+            DisplayCurrentItemAmountHolding();
+
+            print("Scroll Up - Amount: " + itemAmountSelected);
+        }
+    }
+    public void DecreaseItemAmountHolding()
+    {
+        DragDrop dragDropTemp = FindCorrectDragDropElementClicked();
+
+        if (dragDropTemp && itemAmountSelected > 1)
+        {
+            itemAmountSelected -= 1;
+
+            DisplayCurrentItemAmountHolding();
+
+            print("Scroll Down - Amount: " + itemAmountSelected);
+        }
+    }
+    public void ItemStack_PickOne()
+    {
+        DragDrop dragDropTemp = FindCorrectDragDropElementClicked();
+
+        if (dragDropTemp)
+        {
+            if (dragDropTemp.amountText.text == "" || dragDropTemp.amountText.text == "0")
+            {
+                itemAmountSelected = 0;
+
+                return;
+            }
+
+            itemAmountSelected = 1;
+
+            DisplayCurrentItemAmountHolding();
+        }
+    }
+    public void ItemStack_PickHalf()
+    {
+        DragDrop dragDropTemp = FindCorrectDragDropElementClicked();
+
+        if (dragDropTemp)
+        {
+            if (dragDropTemp.amountText.text == "" || dragDropTemp.amountText.text == "0")
+            {
+                itemAmountSelected = 0;
+
+                return;
+            }
+
+            int temp = int.Parse(dragDropTemp.amountText.text);
+
+            if (temp % 2 == 0)
+            {
+                itemAmountSelected = temp / 2;
+            }
+            else
+            {
+                itemAmountSelected = (temp + 1) / 2;
+            }
+
+            DisplayCurrentItemAmountHolding();
+        }
+    }
+
+    DragDrop FindCorrectDragDropElementClicked()
+    {
+        for (int i = 0; i < inventorySlotList.Count; i++)
+        {
+            if (inventorySlotList[i].GetComponent<ItemSlot>().gameObject.GetComponentInChildren<DragDrop>().isClicked)
+            {
+                return inventorySlotList[i].GetComponent<ItemSlot>().gameObject.GetComponentInChildren<DragDrop>();
+            }
+        }
+
+        return null;
+    }
+    ItemSlot FindCorrectItemSlot()
+    {
+        for (int i = 0; i < inventorySlotList.Count; i++)
+        {
+            if (inventorySlotList[i].GetComponent<ItemSlot>().gameObject.GetComponentInChildren<DragDrop>().isClicked)
+            {
+                return inventorySlotList[i].GetComponent<ItemSlot>();
+            }
+        }
+
+        return null;
+    }
+    Item FindCorrectSO_Item()
+    {
+        for (int i = 0; i < inventoryItemList.Count; i++)
+        {
+            for (int j = 0; j < SO_Item.itemList.Count; j++)
+            {
+                if (inventoryItemList[i].itemName == SO_Item.itemList[j].itemName)
+                {
+                    return SO_Item.itemList[j];
+                }
+            }
+        }
+
+        return null;
+    }
+    public void DisplayCurrentItemAmountHolding()
+    {
+        FindCorrectDragDropElementClicked().amountText.text = itemAmountSelected.ToString();
+    }
 
     //--------------------
 

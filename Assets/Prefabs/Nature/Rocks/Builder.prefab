@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 8909346992134183984}
   - component: {fileID: 8909346992134183987}
   m_Layer: 0
-  m_Name: Bush
+  m_Name: Builder
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -63,7 +63,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: e950a7aefb5a59c41a0d63a81d21c366, type: 2}
+  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -110,6 +110,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e768e2dfbf2c25747836569db7e8e4d9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  itemName: 3
-  amount: 10
+  itemName: 5
+  amount: 1
   playerInRange: 0
