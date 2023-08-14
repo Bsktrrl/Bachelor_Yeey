@@ -78,7 +78,7 @@ public class InventorySystem : MonoBehaviour
         PlayerButtonManager.inventory_ScrollMouse_isPressedDown += ItemStack_PickHalf;
         PlayerButtonManager.inventory_ScrollMouse_isRolledUP += IncreaseItemAmountHolding;
         PlayerButtonManager.inventory_ScrollMouse_isRolledDown += DecreaseItemAmountHolding;
-        PlayerButtonManager.inventory_CTRL_and_RightMouse_isPressedDown += ItemStack_PickAll;
+        PlayerButtonManager.inventory_Shift_and_RightMouse_isPressedDown += ItemStack_PickAll;
 
         isOpen = false;
 
@@ -89,7 +89,7 @@ public class InventorySystem : MonoBehaviour
     }
     private void Update()
     {
-        if (!itemIsDragging && !itemIsClicked)
+        if (!itemIsDragging && !itemIsClicked && MainManager.instance.menuStates == MenuStates.InventoryMenu)
         {
             UpdateInventoryDisplay();
         }

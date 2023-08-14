@@ -111,13 +111,17 @@ public class ItemSlot : MonoBehaviour, IDropHandler
                 itemList[target].amount = type.itemStackMax;
                 amountCounter -= type.itemStackMax;
                 itemList[active].amount = amountCounter;
+
+                if (amountCounter <= 0)
+                {
+                    SetitemEmpty(itemList, active);
+                }
             }
             else
             {
                 itemList[target].amount = amountCounter;
                 amountCounter -= amountCounter;
 
-                //Nullify itemList[active]
                 SetitemEmpty(itemList, active);
             }
 

@@ -11,7 +11,7 @@ public class PlayerButtonManager : MonoBehaviour
     public static Action C_isPressedDown;       //Crafting Screen
 
     public static Action inventory_RightMouse_isPressedDown;
-    public static Action inventory_CTRL_and_RightMouse_isPressedDown;
+    public static Action inventory_Shift_and_RightMouse_isPressedDown;
     public static Action inventory_ScrollMouse_isPressedDown;
     public static Action inventory_ScrollMouse_isRolledUP;
     public static Action inventory_ScrollMouse_isRolledDown;
@@ -41,18 +41,18 @@ public class PlayerButtonManager : MonoBehaviour
         }
 
         //Inventory Buttons
-        if (Input.GetKeyDown(KeyCode.Mouse1) && !Input.GetKey(KeyCode.LeftControl))
+        if (Input.GetKeyDown(KeyCode.Mouse1) && !Input.GetKey(KeyCode.LeftShift))
         {
             if (MainManager.instance.menuStates == MenuStates.InventoryMenu)
             {
                 inventory_RightMouse_isPressedDown?.Invoke();
             }
         }
-        if (Input.GetKeyDown(KeyCode.Mouse1) && Input.GetKey(KeyCode.LeftControl))
+        if (Input.GetKeyDown(KeyCode.Mouse1) && Input.GetKey(KeyCode.LeftShift))
         {
             if (MainManager.instance.menuStates == MenuStates.InventoryMenu)
             {
-                inventory_CTRL_and_RightMouse_isPressedDown?.Invoke();
+                inventory_Shift_and_RightMouse_isPressedDown?.Invoke();
             }
         }
         if (Input.GetKeyDown(KeyCode.Mouse2))

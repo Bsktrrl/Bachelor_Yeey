@@ -1,24 +1,15 @@
 Inventory/Items:
 - Make "InventorySlotList" dynamic so that further itemslots can be added (like a backpack).
 	- Make a scaler for the inventory UI BG to fit any amount of itemslots.
-- Make UI for each item, so it displays more info (Name, amount and weight)
-- Pickups pointed at must give more information based on the item pointed at (like the "Skyrim" I've done)
+- Pickups pointed at(in the world) must give more information based on the item pointed at (like the "Skyrim" I've done)
 
-Inventory Management:
-- If dropped on the same slot, just reset the action, with no change in result
-- LeaveItemBehind():
-	- Instantiate en ny "DragDrop" i samme parent som "DragDrop" forlater når den dragges.
-	- OnDrop() må endres til å endre utgangspunktItemSloten med antallet som overføres.
-		- Instantiated "DragDrop" må slettes
-		- "DragDrop" som er igjen i originalt felt må oppdateres til ny verdi minus verdien som er selected.
-			- Dersom verdien = 0, så gjør feltet = Items.None
-			- Dersom verdien > 0, så må feltet oppdateres til Items.x med "itemAmountLeftBehind" som verdi
-	- Til slutt må UpdateInventoryDisplay().
-- Når man flytter valig til et felt av samme type, ikke bytt plass på dem dersom det går an å slå amount sammen til 1 slot
-- Hvis man splitter og treffer et felt av en ny type, flytt over hele stacken til dette nye feltet, og bytt plass på de to.
-
+Inventory Menu
 - Add Slot to Inventory
 - Remove Slot from Inventory
-- Remove Item from Inventory
+	- Be aware if itemSlot has an Item on it when removed (spawn it in the world instead)
+- Remove Item from Inventory (spawn it in the world instead)
 
 - Change "CreafteableItemDisplay" to match the new Inventory System
+
+Crafting Menu:
+- Add a crafting panel as in Raft, on the left side
