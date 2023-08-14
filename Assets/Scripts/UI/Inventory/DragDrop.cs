@@ -48,6 +48,7 @@ public class DragDrop : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDrag
     {
         InventorySystem.instance.itemIsDragging = true;
 
+        //Get index to the original field
         for (int i = 0; i < InventorySystem.instance.inventorySlotList.Count; i++)
         {
             if (InventorySystem.instance.inventorySlotList[i].GetComponent<ItemSlot>().gameObject.GetComponentInChildren<DragDrop>() == this)
@@ -67,7 +68,7 @@ public class DragDrop : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDrag
         startPosition = transform.position;
         startParent = transform.parent;
 
-        //transform.SetParent(transform.root);
+        transform.position = eventData.position;
         transform.parent = dragging_Parent.transform;
         transform.SetAsLastSibling();
         itemBeingDragged = gameObject;

@@ -4,7 +4,7 @@ using UnityEngine.UI;
 
 public class SelectionManager : MonoBehaviour
 {
-    //Singleton "instance"
+    //Singleton
     public static SelectionManager instance { get; set; }
 
     public GameObject interaction_Info_UI;
@@ -20,7 +20,7 @@ public class SelectionManager : MonoBehaviour
 
     private void Awake()
     {
-        //Singleton check
+        //Singleton
         if (instance != null && instance != this)
         {
             Destroy(gameObject);

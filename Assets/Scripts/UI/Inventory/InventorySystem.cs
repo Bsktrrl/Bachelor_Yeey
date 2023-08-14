@@ -6,6 +6,7 @@ using UnityEngine.UI;
 
 public class InventorySystem : MonoBehaviour
 {
+    //Singleton
     public static InventorySystem instance { get; set; } //Singleton
 
     [Header("References")]
@@ -30,9 +31,6 @@ public class InventorySystem : MonoBehaviour
     public List<InventoryItem> inventoryItemList = new List<InventoryItem>();
     public int activeInventorySlotList_Index;
     public int targetInventorySlotList_Index;
-
-    GameObject itemToAdd;
-    GameObject whatSlotToEquip;
 
     [HideInInspector] public bool isOpen;
     public bool itemIsDragging;
