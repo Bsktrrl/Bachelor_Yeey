@@ -88,6 +88,57 @@ public class ItemSlot : MonoBehaviour, IDropHandler
             print("If target is Empty");
         }
 
+        //If draggingItem has split and both target have the same type
+        else if (isSplitted && itemList[active].itemName == itemList[target].itemName)
+        {
+            //Get the total amount
+            int amountCounter = amountSelected + itemList[target].amount;
+
+            //Get StackMax of given Item
+            Item type = new Item();
+            for (int i = 0; i < InventorySystem.instance.SO_Item.itemList.Count; i++)
+            {
+                if (itemList[active].itemName == InventorySystem.instance.SO_Item.itemList[i].itemName)
+                {
+                    type = InventorySystem.instance.SO_Item.itemList[i];
+
+                    break;
+                }
+            }
+
+            //If "amountCounter" is more or equal to a stack
+            if (amountCounter >= type.itemStackMax)
+            {
+                itemList[target].amount = type.itemStackMax;
+                amountCounter -= type.itemStackMax;
+
+                if (amountCounter <= 0)
+                {
+                    SetitemEmpty(itemList, active);
+                }
+                else
+                {
+                    itemList[active].amount = amountCounter + amountLeftBehind;
+                }
+            }
+            //Else, distribute to both slots
+            else
+            {
+                itemList[target].amount += amountSelected;
+
+                if (amountLeftBehind <= 0)
+                {
+                    SetitemEmpty(itemList, active);
+                }
+                else
+                {
+                    itemList[active].amount = amountLeftBehind;
+                }
+            }
+
+            print("If draggingItem has split and both target have the same type");
+        }
+
         //If both targets have the same type
         else if (itemList[active].itemName == itemList[target].itemName)
         {

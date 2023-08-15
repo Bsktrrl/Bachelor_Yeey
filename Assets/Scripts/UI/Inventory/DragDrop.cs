@@ -51,6 +51,26 @@ public class DragDrop : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, I
 
     public void OnPointerDown(PointerEventData eventData)
     {
+        switch (PlayerButtonManager.instance.inventoryButtonState)
+        {
+            case InventoryButtonState.None:
+                break;
+            case InventoryButtonState.mouse0_isPressedDown:
+                return;
+                break;
+            case InventoryButtonState.inventory_RightMouse_isPressedDown:
+                return;
+                break;
+            case InventoryButtonState.inventory_Shift_and_RightMouse_isPressedDown:
+                return;
+                break;
+            case InventoryButtonState.inventory_ScrollMouse_isPressedDown:
+                return;
+                break;
+            default:
+                break;
+        }
+
         InventorySystem.instance.itemIsClicked = true;
 
         //Get index to the original activeInventorySlotList_Index
