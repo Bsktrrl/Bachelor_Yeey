@@ -12,5 +12,5 @@ public enum Items
     [Description("Leaf")][InspectorName("Nature/Leaf")] Leaf,
 
     [Description("Axe")][InspectorName("Tool/Axe")] Axe,
-    [Description("Builder")][InspectorName("Tool/Builder")] Builder
+    [Description("Building Hammer")][InspectorName("Tool/BuildingHammer")] BuildingHammer
 }

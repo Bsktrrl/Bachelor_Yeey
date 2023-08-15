@@ -52,7 +52,6 @@ public class InventorySystem : MonoBehaviour
     [Header("dragDropTemp")]
     [SerializeField] GameObject dragDropTemp_Prefab;
     public List<GameObject> dragDropTempList = new List<GameObject>();
-    public int DraggingParentChild;
 
 
     //--------------------
@@ -96,8 +95,6 @@ public class InventorySystem : MonoBehaviour
         {
             UpdateInventoryDisplay();
         }
-
-        DraggingParentChild = inventoryDraggingParent.transform.childCount;
     }
 
 
@@ -109,6 +106,11 @@ public class InventorySystem : MonoBehaviour
         DeleteSlotsInInventory();
 
         inventorySlotList.Clear();
+
+        //Set Display as if there wasn't any active itemslot
+        selecteditemImage.sprite = SO_Item.itemList[0].itemSprite;
+        selecteditemName.text = "";
+        selecteditemDescription.text = "";
 
         //Instantiate Slots based on the inventorySize
         for (int i = 0; i < inventorySize; i++)
@@ -155,6 +157,13 @@ public class InventorySystem : MonoBehaviour
     }
     public void UpdateInventoryDisplay()
     {
+        //Set inventoryDraggingParent to having only 1 child
+        while (inventoryDraggingParent.transform.childCount > 1)
+        {
+            DestroyImmediate(inventoryDraggingParent.transform.GetChild(inventoryDraggingParent.transform.childCount - 1).GetComponent<DragDrop>().gameObject);
+        }
+
+        //Check if inventorySlotList has elements
         if (inventorySlotList.Count <= 0)
         {
             return;
@@ -408,6 +417,8 @@ public class InventorySystem : MonoBehaviour
 
         inventoryItemList = inventoryItemListChecker;
 
+        PlayerButtonManager.instance.inventoryButtonState = InventoryButtonState.None;
+
         UpdateInventoryDisplay();
     }
     void SortInventoryItemsByInventoryPosition()
@@ -500,6 +511,8 @@ public class InventorySystem : MonoBehaviour
 
         inventoryItemList = inventoryItemListChecker;
         #endregion
+
+        PlayerButtonManager.instance.inventoryButtonState = InventoryButtonState.None;
 
         UpdateInventoryDisplay();
     }
@@ -836,16 +849,32 @@ public class InventorySystem : MonoBehaviour
     }
     public void DeleteDragDropTemp(DragDrop dragDrop)
     {
+        //Set inventoryDraggingParent to having only 1 child
+        //while (inventoryDraggingParent.transform.childCount > 0)
+        //{
+        //    DestroyImmediate(inventoryDraggingParent.transform.GetChild(inventoryDraggingParent.transform.childCount - 1).GetComponent<DragDrop>().gameObject);
+        //}
+
+        //Delete from
         for (int i = 0; i < dragDropTempList.Count; i++)
         {
-            dragDropTempList[i].GetComponent<DragDrop>().DeleteThisObject();
+            if (dragDropTempList[i] != null)
+            {
+                if (dragDropTempList[i].GetComponent<DragDrop>() != null)
+                {
+                    dragDropTempList[i].GetComponent<DragDrop>().DeleteThisObject();
+                }
+            }
         }
-        
+
         dragDropTempList.Clear();
 
         if (!selectedItemIsEmpty)
         {
-            dragDrop.selectedFrameImage.gameObject.SetActive(false);
+            if (dragDrop != null)
+            {
+                dragDrop.selectedFrameImage.gameObject.SetActive(false);
+            }
         }
     }
 

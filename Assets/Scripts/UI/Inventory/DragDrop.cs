@@ -85,11 +85,7 @@ public class DragDrop : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, I
         InventorySystem.instance.DeleteDragDropTemp(this);
 
         //Check for button buggs
-        if (PlayerButtonManager.instance.inventoryButtonState == InventoryButtonState.inventory_RightMouse_isPressedDown)
-        {
-            PlayerButtonManager.instance.inventoryButtonState = InventoryButtonState.None;
-        }
-        
+        PlayerButtonManager.instance.inventoryButtonState = InventoryButtonState.None;
     }
 
     public void OnBeginDrag(PointerEventData eventData)
