@@ -4,6 +4,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
+using static UnityEngine.EventSystems.PointerEventData;
 
 public class DragDrop : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IBeginDragHandler, IEndDragHandler, IDragHandler, IPointerEnterHandler, IPointerExitHandler
 {
@@ -82,6 +83,13 @@ public class DragDrop : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, I
         InventorySystem.instance.itemIsClicked = false;
 
         InventorySystem.instance.DeleteDragDropTemp(this);
+
+        //Check for button buggs
+        if (PlayerButtonManager.instance.inventoryButtonState == InventoryButtonState.inventory_RightMouse_isPressedDown)
+        {
+            PlayerButtonManager.instance.inventoryButtonState = InventoryButtonState.None;
+        }
+        
     }
 
     public void OnBeginDrag(PointerEventData eventData)
@@ -101,7 +109,14 @@ public class DragDrop : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, I
 
         EnterDisplayItem();
 
-        InventorySystem.instance.dragDropTempList[InventorySystem.instance.dragDropTempList.Count - 1].GetComponent<DragDrop>().amountText.gameObject.SetActive(true);
+        if (InventorySystem.instance.dragDropTempList.Count > 0)
+        {
+            InventorySystem.instance.dragDropTempList[InventorySystem.instance.dragDropTempList.Count - 1].GetComponent<DragDrop>().amountText.gameObject.SetActive(true);
+        }
+        else
+        {
+            //Nothing
+        }
     }
 
     public void OnDrag(PointerEventData eventData)

@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using static UnityEngine.GraphicsBuffer;
@@ -147,10 +148,17 @@ public class ItemSlot : MonoBehaviour, IDropHandler
         }
         #endregion
 
-        DragDrop.itemBeingDragged.transform.SetParent(DragDrop.itemBeingDragged.GetComponent<DragDrop>().startParent);
-        DragDrop.itemBeingDragged.transform.localPosition = new Vector2(0, 0);
+        if(DragDrop.itemBeingDragged != null)
+        {
+            if (DragDrop.itemBeingDragged.GetComponent<DragDrop>() != null)
+            {
+                DragDrop.itemBeingDragged.transform.SetParent(DragDrop.itemBeingDragged.GetComponent<DragDrop>().startParent);
+                DragDrop.itemBeingDragged.transform.localPosition = new Vector2(0, 0);
+            }
+        }
 
         InventorySystem.instance.UpdateInventoryDisplay();
+        PlayerButtonManager.instance.inventoryButtonState = InventoryButtonState.None;
     }
 
     void NormalSwap(List<InventoryItem> itemList, int a, int b)

@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class MouseMovement : MonoBehaviour
 {
-    float mouseSensitivity = 500f;
+    [SerializeField] float mouseSensitivity = 300f;
 
     float xRotation = 0f;
     float YRotation = 0f;

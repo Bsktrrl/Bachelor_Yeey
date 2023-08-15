@@ -3717,6 +3717,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ca1b5f2eb910d0d41a90eb8bcbee6b0b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  mouseSensitivity: 300
 --- !u!114 &769334855
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9246,11 +9247,15 @@ MonoBehaviour:
   targetInventorySlotList_Index: 0
   isOpen: 0
   itemIsDragging: 0
+  itemIsClicked: 0
+  itemIsSplitted: 0
   itemAmountSelected: 0
   maxItemInSelectedStack: 0
   itemAmountLeftBehind: 0
+  selectedItemIsEmpty: 0
   inventorySize: 15
   dragDropTemp_Prefab: {fileID: 5866262886286474543, guid: 9eee74d1f93af89468450cee4f5135fc, type: 3}
+  dragDropTempList: []
 --- !u!1001 &2087536520
 PrefabInstance:
   m_ObjectHideFlags: 0
