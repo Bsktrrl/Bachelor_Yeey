@@ -5,9 +5,9 @@ using UnityEngine;
 
 public enum Items
 {
-    [Description("None")][InspectorName("None")] None,
+    [Description("")][InspectorName("None")] None,
 
-    [Description("Stone")] [InspectorName("Nature/Stone")] Stone,
+    [Description("Stone")][InspectorName("Nature/Stone")] Stone,
     [Description("Plank")][InspectorName("Nature/Plank")] Plank,
     [Description("Leaf")][InspectorName("Nature/Leaf")] Leaf,
 

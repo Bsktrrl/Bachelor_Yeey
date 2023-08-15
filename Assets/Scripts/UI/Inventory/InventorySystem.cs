@@ -921,6 +921,8 @@ public class InventorySystem : MonoBehaviour
                 }
             }
 
+            Cursor.lockState = CursorLockMode.Locked;
+
             MainManager.instance.menuStates = MenuStates.None;
             PlayerButtonManager.instance.inventoryButtonState = InventoryButtonState.None;
             DeleteSlotsInInventory();

@@ -14,28 +14,56 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemList:
   - itemName: 0
+    categoryName: 0
     itemSprite: {fileID: 1407191923, guid: 1f255744973958242ac00594a0e33b8b, type: 3}
     itemDescription: 
     itemStackMax: 0
+    isCrafteable: 0
+    craftingRequirements: []
   - itemName: 1
+    categoryName: 1
     itemSprite: {fileID: -1155670942, guid: 1f255744973958242ac00594a0e33b8b, type: 3}
     itemDescription: This is a stone that can be used in crafting recipes.
     itemStackMax: 5
+    isCrafteable: 0
+    craftingRequirements: []
   - itemName: 2
+    categoryName: 1
     itemSprite: {fileID: 1194086436, guid: 1f255744973958242ac00594a0e33b8b, type: 3}
     itemDescription: This is a plank that can be used in crafting recipes.
     itemStackMax: 5
+    isCrafteable: 0
+    craftingRequirements: []
   - itemName: 3
+    categoryName: 1
     itemSprite: {fileID: 1617181306, guid: 1f255744973958242ac00594a0e33b8b, type: 3}
     itemDescription: This is a leaf that can be used in crafting recipes.
     itemStackMax: 20
+    isCrafteable: 0
+    craftingRequirements: []
   - itemName: 4
+    categoryName: 2
     itemSprite: {fileID: -1939646702, guid: 1f255744973958242ac00594a0e33b8b, type: 3}
     itemDescription: When Equipped, this Axe can be used to chop down trees and building
       parts.
     itemStackMax: 1
+    isCrafteable: 1
+    craftingRequirements:
+    - itemName: 1
+      amount: 1
+    - itemName: 2
+      amount: 2
+    - itemName: 3
+      amount: 1
   - itemName: 5
+    categoryName: 2
     itemSprite: {fileID: 1958595480, guid: 1f255744973958242ac00594a0e33b8b, type: 3}
     itemDescription: When Equipped, this BuildingHammer  can be used to build building
       parts in the world.
     itemStackMax: 1
+    isCrafteable: 1
+    craftingRequirements:
+    - itemName: 2
+      amount: 4
+    - itemName: 3
+      amount: 2

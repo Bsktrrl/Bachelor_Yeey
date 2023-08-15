@@ -4,5 +4,11 @@ using UnityEngine;
 
 public class CategoryButton : MonoBehaviour
 {
+    public ItemCategories categoryType;
 
+    public void CategoryButton_OnClick()
+    {
+        CraftingManager.instance.activeCategory = categoryType;
+        CraftingManager.instance.UpdateSelectionScreen();
+    }
 }

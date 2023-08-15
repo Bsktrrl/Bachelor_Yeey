@@ -9,7 +9,5 @@ Inventory Menu
 	- Be aware if itemSlot has an Item on it when removed (spawn it in the world instead)
 - Remove Item from Inventory (spawn it in the world instead)
 
-- Change "CreafteableItemDisplay" to match the new Inventory System
-
 Crafting Menu:
 - Add a crafting panel as in Raft, on the left side

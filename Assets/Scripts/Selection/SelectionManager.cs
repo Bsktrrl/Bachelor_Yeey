@@ -37,36 +37,39 @@ public class SelectionManager : MonoBehaviour
 
     void Update()
     {
-        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-        RaycastHit hit;
-
-        if (Physics.Raycast(ray, out hit))
+        if (MainManager.instance.menuStates == MenuStates.None)
         {
-            var selectionTransform = hit.transform;
+            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+            RaycastHit hit;
 
-            //When reycasting something that is an InteractableObject
-            InteractableObject interacteable = selectionTransform.GetComponent<InteractableObject>();
-
-            if (interacteable && interacteable.playerInRange)
+            if (Physics.Raycast(ray, out hit))
             {
-                interaction_text.text = interacteable.GetItemName().ToString();
-                interaction_Info_UI.SetActive(true);
-                onTarget = true;
+                var selectionTransform = hit.transform;
 
-                selecedObject = interacteable.gameObject;
+                //When reycasting something that is an InteractableObject
+                InteractableObject interacteable = selectionTransform.GetComponent<InteractableObject>();
+
+                if (interacteable && interacteable.playerInRange)
+                {
+                    interaction_text.text = interacteable.GetItemName().ToString();
+                    interaction_Info_UI.SetActive(true);
+                    onTarget = true;
+
+                    selecedObject = interacteable.gameObject;
+                }
+                //If there is a Hit without an interacteable script
+                else
+                {
+                    interaction_Info_UI.SetActive(false);
+                    onTarget = false;
+                }
             }
-            //If there is a Hit without an interacteable script
+            //If there is no script attached at all
             else
             {
                 interaction_Info_UI.SetActive(false);
                 onTarget = false;
             }
-        }
-        //If there is no script attached at all
-        else
-        {
-            interaction_Info_UI.SetActive(false);
-            onTarget = false;
         }
     }
 
