@@ -73,7 +73,7 @@ public class InventorySystem : MonoBehaviour
 
     void Start()
     {
-        PlayerButtonManager.E_isPressedDown += OpenInventoryScreen;
+        PlayerButtonManager.Tab_isPressedDown += OpenInventoryScreen;
         PlayerButtonManager.Esc_isPressedDown += CloseInventoryScreen;
 
         PlayerButtonManager.inventory_RightMouse_isPressedDown += ItemStack_PickOne;
@@ -906,11 +906,6 @@ public class InventorySystem : MonoBehaviour
         if (isOpen)
         {
             inventoryScreenUI.SetActive(false);
-
-            if (!CraftingSystem.instance.isOpen)
-            {
-                Cursor.lockState = CursorLockMode.Locked;
-            }
 
             isOpen = false;
 

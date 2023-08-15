@@ -36,6 +36,6 @@ MonoBehaviour:
     itemStackMax: 1
   - itemName: 5
     itemSprite: {fileID: 1958595480, guid: 1f255744973958242ac00594a0e33b8b, type: 3}
-    itemDescription: When Equipped, this Builder can be used to build building parts
-      in the world.
+    itemDescription: When Equipped, this BuildingHammer  can be used to build building
+      parts in the world.
     itemStackMax: 1

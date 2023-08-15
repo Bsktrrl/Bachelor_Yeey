@@ -11,7 +11,7 @@ public class PlayerButtonManager : MonoBehaviour
     public InventoryButtonState inventoryButtonState = InventoryButtonState.None;
 
     public static Action mouse0_isPressedDown;
-    public static Action E_isPressedDown;       //Inventory Screen
+    public static Action Tab_isPressedDown;       //Inventory Screen
     public static Action Esc_isPressedDown;
     public static Action C_isPressedDown;       //Crafting Screen
 
@@ -50,9 +50,9 @@ public class PlayerButtonManager : MonoBehaviour
 
             mouse0_isPressedDown?.Invoke();
         }
-        else if (Input.GetKeyDown(KeyCode.E))
+        else if (Input.GetKeyDown(KeyCode.Tab))
         {
-            E_isPressedDown?.Invoke();
+            Tab_isPressedDown?.Invoke();
         }       //Open Inventory
         else if (Input.GetKeyDown(KeyCode.Escape))
         {
