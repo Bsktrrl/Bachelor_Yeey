@@ -18,5 +18,7 @@ public class SelectionSubButtonPrefab : MonoBehaviour
     public void Button_OnClick()
     {
         CraftingManager.instance.itemSelected = item;
+        CraftingManager.instance.SetupCraftingScreen(item);
+        CraftingManager.instance.craftingScreen.SetActive(true);
     }
 }

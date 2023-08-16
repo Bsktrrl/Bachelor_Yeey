@@ -35,9 +35,13 @@ public class CraftingManager : MonoBehaviour
     public List<GameObject> selectionButtonPrefabList = new List<GameObject>();
 
     [Header("Crafting Screen")]
-    [SerializeField] GameObject craftingScreen;
-    [SerializeField] GameObject craftingScreen_Prefab;
+    public GameObject craftingScreen;
+    [SerializeField] Image categoryCraftingImage;
+    [SerializeField] TextMeshProUGUI categoryCraftingName;
+    [SerializeField] TextMeshProUGUI categoryCraftingDescription;
+    [SerializeField] GameObject requirementGridLayoutGroup;
     [SerializeField] GameObject requirement_Prefab;
+    public List<GameObject> requirementPrefabList = new List<GameObject>();
 
     [Header("Other")]
     public bool craftingScreen_isOpen;
@@ -241,8 +245,50 @@ public class CraftingManager : MonoBehaviour
 
 
     //Crafting Screen
+    public void SetupCraftingScreen(Item item)
+    {
+        //Prepare for reset
+        requirementPrefabList.Clear();
+        while (requirementGridLayoutGroup.transform.childCount > 0)
+        {
+            DestroyImmediate(requirementGridLayoutGroup.transform.GetChild(0).gameObject);
+        }
 
+        //Reset Panel Size
+        craftingScreen.GetComponent<RectTransform>().sizeDelta = new Vector2(270, 220);
 
+        categoryCraftingImage.sprite = item.itemSprite;
+        categoryCraftingName.text = item.itemName.ToString();
+        categoryCraftingDescription.text = item.itemDescription;
+
+        InstantiateCraftingRequirementPrefabs(item);
+    }
+    public void InstantiateCraftingRequirementPrefabs(Item item)
+    {
+        for (int i = 0; i < item.craftingRequirements.Count; i++)
+        {
+            requirementPrefabList.Add(Instantiate(requirement_Prefab) as GameObject);
+            requirementPrefabList[requirementPrefabList.Count - 1].transform.SetParent(requirementGridLayoutGroup.transform);
+            
+            requirementPrefabList[requirementPrefabList.Count - 1].GetComponent<CraftingRequirementPrefab>().requirements = item.craftingRequirements[i];
+
+            for (int j = 0; j < SO_itemList.Count; j++)
+            {
+                if (SO_itemList[j].itemName == item.craftingRequirements[i].itemName)
+                {
+                    requirementPrefabList[requirementPrefabList.Count - 1].GetComponent<CraftingRequirementPrefab>().craftingItemSprite = SO_itemList[j].itemSprite;
+
+                    break;
+                }
+            }
+
+            requirementPrefabList[requirementPrefabList.Count - 1].GetComponent<CraftingRequirementPrefab>().CheckRequrement();
+            requirementPrefabList[requirementPrefabList.Count - 1].GetComponent<CraftingRequirementPrefab>().SetDisplay();
+
+            //Adjust Frame
+            craftingScreen.GetComponent<RectTransform>().sizeDelta += new Vector2(0, 67);
+        }
+    }
 
 
     //--------------------

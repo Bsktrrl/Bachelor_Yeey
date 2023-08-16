@@ -10,5 +10,7 @@ public class CategoryButton : MonoBehaviour
     {
         CraftingManager.instance.activeCategory = categoryType;
         CraftingManager.instance.SetupSelectionScreen();
+
+        CraftingManager.instance.craftingScreen.SetActive(false);
     }
 }
