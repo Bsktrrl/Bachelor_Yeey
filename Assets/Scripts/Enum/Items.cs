@@ -7,10 +7,12 @@ public enum Items
 {
     [Description("")][InspectorName("None")] None,
 
-    [Description("Stone")][InspectorName("Nature/Stone")] Stone,
-    [Description("Plank")][InspectorName("Nature/Plank")] Plank,
-    [Description("Leaf")][InspectorName("Nature/Leaf")] Leaf,
+    //Raw
+    [Description("Stone")][InspectorName("Raw/Stone")] Stone,
+    [Description("Plank")][InspectorName("Raw/Plank")] Plank,
+    [Description("Leaf")][InspectorName("Raw/Leaf")] Leaf,
 
-    [Description("Axe")][InspectorName("Tool/Axe")] Axe,
-    [Description("Building Hammer")][InspectorName("Tool/BuildingHammer")] BuildingHammer
+    //Tools
+    [Description("Axe")][InspectorName("Tools/Axe")] Axe,
+    [Description("Building Hammer")][InspectorName("Tools/Building Hammer")] BuildingHammer
 }

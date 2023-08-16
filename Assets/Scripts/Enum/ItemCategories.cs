@@ -21,19 +21,21 @@ public enum ItemCategories
 
 public enum ItemSubCategories
 {
+    //None
+    [Description("")] None,
+
     //Food
-    [Description("Bottles")][InspectorName("Food/Bottles")] Bottles,
-    [Description("Bottles")][InspectorName("Food/Containers")] Containers,
-    [Description("Bottles")][InspectorName("Food/Purifiers")] Purifiers,
-    [Description("Bottles")][InspectorName("Food/Grills")] Grills,
-    [Description("Bottles")][InspectorName("Food/CoockingTables")] CoockingTables,
-    [Description("Bottles")][InspectorName("Food/Cropplots")] Cropplots,
-    [Description("Bottles")][InspectorName("Food/Scrarecrow")] Scrarecrow,
-    [Description("Bottles")][InspectorName("Food/Healing")] Healing,
-    [Description("Bottles")][InspectorName("Food/Sprinkler")] Sprinkler,
+    [Description("F_A")][InspectorName("Food/F_A")] F_A,
+    [Description("F_B")][InspectorName("Food/F_B")] F_B,
+    [Description("F_C")][InspectorName("Food/F_C")] F_C,
+    [Description("F_D")][InspectorName("Food/F_D")] F_D,
+
+    //Tools
+    [Description("Axe")][InspectorName("Tools/Axe")] Axe,
+    [Description("Building Hammer")][InspectorName("Tools/Building Hammer")] BuildingHammer,
+    [Description("T_C")][InspectorName("Tools/T_C")] T_C,
 
     //Weapons
-    [Description("Bottles")][InspectorName("Food/Weapons")] Weapons,
-    [Description("Bottles")][InspectorName("Food/BowAndArrow")] BowAndArrow,
-    [Description("Bottles")][InspectorName("Food/NetLauncher")] NetLauncher,
+    [Description("Weapons")][InspectorName("Weapons/Weapons")] Weapons,
+    [Description("W_B")][InspectorName("Weapons/W_B")] W_B
 }

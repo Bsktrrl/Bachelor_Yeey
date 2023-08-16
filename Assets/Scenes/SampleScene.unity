@@ -1632,7 +1632,7 @@ MonoBehaviour:
     m_SelectOnDown: {fileID: 0}
     m_SelectOnLeft: {fileID: 0}
     m_SelectOnRight: {fileID: 0}
-  m_Transition: 1
+  m_Transition: 2
   m_Colors:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
     m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
@@ -1642,10 +1642,10 @@ MonoBehaviour:
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
   m_SpriteState:
-    m_HighlightedSprite: {fileID: 0}
-    m_PressedSprite: {fileID: 0}
-    m_SelectedSprite: {fileID: 0}
-    m_DisabledSprite: {fileID: 0}
+    m_HighlightedSprite: {fileID: 1935816759, guid: 82a50d140a584064189756c2cef998df, type: 3}
+    m_PressedSprite: {fileID: 945395126, guid: 82a50d140a584064189756c2cef998df, type: 3}
+    m_SelectedSprite: {fileID: 757532216, guid: 82a50d140a584064189756c2cef998df, type: 3}
+    m_DisabledSprite: {fileID: -446691640, guid: 82a50d140a584064189756c2cef998df, type: 3}
   m_AnimationTriggers:
     m_NormalTrigger: Normal
     m_HighlightedTrigger: Highlighted
@@ -1689,7 +1689,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 66b6c124acff01d498bf4ebe7ae977f5, type: 3}
+  m_Sprite: {fileID: -1471483409, guid: 82a50d140a584064189756c2cef998df, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -3804,6 +3804,51 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 8909346992134183986, guid: 44dee16337e82d44b96cc08680934b3e, type: 3}
   m_PrefabInstance: {fileID: 772113458}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &782628375
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 782628376}
+  - component: {fileID: 782628377}
+  m_Layer: 0
+  m_Name: DataPersistanceManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &782628376
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 782628375}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1309540306}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &782628377
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 782628375}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 221a8f88bc8bb2a469033cfc00fabff1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  fileName: data.game
 --- !u!1001 &795340129
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3877,7 +3922,7 @@ GameObject:
   - component: {fileID: 845233252}
   - component: {fileID: 845233253}
   m_Layer: 5
-  m_Name: CraftingPanel
+  m_Name: SelectionPanel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3891,18 +3936,18 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 845233251}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: -0.00024414068}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1599535433}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -44}
-  m_SizeDelta: {x: 330, y: 680}
-  m_Pivot: {x: 0.5, y: 0.5}
+  m_AnchorMin: {x: 0.5, y: 1}
+  m_AnchorMax: {x: 0.5, y: 1}
+  m_AnchoredPosition: {x: 0, y: -100}
+  m_SizeDelta: {x: 330, y: 690}
+  m_Pivot: {x: 0.5, y: 1}
 --- !u!114 &845233253
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3923,8 +3968,8 @@ MonoBehaviour:
   m_ChildAlignment: 0
   m_StartCorner: 0
   m_StartAxis: 0
-  m_CellSize: {x: 110, y: 185}
-  m_Spacing: {x: 15, y: 35}
+  m_CellSize: {x: 328, y: 60}
+  m_Spacing: {x: 0, y: 10}
   m_Constraint: 0
   m_ConstraintCount: 2
 --- !u!1001 &889079099
@@ -4270,6 +4315,7 @@ Transform:
   - {fileID: 1792593313}
   - {fileID: 2085224384}
   - {fileID: 1474686545}
+  - {fileID: 1309540306}
   m_Father: {fileID: 0}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -5507,6 +5553,51 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 8909346992134183986, guid: 6bc5e48115e3a0344935b4171a26bc84, type: 3}
   m_PrefabInstance: {fileID: 1302234722}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1309540305
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1309540306}
+  - component: {fileID: 1309540307}
+  m_Layer: 0
+  m_Name: DataManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1309540306
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1309540305}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 782628376}
+  m_Father: {fileID: 962490182}
+  m_RootOrder: 5
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1309540307
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1309540305}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8f96d580e1342d24e800c4523546a486, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1328060230
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5842,7 +5933,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1400231855}
   m_Layer: 5
-  m_Name: CategoryDisplay
+  m_Name: SelectionDisplay
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6092,7 +6183,7 @@ MonoBehaviour:
     m_SelectOnDown: {fileID: 0}
     m_SelectOnLeft: {fileID: 0}
     m_SelectOnRight: {fileID: 0}
-  m_Transition: 1
+  m_Transition: 2
   m_Colors:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
     m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
@@ -6102,10 +6193,10 @@ MonoBehaviour:
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
   m_SpriteState:
-    m_HighlightedSprite: {fileID: 0}
-    m_PressedSprite: {fileID: 0}
-    m_SelectedSprite: {fileID: 0}
-    m_DisabledSprite: {fileID: 0}
+    m_HighlightedSprite: {fileID: 1935816759, guid: 82a50d140a584064189756c2cef998df, type: 3}
+    m_PressedSprite: {fileID: 945395126, guid: 82a50d140a584064189756c2cef998df, type: 3}
+    m_SelectedSprite: {fileID: 757532216, guid: 82a50d140a584064189756c2cef998df, type: 3}
+    m_DisabledSprite: {fileID: -446691640, guid: 82a50d140a584064189756c2cef998df, type: 3}
   m_AnimationTriggers:
     m_NormalTrigger: Normal
     m_HighlightedTrigger: Highlighted
@@ -6149,7 +6240,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 66b6c124acff01d498bf4ebe7ae977f5, type: 3}
+  m_Sprite: {fileID: -1471483409, guid: 82a50d140a584064189756c2cef998df, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -6338,18 +6429,34 @@ MonoBehaviour:
   craftingMenu: {fileID: 1549771020}
   itemCategory_SO: {fileID: 11400000, guid: 998d9a16b6f3bec43bdc0ef0d5413703, type: 2}
   overviewScreen: {fileID: 134442198}
-  overviewGridLayoutGroop: {fileID: 106100960}
+  overviewGridLayoutGroup: {fileID: 106100960}
   categoryButton_Prefab: {fileID: 9093815811219526609, guid: a96eaab592aa1e343a54c95472744d3d, type: 3}
-  categoryItems: []
+  categoryItemsList: []
   categoryButtonPrefabList: []
   selectionScreen: {fileID: 1599535432}
   categorySelectedImage: {fileID: 1822718655}
   categorySelectedName: {fileID: 601073630}
+  selectionButton_Prefab: {fileID: 2035596965911570660, guid: 7127a0f45115125479b0615e0e0f31f4, type: 3}
+  selectionSubGridLayoutGroup_Parent: {fileID: 845233251}
+  selectionSubGridLayoutGroup_Prefab: {fileID: 2850546753561915350, guid: 4ac0d0b3b138ff54c882ea65bd2b1827, type: 3}
+  selectionSubActiveList: 
+  selectionSubGridLayoutGroupList: []
+  selectionButtonPrefabList: []
   craftingScreen: {fileID: 1712240770}
   craftingScreen_Prefab: {fileID: 6510312345907331129, guid: 100035046747115429965d1d161b6b02, type: 3}
   requirement_Prefab: {fileID: 7207463512283702159, guid: a005d3d32bde40f48a54ef2a7daa95b3, type: 3}
   craftingScreen_isOpen: 0
   activeCategory: 0
+  itemSelected:
+    itemName: 0
+    categoryName: 0
+    subCategoryName: 0
+    itemSprite: {fileID: 0}
+    itemDescription: 
+    isActive: 0
+    itemStackMax: 0
+    isCrafteable: 0
+    craftingRequirements: []
 --- !u!1001 &1495927435
 PrefabInstance:
   m_ObjectHideFlags: 0

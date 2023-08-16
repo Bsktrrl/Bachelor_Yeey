@@ -14,4 +14,7 @@ public class ItemCategory
 {
     public ItemCategories categoryName;
     public Sprite categorySprite;
+
+    [Header("SubCategories")]
+    public List<ItemSubCategories> subCategoryName = new List<ItemSubCategories>();
 }

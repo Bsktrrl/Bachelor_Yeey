@@ -12,7 +12,6 @@ public class Item_SO : ScriptableObject
 }
 
 [Serializable]
-[CustomEditor(typeof(Item_SO))]
 public class Item
 {
     [Header("General")]
@@ -23,11 +22,14 @@ public class Item
     [TextArea (5, 10)] public string itemDescription;
 
     [Header("Stats")]
+    public bool isActive;
     public int itemStackMax;
 
     [Header("Crafting")]
     public bool isCrafteable = false;
     public List<CraftingRequirements> craftingRequirements = new List<CraftingRequirements>();
+
+    
 }
 
 [Serializable]
