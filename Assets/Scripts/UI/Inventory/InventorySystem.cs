@@ -73,14 +73,14 @@ public class InventorySystem : MonoBehaviour
 
     void Start()
     {
-        PlayerButtonManager.Tab_isPressedDown += OpenInventoryScreen;
-        PlayerButtonManager.Esc_isPressedDown += CloseInventoryScreen;
+        //PlayerButtonManager.Tab_isPressedDown += OpenInventoryScreen;
+        //PlayerButtonManager.Esc_isPressedDown += CloseInventoryScreen;
 
-        PlayerButtonManager.inventory_RightMouse_isPressedDown += ItemStack_PickOne;
-        PlayerButtonManager.inventory_ScrollMouse_isPressedDown += ItemStack_PickHalf;
-        PlayerButtonManager.inventory_ScrollMouse_isRolledUP += IncreaseItemAmountHolding;
-        PlayerButtonManager.inventory_ScrollMouse_isRolledDown += DecreaseItemAmountHolding;
-        PlayerButtonManager.inventory_Shift_and_RightMouse_isPressedDown += ItemStack_PickAll;
+        //PlayerButtonManager.inventory_RightMouse_isPressedDown += ItemStack_PickOne;
+        //PlayerButtonManager.inventory_ScrollMouse_isPressedDown += ItemStack_PickHalf;
+        //PlayerButtonManager.inventory_ScrollMouse_isRolledUP += IncreaseItemAmountHolding;
+        //PlayerButtonManager.inventory_ScrollMouse_isRolledDown += DecreaseItemAmountHolding;
+        //PlayerButtonManager.inventory_Shift_and_RightMouse_isPressedDown += ItemStack_PickAll;
 
         isOpen = false;
 
