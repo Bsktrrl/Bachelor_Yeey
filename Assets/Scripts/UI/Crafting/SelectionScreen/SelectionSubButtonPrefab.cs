@@ -1,9 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class SelectionSubButtonPrefab : MonoBehaviour
+public class SelectionSubButtonPrefab : MonoBehaviour, IPointerEnterHandler
 {
     [SerializeField] Image buttonImage;
 
@@ -17,8 +18,15 @@ public class SelectionSubButtonPrefab : MonoBehaviour
 
     public void Button_OnClick()
     {
+        SoundManager.instance.PlayChangeCraftingScreen_Clip();
+
         CraftingManager.instance.itemSelected = item;
         CraftingManager.instance.SetupCraftingScreen(item);
         CraftingManager.instance.craftingScreen.SetActive(true);
+    }
+
+    public void OnPointerEnter(PointerEventData eventData)
+    {
+        SoundManager.instance.PlaySelect_Clip();
     }
 }

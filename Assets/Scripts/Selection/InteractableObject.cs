@@ -47,19 +47,12 @@ public class InteractableObject : MonoBehaviour
         if (playerInRange && SelectionManager.instance.onTarget && SelectionManager.instance.selecedObject == gameObject
             && MainManager.instance.menuStates == MenuStates.None)
         {
-            if (InventorySystem.instance.AddItemToInventory(itemName, amount))
-            {
-                //Remove Subscription to Event
-                PlayerButtonManager.mouse0_isPressedDown -= PickUpItem;
+            InventorySystem.instance.AddItem(itemName, amount);
 
-                Destroy(gameObject);
-            }
-            else
-            {
-                print("The inventory is Full");
+            //Remove Subscription to Event
+            PlayerButtonManager.mouse0_isPressedDown -= PickUpItem;
 
-                //Spawn a box in the world with this item and its amount to be picked up later
-            }
+            Destroy(gameObject);
         }
     }
 

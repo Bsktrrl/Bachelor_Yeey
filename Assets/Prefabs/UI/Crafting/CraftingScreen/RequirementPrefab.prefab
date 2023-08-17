@@ -108,7 +108,7 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 4984613080548878602}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0}
   m_AnchorMax: {x: 1, y: 1}
@@ -184,7 +184,7 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 4984613080548878602}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
@@ -528,8 +528,8 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 6983649468519526533}
   - {fileID: 4296851690441104625}
+  - {fileID: 6983649468519526533}
   - {fileID: 5347089911673526562}
   - {fileID: 6983649468960802822}
   m_Father: {fileID: 0}
@@ -552,6 +552,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 967d742582ab5ff408b12891be3578d5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  overlayColor_Active: {r: 0.3018868, g: 0.21713066, b: 0.16062656, a: 0.5019608}
+  overlayColor_Inactive: {r: 0.6117647, g: 0.23921569, b: 0.23921569, a: 0.7490196}
   craftingItemImage: {fileID: 6983649469049778961}
   craftingItemImageOverlay: {fileID: 1878716599031532803}
   craftingItemName: {fileID: 6983649468519526586}
@@ -560,4 +562,4 @@ MonoBehaviour:
     itemName: 0
     amount: 0
   craftingItemSprite: {fileID: 0}
-  craftingItemAmountGotInInventory: 0
+  requirementIsMet: 0

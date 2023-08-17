@@ -11,13 +11,14 @@ public class CraftingManager : MonoBehaviour
     [Header("Main Screen")]
     [SerializeField] GameObject craftingMenu;
     List<Item> SO_itemList = new List<Item>();
+
     [Header("Overview Screen")]
     [SerializeField] ItemCategory_SO itemCategory_SO;
-    //[SerializeField] ItemS
 
     [SerializeField] GameObject overviewScreen;
     [SerializeField] GameObject overviewGridLayoutGroup;
     [SerializeField] GameObject categoryButton_Prefab;
+
     public List<ItemCategory> categoryItemsList = new List<ItemCategory>();
     public List<GameObject> categoryButtonPrefabList = new List<GameObject>();
 
@@ -36,12 +37,15 @@ public class CraftingManager : MonoBehaviour
 
     [Header("Crafting Screen")]
     public GameObject craftingScreen;
+
     [SerializeField] Image categoryCraftingImage;
     [SerializeField] TextMeshProUGUI categoryCraftingName;
     [SerializeField] TextMeshProUGUI categoryCraftingDescription;
+
     [SerializeField] GameObject requirementGridLayoutGroup;
     [SerializeField] GameObject requirement_Prefab;
     public List<GameObject> requirementPrefabList = new List<GameObject>();
+    public bool totalRequirementMet;
 
     [Header("Other")]
     public bool craftingScreen_isOpen;
@@ -81,6 +85,10 @@ public class CraftingManager : MonoBehaviour
         //Set the first useable Category in the itemCategory_SO.ItemCategoryList to be active by default
         activeCategory = itemCategory_SO.ItemCategoryList[1].categoryName;
         SetupSelectionScreen();
+    }
+    private void Update()
+    {
+        CheckForRequiermentsMet();
     }
 
 
@@ -289,6 +297,27 @@ public class CraftingManager : MonoBehaviour
             craftingScreen.GetComponent<RectTransform>().sizeDelta += new Vector2(0, 67);
         }
     }
+    private void CheckForRequiermentsMet()
+    {
+        int count = 0;
+
+        for (int i = 0; i < requirementPrefabList.Count; i++)
+        {
+            if (requirementPrefabList[i].GetComponent<CraftingRequirementPrefab>().requirementIsMet)
+            {
+                count++;
+            }
+        }
+
+        if (count >= requirementGridLayoutGroup.transform.childCount)
+        {
+            totalRequirementMet = true;
+        }
+        else
+        {
+            totalRequirementMet = false;
+        }
+    }
 
 
     //--------------------
@@ -354,6 +383,8 @@ public class CraftingManager : MonoBehaviour
             selectionScreen.SetActive(true);
 
             craftingScreen_isOpen = true;
+
+            Cursor.lockState = CursorLockMode.None;
         }
     }
     private void CloseInventoryScreen()
@@ -363,6 +394,8 @@ public class CraftingManager : MonoBehaviour
         selectionScreen.SetActive(false);
 
         craftingScreen_isOpen = false;
+
+        Cursor.lockState = CursorLockMode.Locked;
     }
 
 

@@ -168,6 +168,7 @@ public class DragDrop : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, I
 
     public void OnPointerEnter(PointerEventData eventData)
     {
+        SoundManager.instance.PlaySelect_Clip();
         EnterDisplayItem();
     }
 

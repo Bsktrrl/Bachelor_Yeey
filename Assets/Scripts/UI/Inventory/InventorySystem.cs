@@ -272,8 +272,24 @@ public class InventorySystem : MonoBehaviour
 
     } //
 
-    #region Add Item To Inventory
-    public bool AddItemToInventory(Items itemName, int amount)
+    #region Check if Ineventory can be added to
+    public void AddItem(Items itemName, int amount)
+    {
+        int amountTemp = CheckIfAllItemsIsAdded(itemName, amount);
+
+        if (amountTemp <= 0)
+        {
+            print("Item Added");
+        }
+        else
+        {
+            print("The inventory is Full");
+            print("Not all Items Added. Items left: " + amountTemp);
+
+            //Spawn a pickup in the world containing stats of an Item with its itemName and amount
+        }
+    }
+    int CheckIfAllItemsIsAdded(Items itemName, int amount)
     {
         Item SO_item = FindSO_Item(itemName);
         int amountTemp = amount;
@@ -282,7 +298,7 @@ public class InventorySystem : MonoBehaviour
         {
             print("itemStackMax <= 0");
 
-            return false;
+            return amountTemp;
         }
 
         while (amountTemp > 0)
@@ -319,14 +335,14 @@ public class InventorySystem : MonoBehaviour
                 {
                     UpdateInventoryDisplay();
 
-                    return false;
+                    return amountTemp;
                 }
             }
         }
 
         UpdateInventoryDisplay();
 
-        return true;
+        return amountTemp;
     }
     int FindItemSlotWithSpace(Item SO_item, Items itemName)
     {
@@ -355,13 +371,129 @@ public class InventorySystem : MonoBehaviour
     }
     #endregion
 
+    public void AddItemTest(Items itemName, int amount)
+    {
+        //int tempAmount = amount;
+
+        //Item SO_ItemTemp = null;
+        //for (int i = 0; i < SO_Item.itemList.Count; i++)
+        //{
+        //    if (SO_Item.itemList[i].itemName == itemName)
+        //    {
+        //        SO_ItemTemp = SO_Item.itemList[i];
+
+        //        break;
+        //    }
+        //}
+
+
+        ////-----
+
+
+        //if (CanAddItemToInventory(itemName, amount))
+        //{
+        //    for (int i = 0; i < inventoryItemList.Count; i++)
+        //    {
+        //        if (inventoryItemList[i].itemName == itemName)
+        //        {
+        //            if (inventoryItemList[i].amount >= SO_ItemTemp.itemStackMax)
+        //            {
+        //                print("ItemSlot is full | TempAmount = " + tempAmount);
+
+        //                //ItemSlot is full
+        //                //Continue loop, finding another itemSlot of the same itemName
+        //            }
+        //            else
+        //            {
+        //                //Fill the itemSlot as much as possible
+        //                if (inventoryItemList[i].amount + tempAmount < SO_ItemTemp.itemStackMax)
+        //                {
+        //                    print("If the total amount is under max | TempAmount = " + tempAmount);
+
+        //                    //If the total amount is under max
+        //                    if (inventoryItemList[i].amount <= 0)
+        //                    {
+        //                        inventoryItemList[i].itemName = itemName;
+        //                        inventoryItemList[i].amount += tempAmount;
+        //                    }
+        //                    else
+        //                    {
+        //                        inventoryItemList[i].amount += tempAmount;
+        //                    }
+
+        //                    return;
+        //                }
+        //                else
+        //                {
+        //                    print("If the total amount is over max | TempAmount = " + tempAmount);
+
+        //                    //If the total amount is over max
+        //                    tempAmount -= SO_ItemTemp.itemStackMax - inventoryItemList[i].amount;
+        //                    inventoryItemList[i].amount = SO_ItemTemp.itemStackMax;
+        //                }
+        //            }
+        //        }
+        //    }
+
+        //    //If there are still amount left, find an empty itemSlot
+        //    if (tempAmount > 0)
+        //    {
+        //        print("Amount Left to go - Find Empty | TempAmount = " + tempAmount);
+
+        //        for (int i = 0; i < inventoryItemList.Count; i++)
+        //        {
+        //            if (inventoryItemList[i].itemName == Items.None)
+        //            {
+        //                inventoryItemList[i].itemName = itemName;
+        //                inventoryItemList[i].amount = tempAmount;
+
+        //                print("i = " + i + " | inventoryItemList[i].itemName = " + itemName + " | inventoryItemList[i].amount = " + tempAmount);
+
+        //                return;
+        //            }
+        //        }
+
+        //        //If it reaches here, drop item into the world with amount = "tempAmount"
+        //    }
+        //}
+        //else
+        //{
+        //    //Drop Item into the world with amount = "amount"
+        //}
+    }
+
+    public void RemoveLastItemOfTypeFromInventory(Items itemName)
+    {
+        if (inventoryItemList.Count > 0)
+        {
+            for (int i = inventoryItemList.Count - 1; i >= 0; i--)
+            {
+                if (inventoryItemList[i].itemName == itemName)
+                {
+                    inventoryItemList[i].amount -= 1;
+                }
+
+                if (inventoryItemList[i].amount <= 0)
+                {
+                    inventoryItemList[i].itemName = Items.None;
+                    inventoryItemList[i].amount = 0;
+                }
+            }
+        }
+    }
     void RemoveItemFromInventory()
     {
 
     } //
+    public void Discarditem(Items item, int amount)
+    {
+
+    }
 
     void SortInventoryItemsBy_SOPosition()
     {
+        SoundManager.instance.Playmenu_SortInventory_Clip();
+
         List<InventoryItem> inventoryItemListChecker = new List<InventoryItem>();
 
         //Fill inventoryItemList with items, pushing all items as far to the left as possible
@@ -423,6 +555,8 @@ public class InventorySystem : MonoBehaviour
     }
     void SortInventoryItemsByInventoryPosition()
     {
+        SoundManager.instance.Playmenu_SortInventory_Clip();
+
         List<Items> itemNameList = new List<Items>();
         Items itemNameTemp = new Items();
 

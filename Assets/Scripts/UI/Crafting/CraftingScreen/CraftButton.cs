@@ -9,8 +9,43 @@ public class CraftButton : MonoBehaviour
     [SerializeField] Color craftingButtonColor_Inactive;
     [SerializeField] Color craftingButtonColor_Active;
 
+    private void Update()
+    {
+        if (CraftingManager.instance.totalRequirementMet)
+        {
+            craftingButton.GetComponent<Image>().color = craftingButtonColor_Active;
+        }
+        else
+        {
+            craftingButton.GetComponent<Image>().color = craftingButtonColor_Inactive;
+        }
+    }
+
     public void CraftingButton_OnClick()
     {
+        if (CraftingManager.instance.totalRequirementMet)
+        {
+            //Remove items from inventory
+            for (int i = 0; i < CraftingManager.instance.requirementPrefabList.Count; i++)
+            {
+                Items itemName = CraftingManager.instance.requirementPrefabList[i].GetComponent<CraftingRequirementPrefab>().requirements.itemName;
+                int amount = CraftingManager.instance.requirementPrefabList[i].GetComponent<CraftingRequirementPrefab>().requirements.amount;
 
+                for (int j = 0; j < amount; j++)
+                {
+                    InventorySystem.instance.RemoveLastItemOfTypeFromInventory(itemName);
+                }
+            }
+
+            InventorySystem.instance.AddItem(CraftingManager.instance.itemSelected.itemName, 1);
+
+            SoundManager.instance.Playmenu_Crafting_Clip();
+        }
+        else
+        {
+            SoundManager.instance.Playmenu_CanntoCraft_Clip();
+        }
+
+        InventorySystem.instance.UpdateInventoryDisplay();
     }
 }

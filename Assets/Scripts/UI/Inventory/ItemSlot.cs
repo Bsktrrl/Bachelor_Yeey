@@ -32,6 +32,10 @@ public class ItemSlot : MonoBehaviour, IDropHandler
     //If something is dropped on this GameObject
     public void OnDrop(PointerEventData eventData)
     {
+        print("OnDrop");
+
+        SoundManager.instance.PlayDropItem_Clip();
+
         for (int i = 0; i < InventorySystem.instance.inventorySlotList.Count; i++)
         {
             if (InventorySystem.instance.inventorySlotList[i].GetComponent<ItemSlot>() == this)
