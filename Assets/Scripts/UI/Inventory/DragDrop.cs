@@ -37,7 +37,10 @@ public class DragDrop : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, I
         rectTransform = GetComponent<RectTransform>();
         canvasGroup = GetComponent<CanvasGroup>();
 
-        dragging_Parent = InventorySystem.instance.inventoryDraggingParent;
+        if (startParent == null)
+        {
+            dragging_Parent = InventorySystem.instance.inventoryDraggingParent;
+        }
     }
     private void Start()
     {

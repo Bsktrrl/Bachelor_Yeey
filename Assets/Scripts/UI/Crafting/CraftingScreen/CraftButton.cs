@@ -11,13 +11,16 @@ public class CraftButton : MonoBehaviour
 
     private void Update()
     {
-        if (CraftingManager.instance.totalRequirementMet)
+        if (MainManager.instance.menuStates == MenuStates.InventoryMenu)
         {
-            craftingButton.GetComponent<Image>().color = craftingButtonColor_Active;
-        }
-        else
-        {
-            craftingButton.GetComponent<Image>().color = craftingButtonColor_Inactive;
+            if (CraftingManager.instance.totalRequirementMet)
+            {
+                craftingButton.GetComponent<Image>().color = craftingButtonColor_Active;
+            }
+            else
+            {
+                craftingButton.GetComponent<Image>().color = craftingButtonColor_Inactive;
+            }
         }
     }
 

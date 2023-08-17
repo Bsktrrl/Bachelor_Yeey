@@ -8,6 +8,3 @@ Inventory Menu
 - Remove Slot from Inventory
 	- Be aware if itemSlot has an Item on it when removed (spawn it in the world instead)
 - Remove Item from Inventory (spawn it in the world instead)
-
-Crafting Menu:
-- Add a crafting panel as in Raft, on the left side

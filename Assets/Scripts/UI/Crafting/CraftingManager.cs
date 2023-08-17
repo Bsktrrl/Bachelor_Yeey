@@ -88,7 +88,10 @@ public class CraftingManager : MonoBehaviour
     }
     private void Update()
     {
-        CheckForRequiermentsMet();
+        if (MainManager.instance.menuStates == MenuStates.InventoryMenu)
+        {
+            CheckForRequiermentsMet();
+        }
     }
 
 

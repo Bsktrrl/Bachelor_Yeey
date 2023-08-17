@@ -31,8 +31,11 @@ public class CraftingRequirementPrefab : MonoBehaviour
     }
     private void Update()
     {
-        SetDisplay();
-        CheckRequrement();
+        if (MainManager.instance.menuStates == MenuStates.InventoryMenu)
+        {
+            SetDisplay();
+            CheckRequrement();
+        }
     }
 
 
