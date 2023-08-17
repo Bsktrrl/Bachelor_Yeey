@@ -471,12 +471,14 @@ public class InventorySystem : MonoBehaviour
                 if (inventoryItemList[i].itemName == itemName)
                 {
                     inventoryItemList[i].amount -= 1;
-                }
 
-                if (inventoryItemList[i].amount <= 0)
-                {
-                    inventoryItemList[i].itemName = Items.None;
-                    inventoryItemList[i].amount = 0;
+                    if (inventoryItemList[i].amount <= 0)
+                    {
+                        inventoryItemList[i].itemName = Items.None;
+                        inventoryItemList[i].amount = 0;
+                    }
+
+                    break;
                 }
             }
         }
@@ -569,7 +571,8 @@ public class InventorySystem : MonoBehaviour
             {
                 itemNameList.Add(itemNameTemp);
             }
-            
+
+            //Add to itemNameList
             for (int j = 0; j < itemNameList.Count; j++)
             {
                 if (inventoryItemList[i].itemName != itemNameList[j] && inventoryItemList[i].itemName != Items.None)
