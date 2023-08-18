@@ -5,8 +5,11 @@ using UnityEngine;
 [System.Serializable]
 public class GameData
 {
-    public List<GameObject> inventoryObject = new List<GameObject>();
-    public List<Inventories> inventories = new List<Inventories>();
+    //Variables to Save/Load
+    [HideInInspector] public Vector3 playerPos_Save = new Vector3();
+    [HideInInspector] public Quaternion playerRot_Save = new Quaternion();
+    public List<ObjectClassSavingVariables> worldObjects_SaveList = new List<ObjectClassSavingVariables>();
+    public List<Inventories> inventories_SaveList = new List<Inventories>();
 
 
     //--------------------
@@ -14,6 +17,8 @@ public class GameData
 
     public GameData()
     {
-        this.inventories.Clear();
+        //Input All Lists to clear
+        this.inventories_SaveList.Clear();
+        this.worldObjects_SaveList.Clear();
     }
 }

@@ -7,6 +7,7 @@ public class MainManager : MonoBehaviour
     //Singleton
     public static MainManager instance { get; set; } //Singleton
 
+    public GameObject player;
     public MenuStates menuStates;
 
 
@@ -25,11 +26,18 @@ public class MainManager : MonoBehaviour
             instance = this;
         }
     }
+    private void Start()
+    {
+        PlayerButtonManager.S_isClicked += Save;
+    }
 
 
     //--------------------
 
-
+    void Save()
+    {
+        DataPersistanceManager.instance.SaveGame();
+    }
 }
 
 public enum MenuStates

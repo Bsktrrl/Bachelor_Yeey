@@ -46,16 +46,23 @@ public class SelectionManager : MonoBehaviour
             {
                 var selectionTransform = hit.transform;
 
-                //When reycasting something that is an InteractableObject
-                InteractableObject interacteable = selectionTransform.GetComponent<InteractableObject>();
+                //When reycasting something that is interactable
+                PickupObject pickupObject = selectionTransform.GetComponent<PickupObject>();
+                InventoryObject inventoryObject = selectionTransform.GetComponent<InventoryObject>();
 
-                if (interacteable && interacteable.playerInRange)
+                if (pickupObject && pickupObject.playerInRange)
                 {
-                    interaction_text.text = interacteable.GetItemName().ToString();
+                    interaction_text.text = pickupObject.GetItemName().ToString();
                     interaction_Info_UI.SetActive(true);
                     onTarget = true;
 
-                    selecedObject = interacteable.gameObject;
+                    selecedObject = pickupObject.gameObject;
+                }
+                else if (inventoryObject && inventoryObject.playerInRange)
+                {
+                    //Show Inventory info
+                    onTarget = true;
+                    selecedObject = inventoryObject.gameObject;
                 }
                 //If there is a Hit without an interacteable script
                 else

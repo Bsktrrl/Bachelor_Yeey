@@ -213,6 +213,8 @@ public class CraftingManager : MonoBehaviour
                     }
                 }
 
+                
+                
                 //Adjust Frame
                 selectionScreen.GetComponent<RectTransform>().sizeDelta += new Vector2(0, 67);
             }
@@ -388,6 +390,12 @@ public class CraftingManager : MonoBehaviour
             craftingScreen_isOpen = true;
 
             Cursor.lockState = CursorLockMode.None;
+
+            //Reset Frame Rotation
+            for (int i = 0; i < selectionSubGridLayoutGroupList.Count; i++)
+            {
+                selectionSubGridLayoutGroupList[i].GetComponent<RectTransform>().rotation = Quaternion.identity;
+            }
         }
     }
     private void CloseInventoryScreen()

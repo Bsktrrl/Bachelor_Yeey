@@ -11,9 +11,11 @@ public class PlayerButtonManager : MonoBehaviour
 
     public InventoryButtonState inventoryButtonState = InventoryButtonState.None;
 
-    public static Action mouse0_isPressedDown;
+    public static Action leftMouse_isPressedDown;
+    public static Action rightMouse_isPressedDown;
     public static Action Tab_isPressedDown;       //Inventory Screen
     public static Action Esc_isPressedDown;
+    public static Action E_isPressedDown;
     public static Action C_isPressedDown;       //Crafting Screen
 
     public static Action inventory_RightMouse_isPressedDown;
@@ -23,10 +25,10 @@ public class PlayerButtonManager : MonoBehaviour
     public static Action inventory_ScrollMouse_isRolledDown;
 
     //Testing
-    public static Action savingInventory_isClicked;
-    public static Action AddInventory_isClicked;
-    public static Action RemoveInventory_isClicked;
-    public static Action AddObjectToTheWorld_isClicked;
+    public static Action S_isClicked;
+    public static Action A_isClicked;
+    public static Action R_isClicked;
+    public static Action O_isClicked;
 
 
     //--------------------
@@ -55,7 +57,11 @@ public class PlayerButtonManager : MonoBehaviour
                 inventoryButtonState = InventoryButtonState.mouse0_isPressedDown;
             }
 
-            mouse0_isPressedDown?.Invoke();
+            leftMouse_isPressedDown?.Invoke();
+        }
+        else if (Input.GetKeyDown(KeyCode.Mouse1))
+        {
+            rightMouse_isPressedDown?.Invoke();
         }
         else if (Input.GetKeyDown(KeyCode.Tab))
         {
@@ -68,6 +74,10 @@ public class PlayerButtonManager : MonoBehaviour
         else if (Input.GetKeyDown(KeyCode.C))
         {
             C_isPressedDown?.Invoke();
+        }
+        else if (Input.GetKeyDown(KeyCode.E))
+        {
+            E_isPressedDown?.Invoke();
         }
 
         //Inventory Buttons
@@ -115,19 +125,19 @@ public class PlayerButtonManager : MonoBehaviour
         //Testing
         else if (Input.GetKeyDown(KeyCode.S))
         {
-            savingInventory_isClicked?.Invoke();
+            S_isClicked?.Invoke();
         }
         else if (Input.GetKeyDown(KeyCode.A))
         {
-            AddInventory_isClicked?.Invoke();
+            A_isClicked?.Invoke();
         }
         else if (Input.GetKeyDown(KeyCode.R))
         {
-            RemoveInventory_isClicked?.Invoke();
+            R_isClicked?.Invoke();
         }
         else if (Input.GetKeyDown(KeyCode.O))
         {
-            AddObjectToTheWorld_isClicked?.Invoke();
+            O_isClicked?.Invoke();
         }
     }
 }

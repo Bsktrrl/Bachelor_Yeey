@@ -27,13 +27,15 @@ public class InventoryManager : MonoBehaviour
     private void Start()
     {
         DataManager.datahasLoaded += Load;
+        DataManager.dataIsSaving += Save;
+        PlayerButtonManager.S_isClicked += Save;
     }
 
 
     //--------------------
 
 
-    public void AddInventory(int size)
+    public void AddInventory(InventoryObject obj, int size)
     {
         Inventories _inventory = new Inventories();
 
@@ -42,6 +44,8 @@ public class InventoryManager : MonoBehaviour
         inventories[inventories.Count - 1].index = inventories.Count - 1;
         inventories[inventories.Count - 1].inventorySize = size;
 
+        obj.inventoryIndex = inventories.Count - 1;
+
         Save();
 
         print("Added inventory");
@@ -49,6 +53,11 @@ public class InventoryManager : MonoBehaviour
     public void RemoveInventory(int index)
     {
         inventories.RemoveAt(index);
+
+        for (int i = index; i < inventories.Count; i++)
+        {
+            inventories[i].index -= 1;
+        }
 
         print("Inventory removed");
 
@@ -80,16 +89,19 @@ public class InventoryManager : MonoBehaviour
 
     void Save()
     {
-        DataManager.instance.inventories = inventories;
-        DataPersistanceManager.instance.SaveGame();
+        DataManager.instance.inventories_StoreList = inventories;
 
-        print("All data Saved");
+        print("InventoryManager - All data Saved");
     }
     void Load()
     {
         //DataPersistanceManager.instance.LoadGame();
-        inventories = DataManager.instance.inventories;
+        inventories = DataManager.instance.inventories_StoreList;
 
-        print("All data Loaded");
+        print("InventoryManager - All data Loaded");
     }
+
+
+    //--------------------
+
 }

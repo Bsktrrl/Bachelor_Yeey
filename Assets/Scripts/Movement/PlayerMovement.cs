@@ -16,7 +16,15 @@ public class PlayerMovement : MonoBehaviour
 
     bool isGrounded;
 
-    // Update is called once per frame
+
+    //--------------------
+
+
+    private void Start()
+    {
+        DataManager.dataIsSaving += Save;
+        DataManager.datahasLoaded += Load;
+    }
     void Update()
     {
         //checking if we hit the ground to reset our falling velocity, otherwise we will fall faster the next time
@@ -45,5 +53,20 @@ public class PlayerMovement : MonoBehaviour
         velocity.y += gravity * Time.deltaTime;
 
         controller.Move(velocity * Time.deltaTime);
+    }
+
+
+    //--------------------
+
+
+    void Save()
+    {
+        DataManager.instance.playerPos_Store = gameObject.transform.position;
+        DataManager.instance.playerRot_Store = gameObject.transform.rotation;
+    }
+    void Load()
+    {
+        gameObject.transform.position = DataManager.instance.playerPos_Store;
+        gameObject.transform.rotation = DataManager.instance.playerRot_Store;
     }
 }

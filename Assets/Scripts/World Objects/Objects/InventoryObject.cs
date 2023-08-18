@@ -1,19 +1,19 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Drawing;
 using UnityEngine;
 
-public class InteractableObject : MonoBehaviour
+public class InventoryObject : MonoBehaviour
 {
-    [Header("The Object")]
-    [SerializeField] PickupObject pickupObject;
-    [SerializeField] InventoryObject inventoryObject;
+    public bool playerInRange;
 
-    [Header("item Stats")]
-    [SerializeField] Items itemName;
-    [SerializeField] int amount;
+    [Header("Category")]
+    public ObjectType objectType;
 
-    [HideInInspector] public bool playerInRange;
+    [Header("Indexes")]
+    public int objectIndex;
+    public int inventoryIndex;
 
     SphereCollider accessCollider = new SphereCollider();
 
@@ -21,25 +21,15 @@ public class InteractableObject : MonoBehaviour
     //--------------------
 
 
-    private void Awake()
+    private void Start()
     {
+        PlayerButtonManager.E_isPressedDown += ObjectInteraction;
+        PlayerButtonManager.rightMouse_isPressedDown += DeleteThisObject;
+
         //Add SphereCollider for picking up the item
         accessCollider = gameObject.AddComponent<SphereCollider>();
         accessCollider.radius = WorldObjectManager.instance.objectColliderRadius;
         accessCollider.isTrigger = true;
-    }
-    private void Start()
-    {
-        PlayerButtonManager.mouse0_isPressedDown += ObjectInteraction;
-    }
-
-
-    //--------------------
-
-
-    public Items GetItemName()
-    {
-        return itemName;
     }
 
 
@@ -51,13 +41,29 @@ public class InteractableObject : MonoBehaviour
         if (playerInRange && SelectionManager.instance.onTarget && SelectionManager.instance.selecedObject == gameObject
             && MainManager.instance.menuStates == MenuStates.None)
         {
-            InventorySystem.instance.AddItem(itemName, amount);
+            //What happen when interacting with inventory
 
-            //Remove Subscription to Event
-            PlayerButtonManager.mouse0_isPressedDown -= ObjectInteraction;
+            print("Interacting with Chest: " + objectIndex);
+        }
+    }
+    void DeleteThisObject()
+    {
+        if (playerInRange && SelectionManager.instance.onTarget && SelectionManager.instance.selecedObject == gameObject
+            && MainManager.instance.menuStates == MenuStates.None)
+        {
+            WorldObjectManager.instance.DeleteObjectFromTheWorld(objectType, objectIndex, inventoryIndex);
 
             Destroy(gameObject);
+
+            print("Deleting Chest: " + objectIndex);
+
+            PlayerButtonManager.E_isPressedDown -= ObjectInteraction;
+            PlayerButtonManager.rightMouse_isPressedDown -= DeleteThisObject;
         }
+    }
+    public void SetIndex(int i)
+    {
+        objectIndex = i;
     }
 
 
