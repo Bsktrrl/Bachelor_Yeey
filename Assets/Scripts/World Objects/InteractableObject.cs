@@ -5,6 +5,10 @@ using UnityEngine;
 
 public class InteractableObject : MonoBehaviour
 {
+    [Header("The Object")]
+    [SerializeField] PickupObject pickupObject;
+    [SerializeField] InventoryObject inventoryObject;
+
     [Header("item Stats")]
     [SerializeField] Items itemName;
     [SerializeField] int amount;
@@ -21,12 +25,12 @@ public class InteractableObject : MonoBehaviour
     {
         //Add SphereCollider for picking up the item
         accessCollider = gameObject.AddComponent<SphereCollider>();
-        accessCollider.radius = 5;
+        accessCollider.radius = WorldObjectManager.instance.objectColliderRadius;
         accessCollider.isTrigger = true;
     }
     private void Start()
     {
-        PlayerButtonManager.mouse0_isPressedDown += PickUpItem;
+        PlayerButtonManager.mouse0_isPressedDown += ObjectInteraction;
     }
 
 
@@ -42,7 +46,7 @@ public class InteractableObject : MonoBehaviour
     //--------------------
 
 
-    void PickUpItem()
+    void ObjectInteraction()
     {
         if (playerInRange && SelectionManager.instance.onTarget && SelectionManager.instance.selecedObject == gameObject
             && MainManager.instance.menuStates == MenuStates.None)
@@ -50,7 +54,7 @@ public class InteractableObject : MonoBehaviour
             InventorySystem.instance.AddItem(itemName, amount);
 
             //Remove Subscription to Event
-            PlayerButtonManager.mouse0_isPressedDown -= PickUpItem;
+            PlayerButtonManager.mouse0_isPressedDown -= ObjectInteraction;
 
             Destroy(gameObject);
         }

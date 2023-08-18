@@ -22,6 +22,12 @@ public class PlayerButtonManager : MonoBehaviour
     public static Action inventory_ScrollMouse_isRolledUP;
     public static Action inventory_ScrollMouse_isRolledDown;
 
+    //Testing
+    public static Action savingInventory_isClicked;
+    public static Action AddInventory_isClicked;
+    public static Action RemoveInventory_isClicked;
+    public static Action AddObjectToTheWorld_isClicked;
+
 
     //--------------------
 
@@ -104,6 +110,24 @@ public class PlayerButtonManager : MonoBehaviour
         else if (Input.GetKey(KeyCode.Mouse1) && MainManager.instance.menuStates == MenuStates.InventoryMenu && Input.GetAxis("Mouse ScrollWheel") < 0)
         {
             inventory_ScrollMouse_isRolledDown?.Invoke();
+        }
+
+        //Testing
+        else if (Input.GetKeyDown(KeyCode.S))
+        {
+            savingInventory_isClicked?.Invoke();
+        }
+        else if (Input.GetKeyDown(KeyCode.A))
+        {
+            AddInventory_isClicked?.Invoke();
+        }
+        else if (Input.GetKeyDown(KeyCode.R))
+        {
+            RemoveInventory_isClicked?.Invoke();
+        }
+        else if (Input.GetKeyDown(KeyCode.O))
+        {
+            AddObjectToTheWorld_isClicked?.Invoke();
         }
     }
 }

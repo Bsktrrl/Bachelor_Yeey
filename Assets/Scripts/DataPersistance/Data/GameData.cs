@@ -5,7 +5,8 @@ using UnityEngine;
 [System.Serializable]
 public class GameData
 {
-    //public bool itemIsActivated; //Test
+    public List<GameObject> inventoryObject = new List<GameObject>();
+    public List<Inventories> inventories = new List<Inventories>();
 
 
     //--------------------
@@ -13,6 +14,6 @@ public class GameData
 
     public GameData()
     {
-        //this.itemIsActivated = false; //Test
+        this.inventories.Clear();
     }
 }
