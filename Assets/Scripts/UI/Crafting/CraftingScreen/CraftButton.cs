@@ -36,11 +36,11 @@ public class CraftButton : MonoBehaviour
 
                 for (int j = 0; j < amount; j++)
                 {
-                    InventorySystem.instance.RemoveLastItemOfTypeFromInventory(itemName);
+                    StorageManager.instance.RemoveLastItem(itemName);
                 }
             }
 
-            InventorySystem.instance.AddItem(CraftingManager.instance.itemSelected.itemName, 1);
+            StorageManager.instance.AddItem(CraftingManager.instance.itemSelected.itemName, 1);
 
             SoundManager.instance.Playmenu_Crafting_Clip();
         }
@@ -48,7 +48,5 @@ public class CraftButton : MonoBehaviour
         {
             SoundManager.instance.Playmenu_CanntoCraft_Clip();
         }
-
-        InventorySystem.instance.UpdateInventoryDisplay();
     }
 }

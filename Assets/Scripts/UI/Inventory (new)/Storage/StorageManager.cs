@@ -114,8 +114,13 @@ public class StorageManager : MonoBehaviour
         StorageBoxScreenUI.SetActive(false);
         CraftingMenuScreenUI.SetActive(false);
 
-        //Setup static Assets
-        storageImage.sprite = storageSprite;
+        //Reset PlayerDisplay 
+        itemSprite_Display.sprite = item_SO.itemList[0].itemSprite;
+        itemName_Display.text = "";
+        itemDescription_Display.text = "";
+
+    //Setup static Assets
+    storageImage.sprite = storageSprite;
 
         OpenPlayerInventory();
         CloseInventoryScreen();
@@ -157,6 +162,7 @@ public class StorageManager : MonoBehaviour
             StorageBoxScreenUI.SetActive(true);
 
             StorageBoxInventory = InventoryManager.instance.inventories[index];
+            InventoryManager.instance.inventories[index].isOpen = true;
 
             ConstructStorage(StorageBoxInventory, StorageBoxItemSlot_Parent, StorageBoxItemSlotList, index);
         }
@@ -168,20 +174,11 @@ public class StorageManager : MonoBehaviour
         {
             PlayerInventoryScreenUI.SetActive(true);
             PlayerInventory = InventoryManager.instance.inventories[index];
+            InventoryManager.instance.inventories[index].isOpen = true;
 
             ConstructStorage(PlayerInventory, PlayerInventoryItemSlot_Parent, PlayerInventoryItemSlotList, index);
         }
         #endregion
-    }
-
-    public void UpdateInventoryDisplay()
-    {
-        //Update the display of a whole inventory
-        for (int i = 0; i < 9; i++)
-        {
-            //PlayerInventoryItemSlotList[i].GetComponent<ItemSlot_N>().itemInThisSlot.itemName = InventoryManager.instance.inventories[0].itemList[i].itemName;
-            //PlayerInventoryItemSlotList[i].GetComponent<ItemSlot_N>().itemInThisSlot.amount = InventoryManager.instance.inventories[0].itemList[i].amount;
-        }
     }
 
 
@@ -357,7 +354,31 @@ public class StorageManager : MonoBehaviour
 
         InventoryManager.instance.UpdateInventory(PlayerInventory);
     }
+    public void RemoveLastItem(Items itemName)
+    {
+        for (int i = 0; i < InventoryManager.instance.inventories.Count; i++)
+        {
+            if (InventoryManager.instance.inventories[i].isOpen)
+            {
+                for (int j = InventoryManager.instance.inventories[i].itemList.Count - 1; j >= 0; j--)
+                {
+                    if (InventoryManager.instance.inventories[i].itemList[j].itemName == itemName
+                        && InventoryManager.instance.inventories[i].itemList[j].amount > 0)
+                    {
+                        InventoryManager.instance.inventories[i].itemList[j].amount -= 1;
 
+                        if (InventoryManager.instance.inventories[i].itemList[j].amount <= 0)
+                        {
+                            InventoryManager.instance.inventories[i].itemList[j].itemName = Items.None;
+                            InventoryManager.instance.inventories[i].itemList[j].amount = 0;
+                        }
+
+                        break;
+                    }
+                }
+            }
+        }
+    }
 
     //--------------------
 
@@ -397,17 +418,15 @@ public class StorageManager : MonoBehaviour
             {
                 DestroyImmediate(PlayerHandItemSlot_Parent.transform.GetChild(0).gameObject);
             }
-            //if (PlayerHandItemSlot_Parent.transform.childCount > 0)
-            //{
-            //    for (int i = PlayerInventoryItemSlotList.Count - 1; i < 9; i++)
-            //    {
-            //        PlayerInventoryItemSlotList.RemoveAt(i);
-            //    }
-            //}
             
             #endregion
 
             storageIsOpen = false;
+
+            for (int i = 0; i < InventoryManager.instance.inventories.Count; i++)
+            {
+                InventoryManager.instance.inventories[i].isOpen = false;
+            }
 
             PlayerInventoryScreenUI.SetActive(false);
             StorageBoxScreenUI.SetActive(false);

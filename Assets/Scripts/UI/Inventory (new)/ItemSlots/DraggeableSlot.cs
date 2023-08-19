@@ -19,6 +19,8 @@ public class DraggeableSlot : MonoBehaviour, IPointerDownHandler, IPointerUpHand
     public bool isClicked;
     public bool isDragged;
 
+    [SerializeField] PointerEventData buttonPressed;
+
     [Header("Parent")]
     public GameObject parentObject;
     public ItemSlot_N parentScript;
@@ -62,7 +64,6 @@ public class DraggeableSlot : MonoBehaviour, IPointerDownHandler, IPointerUpHand
     {
         if(!parentScript.onDrop)
         {
-            //UpdateSlotDisplay();
             UpdateInventoryDisplay();
         }
     }
@@ -70,30 +71,7 @@ public class DraggeableSlot : MonoBehaviour, IPointerDownHandler, IPointerUpHand
 
     //--------------------
 
-    public void UpdateSlotDisplay()
-    {
-        InventoryItem tempItem = InventoryManager.instance.inventories[parentScript.itemInThisSlotFromInventory].itemList[parentScript.slotIndexInInventory];
-        itemAmountText.text = tempItem.amount.ToString();
-        ghostAmountText.text = tempItem.amount.ToString();
 
-        for (int i = 0; i < StorageManager.instance.item_SO.itemList.Count; i++)
-        {
-            if (tempItem.itemName == StorageManager.instance.item_SO.itemList[0].itemName)
-            {
-                itemImage.sprite = StorageManager.instance.item_SO.itemList[i].itemSprite;
-                ghostImage.sprite = StorageManager.instance.item_SO.itemList[i].itemSprite;
-
-                break;
-            }
-            else if (tempItem.itemName == StorageManager.instance.item_SO.itemList[i].itemName)
-            {
-                itemImage.sprite = StorageManager.instance.item_SO.itemList[i].itemSprite;
-                ghostImage.sprite = StorageManager.instance.item_SO.itemList[i].itemSprite;
-
-                break;
-            }
-        }
-    }
     public void UpdateInventoryDisplay()
     {
         //Update Display
@@ -140,7 +118,9 @@ public class DraggeableSlot : MonoBehaviour, IPointerDownHandler, IPointerUpHand
 
     public void OnPointerDown(PointerEventData eventData)
     {
-        if(!StorageManager.instance.itemIsClicked)
+        buttonPressed = eventData;
+
+        if (!StorageManager.instance.itemIsClicked)
         {
             StorageManager.instance.itemIsClicked = true;
             isClicked = true;
@@ -200,16 +180,19 @@ public class DraggeableSlot : MonoBehaviour, IPointerDownHandler, IPointerUpHand
     }
     public void OnPointerUp(PointerEventData eventData)
     {
-        StorageManager.instance.itemIsClicked = false;
-        isClicked = false;
-
-        if (transform.parent == startParent)
+        if (buttonPressed == eventData)
         {
-            UpdateInventoryDisplay();
-        }
+            StorageManager.instance.itemIsClicked = false;
+            isClicked = false;
 
-        ghostImage.gameObject.SetActive(false);
-        ghostObject.SetActive(false);
+            if (transform.parent == startParent)
+            {
+                UpdateInventoryDisplay();
+            }
+
+            ghostImage.gameObject.SetActive(false);
+            ghostObject.SetActive(false);
+        }
     }
 
     public void OnBeginDrag(PointerEventData eventData)
@@ -258,6 +241,8 @@ public class DraggeableSlot : MonoBehaviour, IPointerDownHandler, IPointerUpHand
 
         StorageManager.instance.itemIsDragging = false;
         StorageManager.instance.itemIsSplitted = false;
+
+        buttonPressed = null;
     }
 
     public void OnPointerEnter(PointerEventData eventData)

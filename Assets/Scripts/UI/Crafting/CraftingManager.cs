@@ -69,9 +69,6 @@ public class CraftingManager : MonoBehaviour
     }
     private void Start()
     {
-        //PlayerButtonManager.Tab_isPressedDown += OpenInventoryScreen;
-        //PlayerButtonManager.Esc_isPressedDown += CloseInventoryScreen;
-
         SO_itemList = InventorySystem.instance.SO_Item.itemList;
 
         craftingMenu.SetActive(false);
@@ -392,10 +389,4 @@ public class CraftingManager : MonoBehaviour
         overviewScreen.SetActive(false);
         selectionScreen.SetActive(false);
     }
-
-
-    //--------------------
-
-
-
 }

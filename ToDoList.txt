@@ -3,8 +3,21 @@ Inventory/Items:
 	- Make a scaler for the inventory UI BG to fit any amount of itemslots.
 - Pickups pointed at(in the world) must give more information based on the item pointed at (like the "Skyrim" I've done)
 
+- Make HandPanel Scrollable and give selectedSlot with current Item
+- Make Chest Crafteable
+- Make Chest Spawneable (the player can place it in the world)
+
 Inventory Menu
-- Add Slot to Inventory
 - Remove Slot from Inventory
 	- Be aware if itemSlot has an Item on it when removed (spawn it in the world instead)
 - Remove Item from Inventory (spawn it in the world instead)
+
+- Sort Inventory and chests
+- Transfer all itemtypes from inventory as available in chest
+- SiftClick From Inventory->Chest and Chest->Inventory
+- Split itemDragged
+	- ScrollWheel: Makes number increase/decrease
+	- ScrollWheelClick: Tak half
+	- RightClick: Take 1
+	- Shift+RightClick: Take All
+- Remove Buggs with more buttons clicked at once

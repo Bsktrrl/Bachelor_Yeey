@@ -46,12 +46,12 @@ public class CraftingRequirementPrefab : MonoBehaviour
     {
         craftingItemImage.sprite = craftingItemSprite;
         craftingItemName.text = requirements.itemName.ToString();
-        craftingItemAmountDisplay.text = GetItemAmontInInventory(requirements).ToString() + "/" + requirements.amount;
+        craftingItemAmountDisplay.text = GetItemAmontInInventories(requirements).ToString() + "/" + requirements.amount;
     }
 
     public void CheckRequrement()
     {
-        if (GetItemAmontInInventory(requirements) >= requirements.amount) //Enough of the Item available in Inventory
+        if (GetItemAmontInInventories(requirements) >= requirements.amount) //Enough of the Item available in Inventory
         {
             requirementIsMet = true;
             craftingItemImageOverlay.color = new Color(overlayColor_Active.r, overlayColor_Active.g, overlayColor_Active.b, overlayColor_Active.a);
@@ -67,15 +67,22 @@ public class CraftingRequirementPrefab : MonoBehaviour
         }
     }
 
-    int GetItemAmontInInventory(CraftingRequirements item)
+    int GetItemAmontInInventories(CraftingRequirements item)
     {
         int itemInventoryCounter = 0;
 
-        for (int i = 0; i < InventorySystem.instance.inventoryItemList.Count; i++)
+        List<Inventories> itemList = InventoryManager.instance.inventories;
+        for (int i = 0; i < itemList.Count; i++)
         {
-            if (item.itemName == InventorySystem.instance.inventoryItemList[i].itemName)
+            if (itemList[i].isOpen)
             {
-                itemInventoryCounter += InventorySystem.instance.inventoryItemList[i].amount;
+                for (int j = 0; j < itemList[i].itemList.Count; j++)
+                {
+                    if (item.itemName == itemList[i].itemList[j].itemName)
+                    {
+                        itemInventoryCounter += itemList[i].itemList[j].amount;
+                    }
+                }
             }
         }
 
