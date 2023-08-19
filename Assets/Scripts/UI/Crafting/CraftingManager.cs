@@ -48,7 +48,6 @@ public class CraftingManager : MonoBehaviour
     public bool totalRequirementMet;
 
     [Header("Other")]
-    public bool craftingScreen_isOpen;
     public ItemCategories activeCategory;
     public Item itemSelected;
 
@@ -70,8 +69,8 @@ public class CraftingManager : MonoBehaviour
     }
     private void Start()
     {
-        PlayerButtonManager.Tab_isPressedDown += OpenInventoryScreen;
-        PlayerButtonManager.Esc_isPressedDown += CloseInventoryScreen;
+        //PlayerButtonManager.Tab_isPressedDown += OpenInventoryScreen;
+        //PlayerButtonManager.Esc_isPressedDown += CloseInventoryScreen;
 
         SO_itemList = InventorySystem.instance.SO_Item.itemList;
 
@@ -372,41 +371,26 @@ public class CraftingManager : MonoBehaviour
     //--------------------
 
 
-    private void OpenInventoryScreen()
+    public void OpenInventoryScreen()
     {
-        if (craftingScreen_isOpen)
+        SetupItemCategoryList();
+        UpdateSelectionSubActiveList();
+
+        craftingMenu.SetActive(true);
+        overviewScreen.SetActive(true);
+        selectionScreen.SetActive(true);
+
+        //Reset Frame Rotation
+        for (int i = 0; i < selectionSubGridLayoutGroupList.Count; i++)
         {
-            CloseInventoryScreen();
-        }
-        else
-        {
-            SetupItemCategoryList();
-            UpdateSelectionSubActiveList();
-
-            craftingMenu.SetActive(true);
-            overviewScreen.SetActive(true);
-            selectionScreen.SetActive(true);
-
-            craftingScreen_isOpen = true;
-
-            Cursor.lockState = CursorLockMode.None;
-
-            //Reset Frame Rotation
-            for (int i = 0; i < selectionSubGridLayoutGroupList.Count; i++)
-            {
-                selectionSubGridLayoutGroupList[i].GetComponent<RectTransform>().rotation = Quaternion.identity;
-            }
+            selectionSubGridLayoutGroupList[i].GetComponent<RectTransform>().rotation = Quaternion.identity;
         }
     }
-    private void CloseInventoryScreen()
+    public void CloseInventoryScreen()
     {
         craftingMenu.SetActive(false);
         overviewScreen.SetActive(false);
         selectionScreen.SetActive(false);
-
-        craftingScreen_isOpen = false;
-
-        Cursor.lockState = CursorLockMode.Locked;
     }
 
 

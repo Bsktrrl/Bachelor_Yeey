@@ -27,8 +27,6 @@ public class DragDrop : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, I
     public bool isClicked;
 
 
-
-
     //--------------------
 
 

@@ -33,11 +33,12 @@ public class WorldObjectManager : MonoBehaviour
         {
             instance = this;
         }
+
+        DataManager.dataIsSaving += Save;
+        DataManager.datahasLoaded += Load;
     }
     private void Start()
     {
-        DataManager.dataIsSaving += Save;
-        DataManager.datahasLoaded += Load;
         PlayerButtonManager.O_isClicked += AddChestIntoWorld;
     }
 
@@ -99,7 +100,7 @@ public class WorldObjectManager : MonoBehaviour
     {
         DataManager.instance.worldObjects_StoreList = worldObjectsInfoList;
         
-        print("WorldObjectManager - All data Saved");
+        //print("WorldObjectManager - All data Saved");
     }
     void Load()
     {
@@ -108,7 +109,7 @@ public class WorldObjectManager : MonoBehaviour
 
         BuildObjectsFromLoad();
 
-        print("WorldObjectManager - All data Loaded");
+        //print("WorldObjectManager - All data Loaded");
     }
 
     void StoreObjectToSave(int i)
@@ -120,6 +121,8 @@ public class WorldObjectManager : MonoBehaviour
     }
     void BuildObjectsFromLoad()
     {
+        print("Building InventoryObjectsList.Count = " + worldObjectsInfoList.Count);
+
         worldObjectsList.Clear();
 
         for (int i = 0; i < worldObjectsInfoList.Count; i++)

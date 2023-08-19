@@ -44,7 +44,7 @@ public class PickupObject : MonoBehaviour
         if (playerInRange && SelectionManager.instance.onTarget && SelectionManager.instance.selecedObject == gameObject
             && MainManager.instance.menuStates == MenuStates.None)
         {
-            InventorySystem.instance.AddItem(itemName, amount);
+            StorageManager.instance.AddItem(itemName, amount);
 
             //Remove Subscription to Event
             PlayerButtonManager.leftMouse_isPressedDown -= ObjectInteraction;

@@ -9,7 +9,7 @@ public class SelectingManager : MonoBehaviour
     [SerializeField] GameObject selectingScreen;
     List<Item> SO_item = new List<Item>();
 
-    public List<GameObject> selectingSlotList = new List<GameObject>();
+    //public List<GameObject> selectingSlotList = new List<GameObject>();
     public List<InventoryItem> selectingItemList = new List<InventoryItem>();
 
     [Header("Other")]
@@ -33,13 +33,13 @@ public class SelectingManager : MonoBehaviour
     }
     private void Start()
     {
-        SO_item = InventorySystem.instance.SO_Item.itemList;
+        //SO_item = InventorySystem.instance.SO_Item.itemList;
 
-        for (int i = 0; i < selectingSlotList.Count; i++)
-        {
-            selectingSlotList[i].GetComponentInChildren<DragDrop>().itemImage.sprite = SO_item[0].itemSprite;
-            selectingSlotList[i].GetComponentInChildren<DragDrop>().amountText.text = "";
-        }
+        //for (int i = 0; i < selectingSlotList.Count; i++)
+        //{
+        //    selectingSlotList[i].GetComponentInChildren<DragDrop>().itemImage.sprite = SO_item[0].itemSprite;
+        //    selectingSlotList[i].GetComponentInChildren<DragDrop>().amountText.text = "";
+        //}
     }
 
 

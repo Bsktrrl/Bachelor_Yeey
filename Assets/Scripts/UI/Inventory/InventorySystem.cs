@@ -73,28 +73,28 @@ public class InventorySystem : MonoBehaviour
 
     void Start()
     {
-        PlayerButtonManager.Tab_isPressedDown += OpenInventoryScreen;
-        PlayerButtonManager.Esc_isPressedDown += CloseInventoryScreen;
+        //PlayerButtonManager.Tab_isPressedDown += OpenInventoryScreen;
+        //PlayerButtonManager.Esc_isPressedDown += CloseInventoryScreen;
 
-        PlayerButtonManager.inventory_RightMouse_isPressedDown += ItemStack_PickOne;
-        PlayerButtonManager.inventory_ScrollMouse_isPressedDown += ItemStack_PickHalf;
-        PlayerButtonManager.inventory_ScrollMouse_isRolledUP += IncreaseItemAmountHolding;
-        PlayerButtonManager.inventory_ScrollMouse_isRolledDown += DecreaseItemAmountHolding;
-        PlayerButtonManager.inventory_Shift_and_RightMouse_isPressedDown += ItemStack_PickAll;
+        //PlayerButtonManager.inventory_RightMouse_isPressedDown += ItemStack_PickOne;
+        //PlayerButtonManager.inventory_ScrollMouse_isPressedDown += ItemStack_PickHalf;
+        //PlayerButtonManager.inventory_ScrollMouse_isRolledUP += IncreaseItemAmountHolding;
+        //PlayerButtonManager.inventory_ScrollMouse_isRolledDown += DecreaseItemAmountHolding;
+        //PlayerButtonManager.inventory_Shift_and_RightMouse_isPressedDown += ItemStack_PickAll;
 
-        isOpen = false;
+        //isOpen = false;
 
-        inventoryScreenUI.SetActive(false);
+        //inventoryScreenUI.SetActive(false);
 
-        SetupSlotsInInventory();
-        UpdateInventoryDisplay();
+        //SetupSlotsInInventory();
+        //UpdateInventoryDisplay();
     }
     private void Update()
     {
-        if (!itemIsDragging && !itemIsClicked && MainManager.instance.menuStates == MenuStates.InventoryMenu && setupInventory)
-        {
-            UpdateInventoryDisplay();
-        }
+        //if (!itemIsDragging && !itemIsClicked && MainManager.instance.menuStates == MenuStates.InventoryMenu && setupInventory)
+        //{
+        //    UpdateInventoryDisplay();
+        //}
     }
 
 
@@ -257,20 +257,6 @@ public class InventorySystem : MonoBehaviour
     //--------------------
 
 
-    void AddSlotToInventory()
-    {
-        //Add ItemSlot
-
-
-        //Resize Frame
-
-
-    } //
-    void RemoveSlotFromInventory(Items itemName)
-    {
-
-
-    } //
 
     #region Check if Ineventory can be added to
     public void AddItem(Items itemName, int amount)
@@ -392,10 +378,7 @@ public class InventorySystem : MonoBehaviour
             }
         }
     }
-    void RemoveItemFromInventory()
-    {
 
-    } //
     public void Discarditem(Items item, int amount)
     {
 
@@ -464,7 +447,7 @@ public class InventorySystem : MonoBehaviour
 
         UpdateInventoryDisplay();
     }
-    void SortInventoryItemsByInventoryPosition()
+    void SortInventoryItemsByInventoryPosition() //Add which inventory to sort 
     {
         SoundManager.instance.Playmenu_SortInventory_Clip();
 

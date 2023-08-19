@@ -43,7 +43,10 @@ public class InventoryObject : MonoBehaviour
         {
             //What happen when interacting with inventory
 
-            print("Interacting with Chest: " + objectIndex);
+            //Setup Chest Inventory Screen based on correct inventoryIndex
+            StorageManager.instance.SetupStorageScreens(inventoryIndex);
+
+            print("Interacting with Chest of index: " + inventoryIndex + " with space of: " + InventoryManager.instance.inventories[inventoryIndex].inventorySize);
         }
     }
     void DeleteThisObject()
