@@ -80,7 +80,16 @@ public class CraftingRequirementPrefab : MonoBehaviour
                 {
                     if (item.itemName == itemList[i].itemList[j].itemName)
                     {
-                        itemInventoryCounter += itemList[i].itemList[j].amount;
+                        //Check if item is dragging
+                        if (StorageManager.instance.activeInventoryItem == itemList[i].itemList[j]
+                            && StorageManager.instance.itemIsClicked)
+                        {
+                            itemInventoryCounter += StorageManager.instance.itemAmountSelected + StorageManager.instance.itemAmountLeftBehind;
+                        }
+                        else
+                        {
+                            itemInventoryCounter += itemList[i].itemList[j].amount;
+                        }
                     }
                 }
             }

@@ -7696,6 +7696,7 @@ MonoBehaviour:
   itemIsSplitted: 0
   selectedItemIsEmpty: 0
   itemAmountSelected: 0
+  maxItemInSelectedStack: 0
   itemAmountLeftBehind: 0
   StorageBoxItemSlotList: []
   StorageBoxScreenUI: {fileID: 1738635729}
@@ -10498,6 +10499,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 255f792f7482fdd498df67fd5f72fffd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  buttonClickedState: 0
   inventoryButtonState: 0
 --- !u!1001 &1821426736
 PrefabInstance:

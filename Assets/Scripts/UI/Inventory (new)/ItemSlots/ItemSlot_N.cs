@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Security.Cryptography.X509Certificates;
@@ -77,26 +78,126 @@ public class ItemSlot_N : MonoBehaviour, IDropHandler
         bool isEmpty = StorageManager.instance.selectedItemIsEmpty;
 
         bool isSplitted = StorageManager.instance.itemIsSplitted;
+
         int amountSelected = StorageManager.instance.itemAmountSelected;
         int amountLeftBehind = StorageManager.instance.itemAmountLeftBehind;
+        int maxStack = 0;
+        for (int i = 0; i < StorageManager.instance.item_SO.itemList.Count; i++)
+        {
+            if (activeInventoryItem.itemName == StorageManager.instance.item_SO.itemList[i].itemName)
+            {
+                maxStack = StorageManager.instance.item_SO.itemList[i].itemStackMax;
+
+                break;
+            }
+        }
+
 
         if (!isEmpty)
         {
             //If the target is the active
             if (activeInventoryItem == targetInventoryItem)
             {
-                //Don't do anything
+                //Reset itemAmount
+                ResetAmount(activeInventoryItem);
+                activeInventoryItem.amount = StorageManager.instance.maxItemInSelectedStack;
 
                 print("If the target is the active");
+            }
+
+            //If draggingItem has split and target is Empty
+            else if (isSplitted && targetInventoryItem.itemName == Items.None)
+            {
+                targetInventoryItem.itemName = activeInventoryItem.itemName;
+                targetInventoryItem.amount = amountSelected;
+
+                activeInventoryItem.amount = amountLeftBehind;
+
+                print("If draggingItem has split and target is Empty");
+            }
+
+            //If target is Empty
+            else if (targetInventoryItem.itemName == Items.None)
+            {
+                ResetAmount(activeInventoryItem);
+                Swap(activeInventoryItem, targetInventoryItem);
+
+                print("If target is Empty");
+            }
+
+            //If draggingItem has split (or not) and both target have the same type
+            else if ((isSplitted && activeInventoryItem.itemName == targetInventoryItem.itemName)
+                || (activeInventoryItem.itemName == targetInventoryItem.itemName))
+            {
+                //if target amount = max
+                if (targetInventoryItem.amount == maxStack)
+                {
+                    ResetAmount(activeInventoryItem);
+                    Swap(activeInventoryItem, targetInventoryItem);
+                }
+                else
+                {
+                    //Get the total amount
+                    int amountCounter = amountSelected + targetInventoryItem.amount;
+
+                    //If "amountCounter" is more or equal to a stack
+                    if (amountCounter > maxStack)
+                    {
+                        targetInventoryItem.amount = maxStack;
+                        amountCounter -= maxStack;
+
+                        if (amountCounter <= 0)
+                        {
+                            SetEmpty(activeInventoryItem);
+                        }
+                        else
+                        {
+                            activeInventoryItem.amount = amountCounter;
+                        }
+                    }
+                    //Else, reset the activeInventoryItem
+                    else
+                    {
+                        if (amountLeftBehind <= 0)
+                        {
+                            targetInventoryItem.amount = amountCounter;
+                            SetEmpty(activeInventoryItem);
+                        }
+                        else
+                        {
+                            targetInventoryItem.amount = amountCounter;
+                            activeInventoryItem.amount = amountLeftBehind;
+                        }
+                    }
+                }
+
+                print("If draggingItem has split and both target have the same type");
+            }
+
+            //If draggingItem has split and target is a different itemType
+            else if (isSplitted && targetInventoryItem.itemName != activeInventoryItem.itemName)
+            {
+                ResetAmount(activeInventoryItem);
+                Swap(activeInventoryItem, targetInventoryItem);
             }
 
             //Swap as normal
             else
             {
+                ResetAmount(activeInventoryItem);
                 Swap(activeInventoryItem, targetInventoryItem);
 
                 print("Swap as normal");
             }
+        }
+
+        if (activeInventoryItem.amount <= 0)
+        {
+            SetEmpty(activeInventoryItem);
+        }
+        if (targetInventoryItem.amount <= 0)
+        {
+            SetEmpty(targetInventoryItem);
         }
         #endregion
 
@@ -111,8 +212,13 @@ public class ItemSlot_N : MonoBehaviour, IDropHandler
         }
 
         onDrop = false;
+        StorageManager.instance.itemIsSplitted = false;
     }
 
+    void ResetAmount(InventoryItem activeItem)
+    {
+        activeItem.amount = StorageManager.instance.maxItemInSelectedStack;
+    }
     void Swap(InventoryItem activeItem, InventoryItem targetItem)
     {
         InventoryItem temp = new InventoryItem();
@@ -123,12 +229,10 @@ public class ItemSlot_N : MonoBehaviour, IDropHandler
 
         StorageManager.instance.targetSlotList[StorageManager.instance.targetSlotList_Index].GetComponent<ItemSlot_N>().itemInThisSlot = targetItem;
         StorageManager.instance.activeSlotList[StorageManager.instance.activeSlotList_Index].GetComponent<ItemSlot_N>().itemInThisSlot = activeItem;
-    
-    
     }
-    void SetEmpty(InventoryItem item)
+    void SetEmpty(InventoryItem ItemSlot)
     {
-        item.itemName = Items.None;
-        item.amount = 0;
+        ItemSlot.itemName = Items.None;
+        ItemSlot.amount = 0;
     }
 }

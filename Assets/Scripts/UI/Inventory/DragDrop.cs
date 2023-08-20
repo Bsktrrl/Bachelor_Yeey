@@ -56,16 +56,16 @@ public class DragDrop : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, I
         {
             case InventoryButtonState.None:
                 break;
-            case InventoryButtonState.mouse0_isPressedDown:
+            case InventoryButtonState.leftMouse:
                 return;
                 break;
-            case InventoryButtonState.inventory_RightMouse_isPressedDown:
+            case InventoryButtonState.rightMouse:
                 return;
                 break;
-            case InventoryButtonState.inventory_Shift_and_RightMouse_isPressedDown:
+            case InventoryButtonState.Shift_RightMouse:
                 return;
                 break;
-            case InventoryButtonState.inventory_ScrollMouse_isPressedDown:
+            case InventoryButtonState.ScrollWheel:
                 return;
                 break;
             default:

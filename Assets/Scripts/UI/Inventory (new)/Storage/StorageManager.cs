@@ -41,6 +41,7 @@ public class StorageManager : MonoBehaviour
     public bool selectedItemIsEmpty;
 
     public int itemAmountSelected;
+    public int maxItemInSelectedStack;
     public int itemAmountLeftBehind;
     #endregion
 
@@ -107,6 +108,14 @@ public class StorageManager : MonoBehaviour
         PlayerButtonManager.Tab_isPressedDown += OpenPlayerInventory;
         PlayerButtonManager.Esc_isPressedDown += CloseInventoryScreen;
 
+        PlayerButtonManager.inventory_LeftMouse_isPressedDown += ItemStackPickAll;
+        PlayerButtonManager.inventory_RightMouse_isPressedDown += ItemStack_PickOne;
+        PlayerButtonManager.inventory_ScrollMouse_isPressedDown += ItemStack_PickHalf;
+        PlayerButtonManager.inventory_Shift_and_RightMouse_isPressedDown += ItemStackPickAll;
+
+        PlayerButtonManager.inventory_ScrollMouse_isRolledUP += IncreaseItemAmountHolding;
+        PlayerButtonManager.inventory_ScrollMouse_isRolledDown += DecreaseItemAmountHolding;
+
         //Close all ScreenUI's
         PlayerSelectionPanelScreenUI.SetActive(true);
 
@@ -119,8 +128,8 @@ public class StorageManager : MonoBehaviour
         itemName_Display.text = "";
         itemDescription_Display.text = "";
 
-    //Setup static Assets
-    storageImage.sprite = storageSprite;
+        //Setup static Assets
+        storageImage.sprite = storageSprite;
 
         OpenPlayerInventory();
         CloseInventoryScreen();
@@ -135,7 +144,7 @@ public class StorageManager : MonoBehaviour
     }
 
 
-    //--------------------
+    //-------------------- Construction
 
 
     public void SetupStorageScreens(int index)
@@ -180,10 +189,6 @@ public class StorageManager : MonoBehaviour
         }
         #endregion
     }
-
-
-    //--------------------
-
 
     void ConstructStorage(Inventories inventory, GameObject parent, List<GameObject> itemSlotList, int index)
     {
@@ -282,7 +287,7 @@ public class StorageManager : MonoBehaviour
     }
 
 
-    //--------------------
+    //-------------------- Add/Remove Items
 
 
     public void AddItem(Items itemName, int amount)
@@ -380,7 +385,85 @@ public class StorageManager : MonoBehaviour
         }
     }
 
-    //--------------------
+
+    //-------------------- Item Splitting
+
+
+    void ItemStackPickAll()
+    {
+        if (itemIsClicked)
+        {
+            //Set Premisses
+            maxItemInSelectedStack = activeInventoryItem.amount;
+            itemAmountSelected = maxItemInSelectedStack;
+            itemAmountLeftBehind = maxItemInSelectedStack - itemAmountSelected;
+
+            //Update itemInThisSlot.amount
+            activeSlotList[activeSlotList_Index].GetComponent<ItemSlot_N>().itemInThisSlot.amount = itemAmountSelected;
+        }
+    }
+    void ItemStack_PickOne()
+    {
+        //Set stats
+        itemIsSplitted = true;
+
+        //Set Premisses
+        maxItemInSelectedStack = activeInventoryItem.amount;
+        itemAmountSelected = 1;
+        itemAmountLeftBehind = maxItemInSelectedStack - itemAmountSelected;
+
+        //Update itemInThisSlot.amount
+        activeSlotList[activeSlotList_Index].GetComponent<ItemSlot_N>().itemInThisSlot.amount = itemAmountSelected;
+    }
+    void ItemStack_PickHalf()
+    {
+        //Set stats
+        itemIsSplitted = true;
+
+        //Set Premisses
+        maxItemInSelectedStack = activeInventoryItem.amount;
+        if (maxItemInSelectedStack % 2 == 0)
+            itemAmountSelected = maxItemInSelectedStack / 2;
+        else
+            itemAmountSelected = (maxItemInSelectedStack + 1) / 2;
+        itemAmountLeftBehind = maxItemInSelectedStack - itemAmountSelected;
+
+        //Update itemInThisSlot.amount
+        activeSlotList[activeSlotList_Index].GetComponent<ItemSlot_N>().itemInThisSlot.amount = itemAmountSelected;
+    }
+    void IncreaseItemAmountHolding()
+    {
+        //Set stats
+        itemIsSplitted = true;
+
+        //Set Premisses
+        if (itemAmountSelected < maxItemInSelectedStack && itemAmountLeftBehind > 0)
+        {
+            itemAmountSelected += 1;
+            itemAmountLeftBehind -= 1;
+        }
+
+        //Update itemInThisSlot.amount
+        activeSlotList[activeSlotList_Index].GetComponent<ItemSlot_N>().itemInThisSlot.amount = itemAmountSelected;
+    }
+    void DecreaseItemAmountHolding()
+    {
+        //Set stats
+        itemIsSplitted = true;
+
+        //Set Premisses
+        if (itemAmountLeftBehind < maxItemInSelectedStack && itemAmountSelected > 1)
+        {
+            itemAmountSelected -= 1;
+            itemAmountLeftBehind += 1;
+        }
+
+        //Update itemInThisSlot.amount
+        activeSlotList[activeSlotList_Index].GetComponent<ItemSlot_N>().itemInThisSlot.amount = itemAmountSelected;
+    }
+
+
+    //-------------------- Open/Close Inventory
 
 
     void OpenPlayerInventory()

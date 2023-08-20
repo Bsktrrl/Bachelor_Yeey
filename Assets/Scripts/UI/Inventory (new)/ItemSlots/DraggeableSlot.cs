@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
@@ -85,7 +86,7 @@ public class DraggeableSlot : MonoBehaviour, IPointerDownHandler, IPointerUpHand
                     ghostImage.sprite = StorageManager.instance.item_SO.itemList[i].itemSprite;
 
                     itemAmountText.text = parentScript.itemInThisSlot.amount.ToString();
-                    ghostAmountText.text = parentScript.itemInThisSlot.amount.ToString();
+                    ghostAmountText.text = StorageManager.instance.itemAmountLeftBehind.ToString();
 
                     break;
                 }
@@ -180,19 +181,23 @@ public class DraggeableSlot : MonoBehaviour, IPointerDownHandler, IPointerUpHand
     }
     public void OnPointerUp(PointerEventData eventData)
     {
-        if (buttonPressed == eventData)
+        if (!parentScript.onDrop)
         {
-            StorageManager.instance.itemIsClicked = false;
-            isClicked = false;
-
-            if (transform.parent == startParent)
-            {
-                UpdateInventoryDisplay();
-            }
-
-            ghostImage.gameObject.SetActive(false);
-            ghostObject.SetActive(false);
+            StorageManager.instance.activeInventoryItem.amount = StorageManager.instance.maxItemInSelectedStack;
         }
+
+        StorageManager.instance.itemIsClicked = false;
+        isClicked = false;
+
+        if (transform.parent == startParent)
+        {
+            UpdateInventoryDisplay();
+        }
+
+        ghostImage.gameObject.SetActive(false);
+        ghostObject.SetActive(false);
+
+        PlayerButtonManager.instance.inventoryButtonState = InventoryButtonState.None;
     }
 
     public void OnBeginDrag(PointerEventData eventData)
@@ -212,7 +217,7 @@ public class DraggeableSlot : MonoBehaviour, IPointerDownHandler, IPointerUpHand
 
         EnterDisplayItem();
 
-        ghostAmountText.text = StorageManager.instance.itemAmountLeftBehind.ToString();
+        //ghostAmountText.text = StorageManager.instance.itemAmountLeftBehind.ToString();
         ghostAmountText.gameObject.SetActive(true);
     }
     public void OnDrag(PointerEventData eventData)
@@ -243,6 +248,8 @@ public class DraggeableSlot : MonoBehaviour, IPointerDownHandler, IPointerUpHand
         StorageManager.instance.itemIsSplitted = false;
 
         buttonPressed = null;
+
+        PlayerButtonManager.instance.inventoryButtonState = InventoryButtonState.None;
     }
 
     public void OnPointerEnter(PointerEventData eventData)
