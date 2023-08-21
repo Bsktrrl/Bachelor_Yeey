@@ -7713,6 +7713,8 @@ MonoBehaviour:
     itemList: []
   storageImage: {fileID: 1731771067}
   storageSprite: {fileID: 1194086436, guid: 1f255744973958242ac00594a0e33b8b, type: 3}
+  storageReverseButton: {fileID: 1744968914}
+  storageReverseButton_State: 0
   storageBoxIsOpen: 0
   storageBoxInventoryIndex: 0
   PlayerHandItemSlot_Parent: {fileID: 1647463502}
@@ -7725,6 +7727,8 @@ MonoBehaviour:
     index: 0
     inventorySize: 0
     itemList: []
+  PlayerInventoryReverseButton: {fileID: 1163988470}
+  PlayerInventoryReverseButton_State: 0
   PlayerSelectionPanelScreenUI: {fileID: 884619122}
   PlayerSelectionPanelItemSlot_Parent: {fileID: 1647463502}
   CraftingMenuScreenUI: {fileID: 1549771020}
