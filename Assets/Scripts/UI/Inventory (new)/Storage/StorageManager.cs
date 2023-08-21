@@ -67,6 +67,9 @@ public class StorageManager : MonoBehaviour
     [SerializeField] Image storageImage;
     [SerializeField] Sprite storageSprite;
 
+    [SerializeField] Button storageReverseButton;
+    public bool storageReverseButton_State;
+
     public bool storageBoxIsOpen;
     public int storageBoxInventoryIndex;
 
@@ -144,6 +147,15 @@ public class StorageManager : MonoBehaviour
 
         OpenPlayerInventory();
         CloseInventoryScreen();
+
+        if (storageReverseButton_State)
+        {
+            storageReverseButton.GetComponent<Image>().color = new Color(1, 1, 1, 1);
+        }
+        else
+        {
+            storageReverseButton.GetComponent<Image>().color = new Color(0.75f, 0.75f, 0.75f, 1);
+        }
     }
     private void Update()
     {
@@ -715,10 +727,8 @@ public class StorageManager : MonoBehaviour
         sortIsActive = true;
         SoundManager.instance.Playmenu_SortInventory_Clip();
 
-        #region New Version
         //Bubble Sort - Get itemsSlots in correct order
-        #region
-        for (int trys = 0; trys < 5; trys++)
+        for (int WholeList = 0; WholeList < 10; WholeList++)
         {
             for (int i = 0; i < StorageBoxItemSlotList.Count; i++)
             {
@@ -750,13 +760,8 @@ public class StorageManager : MonoBehaviour
                     }
                 }
             }
-        }
-        #endregion
 
-        //Merge all items into available slots
-        #region
-        for (int trys = 0; trys < 5; trys++)
-        {
+            //Merge all items into available slots
             for (int i = 0; i < StorageBoxItemSlotList.Count - 1; i++)
             {
                 //If slot has something
@@ -799,315 +804,119 @@ public class StorageManager : MonoBehaviour
                 }
             }
         }
-        #endregion
 
-        //Move all items to the left
-        //List<InventoryItem> newList = new List<InventoryItem>();
-        //InventoryItem tempList = new InventoryItem();
-        //for (int i = 0; i < StorageBoxItemSlotList.Count; i++)
-        //{
-        //    newList.Add(tempList);
-
-        //    newList[newList.Count - 1].itemName = Items.None;
-        //    newList[newList.Count - 1].amount = 0;
-        //}
-
-        //List<GameObject> newObjectList = StorageBoxItemSlotList;
-
-        //for (int j = 0; j < StorageBoxItemSlotList.Count; j++)
-        //{
-        //    for (int i = 0; i < newList.Count; i++)
-        //    {
-        //        if (newList[i].itemName == Items.None && newObjectList[j].GetComponent<ItemSlot_N>().itemInThisSlot.itemName != Items.None)
-        //        {
-        //            Items item = newObjectList[j].GetComponent<ItemSlot_N>().itemInThisSlot.itemName;
-        //            int amount = newObjectList[j].GetComponent<ItemSlot_N>().itemInThisSlot.amount;
-
-        //            newList[i].itemName = item;
-        //            newList[i].amount = amount;
-
-        //            print("1. newList[" + i + "] | Name: " + newList[i].itemName + " | Amount: " + newList[i].amount);
-
-        //            newObjectList[j].GetComponent<ItemSlot_N>().itemInThisSlot.itemName = Items.None;
-        //            newObjectList[j].GetComponent<ItemSlot_N>().itemInThisSlot.amount = 0;
-
-        //            print("2. StorageBoxItemSlotList[" + j + "] | Name: " + newObjectList[j].GetComponent<ItemSlot_N>().itemInThisSlot.itemName + " | Amount: " + newObjectList[j].GetComponent<ItemSlot_N>().itemInThisSlot.amount);
-        //        }
-        //    }
-        //}
-        
-
-        //for (int i = 0; i < StorageBoxItemSlotList.Count; i++)
-        //{
-        //    StorageBoxItemSlotList[i].GetComponent<ItemSlot_N>().itemInThisSlot.itemName = newList[i].itemName;
-        //    StorageBoxItemSlotList[i].GetComponent<ItemSlot_N>().itemInThisSlot.amount = newList[i].amount;
-        //}
-
-
-        #endregion
-
-        #region Old Version 2.0
-        ////Find all different itemTypes
-        //InventoryItem tempItem = new InventoryItem();
-        //List<InventoryItem> uniqueItemTypes = new List<InventoryItem>();
-
-        ////Make list of 1 empty slot
-        //uniqueItemTypes.Clear();
-        //if (uniqueItemTypes.Count <= 0)
-        //{
-        //    uniqueItemTypes.Add(tempItem);
-        //    uniqueItemTypes[uniqueItemTypes.Count - 1].itemName = Items.None;
-        //}
-
-        ////Make a list of all unique itemsTypes
-        //for (int i = 0; i < StorageBoxItemSlotList.Count; i++)
-        //{
-        //    bool uniqueItem = true;
-        //    InventoryItem inventoryTemp = StorageBoxItemSlotList[i].GetComponent<ItemSlot_N>().itemInThisSlot;
-
-        //    //Find if item is uniqe
-        //    for (int j = 0; j < uniqueItemTypes.Count; j++)
-        //    {
-        //        if (inventoryTemp.itemName == uniqueItemTypes[j].itemName
-        //            && inventoryTemp.itemName != Items.None)
-        //        {
-        //            uniqueItem = false;
-
-        //            break;
-        //        }
-        //    }
-
-        //    //Add the unique item to list
-        //    if (uniqueItem && inventoryTemp.itemName != Items.None)
-        //    {
-        //        uniqueItemTypes.Add(tempItem);
-        //        uniqueItemTypes[uniqueItemTypes.Count - 1].itemName = inventoryTemp.itemName;
-
-        //        print("0. Add Unique type: Element: " + (uniqueItemTypes.Count - 1) + " | Name: " + uniqueItemTypes[uniqueItemTypes.Count - 1].itemName);
-        //    }
-
-        //    print("1. UniqueItemTypes.Count = " + (uniqueItemTypes.Count - 1) + " Item: " + uniqueItemTypes[uniqueItemTypes.Count - 1].itemName);
-        //}
-
-        //print("2. UniqueItemTypesList.Count = " + uniqueItemTypes.Count);
-
-        ////Find amount of all different itemTypes
-        //for (int j = 1; j < uniqueItemTypes.Count; j++)
-        //{
-        //    for (int i = 0; i < StorageBoxItemSlotList.Count; i++)
-        //    {
-        //        InventoryItem storageTemp = StorageBoxItemSlotList[i].GetComponent<ItemSlot_N>().itemInThisSlot;
-
-        //        if (storageTemp.itemName == uniqueItemTypes[j].itemName
-        //            && storageTemp.itemName != Items.None
-        //            && uniqueItemTypes[j].itemName != Items.None)
-        //        {
-        //            uniqueItemTypes[j].amount += StorageBoxItemSlotList[i].GetComponent<ItemSlot_N>().itemInThisSlot.amount;
-        //        }
-        //    }
-
-        //    print("3. UniqueItemTypesList[" + uniqueItemTypes[j].itemName + "][" + (j) + "].amount: " + uniqueItemTypes[j].amount);
-        //}
-
-        ////Start with the first ItemType, fill the list based on its stackMax
-        //List<InventoryItem> newStorageList = new List<InventoryItem>();
-        //newStorageList.Clear();
-
-        //print("3.1 uniqueItemTypes.Count " + uniqueItemTypes.Count);
-
-        //for (int i = 1; i < uniqueItemTypes.Count; i++)
-        //{
-        //    int stackMax = 0;
-        //    int uniqueItemTypesAmount = 0;
-
-        //    if (uniqueItemTypes[i].itemName != Items.None)
-        //    {
-        //        //Get StackMax of current item
-        //        for (int j = 0; j < item_SO.itemList.Count; j++)
-        //        {
-        //            if (item_SO.itemList[j].itemName == uniqueItemTypes[i].itemName)
-        //            {
-        //                stackMax = item_SO.itemList[j].itemStackMax;
-
-        //                break;
-        //            }
-        //        }
-
-        //        uniqueItemTypesAmount = uniqueItemTypes[i].amount;
-
-        //        print("3.5 StackMax: " + stackMax);
-
-        //        while (uniqueItemTypesAmount > 0)
-        //        {
-        //            print("3.6 While amount: " + uniqueItemTypesAmount);
-
-        //            if (uniqueItemTypesAmount > stackMax)
-        //            {
-        //                newStorageList.Add(tempItem);
-        //                newStorageList[newStorageList.Count - 1].amount = stackMax;
-        //                uniqueItemTypesAmount -= stackMax;
-        //                print("4.1 NewStorageList[" + (newStorageList.Count - 1) + "].amount = " + newStorageList[newStorageList.Count - 1].amount);
-        //                print("4.2 uniqueItemTypesAmount = " + uniqueItemTypesAmount);
-        //            }
-        //            else
-        //            {
-        //                if (newStorageList.Count > 0)
-        //                {
-        //                    print("5.1 newStorageList[" + (newStorageList.Count - 1) + "].amount = " + newStorageList[newStorageList.Count - 1].amount);
-        //                }
-
-        //                newStorageList.Add(tempItem);
-        //                newStorageList[newStorageList.Count - 1].amount = uniqueItemTypesAmount;
-        //                print("5.2 uniqueItemTypesAmount: " + uniqueItemTypesAmount);
-        //                print("5.3 newStorageList[ " + (newStorageList.Count - 1) + "].amount = " + newStorageList[newStorageList.Count - 1].amount);
-
-        //                break;
-        //            }
-        //        }
-        //    }
-        //}
-
-        ////Test
-        //for (int i = 0; i < newStorageList.Count; i++)
-        //{
-        //    print("6. NewStorageList[" + i + "] | Name[" + newStorageList[i].itemName + "] | Amount[" + newStorageList[i].amount + "]");
-        //}
-        //print("6.1 newStorageList.Count - 1: " + (newStorageList.Count - 1));
-
-        ////Empty StorageBoxList
-        //for (int i = 0; i < StorageBoxItemSlotList.Count; i++)
-        //{
-        //    StorageBoxItemSlotList[i].GetComponent<ItemSlot_N>().itemInThisSlot.itemName = Items.None;
-        //    StorageBoxItemSlotList[i].GetComponent<ItemSlot_N>().itemInThisSlot.amount = 0;
-        //}
-
-        ////Refill StorageBoxList
-        //for (int i = 0; i < newStorageList.Count; i++)
-        //{
-        //    StorageBoxItemSlotList[i].GetComponent<ItemSlot_N>().itemInThisSlot.itemName = newStorageList[i].itemName;
-        //    StorageBoxItemSlotList[i].GetComponent<ItemSlot_N>().itemInThisSlot.amount = newStorageList[i].amount;
-        //}
-
-        //print("6.2 newStorageList.Count - 1: " + (newStorageList.Count - 1));
-        #endregion
-
-        #region Old version
-        //Set inventoryItemList
-        //inventoryItemList.Clear();
-        //for (int i = 0; i < StorageBoxItemSlotList.Count; i++)
-        //{
-        //    inventoryItemList.Add(StorageBoxItemSlotList[i].GetComponent<ItemSlot_N>().itemInThisSlot);
-        //}
-
-        //List<Items> itemNameList = new List<Items>();
-        //Items itemNameTemp = new Items();
-
-        ////Make a list of unique itemNames in the StorageBox
-        //#region
-        //for (int i = 0; i < inventoryItemList.Count; i++)
-        //{
-        //    //Check if itemNameList is empty
-        //    if (itemNameList.Count <= 0)
-        //    {
-        //        itemNameList.Add(itemNameTemp);
-        //    }
-
-        //    //Add to itemNameList
-        //    for (int j = 0; j < itemNameList.Count; j++)
-        //    {
-        //        if (inventoryItemList[i].itemName != itemNameList[j] && inventoryItemList[i].itemName != Items.None)
-        //        {
-        //            itemNameList.Add(itemNameTemp);
-        //            itemNameList[itemNameList.Count - 1] = inventoryItemList[i].itemName;
-        //        }
-        //    }
-        //}
-        //#endregion
-
-        ////Sort inventory based on itemNameList
-        //#region
-        //List<InventoryItem> inventoryItemListChecker = new List<InventoryItem>();
-
-        ////Fill inventoryItemList with items, pushing all items as far to the left as possible
-        //for (int i = 0; i < itemNameList.Count; i++)
-        //{
-        //    int itemAmountCounter = 0;
-
-        //    //Get Item Amount
-        //    for (int j = 0; j < inventoryItemList.Count;)
-        //    {
-        //        if (inventoryItemList[j].itemName == itemNameList[i])
-        //        {
-        //            itemAmountCounter += inventoryItemList[j].amount;
-
-        //            inventoryItemList.RemoveAt(j);
-        //        }
-        //        else
-        //        {
-        //            j++;
-        //        }
-        //    }
-
-        //    //Set item in correct order
-        //    while (itemAmountCounter > 0)
-        //    {
-        //        InventoryItem itemTemp = new InventoryItem();
-
-        //        inventoryItemListChecker.Add(itemTemp);
-        //        inventoryItemListChecker[inventoryItemListChecker.Count - 1].itemName = itemNameList[i];
-
-        //        for (int j = 0; j < item_SO.itemList.Count; j++)
-        //        {
-        //            //Find correct position in the SO_Item.itemList based on the current itemNameList
-        //            if (itemNameList[i] == item_SO.itemList[j].itemName)
-        //            {
-        //                if (itemAmountCounter >= item_SO.itemList[j].itemStackMax)
-        //                {
-        //                    if (item_SO.itemList[j].itemStackMax <= 0)
-        //                    {
-        //                        //Nothing
-        //                    }
-        //                    else if (item_SO.itemList[j].itemStackMax == 1)
-        //                    {
-        //                        inventoryItemListChecker[inventoryItemListChecker.Count - 1].amount = 1;
-        //                        itemAmountCounter -= 1;
-        //                    }
-        //                    else
-        //                    {
-        //                        inventoryItemListChecker[inventoryItemListChecker.Count - 1].amount = item_SO.itemList[j].itemStackMax;
-        //                        itemAmountCounter -= item_SO.itemList[j].itemStackMax;
-        //                    }
-        //                }
-        //                else
-        //                {
-        //                    inventoryItemListChecker[inventoryItemListChecker.Count - 1].amount = itemAmountCounter;
-        //                    itemAmountCounter -= itemAmountCounter;
-        //                }
-        //            }
-        //        }
-        //    }
-        //}
-
-        ////Fill the rest with "None"-Items
-        //for (int i = inventoryItemListChecker.Count; i < StorageBoxItemSlotList.Count; i++)
-        //{
-        //    InventoryItem itemNonetemp = new InventoryItem();
-
-        //    inventoryItemListChecker.Add(itemNonetemp);
-        //    inventoryItemListChecker[inventoryItemListChecker.Count - 1].itemName = Items.None;
-        //    inventoryItemListChecker[inventoryItemListChecker.Count - 1].amount = 0;
-        //}
-
-        ////inventoryItemList = inventoryItemListChecker;
-
-        //for (int i = 0; i < StorageBoxItemSlotList.Count; i++)
-        //{
-        //    StorageBoxItemSlotList[i].GetComponent<ItemSlot_N>().itemInThisSlot = inventoryItemListChecker[i];
-        //}
-        //#endregion
-
-        #endregion
         sortIsActive = false;
+    }
+    public void ReverseStorageBox()
+    {
+        if (storageReverseButton_State)
+        {
+            storageReverseButton_State = false;
+        }
+        else
+        {
+            storageReverseButton_State = true;
+        }
+
+        if (storageReverseButton_State)
+        {
+            storageReverseButton.GetComponent<Image>().color = new Color(1, 1, 1, 1);
+        }
+        else
+        {
+            storageReverseButton.GetComponent<Image>().color = new Color(0.75f, 0.75f, 0.75f, 1);
+        }
+
+        SoundManager.instance.Playmenu_SortInventory_Clip();
+        sortIsActive = true;
+
+        StorageBoxItemSlotList.Reverse();
+
+        //Bubble Sort - Get itemsSlots in correct order
+        for (int WholeList = 0; WholeList < 10; WholeList++)
+        {
+            for (int i = 0; i < StorageBoxItemSlotList.Count; i++)
+            {
+                for (int j = 0; j < item_SO.itemList.Count; j++)
+                {
+                    if (StorageBoxItemSlotList[i].GetComponent<ItemSlot_N>().itemInThisSlot.itemName == item_SO.itemList[j].itemName)
+                    {
+                        StorageBoxItemSlotList[i].GetComponent<ItemSlot_N>().itemInThisSlot_ItemIndex = j;
+
+                        break;
+                    }
+                }
+            }
+            int length = StorageBoxItemSlotList.Count;
+
+            InventoryItem temp = StorageBoxItemSlotList[0].GetComponent<ItemSlot_N>().itemInThisSlot;
+
+            for (int i = 0; i < length; i++)
+            {
+                for (int j = i + 1; j < length; j++)
+                {
+                    if (StorageBoxItemSlotList[i].GetComponent<ItemSlot_N>().itemInThisSlot_ItemIndex > StorageBoxItemSlotList[j].GetComponent<ItemSlot_N>().itemInThisSlot_ItemIndex)
+                    {
+                        temp = StorageBoxItemSlotList[i].GetComponent<ItemSlot_N>().itemInThisSlot;
+
+                        StorageBoxItemSlotList[i].GetComponent<ItemSlot_N>().itemInThisSlot = StorageBoxItemSlotList[j].GetComponent<ItemSlot_N>().itemInThisSlot;
+
+                        StorageBoxItemSlotList[j].GetComponent<ItemSlot_N>().itemInThisSlot = temp;
+                    }
+                }
+            }
+
+            //Merge all items into available slots
+            for (int i = 0; i < StorageBoxItemSlotList.Count - 1; i++)
+            {
+                //If slot has something
+                if (StorageBoxItemSlotList[i].GetComponent<ItemSlot_N>().itemInThisSlot.itemName != Items.None)
+                {
+                    //If both slots are the same
+                    if (StorageBoxItemSlotList[i].GetComponent<ItemSlot_N>().itemInThisSlot.itemName == StorageBoxItemSlotList[i + 1].GetComponent<ItemSlot_N>().itemInThisSlot.itemName)
+                    {
+                        //Check StackMax
+                        int stackMax = StackMax(StorageBoxItemSlotList[i].GetComponent<ItemSlot_N>().itemInThisSlot.itemName);
+
+                        //If next slot has amount under stackMax
+                        if (StorageBoxItemSlotList[i + 1].GetComponent<ItemSlot_N>().itemInThisSlot.amount < stackMax)
+                        {
+                            int first = StorageBoxItemSlotList[i].GetComponent<ItemSlot_N>().itemInThisSlot.amount;
+                            int second = StorageBoxItemSlotList[i + 1].GetComponent<ItemSlot_N>().itemInThisSlot.amount;
+
+                            if ((first + second) <= stackMax)
+                            {
+                                StorageBoxItemSlotList[i + 1].GetComponent<ItemSlot_N>().itemInThisSlot.amount += first;
+
+                                StorageBoxItemSlotList[i].GetComponent<ItemSlot_N>().itemInThisSlot.itemName = Items.None;
+                                StorageBoxItemSlotList[i].GetComponent<ItemSlot_N>().itemInThisSlot.amount = 0;
+                            }
+                            else
+                            {
+                                int dif = stackMax - second;
+
+                                StorageBoxItemSlotList[i + 1].GetComponent<ItemSlot_N>().itemInThisSlot.amount += dif;
+                                StorageBoxItemSlotList[i].GetComponent<ItemSlot_N>().itemInThisSlot.amount -= dif;
+
+                                if (StorageBoxItemSlotList[i].GetComponent<ItemSlot_N>().itemInThisSlot.amount <= 0)
+                                {
+                                    StorageBoxItemSlotList[i].GetComponent<ItemSlot_N>().itemInThisSlot.itemName = Items.None;
+                                    StorageBoxItemSlotList[i].GetComponent<ItemSlot_N>().itemInThisSlot.amount = 0;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        sortIsActive = false;
+
+    }
+    public void ReverseInventory()
+    {
+        SoundManager.instance.Playmenu_SortInventory_Clip();
+        PlayerInventoryItemSlotList.Reverse();
     }
     public void FillStorageBoxNew()
     {
