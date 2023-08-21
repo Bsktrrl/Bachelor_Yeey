@@ -63,7 +63,7 @@ public class DraggeableSlot : MonoBehaviour, IPointerDownHandler, IPointerUpHand
     }
     private void Update()
     {
-        if(!parentScript.onDrop)
+        if(!parentScript.onDrop && !StorageManager.instance.sortIsActive)
         {
             UpdateInventoryDisplay();
         }

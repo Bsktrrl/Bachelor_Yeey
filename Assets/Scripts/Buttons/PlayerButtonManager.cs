@@ -24,6 +24,7 @@ public class PlayerButtonManager : MonoBehaviour
     public static Action inventory_ScrollMouse_isPressedDown;
     public static Action inventory_ScrollMouse_isRolledUP;
     public static Action inventory_ScrollMouse_isRolledDown;
+    public static Action moveStackToStorageBox;
 
     //Testing
     public static Action S_isClicked;
@@ -50,7 +51,7 @@ public class PlayerButtonManager : MonoBehaviour
     private void Update()
     {
         //Left Mouse
-        if (Input.GetKeyDown(KeyCode.Mouse0) && inventoryButtonState == InventoryButtonState.None && buttonClickedState == ButtonClickedState.None)
+        if (!Input.GetKey(KeyCode.LeftShift) && Input.GetKeyDown(KeyCode.Mouse0) && inventoryButtonState == InventoryButtonState.None && buttonClickedState == ButtonClickedState.None)
         {
             if (MainManager.instance.menuStates == MenuStates.InventoryMenu)
             {
@@ -122,6 +123,13 @@ public class PlayerButtonManager : MonoBehaviour
         }
 
         //Inventory Buttons
+        else if (Input.GetKey(KeyCode.LeftShift) && Input.GetKeyDown(KeyCode.Mouse0) && inventoryButtonState == InventoryButtonState.None)
+        {
+            if (MainManager.instance.menuStates == MenuStates.InventoryMenu)
+            {
+                moveStackToStorageBox?.Invoke();
+            }
+        }
         else if (Input.GetKey(KeyCode.LeftShift) && Input.GetKeyDown(KeyCode.Mouse1) && inventoryButtonState == InventoryButtonState.None)
         {
             if (MainManager.instance.menuStates == MenuStates.InventoryMenu)

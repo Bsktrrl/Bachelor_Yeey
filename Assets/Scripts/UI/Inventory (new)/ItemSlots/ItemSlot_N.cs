@@ -17,7 +17,10 @@ public class ItemSlot_N : MonoBehaviour, IDropHandler
     public int itemInThisSlotFromInventory; //"I am from this inventoryIndex from the SaveList"
     public InventoryItem itemInThisSlot; //"I contain of this InventoryItem"
 
+    public int itemInThisSlot_ItemIndex; //"My item if of this number in the item_SO.List" (updates during sorting)
+
     public bool onDrop;
+
 
     //--------------------
 
@@ -25,8 +28,6 @@ public class ItemSlot_N : MonoBehaviour, IDropHandler
     //If something is dropped on this GameObject
     public void OnDrop(PointerEventData eventData)
     {
-        print("OnDrop");
-
         onDrop = true;
 
         SoundManager.instance.PlayDropItem_Clip();
