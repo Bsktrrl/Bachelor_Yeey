@@ -28,6 +28,17 @@ public class ItemSlot_N : MonoBehaviour, IDropHandler
     //If something is dropped on this GameObject
     public void OnDrop(PointerEventData eventData)
     {
+        if (StorageManager.instance.itemIsQuickClicked)
+        {
+            print("Cannot drop because of itemIsQuickClicked = false");
+
+            StorageManager.instance.itemIsQuickClicked = false;
+
+            return;
+        }
+
+        print("OnDrop");
+
         onDrop = true;
 
         SoundManager.instance.PlayDropItem_Clip();

@@ -202,6 +202,7 @@ public enum InventoryButtonState
     leftMouse,
     rightMouse,
     Shift_RightMouse,
-    ScrollWheel
+    ScrollWheel,
+    QuickClick
 }
 

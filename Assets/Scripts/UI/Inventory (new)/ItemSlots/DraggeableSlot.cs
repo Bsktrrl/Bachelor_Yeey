@@ -213,6 +213,7 @@ public class DraggeableSlot : MonoBehaviour, IPointerDownHandler, IPointerUpHand
         transform.SetParent(dragging_Parent.transform);
         transform.SetAsLastSibling();
         itemBeingDragged = gameObject;
+        StorageManager.instance.itemIsDragging = true;
         isDragged = true;
 
         EnterDisplayItem();
@@ -228,7 +229,6 @@ public class DraggeableSlot : MonoBehaviour, IPointerDownHandler, IPointerUpHand
     public void OnEndDrag(PointerEventData eventData)
     {
         itemBeingDragged = null;
-        isDragged = false;
 
         transform.SetParent(startParent);
 
@@ -246,6 +246,7 @@ public class DraggeableSlot : MonoBehaviour, IPointerDownHandler, IPointerUpHand
 
         StorageManager.instance.itemIsDragging = false;
         StorageManager.instance.itemIsSplitted = false;
+        isDragged = false;
 
         buttonPressed = null;
 
