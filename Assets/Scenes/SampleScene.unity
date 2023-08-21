@@ -4559,7 +4559,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ca1b5f2eb910d0d41a90eb8bcbee6b0b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mouseSensitivity: 300
+  mouseSensitivity: 150
 --- !u!114 &769334855
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4573,7 +4573,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   controller: {fileID: 769334856}
-  speed: 6
+  speed: 5.75
   gravity: -45
   jumpHeight: 3.5
   groundCheck: {fileID: 755247578}
@@ -6306,7 +6306,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1163988469
 RectTransform:
   m_ObjectHideFlags: 0
@@ -7335,6 +7335,53 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 8909346992134183986, guid: 6bc5e48115e3a0344935b4171a26bc84, type: 3}
   m_PrefabInstance: {fileID: 1328060230}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1332465547
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1332465548}
+  - component: {fileID: 1332465549}
+  m_Layer: 0
+  m_Name: HandManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1332465548
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1332465547}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1925108103}
+  m_RootOrder: 5
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1332465549
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1332465547}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f47f6d5454180484fb9bf5e296083443, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  handList: 000000000000000000000000000000000000000000000000000000000000000000000000
+  selectedSlot: 0
+  selectedSlotItem: 0
 --- !u!1 &1339134955
 GameObject:
   m_ObjectHideFlags: 0
@@ -7696,6 +7743,7 @@ MonoBehaviour:
   targetInventoryList_Index: 0
   itemSlotDraggingParent: {fileID: 1037688908}
   itemIsClicked: 0
+  itemIsQuickClicked: 0
   itemIsDragging: 0
   itemIsSplitted: 0
   selectedItemIsEmpty: 0
@@ -7712,7 +7760,8 @@ MonoBehaviour:
     inventorySize: 0
     itemList: []
   storageImage: {fileID: 1731771067}
-  storageSprite: {fileID: 1194086436, guid: 1f255744973958242ac00594a0e33b8b, type: 3}
+  smallChestSprite: {fileID: 1821045299, guid: 1f255744973958242ac00594a0e33b8b, type: 3}
+  mediumChestSprite: {fileID: 1780038997, guid: 1f255744973958242ac00594a0e33b8b, type: 3}
   storageReverseButton: {fileID: 1744968914}
   storageReverseButton_State: 0
   storageBoxIsOpen: 0
@@ -11514,6 +11563,7 @@ Transform:
   - {fileID: 1474686545}
   - {fileID: 271586692}
   - {fileID: 1395277505}
+  - {fileID: 1332465548}
   m_Father: {fileID: 962490182}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

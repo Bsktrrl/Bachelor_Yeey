@@ -14,5 +14,10 @@ public enum Items
 
     //Tools
     [Description("Axe")][InspectorName("Tools/Axe")] Axe,
-    [Description("Building Hammer")][InspectorName("Tools/Building Hammer")] BuildingHammer
+    [Description("Building Hammer")][InspectorName("Tools/Building Hammer")] BuildingHammer,
+
+    //Other
+    [Description("Small Chest")][InspectorName("Other/SmallChest")] SmallChest,
+    [Description("Medium Chest")][InspectorName("Other/MediumChest")] MediumChest
+
 }

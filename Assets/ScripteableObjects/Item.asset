@@ -79,3 +79,35 @@ MonoBehaviour:
       amount: 4
     - itemName: 3
       amount: 2
+  - itemName: 6
+    categoryName: 3
+    subCategoryName: 10
+    itemSprite: {fileID: 1821045299, guid: 1f255744973958242ac00594a0e33b8b, type: 3}
+    itemDescription: When holding a Small Chest, left click to spawn it into the
+      world. You can use it as a second storage.
+    isActive: 1
+    itemStackMax: 5
+    isCrafteable: 1
+    craftingRequirements:
+    - itemName: 2
+      amount: 4
+    - itemName: 1
+      amount: 1
+    - itemName: 3
+      amount: 2
+  - itemName: 7
+    categoryName: 3
+    subCategoryName: 10
+    itemSprite: {fileID: 1780038997, guid: 1f255744973958242ac00594a0e33b8b, type: 3}
+    itemDescription: When holding a Medium Chest, left click to spawn it into the
+      world. You can use it as a second storage.
+    isActive: 1
+    itemStackMax: 5
+    isCrafteable: 1
+    craftingRequirements:
+    - itemName: 2
+      amount: 6
+    - itemName: 1
+      amount: 3
+    - itemName: 3
+      amount: 5

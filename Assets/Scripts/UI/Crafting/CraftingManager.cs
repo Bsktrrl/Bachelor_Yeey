@@ -69,7 +69,7 @@ public class CraftingManager : MonoBehaviour
     }
     private void Start()
     {
-        SO_itemList = InventorySystem.instance.SO_Item.itemList;
+        SO_itemList = StorageManager.instance.item_SO.itemList;
 
         craftingMenu.SetActive(false);
         overviewScreen.SetActive(false);
@@ -342,20 +342,20 @@ public class CraftingManager : MonoBehaviour
 
     void ActivateItem(Item item)
     {
-        for (int i = 0; i < InventorySystem.instance.SO_Item.itemList.Count; i++)
+        for (int i = 0; i < StorageManager.instance.item_SO.itemList.Count; i++)
         {
-            if (InventorySystem.instance.SO_Item.itemList[i].itemName == item.itemName)
+            if (StorageManager.instance.item_SO.itemList[i].itemName == item.itemName)
             {
-                InventorySystem.instance.SO_Item.itemList[i].isActive = true;
+                StorageManager.instance.item_SO.itemList[i].isActive = true;
             }
         }
     }
     bool IsItemActive(Item item)
     {
-        for (int i = 0; i < InventorySystem.instance.SO_Item.itemList.Count; i++)
+        for (int i = 0; i < StorageManager.instance.item_SO.itemList.Count; i++)
         {
-            if (InventorySystem.instance.SO_Item.itemList[i].itemName == item.itemName
-                && InventorySystem.instance.SO_Item.itemList[i].isActive)
+            if (StorageManager.instance.item_SO.itemList[i].itemName == item.itemName
+                && StorageManager.instance.item_SO.itemList[i].isActive)
             {
                 return true;
             }

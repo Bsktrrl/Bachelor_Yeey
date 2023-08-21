@@ -37,25 +37,21 @@ public class WorldObjectManager : MonoBehaviour
         DataManager.dataIsSaving += Save;
         DataManager.datahasLoaded += Load;
     }
-    private void Start()
-    {
-        PlayerButtonManager.O_isClicked += AddChestIntoWorld;
-    }
 
 
     //--------------------
 
 
-    void AddChestIntoWorld()
+    public void AddChestIntoWorld(int size)
     {
         //Instatiate worldObjectsList
         worldObjectsList.Add(Instantiate(chestPrefab) as GameObject);
         worldObjectsList[worldObjectsList.Count - 1].transform.SetParent(worldObjectParent.transform);
 
         worldObjectsList[worldObjectsList.Count - 1].GetComponent<InventoryObject>().SetIndex(worldObjectsList.Count - 1);
-        worldObjectsList[worldObjectsList.Count - 1].transform.position = MainManager.instance.player.transform.position + new Vector3(0, 0, 2);
+        worldObjectsList[worldObjectsList.Count - 1].transform.position = MainManager.instance.player.transform.position + new Vector3(0, -1, 2);
 
-        InventoryManager.instance.AddInventory(worldObjectsList[worldObjectsList.Count - 1].GetComponent<InventoryObject>() , 15);
+        InventoryManager.instance.AddInventory(worldObjectsList[worldObjectsList.Count - 1].GetComponent<InventoryObject>() , size);
 
         //Instatiate worldObjectsInfoList
         ObjectClassSavingVariables objToAdd = new ObjectClassSavingVariables();

@@ -21,7 +21,7 @@ MonoBehaviour:
     subCategoryName: 01000000020000000300000004000000
   - categoryName: 3
     categorySprite: {fileID: -1143375837, guid: 1f255744973958242ac00594a0e33b8b, type: 3}
-    subCategoryName: 
+    subCategoryName: 0a000000
   - categoryName: 4
     categorySprite: {fileID: -1851303047, guid: 1f255744973958242ac00594a0e33b8b, type: 3}
     subCategoryName: 050000000600000007000000

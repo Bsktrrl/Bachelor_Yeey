@@ -1,12 +1,5 @@
-using Newtonsoft.Json.Linq;
-using System;
 using System.Collections.Generic;
-using System.Diagnostics.Tracing;
-using System.Linq;
-using System.Reflection;
 using TMPro;
-using Unity.VisualScripting;
-using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -66,7 +59,8 @@ public class StorageManager : MonoBehaviour
     public Inventories StorageBoxInventory;
 
     [SerializeField] Image storageImage;
-    [SerializeField] Sprite storageSprite;
+    [SerializeField] Sprite smallChestSprite;
+    [SerializeField] Sprite mediumChestSprite;
 
     [SerializeField] Button storageReverseButton;
     public bool storageReverseButton_State;
@@ -146,9 +140,6 @@ public class StorageManager : MonoBehaviour
         itemName_Display.text = "";
         itemDescription_Display.text = "";
 
-        //Setup static Assets
-        storageImage.sprite = storageSprite;
-
         OpenPlayerInventory();
         CloseInventoryScreen();
 
@@ -212,6 +203,15 @@ public class StorageManager : MonoBehaviour
             InventoryManager.instance.inventories[index].isOpen = true;
 
             ConstructStorage(StorageBoxInventory, StorageBoxItemSlot_Parent, StorageBoxItemSlotList, index);
+
+            if (StorageBoxItemSlotList.Count <= 5)
+            {
+                storageImage.sprite = smallChestSprite;
+            }
+            else if (StorageBoxItemSlotList.Count <= 15)
+            {
+                storageImage.sprite = mediumChestSprite;
+            }
         }
         #endregion
 

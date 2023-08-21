@@ -26,6 +26,9 @@ public class PlayerButtonManager : MonoBehaviour
     public static Action inventory_ScrollMouse_isRolledDown;
     public static Action moveStackToStorageBox;
 
+    public static Action handSelection_Down;
+    public static Action handSelection_Up;
+
     //Testing
     public static Action S_isClicked;
     public static Action A_isClicked;
@@ -157,6 +160,17 @@ public class PlayerButtonManager : MonoBehaviour
             inventory_ScrollMouse_isRolledDown?.Invoke();
         }
 
+        //Select Hand
+        else if (MainManager.instance.menuStates == MenuStates.None && Input.GetAxis("Mouse ScrollWheel") > 0)
+        {
+            handSelection_Down?.Invoke();
+        }
+        else if (MainManager.instance.menuStates == MenuStates.None && Input.GetAxis("Mouse ScrollWheel") < 0)
+        {
+            handSelection_Up?.Invoke();
+        }
+
+
         //Testing
         else if (Input.GetKeyDown(KeyCode.S))
         {
@@ -169,10 +183,6 @@ public class PlayerButtonManager : MonoBehaviour
         else if (Input.GetKeyDown(KeyCode.R))
         {
             R_isClicked?.Invoke();
-        }
-        else if (Input.GetKeyDown(KeyCode.O))
-        {
-            O_isClicked?.Invoke();
         }
         
         else

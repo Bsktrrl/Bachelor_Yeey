@@ -21,6 +21,8 @@ public class ItemSlot_N : MonoBehaviour, IDropHandler
 
     public bool onDrop;
 
+    public GameObject selectedInHand;
+
 
     //--------------------
 

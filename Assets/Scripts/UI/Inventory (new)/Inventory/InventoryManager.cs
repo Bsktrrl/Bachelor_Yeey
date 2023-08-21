@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -114,4 +115,11 @@ public class InventoryManager : MonoBehaviour
 
     //--------------------
 
+}
+
+[Serializable]
+public class InventoryItem
+{
+    public Items itemName;
+    public int amount;
 }

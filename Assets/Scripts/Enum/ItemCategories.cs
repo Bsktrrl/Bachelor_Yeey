@@ -37,5 +37,9 @@ public enum ItemSubCategories
 
     //Weapons
     [Description("Weapons")][InspectorName("Weapons/Weapons")] Weapons,
-    [Description("W_B")][InspectorName("Weapons/W_B")] W_B
+    [Description("W_B")][InspectorName("Weapons/W_B")] W_B,
+
+    //Other
+    [Description("Chests")][InspectorName("Chests/Chests")] Chests
+
 }

@@ -47,7 +47,7 @@ public class DraggeableSlot : MonoBehaviour, IPointerDownHandler, IPointerUpHand
 
         if (startParent == null)
         {
-            dragging_Parent = InventorySystem.instance.inventoryDraggingParent;
+            dragging_Parent = StorageManager.instance.itemSlotDraggingParent;
         }
 
         selectedFrame.SetActive(false);
@@ -202,7 +202,7 @@ public class DraggeableSlot : MonoBehaviour, IPointerDownHandler, IPointerUpHand
 
     public void OnBeginDrag(PointerEventData eventData)
     {
-        InventorySystem.instance.itemIsDragging = true;
+        StorageManager.instance.itemIsDragging = true;
 
         //So the ray cast will ignore the item itself.
         canvasGroup.blocksRaycasts = false;
