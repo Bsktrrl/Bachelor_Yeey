@@ -20,6 +20,8 @@ MonoBehaviour:
     itemDescription: 
     isActive: 0
     itemStackMax: 0
+    isEquipable: 0
+    HP: 0
     isCrafteable: 0
     craftingRequirements: []
   - itemName: 1
@@ -29,6 +31,8 @@ MonoBehaviour:
     itemDescription: This is a stone that can be used in crafting recipes.
     isActive: 1
     itemStackMax: 5
+    isEquipable: 0
+    HP: 0
     isCrafteable: 0
     craftingRequirements: []
   - itemName: 2
@@ -38,6 +42,8 @@ MonoBehaviour:
     itemDescription: This is a plank that can be used in crafting recipes.
     isActive: 1
     itemStackMax: 5
+    isEquipable: 0
+    HP: 0
     isCrafteable: 0
     craftingRequirements: []
   - itemName: 3
@@ -47,6 +53,8 @@ MonoBehaviour:
     itemDescription: This is a leaf that can be used in crafting recipes.
     isActive: 1
     itemStackMax: 20
+    isEquipable: 0
+    HP: 0
     isCrafteable: 0
     craftingRequirements: []
   - itemName: 4
@@ -57,6 +65,8 @@ MonoBehaviour:
       parts.
     isActive: 1
     itemStackMax: 1
+    isEquipable: 1
+    HP: 10
     isCrafteable: 1
     craftingRequirements:
     - itemName: 1
@@ -73,6 +83,8 @@ MonoBehaviour:
       parts in the world.
     isActive: 1
     itemStackMax: 1
+    isEquipable: 1
+    HP: 10
     isCrafteable: 1
     craftingRequirements:
     - itemName: 2
@@ -87,6 +99,8 @@ MonoBehaviour:
       world. You can use it as a second storage.
     isActive: 1
     itemStackMax: 5
+    isEquipable: 0
+    HP: 0
     isCrafteable: 1
     craftingRequirements:
     - itemName: 2
@@ -103,6 +117,8 @@ MonoBehaviour:
       world. You can use it as a second storage.
     isActive: 1
     itemStackMax: 5
+    isEquipable: 0
+    HP: 0
     isCrafteable: 1
     craftingRequirements:
     - itemName: 2
