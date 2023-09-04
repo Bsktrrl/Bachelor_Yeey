@@ -29,11 +29,16 @@ public class PlayerButtonManager : MonoBehaviour
     public static Action handSelection_Down;
     public static Action handSelection_Up;
 
-    //Testing
-    public static Action S_isClicked;
-    public static Action A_isClicked;
-    public static Action R_isClicked;
-    public static Action O_isClicked;
+    //HandSelected
+    public static Action isPressed_1;
+    public static Action isPressed_2;
+    public static Action isPressed_3;
+    public static Action isPressed_4;
+    public static Action isPressed_5;
+    public static Action isPressed_6;
+    public static Action isPressed_7;
+    public static Action isPressed_8;
+    public static Action isPressed_9;
 
 
     //--------------------
@@ -170,21 +175,26 @@ public class PlayerButtonManager : MonoBehaviour
             handSelection_Up?.Invoke();
         }
 
+        //Hand QuickAction
+        else if (MainManager.instance.menuStates == MenuStates.None && Input.GetKey(KeyCode.Alpha1))
+            isPressed_1?.Invoke();
+        else if (MainManager.instance.menuStates == MenuStates.None && Input.GetKey(KeyCode.Alpha2))
+            isPressed_2?.Invoke();
+        else if (MainManager.instance.menuStates == MenuStates.None && Input.GetKey(KeyCode.Alpha3))
+            isPressed_3?.Invoke();
+        else if (MainManager.instance.menuStates == MenuStates.None && Input.GetKey(KeyCode.Alpha4))
+            isPressed_4?.Invoke();
+        else if (MainManager.instance.menuStates == MenuStates.None && Input.GetKey(KeyCode.Alpha5))
+            isPressed_5?.Invoke();
+        else if (MainManager.instance.menuStates == MenuStates.None && Input.GetKey(KeyCode.Alpha6))
+            isPressed_6?.Invoke();
+        else if (MainManager.instance.menuStates == MenuStates.None && Input.GetKey(KeyCode.Alpha7))
+            isPressed_7?.Invoke();
+        else if (MainManager.instance.menuStates == MenuStates.None && Input.GetKey(KeyCode.Alpha8))
+            isPressed_8?.Invoke();
+        else if (MainManager.instance.menuStates == MenuStates.None && Input.GetKey(KeyCode.Alpha9))
+            isPressed_9?.Invoke();
 
-        //Testing
-        else if (Input.GetKeyDown(KeyCode.S))
-        {
-            S_isClicked?.Invoke();
-        }
-        else if (Input.GetKeyDown(KeyCode.A))
-        {
-            A_isClicked?.Invoke();
-        }
-        else if (Input.GetKeyDown(KeyCode.R))
-        {
-            R_isClicked?.Invoke();
-        }
-        
         else
         {
             buttonClickedState = ButtonClickedState.None;

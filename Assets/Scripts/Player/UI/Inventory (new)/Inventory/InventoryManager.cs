@@ -29,7 +29,6 @@ public class InventoryManager : MonoBehaviour
     {
         DataManager.datahasLoaded += Load;
         DataManager.dataIsSaving += Save;
-        PlayerButtonManager.S_isClicked += Save;
     }
 
 
@@ -52,6 +51,25 @@ public class InventoryManager : MonoBehaviour
         }
         
         obj.inventoryIndex = inventories.Count - 1;
+
+        Save();
+
+        print("Added inventory");
+    }
+    public void AddInventory(int size)
+    {
+        Inventories _inventory = new Inventories();
+        InventoryItem _item = new InventoryItem();
+
+        inventories.Add(_inventory);
+
+        inventories[inventories.Count - 1].index = inventories.Count - 1;
+        inventories[inventories.Count - 1].inventorySize = size;
+
+        for (int i = 0; i < inventories[inventories.Count - 1].inventorySize; i++)
+        {
+            inventories[inventories.Count - 1].itemList.Add(_item);
+        }
 
         Save();
 
@@ -97,19 +115,21 @@ public class InventoryManager : MonoBehaviour
 
     //--------------------
 
-
+    
     void Save()
     {
         DataManager.instance.inventories_StoreList = inventories;
-
-        //print("InventoryManager - All data Saved");
     }
     void Load()
     {
         //DataPersistanceManager.instance.LoadGame();
         inventories = DataManager.instance.inventories_StoreList;
 
-        //print("InventoryManager - All data Loaded");
+        //Safty Inventory check
+        if (inventories.Count <= 0)
+        {
+            AddInventory(24);
+        }
     }
 
 

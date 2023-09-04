@@ -28,8 +28,6 @@ public class MainManager : MonoBehaviour
     }
     private void Start()
     {
-        PlayerButtonManager.S_isClicked += Save;
-
         Cursor.lockState = CursorLockMode.Locked;
     }
 

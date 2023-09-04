@@ -45,7 +45,7 @@ public class SoundManager : MonoBehaviour
         if (audioSource != null)
         {
             audioSource.clip = menu_Select_Clip;
-            audioSource.volume = 0.85f;
+            audioSource.volume = 0.50f;
             audioSource.Play();
         }
     }

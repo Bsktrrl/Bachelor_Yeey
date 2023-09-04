@@ -5,17 +5,37 @@ using UnityEngine;
 public class PickupObject : MonoBehaviour
 {
     [Header("item Stats")]
-    [SerializeField] Items itemName;
-    [SerializeField] int amount;
+    public bool isActive;
+
+    public Items itemName;
+    public int amount;
 
     [HideInInspector] public bool playerInRange;
 
     SphereCollider accessCollider = new SphereCollider();
 
+    //For data storage
+    public int id;
+
+
 
     //--------------------
 
 
+    private void Awake()
+    {
+        //Give all new PickupObjects a unique ID
+        for (int i = 0; i < PickUpObjectsManager.instance.pickupsParents.Count; i++)
+        {
+            for (int j = 0; j < PickUpObjectsManager.instance.pickupsParents[i].transform.childCount; j++)
+            {
+                if (PickUpObjectsManager.instance.pickupsParents[i].transform.GetChild(j).GetComponent<PickupObject>() == this)
+                {
+                    id = j;
+                }
+            }
+        }
+    }
     private void Start()
     {
         PlayerButtonManager.leftMouse_isPressedDown += ObjectInteraction;
@@ -48,6 +68,9 @@ public class PickupObject : MonoBehaviour
 
             //Remove Subscription to Event
             PlayerButtonManager.leftMouse_isPressedDown -= ObjectInteraction;
+
+            //Update information
+            PickUpObjectsManager.instance.UpdatePickupObject_CheckList(itemName, id);
 
             Destroy(gameObject);
         }
