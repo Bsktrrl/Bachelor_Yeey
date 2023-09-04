@@ -11,7 +11,7 @@ public class EquipableItem : MonoBehaviour
     //--------------------
 
 
-    private void Start()
+    private void Awake()
     {
         animator = GetComponent<Animator>();
     }

@@ -86,8 +86,8 @@ public class StorageManager : MonoBehaviour
     #endregion
     #region Player Selection Panel (0)
     [Header("Player Selection Panel")]
-    [SerializeField] GameObject PlayerSelectionPanelScreenUI;
-    [SerializeField] GameObject PlayerSelectionPanelItemSlot_Parent;
+    [SerializeField] GameObject PlayerHandPanelScreenUI;
+    [SerializeField] GameObject PlayerHandPanelItemSlot_Parent;
 
     #endregion
 
@@ -129,7 +129,7 @@ public class StorageManager : MonoBehaviour
         PlayerButtonManager.moveStackToStorageBox += QuickMoveItems;
 
         //Close all ScreenUI's
-        PlayerSelectionPanelScreenUI.SetActive(true);
+        PlayerHandPanelScreenUI.SetActive(true);
 
         PlayerInventoryScreenUI.SetActive(false);
         StorageBoxScreenUI.SetActive(false);
@@ -160,6 +160,8 @@ public class StorageManager : MonoBehaviour
         {
             PlayerInventoryReverseButton.GetComponent<Image>().color = new Color(0.75f, 0.75f, 0.75f, 1);
         }
+
+        HandManager.instance.UpdateSlotInfo();
     }
     private void Update()
     {
@@ -180,7 +182,7 @@ public class StorageManager : MonoBehaviour
         CraftingManager.instance.OpenInventoryScreen();
         CraftingMenuScreenUI.SetActive(true);
 
-        PlayerSelectionPanelScreenUI.SetActive(true);
+        PlayerHandPanelScreenUI.SetActive(true);
 
         MainManager.instance.menuStates = MenuStates.InventoryMenu;
 
@@ -257,10 +259,13 @@ public class StorageManager : MonoBehaviour
                 {
                     itemSlotList[itemSlotList.Count - 1].transform.SetParent(parent.transform);
                 }
-                
+
                 itemSlotList[itemSlotList.Count - 1].GetComponent<ItemSlot_N>().slotIndexInInventory = itemSlotList.Count - 1;
                 itemSlotList[itemSlotList.Count - 1].GetComponent<ItemSlot_N>().itemInThisSlot = inventory.itemList[itemSlotList.Count - 1];
                 itemSlotList[itemSlotList.Count - 1].GetComponent<ItemSlot_N>().itemInThisSlotFromInventory = index;
+
+                itemSlotList[itemSlotList.Count - 1].GetComponent<ItemSlot_N>().ItemSlotSettings(itemSlotList[itemSlotList.Count - 1].GetComponent<ItemSlot_N>().itemInThisSlot);
+                itemSlotList[itemSlotList.Count - 1].GetComponent<ItemSlot_N>().UpdateSlider();
             }
         }
         else
@@ -275,6 +280,9 @@ public class StorageManager : MonoBehaviour
                 itemSlotList[itemSlotList.Count - 1].GetComponent<ItemSlot_N>().slotIndexInInventory = itemSlotList.Count - 1;
                 itemSlotList[itemSlotList.Count - 1].GetComponent<ItemSlot_N>().itemInThisSlot = inventory.itemList[itemSlotList.Count - 1];
                 itemSlotList[itemSlotList.Count - 1].GetComponent<ItemSlot_N>().itemInThisSlotFromInventory = index;
+
+                itemSlotList[itemSlotList.Count - 1].GetComponent<ItemSlot_N>().ItemSlotSettings(itemSlotList[itemSlotList.Count - 1].GetComponent<ItemSlot_N>().itemInThisSlot);
+                itemSlotList[itemSlotList.Count - 1].GetComponent<ItemSlot_N>().UpdateSlider();
             }
         }
 
@@ -357,7 +365,7 @@ public class StorageManager : MonoBehaviour
 
                     return;
                 }
-                else 
+                else
                 {
                     int temp = item.itemStackMax - inventory[i].amount;
                     inventory[i].amount += temp;
@@ -375,6 +383,9 @@ public class StorageManager : MonoBehaviour
                 {
                     inventory[i].itemName = itemName;
                     inventory[i].amount += amountTemp;
+                    inventory[i].hp = item.HP;
+
+                    PlayerInventoryItemSlotList[i].GetComponent<ItemSlot_N>().ItemSlotSettings(inventory[i]);
 
                     return;
                 }
@@ -422,6 +433,12 @@ public class StorageManager : MonoBehaviour
             }
         }
     }
+    public void RemoveItemFromInventory(int item)
+    {
+        InventoryManager.instance.inventories[0].itemList[item].itemName = Items.None;
+        InventoryManager.instance.inventories[0].itemList[item].amount = 0;
+        InventoryManager.instance.inventories[0].itemList[item].hp = 0;
+    }
 
 
     //-------------------- Item Splitting to DragDrop
@@ -442,6 +459,11 @@ public class StorageManager : MonoBehaviour
     }
     void ItemStack_PickOne()
     {
+        if (activeSlotList[activeSlotList_Index].GetComponent<ItemSlot_N>() == null)
+        {
+            return;
+        }
+
         //Set stats
         itemIsSplitted = true;
 
@@ -993,7 +1015,7 @@ public class StorageManager : MonoBehaviour
             {
                 DestroyImmediate(PlayerHandItemSlot_Parent.transform.GetChild(0).gameObject);
             }
-            
+
             #endregion
 
             storageIsOpen = false;

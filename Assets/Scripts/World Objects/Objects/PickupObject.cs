@@ -5,12 +5,12 @@ using UnityEngine;
 public class PickupObject : MonoBehaviour
 {
     [Header("item Stats")]
-    public bool isActive;
+    public bool isActive = true;
 
     public Items itemName;
     public int amount;
 
-    [HideInInspector] public bool playerInRange;
+    public bool playerInRange;
 
     SphereCollider accessCollider = new SphereCollider();
 
@@ -25,16 +25,16 @@ public class PickupObject : MonoBehaviour
     private void Awake()
     {
         //Give all new PickupObjects a unique ID
-        for (int i = 0; i < PickUpObjectsManager.instance.pickupsParents.Count; i++)
-        {
-            for (int j = 0; j < PickUpObjectsManager.instance.pickupsParents[i].transform.childCount; j++)
-            {
-                if (PickUpObjectsManager.instance.pickupsParents[i].transform.GetChild(j).GetComponent<PickupObject>() == this)
-                {
-                    id = j;
-                }
-            }
-        }
+        //for (int i = 0; i < PickUpObjectsManager.instance.pickupsParents.Count; i++)
+        //{
+        //    for (int j = 0; j < PickUpObjectsManager.instance.pickupsParents[i].transform.childCount; j++)
+        //    {
+        //        if (PickUpObjectsManager.instance.pickupsParents[i].transform.GetChild(j).GetComponent<PickupObject>() == this)
+        //        {
+        //            id = j;
+        //        }
+        //    }
+        //}
     }
     private void Start()
     {
@@ -62,8 +62,11 @@ public class PickupObject : MonoBehaviour
     void ObjectInteraction()
     {
         if (playerInRange && SelectionManager.instance.onTarget && SelectionManager.instance.selecedObject == gameObject
-            && MainManager.instance.menuStates == MenuStates.None)
+            && MainManager.instance.menuStates == MenuStates.None
+            && !HandManager.instance.selectedSlotItem.isEquipable)
         {
+            EquipmentManager.instance.itemIsbeingEquipped = true;
+
             StorageManager.instance.AddItem(itemName, amount);
 
             //Remove Subscription to Event
@@ -71,6 +74,8 @@ public class PickupObject : MonoBehaviour
 
             //Update information
             PickUpObjectsManager.instance.UpdatePickupObject_CheckList(itemName, id);
+
+            HandManager.instance.UpdateSlotInfo();
 
             Destroy(gameObject);
         }

@@ -109,6 +109,22 @@ public class DraggeableSlot : MonoBehaviour, IPointerDownHandler, IPointerUpHand
             }
         }
 
+        Item item = new Item();
+        for (int i = 0; i < StorageManager.instance.item_SO.itemList.Count; i++)
+        {
+            if (parentScript.itemInThisSlot.itemName == StorageManager.instance.item_SO.itemList[i].itemName)
+            {
+                item = StorageManager.instance.item_SO.itemList[i];
+
+                break;
+            }
+        }
+
+        if (item.itemStackMax == 1)
+        {
+            itemAmountText.text = "";
+        }
+
         //Update InventoryManager.instance.inventories
         InventoryManager.instance.inventories[parentScript.itemInThisSlotFromInventory].itemList[parentScript.slotIndexInInventory] = parentScript.itemInThisSlot;
     }

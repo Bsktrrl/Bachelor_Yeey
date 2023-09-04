@@ -19,17 +19,19 @@ public class Item
     public ItemCategories categoryName;
     public ItemSubCategories subCategoryName;
     public Sprite itemSprite;
+    public GameObject equippedPrefab;
     [TextArea (5, 10)] public string itemDescription;
 
     [Header("Stats")]
     public bool isActive;
     public int itemStackMax;
+    public bool isEquipable;
+
+    public int HP;
 
     [Header("Crafting")]
     public bool isCrafteable = false;
     public List<CraftingRequirements> craftingRequirements = new List<CraftingRequirements>();
-
-    
 }
 
 [Serializable]

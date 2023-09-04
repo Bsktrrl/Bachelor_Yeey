@@ -8,7 +8,7 @@ public class HandManager : MonoBehaviour
 
     public List<Items> handList = new List<Items>();
     public int selectedSlot;
-    public Items selectedSlotItem;
+    public Item selectedSlotItem = new Item();
 
 
     //--------------------
@@ -67,18 +67,11 @@ public class HandManager : MonoBehaviour
         }
     }
 
+
+    //--------------------
+
+
     void HandSelection_Down()
-    {
-        selectedSlot++;
-
-        if (selectedSlot > 8)
-        {
-            selectedSlot = 0;
-        }
-
-        selectedSlotItem = StorageManager.instance.PlayerInventoryItemSlotList[selectedSlot].GetComponent<ItemSlot_N>().itemInThisSlot.itemName;
-    }
-    void HandSelection_UP()
     {
         selectedSlot--;
 
@@ -87,13 +80,108 @@ public class HandManager : MonoBehaviour
             selectedSlot = 8;
         }
 
-        selectedSlotItem = StorageManager.instance.PlayerInventoryItemSlotList[selectedSlot].GetComponent<ItemSlot_N>().itemInThisSlot.itemName;
+        UpdateSlotInfo();
     }
+    void HandSelection_UP()
+    {
+        selectedSlot++;
+
+        if (selectedSlot > 8)
+        {
+            selectedSlot = 0;
+        }
+
+        UpdateSlotInfo();
+    }
+
+    public void UpdateSlotInfo()
+    {
+        //Find correct item
+        for (int i = 0; i < StorageManager.instance.item_SO.itemList.Count; i++)
+        {
+            if (StorageManager.instance.item_SO.itemList[i].itemName == StorageManager.instance.PlayerInventoryItemSlotList[selectedSlot].GetComponent<ItemSlot_N>().itemInThisSlot.itemName)
+            {
+                UpdateItemInfo(selectedSlotItem, i);
+
+                break;
+            }
+        }
+
+        EquipmentManager.instance.DisplayEquippedModel(selectedSlotItem);
+    }
+    void UpdateItemInfo(Item selectedSlotItem, int i)
+    {
+        selectedSlotItem.itemName = StorageManager.instance.item_SO.itemList[i].itemName;
+        selectedSlotItem.categoryName = StorageManager.instance.item_SO.itemList[i].categoryName;
+        selectedSlotItem.subCategoryName = StorageManager.instance.item_SO.itemList[i].subCategoryName;
+
+        selectedSlotItem.itemSprite = StorageManager.instance.item_SO.itemList[i].itemSprite;
+        selectedSlotItem.equippedPrefab = StorageManager.instance.item_SO.itemList[i].equippedPrefab;
+
+        selectedSlotItem.itemDescription = StorageManager.instance.item_SO.itemList[i].itemDescription;
+
+
+        selectedSlotItem.isActive = StorageManager.instance.item_SO.itemList[i].isActive;
+        selectedSlotItem.itemStackMax = StorageManager.instance.item_SO.itemList[i].itemStackMax;
+        selectedSlotItem.isEquipable = StorageManager.instance.item_SO.itemList[i].isEquipable;
+        selectedSlotItem.HP = StorageManager.instance.item_SO.itemList[i].HP;
+
+        selectedSlotItem.isCrafteable = StorageManager.instance.item_SO.itemList[i].isCrafteable;
+        selectedSlotItem.craftingRequirements = StorageManager.instance.item_SO.itemList[i].craftingRequirements;
+    }
+
+    #region QuickSlots
+    void QuickHandSelect_0()
+    {
+        selectedSlot = 0;
+        UpdateSlotInfo();
+    }
+    void QuickHandSelect_1()
+    {
+        selectedSlot = 1;
+        UpdateSlotInfo();
+    }
+    void QuickHandSelect_2()
+    {
+        selectedSlot = 2;
+        UpdateSlotInfo();
+    }
+    void QuickHandSelect_3()
+    {
+        selectedSlot = 3;
+        UpdateSlotInfo();
+    }
+    void QuickHandSelect_4()
+    {
+        selectedSlot = 4;
+        UpdateSlotInfo();
+    }
+    void QuickHandSelect_5()
+    {
+        selectedSlot = 5;
+        UpdateSlotInfo();
+    }
+    void QuickHandSelect_6()
+    {
+        selectedSlot = 6;
+        UpdateSlotInfo();
+    }
+    void QuickHandSelect_7()
+    {
+        selectedSlot = 7;
+        UpdateSlotInfo();
+    }
+    void QuickHandSelect_8()
+    {
+        selectedSlot = 8;
+        UpdateSlotInfo();
+    }
+    #endregion
 
     void UseItem()
     {
         //Spawn Small Chest
-        if (selectedSlotItem == Items.SmallChest)
+        if (selectedSlotItem.itemName == Items.SmallChest)
         {
             StorageManager.instance.PlayerInventoryItemSlotList[selectedSlot].GetComponent<ItemSlot_N>().itemInThisSlot.amount -= 1;
 
@@ -101,13 +189,13 @@ public class HandManager : MonoBehaviour
             {
                 StorageManager.instance.PlayerInventoryItemSlotList[selectedSlot].GetComponent<ItemSlot_N>().itemInThisSlot.itemName = Items.None;
                 StorageManager.instance.PlayerInventoryItemSlotList[selectedSlot].GetComponent<ItemSlot_N>().itemInThisSlot.amount = 0;
-                selectedSlotItem = Items.None;
+                selectedSlotItem = StorageManager.instance.item_SO.itemList[0];
             }
 
             WorldObjectManager.instance.AddChestIntoWorld(5);
         }
         //Spawn Medium Chest
-        else if (selectedSlotItem == Items.MediumChest)
+        else if (selectedSlotItem.itemName == Items.MediumChest)
         {
             StorageManager.instance.PlayerInventoryItemSlotList[selectedSlot].GetComponent<ItemSlot_N>().itemInThisSlot.amount -= 1;
 
@@ -115,67 +203,10 @@ public class HandManager : MonoBehaviour
             {
                 StorageManager.instance.PlayerInventoryItemSlotList[selectedSlot].GetComponent<ItemSlot_N>().itemInThisSlot.itemName = Items.None;
                 StorageManager.instance.PlayerInventoryItemSlotList[selectedSlot].GetComponent<ItemSlot_N>().itemInThisSlot.amount = 0;
-                selectedSlotItem = Items.None;
+                selectedSlotItem = StorageManager.instance.item_SO.itemList[0];
             }
 
             WorldObjectManager.instance.AddChestIntoWorld(15);
         }
     }
-    
-    #region QuickSlots
-    void QuickHandSelect_0()
-    {
-        selectedSlot = 0;
-
-        selectedSlotItem = StorageManager.instance.PlayerInventoryItemSlotList[selectedSlot].GetComponent<ItemSlot_N>().itemInThisSlot.itemName;
-    }
-    void QuickHandSelect_1()
-    {
-        selectedSlot = 1;
-
-        selectedSlotItem = StorageManager.instance.PlayerInventoryItemSlotList[selectedSlot].GetComponent<ItemSlot_N>().itemInThisSlot.itemName;
-    }
-    void QuickHandSelect_2()
-    {
-        selectedSlot = 2;
-
-        selectedSlotItem = StorageManager.instance.PlayerInventoryItemSlotList[selectedSlot].GetComponent<ItemSlot_N>().itemInThisSlot.itemName;
-    }
-    void QuickHandSelect_3()
-    {
-        selectedSlot = 3;
-
-        selectedSlotItem = StorageManager.instance.PlayerInventoryItemSlotList[selectedSlot].GetComponent<ItemSlot_N>().itemInThisSlot.itemName;
-    }
-    void QuickHandSelect_4()
-    {
-        selectedSlot = 4;
-
-        selectedSlotItem = StorageManager.instance.PlayerInventoryItemSlotList[selectedSlot].GetComponent<ItemSlot_N>().itemInThisSlot.itemName;
-    }
-    void QuickHandSelect_5()
-    {
-        selectedSlot = 5;
-
-        selectedSlotItem = StorageManager.instance.PlayerInventoryItemSlotList[selectedSlot].GetComponent<ItemSlot_N>().itemInThisSlot.itemName;
-    }
-    void QuickHandSelect_6()
-    {
-        selectedSlot = 6;
-
-        selectedSlotItem = StorageManager.instance.PlayerInventoryItemSlotList[selectedSlot].GetComponent<ItemSlot_N>().itemInThisSlot.itemName;
-    }
-    void QuickHandSelect_7()
-    {
-        selectedSlot = 7;
-
-        selectedSlotItem = StorageManager.instance.PlayerInventoryItemSlotList[selectedSlot].GetComponent<ItemSlot_N>().itemInThisSlot.itemName;
-    }
-    void QuickHandSelect_8()
-    {
-        selectedSlot = 8;
-
-        selectedSlotItem = StorageManager.instance.PlayerInventoryItemSlotList[selectedSlot].GetComponent<ItemSlot_N>().itemInThisSlot.itemName;
-    }
-    #endregion
 }

@@ -5,6 +5,7 @@ using System.Security.Cryptography.X509Certificates;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.UI;
 using static UnityEngine.GraphicsBuffer;
 
 public class ItemSlot_N : MonoBehaviour, IDropHandler
@@ -23,9 +24,48 @@ public class ItemSlot_N : MonoBehaviour, IDropHandler
 
     public GameObject selectedInHand;
 
+    public Slider hp_Slider;
+
 
     //--------------------
 
+
+    public void ItemSlotSettings(InventoryItem inventoryItem)
+    {
+        if (itemInThisSlot.itemName == Items.None)
+        {
+            hp_Slider.gameObject.SetActive(false);
+
+            return;
+        }
+
+        Item item = new Item();
+
+        for (int i = 0; i < StorageManager.instance.item_SO.itemList.Count; i++)
+        {
+            if (StorageManager.instance.item_SO.itemList[i].itemName == itemInThisSlot.itemName)
+            {
+                item = StorageManager.instance.item_SO.itemList[i];
+
+                break;
+            }
+        }
+
+        if (item.isEquipable && item.HP > 0)
+        {
+            hp_Slider.maxValue = item.itemStackMax;
+            hp_Slider.value = inventoryItem.hp;
+
+            hp_Slider.gameObject.SetActive(true);
+        }
+        else
+        {
+            hp_Slider.gameObject.SetActive(false);
+        }
+
+        UpdateSlider();
+        HandManager.instance.UpdateSlotInfo();
+    }
 
     //If something is dropped on this GameObject
     public void OnDrop(PointerEventData eventData)
@@ -227,6 +267,8 @@ public class ItemSlot_N : MonoBehaviour, IDropHandler
 
         onDrop = false;
         StorageManager.instance.itemIsSplitted = false;
+
+        HandManager.instance.UpdateSlotInfo();
     }
 
     void ResetAmount(InventoryItem activeItem)
@@ -243,10 +285,64 @@ public class ItemSlot_N : MonoBehaviour, IDropHandler
 
         StorageManager.instance.targetSlotList[StorageManager.instance.targetSlotList_Index].GetComponent<ItemSlot_N>().itemInThisSlot = targetItem;
         StorageManager.instance.activeSlotList[StorageManager.instance.activeSlotList_Index].GetComponent<ItemSlot_N>().itemInThisSlot = activeItem;
+
+        //Reset sliders
+        StorageManager.instance.targetSlotList[StorageManager.instance.targetSlotList_Index].GetComponent<ItemSlot_N>().hp_Slider.gameObject.SetActive(false);
+        StorageManager.instance.activeSlotList[StorageManager.instance.activeSlotList_Index].GetComponent<ItemSlot_N>().hp_Slider.gameObject.SetActive(false);
+
+        //Show slider where it appears
+        Item item = new Item();
+        for (int i = 0; i < StorageManager.instance.item_SO.itemList.Count; i++)
+        {
+            if (StorageManager.instance.item_SO.itemList[i].itemName == StorageManager.instance.targetSlotList[StorageManager.instance.targetSlotList_Index].GetComponent<ItemSlot_N>().itemInThisSlot.itemName)
+            {
+                item = StorageManager.instance.item_SO.itemList[i];
+
+                break;
+            }
+        }
+        if (StorageManager.instance.targetSlotList[StorageManager.instance.targetSlotList_Index].GetComponent<ItemSlot_N>().itemInThisSlot.hp > 0)
+        {
+            StorageManager.instance.targetSlotList[StorageManager.instance.targetSlotList_Index].GetComponent<ItemSlot_N>().hp_Slider.gameObject.SetActive(true);
+            StorageManager.instance.targetSlotList[StorageManager.instance.targetSlotList_Index].GetComponent<ItemSlot_N>().hp_Slider.maxValue = item.HP;
+            StorageManager.instance.targetSlotList[StorageManager.instance.targetSlotList_Index].GetComponent<ItemSlot_N>().hp_Slider.value = StorageManager.instance.targetSlotList[StorageManager.instance.targetSlotList_Index].GetComponent<ItemSlot_N>().itemInThisSlot.hp;
+        }
+
+        for (int i = 0; i < StorageManager.instance.item_SO.itemList.Count; i++)
+        {
+            if (StorageManager.instance.item_SO.itemList[i].itemName == StorageManager.instance.activeSlotList[StorageManager.instance.activeSlotList_Index].GetComponent<ItemSlot_N>().itemInThisSlot.itemName)
+            {
+                item = StorageManager.instance.item_SO.itemList[i];
+
+                break;
+            }
+        }
+        if (StorageManager.instance.activeSlotList[StorageManager.instance.activeSlotList_Index].GetComponent<ItemSlot_N>().itemInThisSlot.hp > 0)
+        {
+            StorageManager.instance.activeSlotList[StorageManager.instance.activeSlotList_Index].GetComponent<ItemSlot_N>().hp_Slider.gameObject.SetActive(true);
+            StorageManager.instance.activeSlotList[StorageManager.instance.activeSlotList_Index].GetComponent<ItemSlot_N>().hp_Slider.maxValue = item.HP;
+            StorageManager.instance.activeSlotList[StorageManager.instance.activeSlotList_Index].GetComponent<ItemSlot_N>().hp_Slider.value = StorageManager.instance.activeSlotList[StorageManager.instance.activeSlotList_Index].GetComponent<ItemSlot_N>().itemInThisSlot.hp;
+        }
     }
     void SetEmpty(InventoryItem ItemSlot)
     {
         ItemSlot.itemName = Items.None;
         ItemSlot.amount = 0;
+        ItemSlot.hp = 0;
+    }
+    
+    public void UpdateSlider()
+    {
+        for (int i = 0; i < StorageManager.instance.item_SO.itemList.Count; i++)
+        {
+            if (StorageManager.instance.item_SO.itemList[i].itemName == itemInThisSlot.itemName)
+            {
+                hp_Slider.maxValue = StorageManager.instance.item_SO.itemList[i].HP;
+
+                break;
+            }
+        }
+
+        hp_Slider.value = itemInThisSlot.hp;
     }
 }

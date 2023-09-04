@@ -6,12 +6,10 @@ public class EquipmentManager : MonoBehaviour
 {
     public static EquipmentManager instance { get; private set; } //Singleton
 
+    public bool itemIsbeingEquipped;
+
     [Header("Parent")]
     [SerializeField] GameObject toolHolderParent;
-
-    [Header("Models")]
-    [SerializeField] GameObject axeModel;
-    [SerializeField] GameObject buildersHammerModel;
 
 
     //--------------------
@@ -45,50 +43,45 @@ public class EquipmentManager : MonoBehaviour
             Destroy(toolHolderParent.transform.GetChild(i).gameObject);
         }
 
-        switch (item.itemName)
+        if (item.equippedPrefab != null)
         {
-            case Items.None:
-                break;
-
-            case Items.Stone:
-                break;
-            case Items.Plank:
-                break;
-            case Items.Leaf:
-                break;
-            case Items.Axe:
-                Instantiate(axeModel, toolHolderParent.transform);
-                break;
-            case Items.BuildingHammer:
-                Instantiate(buildersHammerModel, toolHolderParent.transform);
-                break;
-            case Items.SmallChest:
-                break;
-            case Items.MediumChest:
-                break;
-
-            default:
-                break;
+            Instantiate(item.equippedPrefab, toolHolderParent.transform);
         }
     }
 
     void ActivateEquippedItem()
     {
-        //print(HandManager.instance.selectedSlotItem.itemName + " is equipped. | isEquipeable: " + HandManager.instance.selectedSlotItem.isEquipable);
+        if (itemIsbeingEquipped)
+        {
+            itemIsbeingEquipped = false;
 
-        ////Check if item has required states
-        //if (HandManager.instance.selectedSlotItem.isEquipable)
-        //{
-        //    toolHolderParent.GetComponentInChildren<EquipableItem>().HitAnimation();
+            return;
+        }
 
-        //    HandManager.instance.selectedSlotItem.HP -= 1;
-        //    StorageManager.instance.PlayerInventoryItemSlotList[HandManager.instance.selectedSlot].GetComponent<ItemSlot_N>().hp_Slider.value = HandManager.instance.selectedSlotItem.HP;
+        print(HandManager.instance.selectedSlotItem.itemName + " is equipped. | isEquipeable: " + HandManager.instance.selectedSlotItem.isEquipable);
 
-        //    //Delete item if HP <= 0
-        //    if (HandManager.instance.selectedSlotItem.HP <= 0)
-        //    {
-        //        HandManager.instance.selectedSlotItem = StorageManager.instance.item_SO.itemList[0];
-        //    }
-        //}
+        //Check if item has required states
+        if (HandManager.instance.selectedSlotItem.isEquipable && toolHolderParent.GetComponentInChildren<EquipableItem>() != null)
+        {
+            toolHolderParent.GetComponentInChildren<EquipableItem>().HitAnimation();
+
+            StorageManager.instance.PlayerInventory.itemList[HandManager.instance.selectedSlot].hp -= 1;
+            StorageManager.instance.PlayerInventoryItemSlotList[HandManager.instance.selectedSlot].GetComponent<ItemSlot_N>().hp_Slider.value = StorageManager.instance.PlayerInventory.itemList[HandManager.instance.selectedSlot].hp;
+
+            //Delete item if HP <= 0
+            if (StorageManager.instance.PlayerInventory.itemList[HandManager.instance.selectedSlot].hp <= 0)
+            {
+                print("Remove item");
+                StorageManager.instance.RemoveItemFromInventory(HandManager.instance.selectedSlot);
+                StorageManager.instance.PlayerInventoryItemSlotList[HandManager.instance.selectedSlot].GetComponent<ItemSlot_N>().hp_Slider.gameObject.SetActive(false);
+
+                InventoryManager.instance.UpdateInventory(StorageManager.instance.PlayerInventory);
+
+                StorageManager.instance.PlayerInventoryItemSlotList[HandManager.instance.selectedSlot].GetComponent<ItemSlot_N>().UpdateSlider();
+                HandManager.instance.UpdateSlotInfo();
+
+                DisplayEquippedModel(HandManager.instance.selectedSlotItem);
+            }
+        }
     }
 }

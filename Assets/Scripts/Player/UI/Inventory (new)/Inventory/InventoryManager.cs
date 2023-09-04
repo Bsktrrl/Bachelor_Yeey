@@ -142,4 +142,5 @@ public class InventoryItem
 {
     public Items itemName;
     public int amount;
+    public int hp;
 }

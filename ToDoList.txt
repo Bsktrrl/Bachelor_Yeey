@@ -12,7 +12,9 @@ Inventory Menu
 	- Be aware if itemSlot has an Item on it when removed (spawn it in the world instead)
 - Remove Item from Inventory (spawn it in the world instead)
 
-- Transfer all itemtypes from inventory as available in chest
-
 - Remove Buggs with more buttons clicked at once
 - Remove Sort-bugg with items of stack 1
+
+Slider/HP from items
+- Update Sliders upon Sorting
+- Update Sliders upon all inventoryClicks
