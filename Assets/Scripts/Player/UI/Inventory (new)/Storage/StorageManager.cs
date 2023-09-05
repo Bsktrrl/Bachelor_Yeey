@@ -572,6 +572,7 @@ public class StorageManager : MonoBehaviour
         PlayerButtonManager.instance.inventoryButtonState = InventoryButtonState.None;
         PlayerButtonManager.instance.buttonClickedState = ButtonClickedState.None;
 
+
         itemIsDragging = false;
     }
     void MoveToStorageBox()
@@ -586,7 +587,10 @@ public class StorageManager : MonoBehaviour
                 InventoryItem tempName = activeSlotList[activeSlotList_Index].GetComponent<ItemSlot_N>().itemInThisSlot;
 
                 activeSlotList[activeSlotList_Index].GetComponent<ItemSlot_N>().itemInThisSlot = StorageBoxItemSlotList[i].GetComponent<ItemSlot_N>().itemInThisSlot;
+                activeSlotList[activeSlotList_Index].GetComponent<ItemSlot_N>().UpdateSlider();
+
                 StorageBoxItemSlotList[i].GetComponent<ItemSlot_N>().itemInThisSlot = tempName;
+                StorageBoxItemSlotList[i].GetComponent<ItemSlot_N>().UpdateSlider();
 
                 return;
             }
@@ -604,7 +608,10 @@ public class StorageManager : MonoBehaviour
                 InventoryItem tempName = activeSlotList[activeSlotList_Index].GetComponent<ItemSlot_N>().itemInThisSlot;
 
                 activeSlotList[activeSlotList_Index].GetComponent<ItemSlot_N>().itemInThisSlot = PlayerInventoryItemSlotList[i].GetComponent<ItemSlot_N>().itemInThisSlot;
+                activeSlotList[activeSlotList_Index].GetComponent<ItemSlot_N>().UpdateSlider();
+
                 PlayerInventoryItemSlotList[i].GetComponent<ItemSlot_N>().itemInThisSlot = tempName;
+                PlayerInventoryItemSlotList[i].GetComponent<ItemSlot_N>().UpdateSlider();
 
                 return;
             }
@@ -622,7 +629,10 @@ public class StorageManager : MonoBehaviour
                 InventoryItem tempName = activeSlotList[activeSlotList_Index].GetComponent<ItemSlot_N>().itemInThisSlot;
 
                 activeSlotList[activeSlotList_Index].GetComponent<ItemSlot_N>().itemInThisSlot = PlayerInventoryItemSlotList[i].GetComponent<ItemSlot_N>().itemInThisSlot;
+                activeSlotList[activeSlotList_Index].GetComponent<ItemSlot_N>().UpdateSlider();
+
                 PlayerInventoryItemSlotList[i].GetComponent<ItemSlot_N>().itemInThisSlot = tempName;
+                PlayerInventoryItemSlotList[i].GetComponent<ItemSlot_N>().UpdateSlider();
 
                 return;
             }
@@ -640,7 +650,10 @@ public class StorageManager : MonoBehaviour
                 InventoryItem tempName = activeSlotList[activeSlotList_Index].GetComponent<ItemSlot_N>().itemInThisSlot;
 
                 activeSlotList[activeSlotList_Index].GetComponent<ItemSlot_N>().itemInThisSlot = PlayerInventoryItemSlotList[i].GetComponent<ItemSlot_N>().itemInThisSlot;
+                activeSlotList[activeSlotList_Index].GetComponent<ItemSlot_N>().UpdateSlider();
+
                 PlayerInventoryItemSlotList[i].GetComponent<ItemSlot_N>().itemInThisSlot = tempName;
+                PlayerInventoryItemSlotList[i].GetComponent<ItemSlot_N>().UpdateSlider();
 
                 return;
             }
@@ -732,6 +745,12 @@ public class StorageManager : MonoBehaviour
                     }
                 }
             }
+        }
+
+        //Update Sliders
+        for (int i = 0; i < PlayerInventoryItemSlotList.Count; i++)
+        {
+            PlayerInventoryItemSlotList[i].GetComponent<ItemSlot_N>().UpdateSlider();
         }
 
         sortIsActive = false;
@@ -841,6 +860,12 @@ public class StorageManager : MonoBehaviour
                     }
                 }
             }
+        }
+
+        //Update Sliders
+        for (int i = 0; i < StorageBoxItemSlotList.Count; i++)
+        {
+            StorageBoxItemSlotList[i].GetComponent<ItemSlot_N>().UpdateSlider();
         }
 
         sortIsActive = false;

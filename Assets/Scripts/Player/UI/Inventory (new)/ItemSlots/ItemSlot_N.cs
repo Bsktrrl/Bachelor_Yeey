@@ -167,6 +167,8 @@ public class ItemSlot_N : MonoBehaviour, IDropHandler
 
                 activeInventoryItem.amount = amountLeftBehind;
 
+                targetInventoryItem.hp = activeInventoryItem.hp;
+
                 print("If draggingItem has split and target is Empty");
             }
 
@@ -215,6 +217,7 @@ public class ItemSlot_N : MonoBehaviour, IDropHandler
                         if (amountLeftBehind <= 0)
                         {
                             targetInventoryItem.amount = amountCounter;
+                            targetInventoryItem.hp = activeInventoryItem.hp;
                             SetEmpty(activeInventoryItem);
                         }
                         else
@@ -268,6 +271,9 @@ public class ItemSlot_N : MonoBehaviour, IDropHandler
         onDrop = false;
         StorageManager.instance.itemIsSplitted = false;
 
+        StorageManager.instance.activeSlotList[StorageManager.instance.activeSlotList_Index].GetComponent<ItemSlot_N>().UpdateSlider();
+        StorageManager.instance.targetSlotList[StorageManager.instance.targetSlotList_Index].GetComponent<ItemSlot_N>().UpdateSlider();
+
         HandManager.instance.UpdateSlotInfo();
     }
 
@@ -277,6 +283,8 @@ public class ItemSlot_N : MonoBehaviour, IDropHandler
     }
     void Swap(InventoryItem activeItem, InventoryItem targetItem)
     {
+        print("Swap");
+
         InventoryItem temp = new InventoryItem();
 
         temp = activeItem;
@@ -285,44 +293,6 @@ public class ItemSlot_N : MonoBehaviour, IDropHandler
 
         StorageManager.instance.targetSlotList[StorageManager.instance.targetSlotList_Index].GetComponent<ItemSlot_N>().itemInThisSlot = targetItem;
         StorageManager.instance.activeSlotList[StorageManager.instance.activeSlotList_Index].GetComponent<ItemSlot_N>().itemInThisSlot = activeItem;
-
-        //Reset sliders
-        StorageManager.instance.targetSlotList[StorageManager.instance.targetSlotList_Index].GetComponent<ItemSlot_N>().hp_Slider.gameObject.SetActive(false);
-        StorageManager.instance.activeSlotList[StorageManager.instance.activeSlotList_Index].GetComponent<ItemSlot_N>().hp_Slider.gameObject.SetActive(false);
-
-        //Show slider where it appears
-        Item item = new Item();
-        for (int i = 0; i < StorageManager.instance.item_SO.itemList.Count; i++)
-        {
-            if (StorageManager.instance.item_SO.itemList[i].itemName == StorageManager.instance.targetSlotList[StorageManager.instance.targetSlotList_Index].GetComponent<ItemSlot_N>().itemInThisSlot.itemName)
-            {
-                item = StorageManager.instance.item_SO.itemList[i];
-
-                break;
-            }
-        }
-        if (StorageManager.instance.targetSlotList[StorageManager.instance.targetSlotList_Index].GetComponent<ItemSlot_N>().itemInThisSlot.hp > 0)
-        {
-            StorageManager.instance.targetSlotList[StorageManager.instance.targetSlotList_Index].GetComponent<ItemSlot_N>().hp_Slider.gameObject.SetActive(true);
-            StorageManager.instance.targetSlotList[StorageManager.instance.targetSlotList_Index].GetComponent<ItemSlot_N>().hp_Slider.maxValue = item.HP;
-            StorageManager.instance.targetSlotList[StorageManager.instance.targetSlotList_Index].GetComponent<ItemSlot_N>().hp_Slider.value = StorageManager.instance.targetSlotList[StorageManager.instance.targetSlotList_Index].GetComponent<ItemSlot_N>().itemInThisSlot.hp;
-        }
-
-        for (int i = 0; i < StorageManager.instance.item_SO.itemList.Count; i++)
-        {
-            if (StorageManager.instance.item_SO.itemList[i].itemName == StorageManager.instance.activeSlotList[StorageManager.instance.activeSlotList_Index].GetComponent<ItemSlot_N>().itemInThisSlot.itemName)
-            {
-                item = StorageManager.instance.item_SO.itemList[i];
-
-                break;
-            }
-        }
-        if (StorageManager.instance.activeSlotList[StorageManager.instance.activeSlotList_Index].GetComponent<ItemSlot_N>().itemInThisSlot.hp > 0)
-        {
-            StorageManager.instance.activeSlotList[StorageManager.instance.activeSlotList_Index].GetComponent<ItemSlot_N>().hp_Slider.gameObject.SetActive(true);
-            StorageManager.instance.activeSlotList[StorageManager.instance.activeSlotList_Index].GetComponent<ItemSlot_N>().hp_Slider.maxValue = item.HP;
-            StorageManager.instance.activeSlotList[StorageManager.instance.activeSlotList_Index].GetComponent<ItemSlot_N>().hp_Slider.value = StorageManager.instance.activeSlotList[StorageManager.instance.activeSlotList_Index].GetComponent<ItemSlot_N>().itemInThisSlot.hp;
-        }
     }
     void SetEmpty(InventoryItem ItemSlot)
     {
@@ -344,5 +314,53 @@ public class ItemSlot_N : MonoBehaviour, IDropHandler
         }
 
         hp_Slider.value = itemInThisSlot.hp;
+
+        if (hp_Slider.maxValue <= 0)
+        {
+            hp_Slider.gameObject.SetActive(false);
+        }
+        else
+        {
+            hp_Slider.gameObject.SetActive(true);
+        }
+
+        //Show slider where it appears
+
+        //Reset sliders
+        //StorageManager.instance.targetSlotList[StorageManager.instance.targetSlotList_Index].GetComponent<ItemSlot_N>().hp_Slider.gameObject.SetActive(false);
+        //StorageManager.instance.activeSlotList[StorageManager.instance.activeSlotList_Index].GetComponent<ItemSlot_N>().hp_Slider.gameObject.SetActive(false);
+
+        //Item item = new Item();
+        //for (int i = 0; i < StorageManager.instance.item_SO.itemList.Count; i++)
+        //{
+        //    if (StorageManager.instance.item_SO.itemList[i].itemName == StorageManager.instance.targetSlotList[StorageManager.instance.targetSlotList_Index].GetComponent<ItemSlot_N>().itemInThisSlot.itemName)
+        //    {
+        //        item = StorageManager.instance.item_SO.itemList[i];
+
+        //        break;
+        //    }
+        //}
+        //if (StorageManager.instance.targetSlotList[StorageManager.instance.targetSlotList_Index].GetComponent<ItemSlot_N>().itemInThisSlot.hp > 0)
+        //{
+        //    StorageManager.instance.targetSlotList[StorageManager.instance.targetSlotList_Index].GetComponent<ItemSlot_N>().hp_Slider.gameObject.SetActive(true);
+        //    StorageManager.instance.targetSlotList[StorageManager.instance.targetSlotList_Index].GetComponent<ItemSlot_N>().hp_Slider.maxValue = item.HP;
+        //    StorageManager.instance.targetSlotList[StorageManager.instance.targetSlotList_Index].GetComponent<ItemSlot_N>().hp_Slider.value = StorageManager.instance.targetSlotList[StorageManager.instance.targetSlotList_Index].GetComponent<ItemSlot_N>().itemInThisSlot.hp;
+        //}
+
+        //for (int i = 0; i < StorageManager.instance.item_SO.itemList.Count; i++)
+        //{
+        //    if (StorageManager.instance.item_SO.itemList[i].itemName == StorageManager.instance.activeSlotList[StorageManager.instance.activeSlotList_Index].GetComponent<ItemSlot_N>().itemInThisSlot.itemName)
+        //    {
+        //        item = StorageManager.instance.item_SO.itemList[i];
+
+        //        break;
+        //    }
+        //}
+        //if (StorageManager.instance.activeSlotList[StorageManager.instance.activeSlotList_Index].GetComponent<ItemSlot_N>().itemInThisSlot.hp > 0)
+        //{
+        //    StorageManager.instance.activeSlotList[StorageManager.instance.activeSlotList_Index].GetComponent<ItemSlot_N>().hp_Slider.gameObject.SetActive(true);
+        //    StorageManager.instance.activeSlotList[StorageManager.instance.activeSlotList_Index].GetComponent<ItemSlot_N>().hp_Slider.maxValue = item.HP;
+        //    StorageManager.instance.activeSlotList[StorageManager.instance.activeSlotList_Index].GetComponent<ItemSlot_N>().hp_Slider.value = StorageManager.instance.activeSlotList[StorageManager.instance.activeSlotList_Index].GetComponent<ItemSlot_N>().itemInThisSlot.hp;
+        //}
     }
 }
