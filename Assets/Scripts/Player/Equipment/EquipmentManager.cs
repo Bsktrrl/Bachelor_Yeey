@@ -9,7 +9,7 @@ public class EquipmentManager : MonoBehaviour
     public bool itemIsbeingEquipped;
 
     [Header("Parent")]
-    [SerializeField] GameObject toolHolderParent;
+    public GameObject toolHolderParent;
 
 
     //--------------------
@@ -63,25 +63,8 @@ public class EquipmentManager : MonoBehaviour
         //Check if item has required states
         if (HandManager.instance.selectedSlotItem.isEquipable && toolHolderParent.GetComponentInChildren<EquipableItem>() != null)
         {
+            //Play animation
             toolHolderParent.GetComponentInChildren<EquipableItem>().HitAnimation();
-
-            StorageManager.instance.PlayerInventory.itemList[HandManager.instance.selectedSlot].hp -= 1;
-            StorageManager.instance.PlayerInventoryItemSlotList[HandManager.instance.selectedSlot].GetComponent<ItemSlot_N>().hp_Slider.value = StorageManager.instance.PlayerInventory.itemList[HandManager.instance.selectedSlot].hp;
-
-            //Delete item if HP <= 0
-            if (StorageManager.instance.PlayerInventory.itemList[HandManager.instance.selectedSlot].hp <= 0)
-            {
-                print("Remove item");
-                StorageManager.instance.RemoveItemFromInventory(HandManager.instance.selectedSlot);
-                StorageManager.instance.PlayerInventoryItemSlotList[HandManager.instance.selectedSlot].GetComponent<ItemSlot_N>().hp_Slider.gameObject.SetActive(false);
-
-                InventoryManager.instance.UpdateInventory(StorageManager.instance.PlayerInventory);
-
-                StorageManager.instance.PlayerInventoryItemSlotList[HandManager.instance.selectedSlot].GetComponent<ItemSlot_N>().UpdateSlider();
-                HandManager.instance.UpdateSlotInfo();
-
-                DisplayEquippedModel(HandManager.instance.selectedSlotItem);
-            }
         }
     }
 }

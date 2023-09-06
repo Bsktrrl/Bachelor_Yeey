@@ -248,12 +248,27 @@ public class DraggeableSlot : MonoBehaviour, IPointerDownHandler, IPointerUpHand
 
         transform.SetParent(startParent);
 
-        if (transform.parent == startParent || transform.parent == dragging_Parent.transform)
+        if (transform.parent == startParent)
         {
+            print("1. transform.parent == startParent");
+
             UpdateInventoryDisplay();
 
             transform.position = startPosition;
             transform.SetParent(startParent);
+        }
+        else if (transform.parent == dragging_Parent.transform)
+        {
+            print("2. transform.parent == dragging_Parent.transform");
+
+            UpdateInventoryDisplay();
+
+            transform.position = startPosition;
+            transform.SetParent(startParent);
+        }
+        else
+        {
+            print("3. Success!!!");
         }
 
         canvasGroup.blocksRaycasts = true;

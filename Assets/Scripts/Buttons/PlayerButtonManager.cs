@@ -40,6 +40,10 @@ public class PlayerButtonManager : MonoBehaviour
     public static Action isPressed_8;
     public static Action isPressed_9;
 
+    //Testing Buttons
+    public static Action T_isPressed;
+
+
 
     //--------------------
 
@@ -194,6 +198,12 @@ public class PlayerButtonManager : MonoBehaviour
             isPressed_8?.Invoke();
         else if (MainManager.instance.menuStates == MenuStates.None && Input.GetKey(KeyCode.Alpha9))
             isPressed_9?.Invoke();
+
+        //Testing
+        else if (Input.GetKeyDown(KeyCode.T))
+        {
+            T_isPressed?.Invoke();
+        }
 
         else
         {

@@ -13,6 +13,9 @@ public class SelectionManager : MonoBehaviour
     public bool onTarget = false;
 
     public GameObject selecedObject;
+    public GameObject selectedTree;
+
+    public GameObject chopHolder;
 
 
     //--------------------
@@ -49,6 +52,24 @@ public class SelectionManager : MonoBehaviour
                 //When reycasting something that is interactable
                 PickupObject pickupObject = selectionTransform.GetComponent<PickupObject>();
                 InventoryObject inventoryObject = selectionTransform.GetComponent<InventoryObject>();
+                ChoppableTree choppableTree = selectionTransform.GetComponent<ChoppableTree>();
+
+                if (choppableTree && choppableTree.playerInRange)
+                {
+                    choppableTree.canBeChopped = true;
+                    selectedTree = choppableTree.gameObject;
+                    chopHolder.gameObject.SetActive(true);
+                }
+                else
+                {
+                    if (selectedTree != null)
+                    {
+                        selectedTree.gameObject.GetComponent<ChoppableTree>().canBeChopped = false;
+                        selectedTree = null;
+                    }
+
+                    chopHolder.gameObject.SetActive(false);
+                }
 
                 if (pickupObject && pickupObject.playerInRange)
                 {

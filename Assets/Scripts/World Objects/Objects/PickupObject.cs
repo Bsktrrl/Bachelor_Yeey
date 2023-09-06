@@ -62,8 +62,7 @@ public class PickupObject : MonoBehaviour
     void ObjectInteraction()
     {
         if (playerInRange && SelectionManager.instance.onTarget && SelectionManager.instance.selecedObject == gameObject
-            && MainManager.instance.menuStates == MenuStates.None
-            && !HandManager.instance.selectedSlotItem.isEquipable)
+            && MainManager.instance.menuStates == MenuStates.None)
         {
             EquipmentManager.instance.itemIsbeingEquipped = true;
 

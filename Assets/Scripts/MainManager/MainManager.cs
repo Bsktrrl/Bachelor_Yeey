@@ -10,6 +10,9 @@ public class MainManager : MonoBehaviour
     public GameObject player;
     public MenuStates menuStates;
 
+    [Header("Parents")]
+    public GameObject treeParent;
+
 
     //--------------------
 
