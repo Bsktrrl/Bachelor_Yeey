@@ -9,6 +9,8 @@ public class TreeParent : MonoBehaviour
 
     public Animator animator;
 
+    int HP = 5;
+
 
     //--------------------
 
@@ -28,11 +30,20 @@ public class TreeParent : MonoBehaviour
             && MainManager.instance.menuStates == MenuStates.None
             && HandManager.instance.selectedSlotItem.subCategoryName == ItemSubCategories.Axe)
         {
-            animator.SetTrigger("TreeCut");
+            HP -= 1;
 
-            if (EquipmentManager.instance.toolHolderParent != null)
+            if (HP <= 0)
             {
-                EquipmentManager.instance.toolHolderParent.GetComponentInChildren<EquipableItem>().RemoveDurability();
+                animator.SetTrigger("TreeCut");
+
+                if (EquipmentManager.instance.toolHolderParent != null)
+                {
+                    EquipmentManager.instance.toolHolderParent.GetComponentInChildren<EquipableItem>().RemoveDurability();
+                }
+            }
+            else
+            {
+                animator.SetTrigger("TreeShake");
             }
         }
     }
@@ -58,5 +69,15 @@ public class TreeParent : MonoBehaviour
         {
             choppedTree.transform.GetChild(i).GetComponent<Log>().ActivateLogGravity();
         }
+    }
+
+    public int GetHealth()
+    {
+        return HP;
+    }
+
+    public void SetHealth(int _hp)
+    {
+        HP = _hp;
     }
 }
