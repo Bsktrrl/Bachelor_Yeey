@@ -6,6 +6,10 @@ TagManager:
   tags:
   - InventorySlot
   - Axe
+  - activeConstructable
+  - Ground
+  - BuildingBlock
+  - BuildingBlock_Ghost
   layers:
   - Default
   - TransparentFX
