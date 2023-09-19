@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 1693644012290509176}
   - component: {fileID: 1693644012290509179}
   - component: {fileID: -7491028194612631631}
+  - component: {fileID: -6565080470602098}
   - component: {fileID: 1486883135727411641}
   m_Layer: 0
   m_Name: Builders Hammer
@@ -113,6 +114,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   animator: {fileID: 0}
+  subCategories: 0
+--- !u!114 &-6565080470602098
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1693644012290509181}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2c583ca34ced47f4ea13120f39f27412, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!95 &1486883135727411641
 Animator:
   serializedVersion: 5
