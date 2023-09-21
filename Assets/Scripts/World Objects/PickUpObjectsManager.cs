@@ -63,14 +63,14 @@ public class PickUpObjectsManager : MonoBehaviour
         //Check if any new pickups have been added
         if (tempSaveCount < tempChildCount)
         {
-            print("tempSaveCount " + tempSaveCount + " < tempChildCount " + tempChildCount);
+            //print("tempSaveCount " + tempSaveCount + " < tempChildCount " + tempChildCount);
 
-            print("Pickups Added");
+            //print("Pickups Added");
 
             //Check if list = 0
             if (pickupObject_CheckList.Count <= 0)
             {
-                print("Pickups = 0");
+                //print("Pickups = 0");
 
                 //add all avaliable data to list
                 PickupObjectData tempData = new PickupObjectData();
@@ -81,31 +81,31 @@ public class PickUpObjectsManager : MonoBehaviour
                     {
                         pickupObject_CheckList.Add(tempData);
 
-                        print("1. Itemname: j: " + j + " | k: " + k + " " + pickupsParents[j].transform.GetChild(k).GetComponent<PickupObject>().itemName + " | ID: " + pickupsParents[j].transform.GetChild(k).GetComponent<PickupObject>().id);
+                        //print("1. Itemname: j: " + j + " | k: " + k + " " + pickupsParents[j].transform.GetChild(k).GetComponent<PickupObject>().itemName + " | ID: " + pickupsParents[j].transform.GetChild(k).GetComponent<PickupObject>().id);
 
                         pickupObject_CheckList[pickupObject_CheckList.Count - 1].isActive = pickupsParents[j].transform.GetChild(k).GetComponent<PickupObject>().isActive;
                         pickupObject_CheckList[pickupObject_CheckList.Count - 1].id = pickupsParents[j].transform.GetChild(k).GetComponent<PickupObject>().id;
                         pickupObject_CheckList[pickupObject_CheckList.Count - 1].itemName = pickupsParents[j].transform.GetChild(k).GetComponent<PickupObject>().itemName;
                         pickupObject_CheckList[pickupObject_CheckList.Count - 1].amount = pickupsParents[j].transform.GetChild(k).GetComponent<PickupObject>().amount;
 
-                        print("2. Itemname: " + pickupObject_CheckList[pickupObject_CheckList.Count - 1].itemName + " | ID: " + pickupObject_CheckList[pickupObject_CheckList.Count - 1].id);
+                        //print("2. Itemname: " + pickupObject_CheckList[pickupObject_CheckList.Count - 1].itemName + " | ID: " + pickupObject_CheckList[pickupObject_CheckList.Count - 1].id);
                     }
                 }
 
                 for (int i = 0; i < pickupObject_CheckList.Count; i++)
                 {
-                    print("3. ItemName: " + pickupObject_CheckList[i].itemName + " | ID: " + pickupObject_CheckList[i].id);
+                    //print("3. ItemName: " + pickupObject_CheckList[i].itemName + " | ID: " + pickupObject_CheckList[i].id);
                 }
             }
             else
             {
-                print("Pickups != 0");
+                //print("Pickups != 0");
             }
         }
         else
         {
             //Good to go
-            print("No pickups Added");
+            //print("No pickups Added");
         }
 
         //Destroy all active items
@@ -114,7 +114,7 @@ public class PickUpObjectsManager : MonoBehaviour
             //Find element that isActive = true
             if (pickupObject_CheckList[i].isActive)
             {
-                print("Object is Active: " + i);
+                //print("Object is Active: " + i);
 
                 //Destroy Object with the same ItemName and ID as this
                 for (int j = 0; j < pickupsParents.Count; j++)
@@ -128,7 +128,7 @@ public class PickUpObjectsManager : MonoBehaviour
                             j = pickupsParents.Count;
                             k = pickupsParents[j].transform.childCount;
 
-                            print("Destroy Object: " + k);
+                            //print("Destroy Object: " + k);
 
                             Destroy(pickupsParents[j].transform.GetChild(k));
                         }

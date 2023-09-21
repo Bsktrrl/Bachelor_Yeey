@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using Unity.VisualScripting;
 using UnityEngine;
 
@@ -17,6 +18,7 @@ public class BuildingManager : MonoBehaviour
     public bool buildingBlockCanBePlaced;
 
     [Header("Selected")]
+    public BlockDirection buildingBlockDirection_Selected;
     public BuildingType buildingType_Selected = BuildingType.None;
     public BuildingMaterial buildingMaterial_Selected = BuildingMaterial.None;
 
@@ -59,8 +61,10 @@ public class BuildingManager : MonoBehaviour
         //Only active when not in a menu
         if (MainManager.instance.menuStates == MenuStates.None)
         {
-            RaycastGhost();
-            SetGhostInactive();
+            RaycastBuidingDirectionMarkers();
+
+            //RaycastGhost();
+            //SetGhostInactive();
         }
     }
 
@@ -68,231 +72,295 @@ public class BuildingManager : MonoBehaviour
     //--------------------
 
 
-    void RaycastGhost()
+    void RaycastBuidingDirectionMarkers()
     {
         if (HandManager.instance.selectedSlotItem.subCategoryName == ItemSubCategories.BuildingHammer)
         {
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             RaycastHit hit;
+
             if (Physics.Raycast(ray, out hit))
             {
                 //Get the Transform of GameObject hit
                 var hitTransform = hit.transform;
 
-                //Update available Blocks to select based on the BuildingBlock
-                if (hitTransform.gameObject.CompareTag("BuildingBlock"))
+                //Get the BuildingBlockDirection
+                if (hitTransform.gameObject.CompareTag("BuidingDirectionMarkers") || hitTransform.gameObject.CompareTag("BuildingBlock_Ghost"))
                 {
-                    //Update buildingBlock_PointedAt
-                    buildingBlock_PointedAt = hitTransform.gameObject;
-                    lastBuildingBlock_PointedAt = buildingBlock_PointedAt;
-
-                    //ChangeBuildingBlockGhostPriority();
-
-                    //Update which Ghost to be active (able to select with ghosts)
-                    switch (buildingType_Selected)
+                    if (hitTransform.gameObject.CompareTag("BuidingDirectionMarkers"))
                     {
-                        case BuildingType.None:
-                            SetActiveGhost(BuildingType.None);
-                            break;
-
-                        case BuildingType.Floor:
-                            SetActiveGhost(BuildingType.Floor);
-                            break;
-                        case BuildingType.Wall:
-                            SetActiveGhost(BuildingType.Wall);
-                            break;
-                        case BuildingType.Wall_Diagonaly:
-                            SetActiveGhost(BuildingType.Wall_Diagonaly);
-                            break;
-                        case BuildingType.Stair:
-                            SetActiveGhost(BuildingType.Stair);
-                            break;
-                        case BuildingType.Angeled:
-                            SetActiveGhost(BuildingType.Angeled);
-                            break;
-                        case BuildingType.Angeled_Corner:
-                            SetActiveGhost(BuildingType.Angeled_Corner);
-                            break;
-
-                        default:
-                            break;
-                    }
-                }
-                else
-                {
-                    //Update buildingBlock_PointedAt
-                    buildingBlock_PointedAt = null;
-                }
-
-                //Change material when hovering over a selecteable BuildingBlock_Ghost
-                if (hitTransform.gameObject.CompareTag("BuildingBlock_Ghost"))
-                {
-                    //Reset previous selected BuildingBlock_Ghost
-                    if (ghost_PointedAt != null)
-                    {
-                        ghost_PointedAt.gameObject.GetComponent<MeshRenderer>().material = invisible_Material;
-                        ghost_PointedAt.gameObject.GetComponent<Building_Ghost>().isSelected = false;
-                    }
-
-                    //Update ghostPointedAt
-                    ghost_PointedAt = hitTransform.gameObject;
-                    Building_Ghost selectedGhost = ghost_PointedAt.gameObject.GetComponent<Building_Ghost>();
-
-                    //Show The Selected Ghost
-                    if (!CheckOverlappingGhost(selectedGhost.gameObject.transform))
-                    {
-                        buildingBlockCanBePlaced = true;
-
-                        switch (buildingType_Selected)
+                        switch (hitTransform.gameObject.GetComponent<BuildingBlockDirection>().blockDirection)
                         {
-                            case BuildingType.None:
+                            case BlockDirection.None:
                                 break;
 
-                            case BuildingType.Floor:
-                                if (selectedGhost.buildingType == BuildingType.Floor)
+                            case BlockDirection.North:
+                                if (buildingBlockDirection_Selected != BlockDirection.North)
                                 {
-                                    print("1. Floor Selected");
-                                    ghost_PointedAt.gameObject.GetComponent<MeshRenderer>().material = canPlace_Material;
-                                    selectedGhost.isSelected = true;
+                                    buildingBlockDirection_Selected = BlockDirection.North;
+                                    //print("1. North");
                                 }
                                 break;
-                            case BuildingType.Wall:
-                                if (selectedGhost.buildingType == BuildingType.Wall)
+                            case BlockDirection.East:
+                                if (buildingBlockDirection_Selected != BlockDirection.East)
                                 {
-                                    print("2. Wall Selected");
-                                    ghost_PointedAt.gameObject.GetComponent<MeshRenderer>().material = canPlace_Material;
-                                    selectedGhost.isSelected = true;
+                                    buildingBlockDirection_Selected = BlockDirection.East;
+                                    //print("2. East");
                                 }
                                 break;
-                            case BuildingType.Wall_Diagonaly:
-                                if (selectedGhost.buildingType == BuildingType.Wall_Diagonaly)
+                            case BlockDirection.South:
+                                if (buildingBlockDirection_Selected != BlockDirection.South)
                                 {
-                                    ghost_PointedAt.gameObject.GetComponent<MeshRenderer>().material = canPlace_Material;
-                                    selectedGhost.isSelected = true;
+                                    buildingBlockDirection_Selected = BlockDirection.South;
+                                    //print("3. South");
                                 }
                                 break;
-                            case BuildingType.Stair:
-                                if (selectedGhost.buildingType == BuildingType.Stair)
+                            case BlockDirection.West:
+                                if (buildingBlockDirection_Selected != BlockDirection.West)
                                 {
-                                    ghost_PointedAt.gameObject.GetComponent<MeshRenderer>().material = canPlace_Material;
-                                    selectedGhost.isSelected = true;
-                                }
-                                break;
-                            case BuildingType.Angeled:
-                                if (selectedGhost.buildingType == BuildingType.Angeled)
-                                {
-                                    ghost_PointedAt.gameObject.GetComponent<MeshRenderer>().material = canPlace_Material;
-                                    selectedGhost.isSelected = true;
-                                }
-                                break;
-                            case BuildingType.Angeled_Corner:
-                                if (selectedGhost.buildingType == BuildingType.Angeled_Corner)
-                                {
-                                    ghost_PointedAt.gameObject.GetComponent<MeshRenderer>().material = canPlace_Material;
-                                    selectedGhost.isSelected = true;
+                                    buildingBlockDirection_Selected = BlockDirection.West;
+                                    //print("4. West");
                                 }
                                 break;
 
                             default:
                                 break;
                         }
+
+                        FindGhostDirection(hitTransform.gameObject.GetComponent<BuildingBlockDirection>().parentBlock.GetComponent<BuildingBlock_Parent>());
                     }
                 }
                 else
                 {
+                    //If raycarsting is not on a buildingBlock or ghostBlock
+                    if (buildingBlockDirection_Selected != BlockDirection.None)
+                    {
+                        //print("0. BlockDirection.None");
+                        buildingBlockDirection_Selected = BlockDirection.None;
+
+                        if (ghost_PointedAt != null)
+                        {
+                            ghost_PointedAt.SetActive(false);
+                            ghost_PointedAt = null;
+                        }
+                    }
+                }
+            }
+            else
+            {
+                if (buildingBlockDirection_Selected != BlockDirection.None)
+                {
+                    //print("1. BlockDirection.None");
+                    buildingBlockDirection_Selected = BlockDirection.None;
+
                     if (ghost_PointedAt != null)
                     {
-                        ghost_PointedAt.gameObject.GetComponent<MeshRenderer>().material = invisible_Material;
-                        ghost_PointedAt.gameObject.GetComponent<Building_Ghost>().isSelected = false;
-                        buildingBlockCanBePlaced = false;
+                        ghost_PointedAt.SetActive(false);
+                        ghost_PointedAt = null;
                     }
-
-                    SetGhostInactive();
-
-                    //Update ghostPointedAt
-                    ghost_PointedAt = null;
                 }
             }
         }
         else
         {
-            if (ghost_PointedAt != null)
+            //When Hammer isn't in the hand anymore
+            if (buildingBlockDirection_Selected != BlockDirection.None)
             {
-                ghost_PointedAt.gameObject.GetComponent<MeshRenderer>().material = invisible_Material;
-                ghost_PointedAt.gameObject.GetComponent<Building_Ghost>().isSelected = false;
-                buildingBlockCanBePlaced = false;
-            }
+                //print("2. BlockDirection.None");
+                buildingBlockDirection_Selected = BlockDirection.None;
 
-            ghost_PointedAt = null;
-
-            SetGhostInactive();
-        }
-    }
-    void SetActiveGhost(BuildingType buildingType)
-    {
-        print("1. SetActiveGhost");
-
-        BuildingBlock_Parent selectedBuildingBlock = buildingBlock_PointedAt.GetComponent<BuildingBlock>().buidingBlock_Parent.GetComponent<BuildingBlock_Parent>();
-
-        for (int i = 0; i < selectedBuildingBlock.ghostList.Count; i++)
-        {
-            if (selectedBuildingBlock.ghostList[i].GetComponent<Building_Ghost>().buildingType == buildingType
-                /*&& !selectedBuildingBlock.ghostList[i].GetComponent<Building_Ghost>().isDeleted*/)
-            {
-                print("2. SetActiveGhost");
-                selectedBuildingBlock.ghostList[i].SetActive(true);
-            }
-            else
-            {
-                print("3. SetActiveGhost");
-                selectedBuildingBlock.ghostList[i].SetActive(false);
-            }
-        }
-    }
-    void SetGhostInactive()
-    {
-        if (buildingBlock_PointedAt == null && ghost_PointedAt == null)
-        {
-            for (int i = 0; i < buildingBlockList.Count; i++)
-            {
-                for (int j = 0; j < buildingBlockList[i].GetComponent<BuildingBlock_Parent>().ghostList.Count; j++)
+                if (ghost_PointedAt != null)
                 {
-                    buildingBlockList[i].GetComponent<BuildingBlock_Parent>().ghostList[j].SetActive(false);
+                    ghost_PointedAt.SetActive(false);
+                    ghost_PointedAt = null;
                 }
             }
         }
     }
-
-    void ChangeBuildingBlockGhostPriority()
+    void FindGhostDirection(BuildingBlock_Parent buildingBlock)
     {
-        if (buildingBlock_PointedAt == true)
+        switch (buildingBlockDirection_Selected)
         {
-            return;
+            case BlockDirection.None:
+                break;
+
+            case BlockDirection.North:
+                for (int i = 0; i < buildingBlock.ghostList.Count; i++)
+                {
+                    if (buildingBlock.ghostList[i].GetComponent<Building_Ghost>().blockDirection == BlockDirection.North)
+                    {
+                        SetGhostState_ON(buildingBlock, i);
+                    }
+                    else
+                    {
+                        SetGhostState_OFF(buildingBlock, i);
+                    }
+                }
+                break;
+            case BlockDirection.East:
+                for (int i = 0; i < buildingBlock.ghostList.Count; i++)
+                {
+                    if (buildingBlock.ghostList[i].GetComponent<Building_Ghost>().blockDirection == BlockDirection.East)
+                    {
+                        SetGhostState_ON(buildingBlock, i);
+                    }
+                    else
+                    {
+                        SetGhostState_OFF(buildingBlock, i);
+                    }
+                }
+                break;
+            case BlockDirection.South:
+                for (int i = 0; i < buildingBlock.ghostList.Count; i++)
+                {
+                    if (buildingBlock.ghostList[i].GetComponent<Building_Ghost>().blockDirection == BlockDirection.South)
+                    {
+                        SetGhostState_ON(buildingBlock, i);
+                    }
+                    else
+                    {
+                        SetGhostState_OFF(buildingBlock, i);
+                    }
+                }
+                break;
+            case BlockDirection.West:
+                for (int i = 0; i < buildingBlock.ghostList.Count; i++)
+                {
+                    if (buildingBlock.ghostList[i].GetComponent<Building_Ghost>().blockDirection == BlockDirection.West)
+                    {
+                        SetGhostState_ON(buildingBlock, i);
+                    }
+                    else
+                    {
+                        SetGhostState_OFF(buildingBlock, i);
+                    }
+                }
+                break;
+
+            default:
+                break;
+        }
+    }
+
+    void SetGhostState_ON(BuildingBlock_Parent buildingBlock, int i)
+    {
+        //Floor
+        if (buildingType_Selected == BuildingType.Floor)
+        {
+            //Wood
+            BuidingBlockCanBePlacedCheck(buildingBlock, i, BuildingType.Floor, canPlace_Material, cannotPlace_Material); //Change Material when Mesh is ready
+
+            //Stone
+
+
+            //Iron
+
+
         }
 
-        for (int i = 0; i < buildingBlock_PointedAt.GetComponent<BuildingBlock_Parent>().ghostList.Count; i++)
+        //Wall
+        else if (buildingType_Selected == BuildingType.Wall)
         {
-            Building_Ghost ghostTemp = buildingBlock_PointedAt.GetComponent<BuildingBlock>().buidingBlock_Parent.GetComponent<BuildingBlock_Parent>().ghostList[i].GetComponent<Building_Ghost>();
+            //Wood
+            BuidingBlockCanBePlacedCheck(buildingBlock, i, BuildingType.Wall, canPlace_Material, cannotPlace_Material); //Change Material when Mesh is ready
 
-            if (ghostTemp.buildingType == buildingType_Selected)
+            //Stone
+
+
+            //Iron
+
+
+        }
+
+        //Angled
+        else if (buildingType_Selected == BuildingType.Angeled)
+        {
+            //Wood
+            BuidingBlockCanBePlacedCheck(buildingBlock, i, BuildingType.Angeled, canPlace_Material, cannotPlace_Material); //Change Material when Mesh is ready
+
+            //Stone
+
+
+            //Iron
+
+
+        }
+
+        //Turn off
+        else
+        {
+            SetGhostState_OFF(buildingBlock, i);
+        }
+    }
+    void SetGhostState_OFF(BuildingBlock_Parent buildingBlock, int i)
+    {
+        buildingBlock.ghostList[i].SetActive(false);
+        buildingBlock.ghostList[i].GetComponent<MeshRenderer>().material = invisible_Material;
+        buildingBlock.ghostList[i].GetComponent<Building_Ghost>().isSelected = false;
+    }
+    void SetAllGhostState_Off()
+    {
+        for (int i = 0; i < buildingBlockList.Count; i++)
+        {
+            for (int j = 0; j < buildingBlockList[i].GetComponent<BuildingBlock_Parent>().ghostList.Count; j++)
             {
-                ghostTemp.gameObject.SetActive(true);
-            }
-            else
-            {
-                ghostTemp.gameObject.SetActive(false);
+                SetGhostState_OFF(buildingBlockList[i].GetComponent<BuildingBlock_Parent>(), j);
             }
         }
     }
 
-    bool CheckOverlappingGhost(Transform BuildingBlockSuggestedPosition)
+    void BuidingBlockCanBePlacedCheck(BuildingBlock_Parent buildingBlock, int i, BuildingType buildingType, Material material_Can, Material material_Cannot)
     {
-        //Check if BuildingBlockTransform has the same position as any other buldingblock
-        for (int i = 0; i < buildingBlockList.Count; i++)
+        if (buildingBlock.ghostList[i].GetComponent<Building_Ghost>().buildingType != buildingType)
         {
-            if (BuildingBlockSuggestedPosition.position == buildingBlockList[i].transform.position)
+            return;
+        }
+
+        //Reset all ghost before setting a new one
+        if (ghost_PointedAt != buildingBlock.ghostList[i])
+        {
+            SetAllGhostState_Off();
+            ghost_PointedAt = buildingBlock.ghostList[i];
+        }
+
+        //Can be placed
+        //print("Overlapping Ghosts: " + CheckOverlappingGhost());
+        if (!CheckOverlappingGhost()
+            && buildingBlock.ghostList[i].GetComponent<Building_Ghost>().buildingType == buildingType)
+        {
+            //Insert functionality to prevent a selected ghost to be placed, and change its color to red
+
+            //if()...
+            //buildingBlock.ghostList[i].GetComponent<MeshRenderer>().material = cannotPlace_Material;
+            //buildingBlock.ghostList[i].GetComponent<Building_Ghost>().isSelected = true;
+            //buildingBlock.ghostList[i].SetActive(true);
+            //buildingBlockCanBePlaced = false;
+
+            buildingBlock.ghostList[i].GetComponent<MeshRenderer>().material = material_Can;
+            buildingBlock.ghostList[i].GetComponent<Building_Ghost>().isSelected = true;
+            buildingBlock.ghostList[i].SetActive(true);
+            buildingBlockCanBePlaced = true;
+        }
+
+        //Cannot be placed
+        else
+        {
+            buildingBlockCanBePlaced = false;
+            SetGhostState_OFF(buildingBlock, i);
+        }
+    }
+    bool CheckOverlappingGhost()
+    {
+        if (buildingType_Selected == BuildingType.Floor)
+        {
+            //Check if ghost_PointedAt has the same position as any other buildingblock
+            for (int i = 0; i < buildingBlockList.Count; i++)
             {
-                return true;
+                if (ghost_PointedAt.transform.position == buildingBlockList[i].transform.position)
+                {
+                    SetAllGhostState_Off();
+                    return true;
+                }
             }
         }
 
@@ -307,16 +375,16 @@ public class BuildingManager : MonoBehaviour
     {
         if (ghost_PointedAt != null && buildingBlockCanBePlaced)
         {
-            print("1. Block is placed");
-
             //Floor
-            if (ghost_PointedAt.GetComponent<Building_Ghost>().buildingType == BuildingType.Floor)
+            if (ghost_PointedAt.GetComponent<Building_Ghost>().buildingType == BuildingType.Floor
+                && ghost_PointedAt.GetComponent<Building_Ghost>().isSelected)
             {
                 //Wood
                 if (buildingMaterial_Selected == BuildingMaterial.Wood)
                 {
-                    print("Placed: Wood");
+                    //print("Placed: Wood");
 
+                    SetAllGhostState_Off();
                     SoundManager.instance.PlayWood_Placed_Clip();
 
                     buildingBlockList.Add(Instantiate(builingBlock_Floor) as GameObject);
@@ -379,14 +447,14 @@ public class BuildingManager : MonoBehaviour
                 //Stone
                 else if (buildingMaterial_Selected == BuildingMaterial.Stone)
                 {
-                    print("Placed: Stone");
+                    //print("Placed: Stone");
 
                 }
 
                 //Iron
                 else if (buildingMaterial_Selected == BuildingMaterial.iron)
                 {
-                    print("Placed: Iron");
+                    //print("Placed: Iron");
 
                 }
             }

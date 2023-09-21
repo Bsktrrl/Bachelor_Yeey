@@ -11,7 +11,7 @@ public class GroundCheck : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        print("1. OnCollisionEnter");
+        //print("1. OnCollisionEnter");
         PlayerMovement.isGrounded = true;
 
 
@@ -24,7 +24,7 @@ public class GroundCheck : MonoBehaviour
 
     private void OnCollisionExit(Collision collision)
     {
-        print("1. OnCollisionExit");
+        //print("1. OnCollisionExit");
         PlayerMovement.isGrounded = false;
 
         //if (collision.gameObject.layer == groundMask || collision.gameObject.layer == buildingBlockMask)

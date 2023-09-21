@@ -10,6 +10,7 @@ TagManager:
   - Ground
   - BuildingBlock
   - BuildingBlock_Ghost
+  - BuidingDirectionMarkers
   layers:
   - Default
   - TransparentFX
