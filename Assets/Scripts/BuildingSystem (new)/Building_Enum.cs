@@ -19,6 +19,6 @@ public enum BuildingMaterial
     None,
 
     Wood,
-    Iron,
-    Indium
+    Stone,
+    iron
 }

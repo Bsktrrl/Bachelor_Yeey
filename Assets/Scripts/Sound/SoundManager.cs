@@ -9,14 +9,22 @@ public class SoundManager : MonoBehaviour
     public AudioSource audioSource;
 
     //Inventory
+    [Header("Inventory")]
     [SerializeField] AudioClip menu_Select_Clip;
     [SerializeField] AudioClip menu_DropItem_Clip;
     [SerializeField] AudioClip menu_SortInventory_Clip;
 
     //Crafting
+    [Header("Crafting")]
     [SerializeField] AudioClip menu_ChangeCraftingScreen_Clip;
     [SerializeField] AudioClip menu_Crafting_Clip;
     [SerializeField] AudioClip menu_CannotCraft_Clip;
+
+    //Building
+    [Header("Building")]
+    [SerializeField] AudioClip wood_Placed;
+    [SerializeField] AudioClip stone_Placed;
+    [SerializeField] AudioClip iron_Placed;
 
 
 
@@ -40,6 +48,7 @@ public class SoundManager : MonoBehaviour
     //--------------------
 
 
+    //inventory
     public void PlaySelect_Clip()
     {
         if (audioSource != null)
@@ -76,6 +85,8 @@ public class SoundManager : MonoBehaviour
             audioSource.Play();
         }
     }
+
+    //Crafting
     public void Playmenu_Crafting_Clip()
     {
         if (audioSource != null)
@@ -94,4 +105,34 @@ public class SoundManager : MonoBehaviour
             audioSource.Play();
         }
     }
+
+    //Building
+    public void PlayWood_Placed_Clip()
+    {
+        if (audioSource != null)
+        {
+            audioSource.clip = wood_Placed;
+            audioSource.volume = 1f;
+            audioSource.Play();
+        }
+    }
+    public void PlayStone_Placed_Clip()
+    {
+        if (audioSource != null)
+        {
+            audioSource.clip = stone_Placed;
+            audioSource.volume = 1f;
+            audioSource.Play();
+        }
+    }
+    public void Playiron_Placed_Clip()
+    {
+        if (audioSource != null)
+        {
+            audioSource.clip = iron_Placed;
+            audioSource.volume = 1f;
+            audioSource.Play();
+        }
+    }
+
 }

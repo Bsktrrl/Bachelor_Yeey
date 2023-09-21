@@ -535,7 +535,7 @@ public class StorageManager : MonoBehaviour
             //Return item to StorageBox
             if (StorageBoxScreenUI.activeInHierarchy)
             {
-                print("1. Return item from Inventory to StorageBox");
+                //print("1. Return item from Inventory to StorageBox");
 
                 MoveToStorageBox();
             }
@@ -546,7 +546,7 @@ public class StorageManager : MonoBehaviour
                 //Return to Large Inventory
                 if (activeSlotList_Index < 9)
                 {
-                    print("2. Return from Hold Inventory to Large Inventory");
+                    //print("2. Return from Hold Inventory to Large Inventory");
 
                     MoveToLargeInventory();
                 }
@@ -554,7 +554,7 @@ public class StorageManager : MonoBehaviour
                 //Return to HoldPanel
                 else
                 {
-                    print("3. Return from Large Inventory to Hold Inventory");
+                    //print("3. Return from Large Inventory to Hold Inventory");
 
                     MoveToHoldInventory();
                 }
@@ -564,7 +564,7 @@ public class StorageManager : MonoBehaviour
         //From StorageBox to Large Inventory
         else
         {
-            print("4. Return from StorageBox to Large Inventory");
+            //print("4. Return from StorageBox to Large Inventory");
 
             MoveFromStorageBox();
         }
@@ -582,7 +582,7 @@ public class StorageManager : MonoBehaviour
         {
             if (StorageBoxItemSlotList[i].GetComponent<ItemSlot_N>().itemInThisSlot.itemName == Items.None)
             {
-                print("1. Success");
+                //print("1. Success");
 
                 InventoryItem tempName = activeSlotList[activeSlotList_Index].GetComponent<ItemSlot_N>().itemInThisSlot;
 
@@ -603,7 +603,7 @@ public class StorageManager : MonoBehaviour
         {
             if (PlayerInventoryItemSlotList[i].GetComponent<ItemSlot_N>().itemInThisSlot.itemName == Items.None)
             {
-                print("1. Success");
+                //print("1. Success");
 
                 InventoryItem tempName = activeSlotList[activeSlotList_Index].GetComponent<ItemSlot_N>().itemInThisSlot;
 
@@ -624,7 +624,7 @@ public class StorageManager : MonoBehaviour
         {
             if (PlayerInventoryItemSlotList[i].GetComponent<ItemSlot_N>().itemInThisSlot.itemName == Items.None)
             {
-                print("2. Success");
+                //print("2. Success");
 
                 InventoryItem tempName = activeSlotList[activeSlotList_Index].GetComponent<ItemSlot_N>().itemInThisSlot;
 
@@ -645,7 +645,7 @@ public class StorageManager : MonoBehaviour
         {
             if (PlayerInventoryItemSlotList[i].GetComponent<ItemSlot_N>().itemInThisSlot.itemName == Items.None)
             {
-                print("1. Success");
+                //print("1. Success");
 
                 InventoryItem tempName = activeSlotList[activeSlotList_Index].GetComponent<ItemSlot_N>().itemInThisSlot;
 

@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.19274685, g: 0.14880478, b: 0.08090842, a: 1}
+  m_IndirectSpecularColor: {r: 0.32897606, g: 0.29200637, b: 0.25432968, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1920,6 +1920,7 @@ MonoBehaviour:
   lastBuildingBlock_PointedAt: {fileID: 0}
   buildingBlock_PointedAt: {fileID: 0}
   ghost_PointedAt: {fileID: 0}
+  buildingBlockCanBePlaced: 0
   buildingType_Selected: 1
   buildingMaterial_Selected: 1
   builingBlock_Floor: {fileID: 4763889419513853119, guid: 1883060f695bb5f4fa31f3eb733546c5, type: 3}
@@ -2990,14 +2991,14 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 705507993}
-  m_LocalRotation: {x: 0.027382512, y: -0.25871503, z: 0.007337141, w: 0.9655376}
+  m_LocalRotation: {x: 0.1649491, y: -0.2550174, z: 0.04419799, w: 0.95173764}
   m_LocalPosition: {x: 0, y: 3, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 3.249, y: -30, z: 0}
+  m_LocalEulerAnglesHint: {x: 739.665, y: -30, z: 0}
 --- !u!1 &714567410
 GameObject:
   m_ObjectHideFlags: 0
@@ -3234,6 +3235,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   PlayerMovement: {fileID: 769334855}
+  groundMask:
+    serializedVersion: 2
+    m_Bits: 0
+  buildingBlockMask:
+    serializedVersion: 2
+    m_Bits: 0
 --- !u!54 &755247581
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -4745,11 +4752,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 778808815737520492, guid: 1b7e7682e16047b4d89912ce555aa7e5, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 7.58
+      value: -15.67
       objectReference: {fileID: 0}
     - target: {fileID: 778808815737520492, guid: 1b7e7682e16047b4d89912ce555aa7e5, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.68
+      value: 0.77
       objectReference: {fileID: 0}
     - target: {fileID: 778808815737520492, guid: 1b7e7682e16047b4d89912ce555aa7e5, type: 3}
       propertyPath: m_LocalPosition.z
@@ -7867,6 +7874,9 @@ MonoBehaviour:
   menu_ChangeCraftingScreen_Clip: {fileID: 8300000, guid: 4e64223acbfd4cf4f9e2d1824f7aa6c2, type: 3}
   menu_Crafting_Clip: {fileID: 8300000, guid: 3b56342ca49cc164f91d858397207a97, type: 3}
   menu_CannotCraft_Clip: {fileID: 8300000, guid: 9b3ae6cc83475f348b281303dbf38d4e, type: 3}
+  wood_Placed: {fileID: 8300000, guid: bd3a6b32218320e45b257dac06658b21, type: 3}
+  stone_Placed: {fileID: 8300000, guid: ddf5c6163ea488948b7d00d3e44bd29c, type: 3}
+  iron_Placed: {fileID: 8300000, guid: cf560d92200258045b4de5fd76c5b9f1, type: 3}
 --- !u!1001 &1856805541
 PrefabInstance:
   m_ObjectHideFlags: 0
