@@ -148,16 +148,19 @@ public class DraggeableSlot : MonoBehaviour, IPointerDownHandler, IPointerUpHand
             {
                 for (int i = 0; i < StorageManager.instance.PlayerInventoryItemSlotList.Count; i++)
                 {
-                    if (StorageManager.instance.PlayerInventoryItemSlotList[i].GetComponent<ItemSlot_N>().draggeableSlotScript == this)
+                    if (StorageManager.instance.PlayerInventoryItemSlotList[i].GetComponent<ItemSlot_N>()!= null)
                     {
-                        StorageManager.instance.activeSlotList = StorageManager.instance.PlayerInventoryItemSlotList;
-                        StorageManager.instance.activeSlotList_Index = i;
-                        StorageManager.instance.activeInventoryItem = parentScript.itemInThisSlot;
-                        StorageManager.instance.activeInventoryList_Index = parentScript.itemInThisSlotFromInventory;
+                        if (StorageManager.instance.PlayerInventoryItemSlotList[i].GetComponent<ItemSlot_N>().draggeableSlotScript == this)
+                        {
+                            StorageManager.instance.activeSlotList = StorageManager.instance.PlayerInventoryItemSlotList;
+                            StorageManager.instance.activeSlotList_Index = i;
+                            StorageManager.instance.activeInventoryItem = parentScript.itemInThisSlot;
+                            StorageManager.instance.activeInventoryList_Index = parentScript.itemInThisSlotFromInventory;
 
-                        activeItemFound = true;
+                            activeItemFound = true;
 
-                        break;
+                            break;
+                        }
                     }
                 }
             }
