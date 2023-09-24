@@ -4,8 +4,12 @@ using UnityEngine;
 
 public class MainManager : MonoBehaviour
 {
-    //Singleton
     public static MainManager instance { get; set; } //Singleton
+    [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.AfterAssembliesLoaded)]
+    static void Reinitialize()
+    {
+        instance = null;
+    }
 
     public GameObject player;
     public MenuStates menuStates;

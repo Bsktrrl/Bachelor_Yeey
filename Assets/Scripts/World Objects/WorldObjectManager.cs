@@ -6,7 +6,12 @@ using UnityEngine.UIElements;
 
 public class WorldObjectManager : MonoBehaviour
 {
-    public static WorldObjectManager instance;
+    public static WorldObjectManager instance; //Singleton
+    [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.AfterAssembliesLoaded)]
+    static void Reinitialize()
+    {
+        instance = null;
+    }
 
     public float objectColliderRadius = 5;
 

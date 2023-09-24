@@ -17,5 +17,10 @@ public enum BlockDirection
     North,
     East,
     South,
-    West
+    West,
+
+    up,
+    right,
+    down,
+    left
 }

@@ -4,8 +4,12 @@ using UnityEngine.UI;
 
 public class SelectionManager : MonoBehaviour
 {
-    //Singleton
-    public static SelectionManager instance { get; set; }
+    public static SelectionManager instance { get; set; } //Singleton
+    [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.AfterAssembliesLoaded)]
+    static void Reinitialize()
+    {
+        instance = null;
+    }
 
     public GameObject interaction_Info_UI;
     TextMeshProUGUI interaction_text;

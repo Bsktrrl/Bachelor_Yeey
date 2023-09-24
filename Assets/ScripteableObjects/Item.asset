@@ -90,7 +90,7 @@ MonoBehaviour:
     isActive: 1
     itemStackMax: 1
     isEquipable: 1
-    HP: 100
+    HP: 100000
     isCrafteable: 1
     craftingRequirements:
     - itemName: 2

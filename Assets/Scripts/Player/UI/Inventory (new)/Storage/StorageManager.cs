@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Runtime.ExceptionServices;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -6,6 +7,11 @@ using UnityEngine.UI;
 public class StorageManager : MonoBehaviour
 {
     public static StorageManager instance { get; private set; } //Singleton
+    [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.AfterAssembliesLoaded)]
+    static void Reinitialize()
+    {
+        instance = null;
+    }
 
     public Item_SO item_SO;
 
@@ -221,6 +227,13 @@ public class StorageManager : MonoBehaviour
         #region
         else
         {
+            if (PlayerInventory == null || PlayerInventoryItemSlot_Parent == null || PlayerInventoryItemSlotList == null
+                || InventoryManager.instance == null || InventoryManager.instance.inventories == null
+                || PlayerInventoryScreenUI == null || index > 0)
+            {
+                return;
+            }
+
             PlayerInventoryScreenUI.SetActive(true);
             PlayerInventory = InventoryManager.instance.inventories[index];
             InventoryManager.instance.inventories[index].isOpen = true;
@@ -294,7 +307,11 @@ public class StorageManager : MonoBehaviour
         {
             for (int j = 0; j < item_SO.itemList.Count; j++)
             {
-                if (itemSlotList[i].GetComponent<ItemSlot_N>().itemInThisSlot.itemName == item_SO.itemList[j].itemName)
+                if (itemSlotList[i].GetComponent<ItemSlot_N>() == null || item_SO == null || item_SO.itemList == null)
+                {
+
+                }
+                else if (itemSlotList[i].GetComponent<ItemSlot_N>().itemInThisSlot.itemName == item_SO.itemList[j].itemName)
                 {
                     itemSlotList[i].GetComponent<ItemSlot_N>().draggeableSlotScript.itemImage.sprite = item_SO.itemList[j].itemSprite;
                     itemSlotList[i].GetComponent<ItemSlot_N>().draggeableSlotScript.ghostImage.sprite = item_SO.itemList[j].itemSprite;
@@ -622,6 +639,11 @@ public class StorageManager : MonoBehaviour
         //Check available Spaces in the Hold Inventory
         for (int i = 0; i < 9; i++)
         {
+            if (PlayerInventoryItemSlotList[i].GetComponent<ItemSlot_N>() == null)
+            {
+                return;
+            }
+
             if (PlayerInventoryItemSlotList[i].GetComponent<ItemSlot_N>().itemInThisSlot.itemName == Items.None)
             {
                 //print("2. Success");

@@ -1,29 +1,39 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
+using System.Threading;
 using Unity.VisualScripting;
 using UnityEngine;
 
 public class BuildingManager : MonoBehaviour
 {
     public static BuildingManager instance { get; set; } //Singleton
+    [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.AfterAssembliesLoaded)]
+    static void Reinitialize()
+    {
+        instance = null; 
+    }
 
-    public List<GameObject> buildingBlockList = new List<GameObject>();
     public GameObject buildingBlock_Parent;
+    public List<GameObject> buildingBlockList = new List<GameObject>();
 
     [Header("Ghost")]
-    public GameObject lastBuildingBlock_PointedAt;
-    public GameObject buildingBlock_PointedAt;
+    public GameObject lastBuildingBlock_LookedAt;
+    //public GameObject lastMarker_LookedAt;
+    //public GameObject buildingBlock_PointedAt;
     public GameObject ghost_PointedAt;
     public bool buildingBlockCanBePlaced;
+    public string BlockTagName;
 
     [Header("Selected")]
+    [SerializeField] Vector2 BuildingDistance;
     public BlockDirection buildingBlockDirection_Selected;
     public BuildingType buildingType_Selected = BuildingType.None;
     public BuildingMaterial buildingMaterial_Selected = BuildingMaterial.None;
 
     [Header("BuildingBlocks List")]
     [SerializeField] GameObject builingBlock_Floor;
+    [SerializeField] GameObject builingBlock_Wall;
 
     [Header("Materials List")]
     [SerializeField] Material invisible_Material;
@@ -52,19 +62,13 @@ public class BuildingManager : MonoBehaviour
             instance = this;
         }
     }
-    private void Start()
-    {
-        //PlayerButtonManager.leftMouse_isPressedDown += PlaceBlock;
-    }
+
     private void Update()
     {
         //Only active when not in a menu
         if (MainManager.instance.menuStates == MenuStates.None)
         {
             RaycastBuidingDirectionMarkers();
-
-            //RaycastGhost();
-            //SetGhostInactive();
         }
     }
 
@@ -83,6 +87,25 @@ public class BuildingManager : MonoBehaviour
             {
                 //Get the Transform of GameObject hit
                 var hitTransform = hit.transform;
+
+                BlockTagName = hitTransform.tag;
+
+                if ((hitTransform.gameObject.CompareTag("BuidingDirectionMarkers")
+                    || hitTransform.gameObject.CompareTag("BuildingBlock_Ghost")
+                    || hitTransform.gameObject.CompareTag("BuildingBlock"))
+                    && hit.distance > BuildingDistance.x)
+                {
+                    SetAllGhostState_Off();
+                    return;
+                }
+                else if ((hitTransform.gameObject.CompareTag("BuidingDirectionMarkers")
+                    || hitTransform.gameObject.CompareTag("BuildingBlock_Ghost")
+                    || hitTransform.gameObject.CompareTag("BuildingBlock"))
+                    && hit.distance < BuildingDistance.y)
+                {
+                    SetAllGhostState_Off();
+                    return;
+                }
 
                 //Get the BuildingBlockDirection
                 if (hitTransform.gameObject.CompareTag("BuidingDirectionMarkers") || hitTransform.gameObject.CompareTag("BuildingBlock_Ghost"))
@@ -132,11 +155,21 @@ public class BuildingManager : MonoBehaviour
                 }
                 else
                 {
+                    if (hitTransform.gameObject.CompareTag("BuildingBlock"))
+                    {
+                        lastBuildingBlock_LookedAt = hitTransform.gameObject.GetComponent<BuildingBlock>().buidingBlock_Parent;
+                    }
+                    //if (hitTransform.gameObject.CompareTag("BuidingDirectionMarkers"))
+                    //{
+                    //    lastMarker_LookedAt = hitTransform.gameObject;
+                    //}
+
                     //If raycarsting is not on a buildingBlock or ghostBlock
                     if (buildingBlockDirection_Selected != BlockDirection.None)
                     {
                         //print("0. BlockDirection.None");
                         buildingBlockDirection_Selected = BlockDirection.None;
+                        SetAllGhostState_Off();
 
                         if (ghost_PointedAt != null)
                         {
@@ -152,6 +185,7 @@ public class BuildingManager : MonoBehaviour
                 {
                     //print("1. BlockDirection.None");
                     buildingBlockDirection_Selected = BlockDirection.None;
+                    SetAllGhostState_Off();
 
                     if (ghost_PointedAt != null)
                     {
@@ -168,6 +202,7 @@ public class BuildingManager : MonoBehaviour
             {
                 //print("2. BlockDirection.None");
                 buildingBlockDirection_Selected = BlockDirection.None;
+                SetAllGhostState_Off();
 
                 if (ghost_PointedAt != null)
                 {
@@ -364,6 +399,63 @@ public class BuildingManager : MonoBehaviour
             }
         }
 
+        //Wall
+        else if (buildingType_Selected == BuildingType.Wall)
+        {
+            //Check if ghost_PointedAt has the same position and rotation as any other buildingblock
+            for (int i = 0; i < buildingBlockList.Count; i++)
+            {
+                //Spacial treatment for the South, since the position is the same any time
+                if (buildingBlockDirection_Selected == BlockDirection.South)
+                {
+                    if (buildingBlockList[i].GetComponent<BuildingBlock_Parent>().transform.position
+                        == ghost_PointedAt.transform.position
+                        && buildingBlockList[i].GetComponent<BuildingBlock_Parent>().buildingType == BuildingType.Wall
+                        && ghost_PointedAt.GetComponent<Building_Ghost>().buildingType == BuildingType.Wall)
+                    {
+                        SetAllGhostState_Off();
+                        return true;
+                    }
+
+                    //if (ghost_PointedAt.GetComponent<Building_Ghost>().blockParent.transform.position == buildingBlockList[i].transform.position)
+                    //{
+                    //    if (buildingBlockList[i].GetComponent<BuildingBlock_Parent>().buildingType == BuildingType.Floor
+                    //        && ghost_PointedAt.GetComponent<Building_Ghost>().buildingType == BuildingType.Wall)
+                    //    {
+
+                    //    }
+                    //    else if (buildingBlockList[i].GetComponent<BuildingBlock_Parent>().buildingType == BuildingType.Wall
+                    //        && ghost_PointedAt.GetComponent<Building_Ghost>().buildingType == BuildingType.Floor)
+                    //    {
+
+                    //    }
+                    //    if (ghost_PointedAt.GetComponent<Building_Ghost>().buildingType == BuildingType.Wall)
+                    //    {
+                    //        if (lastBuildingBlock_LookedAt == null || lastBuildingBlock_LookedAt.GetComponent<BuildingBlock_Parent>() == null)
+                    //        {
+
+                    //        }
+                    //        else if (lastBuildingBlock_LookedAt.GetComponent<BuildingBlock_Parent>().buildingType == buildingType_Selected)
+                    //        {
+                    //        }
+                    //    }
+                    //}
+                }
+                else
+                {
+                    if (ghost_PointedAt.transform.position == buildingBlockList[i].transform.position
+                        && ghost_PointedAt.transform.rotation == buildingBlockList[i].transform.rotation)
+                    {
+                        if (lastBuildingBlock_LookedAt.GetComponent<BuildingBlock_Parent>().buildingType == buildingType_Selected)
+                        {
+                            SetAllGhostState_Off();
+                            return true;
+                        }
+                    }
+                }
+            }
+        }
+
         return false;
     }
 
@@ -382,66 +474,86 @@ public class BuildingManager : MonoBehaviour
                 //Wood
                 if (buildingMaterial_Selected == BuildingMaterial.Wood)
                 {
-                    //print("Placed: Wood");
-
                     SetAllGhostState_Off();
                     SoundManager.instance.PlayWood_Placed_Clip();
 
                     buildingBlockList.Add(Instantiate(builingBlock_Floor) as GameObject);
                     buildingBlockList[buildingBlockList.Count - 1].transform.SetParent(buildingBlock_Parent.transform);
                     buildingBlockList[buildingBlockList.Count - 1].transform.position = ghost_PointedAt.transform.position;
+                }
 
-                    #region Old
-                    //ghost_PointedAt.GetComponent<Building_Ghost>().isDeleted = true;
+                //Stone
+                else if (buildingMaterial_Selected == BuildingMaterial.Stone)
+                {
+                    //print("Placed: Stone");
 
-                    //switch (ghost_PointedAt.GetComponent<Building_Ghost>().blockDirection)
-                    //{
-                    //    case BlockDirection.None:
-                    //        break;
+                }
 
-                    //    case BlockDirection.North:
-                    //        for (int i = 0; i < buildingBlockList[buildingBlockList.Count - 1].GetComponent<BuildingBlock_Parent>().ghostList.Count; i++)
-                    //        {
-                    //            if (buildingBlockList[buildingBlockList.Count - 1].GetComponent<BuildingBlock_Parent>().ghostList[i].GetComponent<Building_Ghost>().blockDirection == BlockDirection.South)
-                    //            {
-                    //                //buildingBlockList[buildingBlockList.Count - 1].GetComponent<BuildingBlock_Parent>().ghostList[i].GetComponent<Building_Ghost>().isDeleted = true;
-                    //            }
-                    //        }
-                    //        break;
-                    //    case BlockDirection.East:
-                    //        for (int i = 0; i < buildingBlockList[buildingBlockList.Count - 1].GetComponent<BuildingBlock_Parent>().ghostList.Count; i++)
-                    //        {
-                    //            if (buildingBlockList[buildingBlockList.Count - 1].GetComponent<BuildingBlock_Parent>().ghostList[i].GetComponent<Building_Ghost>().blockDirection == BlockDirection.West)
-                    //            {
-                    //                //buildingBlockList[buildingBlockList.Count - 1].GetComponent<BuildingBlock_Parent>().ghostList[i].GetComponent<Building_Ghost>().isDeleted = true;
-                    //            }
-                    //        }
-                    //        break;
-                    //    case BlockDirection.South:
-                    //        for (int i = 0; i < buildingBlockList[buildingBlockList.Count - 1].GetComponent<BuildingBlock_Parent>().ghostList.Count; i++)
-                    //        {
-                    //            if (buildingBlockList[buildingBlockList.Count - 1].GetComponent<BuildingBlock_Parent>().ghostList[i].GetComponent<Building_Ghost>().blockDirection == BlockDirection.North)
-                    //            {
-                    //                //buildingBlockList[buildingBlockList.Count - 1].GetComponent<BuildingBlock_Parent>().ghostList[i].GetComponent<Building_Ghost>().isDeleted = true;
-                    //            }
-                    //        }
-                    //        break;
-                    //    case BlockDirection.West:
-                    //        for (int i = 0; i < buildingBlockList[buildingBlockList.Count - 1].GetComponent<BuildingBlock_Parent>().ghostList.Count; i++)
-                    //        {
-                    //            if (buildingBlockList[buildingBlockList.Count - 1].GetComponent<BuildingBlock_Parent>().ghostList[i].GetComponent<Building_Ghost>().blockDirection == BlockDirection.East)
-                    //            {
-                    //                //buildingBlockList[buildingBlockList.Count - 1].GetComponent<BuildingBlock_Parent>().ghostList[i].GetComponent<Building_Ghost>().isDeleted = true;
-                    //            }
-                    //        }
-                    //        break;
+                //Iron
+                else if (buildingMaterial_Selected == BuildingMaterial.iron)
+                {
+                    //print("Placed: Iron");
 
-                    //    default:
-                    //        break;
-                    //}
+                }
+            }
 
-                    //ghost_PointedAt.GetComponent<Building_Ghost>().isDeleted = true;
-                    #endregion
+            //Wall
+            else if (ghost_PointedAt.GetComponent<Building_Ghost>().buildingType == BuildingType.Wall
+                && ghost_PointedAt.GetComponent<Building_Ghost>().isSelected)
+            {
+                //Wood
+                if (buildingMaterial_Selected == BuildingMaterial.Wood)
+                {
+                    //print("Placed: Wood Wall");
+
+                    SetAllGhostState_Off();
+                    SoundManager.instance.PlayWood_Placed_Clip();
+
+                    buildingBlockList.Add(Instantiate(builingBlock_Wall) as GameObject);
+                    buildingBlockList[buildingBlockList.Count - 1].transform.SetParent(buildingBlock_Parent.transform);
+                    buildingBlockList[buildingBlockList.Count - 1].transform.position = ghost_PointedAt.transform.position;
+
+                    //Change Rotation
+                    if (buildingBlockDirection_Selected == BlockDirection.North)
+                    {
+                        buildingBlockList[buildingBlockList.Count - 1].transform.Rotate
+                        (
+                            ghost_PointedAt.transform.rotation.x,
+                            ghost_PointedAt.transform.rotation.y + 180,
+                            ghost_PointedAt.transform.rotation.z,
+                            Space.World
+                        );
+                    }
+                    else if (buildingBlockDirection_Selected == BlockDirection.East)
+                    {
+                        buildingBlockList[buildingBlockList.Count - 1].transform.Rotate
+                        (
+                            ghost_PointedAt.transform.rotation.x,
+                            ghost_PointedAt.transform.rotation.y - 90,
+                            ghost_PointedAt.transform.rotation.z,
+                            Space.World
+                        );
+                    }
+                    else if (buildingBlockDirection_Selected == BlockDirection.South)
+                    {
+                        buildingBlockList[buildingBlockList.Count - 1].transform.Rotate
+                        (
+                            ghost_PointedAt.transform.rotation.x,
+                            ghost_PointedAt.transform.rotation.y,
+                            ghost_PointedAt.transform.rotation.z,
+                            Space.World
+                        );
+                    }
+                    else if (buildingBlockDirection_Selected == BlockDirection.West)
+                    {
+                        buildingBlockList[buildingBlockList.Count - 1].transform.Rotate
+                        (
+                            ghost_PointedAt.transform.rotation.x,
+                            ghost_PointedAt.transform.rotation.y + 90,
+                            ghost_PointedAt.transform.rotation.z,
+                            Space.World
+                        );
+                    }
                 }
 
                 //Stone
@@ -460,16 +572,20 @@ public class BuildingManager : MonoBehaviour
             }
 
             //Else if (Wall)
-                //Wood
-                //Stone
-                //Iron
+            //Wood
+            //Stone
+            //Iron
 
             //Else if...
-                //Wood
-                //Stone
-                //Iron
-            
+            //Wood
+            //Stone
+            //Iron
+
 
         }
+
+        lastBuildingBlock_LookedAt = null;
+        buildingBlockCanBePlaced = false;
+        SetAllGhostState_Off();
     }
 }

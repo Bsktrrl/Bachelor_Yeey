@@ -8,6 +8,14 @@ using UnityEngine;
 public class DataManager : MonoBehaviour, IDataPersistance
 {
     public static DataManager instance { get; private set; } //Singleton
+    [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
+    static void Reinitialize()
+    {
+        instance = null;
+        dataIsSaving = null;
+        datahasLoaded = null;
+    }
+
     public static Action dataIsSaving;
     public static Action datahasLoaded;
 

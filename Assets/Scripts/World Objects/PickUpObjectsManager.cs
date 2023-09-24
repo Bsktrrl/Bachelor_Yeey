@@ -6,6 +6,11 @@ using UnityEngine;
 public class PickUpObjectsManager : MonoBehaviour
 {
     public static PickUpObjectsManager instance { get; private set; } //Singleton
+    [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.AfterAssembliesLoaded)]
+    static void Reinitialize()
+    {
+        instance = null;
+    }
 
     public List<GameObject> pickupsParents = new List<GameObject>();
     public List<PickupObjectData> pickupObject_CheckList = new List<PickupObjectData>();

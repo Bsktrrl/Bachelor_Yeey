@@ -5,6 +5,11 @@ using UnityEngine;
 public class HandManager : MonoBehaviour
 {
     public static HandManager instance { get; private set; } //Singleton
+    [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.AfterAssembliesLoaded)]
+    static void Reinitialize()
+    {
+        instance = null;
+    }
 
     public List<Items> handList = new List<Items>();
     public int selectedSlot;

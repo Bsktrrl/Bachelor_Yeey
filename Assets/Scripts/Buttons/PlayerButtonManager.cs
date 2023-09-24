@@ -8,6 +8,11 @@ public class PlayerButtonManager : MonoBehaviour
 {
     //Singleton
     public static PlayerButtonManager instance { get; set; } //Singleton
+    [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.AfterAssembliesLoaded)]
+    static void Reinitialize()
+    {
+        instance = null;
+    }
 
     public ButtonClickedState buttonClickedState = ButtonClickedState.None;
     public InventoryButtonState inventoryButtonState = InventoryButtonState.None;

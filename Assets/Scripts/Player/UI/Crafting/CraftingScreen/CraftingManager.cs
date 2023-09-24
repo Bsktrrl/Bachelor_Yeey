@@ -7,6 +7,11 @@ using UnityEngine.UI;
 public class CraftingManager : MonoBehaviour
 {
     public static CraftingManager instance { get; set; } //Singleton
+    [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.AfterAssembliesLoaded)]
+    static void Reinitialize()
+    {
+        instance = null;
+    }
 
     [Header("Main Screen")]
     [SerializeField] GameObject craftingMenu;
