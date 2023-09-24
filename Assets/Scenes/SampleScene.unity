@@ -2206,10 +2206,13 @@ MonoBehaviour:
   BlockTagName: 
   BuildingDistance: {x: 4, y: 0.75}
   buildingBlockDirection_Selected: 0
-  buildingType_Selected: 2
+  buildingType_Selected: 4
   buildingMaterial_Selected: 1
   builingBlock_Floor: {fileID: 4763889419513853119, guid: 1883060f695bb5f4fa31f3eb733546c5, type: 3}
+  builingBlock_Floor_Triangle: {fileID: 4763889419513853119, guid: 8945f25e892be384580530c4674397a6, type: 3}
   builingBlock_Wall: {fileID: 4763889419513853119, guid: b3b010e049d8340419ec70bd4c4febd0, type: 3}
+  builingBlock_Wall_Diagonal: {fileID: 4763889419513853119, guid: e4684e8352a32cd47844545ce625ab21, type: 3}
+  builingBlock_Angle: {fileID: 4763889419513853119, guid: b656488a7bfbddc4197a80e7cfd51196, type: 3}
   invisible_Material: {fileID: 2100000, guid: 82ccea1b1bfc77e4a871cb9efc5db31e, type: 2}
   ghost_Material: {fileID: 2100000, guid: 5dc43eb6ada116e46877d050b1ec1761, type: 2}
   canPlace_Material: {fileID: 2100000, guid: e278a96e1265f6a499cc3b2f57dfb5a2, type: 2}
@@ -3786,7 +3789,7 @@ CharacterController:
   serializedVersion: 2
   m_Height: 1.7
   m_Radius: 0.5
-  m_SlopeLimit: 45
+  m_SlopeLimit: 50
   m_StepOffset: 0.7
   m_SkinWidth: 0.08
   m_MinMoveDistance: 0.001
@@ -3833,7 +3836,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 775937104}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0

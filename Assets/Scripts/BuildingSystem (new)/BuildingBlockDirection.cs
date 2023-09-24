@@ -6,11 +6,12 @@ public class BuildingBlockDirection : MonoBehaviour
 {
     public GameObject parentBlock;
 
-    public BlockDirection blockDirection;
+    public BlockCompass blockDirection;
+    public BlockDirection BlockDirection;
 
 }
 
-public enum BlockDirection
+public enum BlockCompass
 {
     None,
 
@@ -18,6 +19,14 @@ public enum BlockDirection
     East,
     South,
     West,
+
+    Cross_A,
+    Cross_B
+}
+
+public enum BlockDirection
+{
+    None,
 
     up,
     right,

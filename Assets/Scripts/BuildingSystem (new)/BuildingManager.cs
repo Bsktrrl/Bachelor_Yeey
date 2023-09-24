@@ -27,13 +27,16 @@ public class BuildingManager : MonoBehaviour
 
     [Header("Selected")]
     [SerializeField] Vector2 BuildingDistance;
-    public BlockDirection buildingBlockDirection_Selected;
+    public BlockCompass buildingBlockDirection_Selected;
     public BuildingType buildingType_Selected = BuildingType.None;
     public BuildingMaterial buildingMaterial_Selected = BuildingMaterial.None;
 
     [Header("BuildingBlocks List")]
     [SerializeField] GameObject builingBlock_Floor;
+    [SerializeField] GameObject builingBlock_Floor_Triangle;
     [SerializeField] GameObject builingBlock_Wall;
+    [SerializeField] GameObject builingBlock_Wall_Diagonal;
+    [SerializeField] GameObject builingBlock_Angle;
 
     [Header("Materials List")]
     [SerializeField] Material invisible_Material;
@@ -114,35 +117,43 @@ public class BuildingManager : MonoBehaviour
                     {
                         switch (hitTransform.gameObject.GetComponent<BuildingBlockDirection>().blockDirection)
                         {
-                            case BlockDirection.None:
+                            case BlockCompass.None:
                                 break;
 
-                            case BlockDirection.North:
-                                if (buildingBlockDirection_Selected != BlockDirection.North)
+                            case BlockCompass.North:
+                                if (buildingBlockDirection_Selected != BlockCompass.North)
                                 {
-                                    buildingBlockDirection_Selected = BlockDirection.North;
-                                    //print("1. North");
+                                    buildingBlockDirection_Selected = BlockCompass.North;
                                 }
                                 break;
-                            case BlockDirection.East:
-                                if (buildingBlockDirection_Selected != BlockDirection.East)
+                            case BlockCompass.East:
+                                if (buildingBlockDirection_Selected != BlockCompass.East)
                                 {
-                                    buildingBlockDirection_Selected = BlockDirection.East;
-                                    //print("2. East");
+                                    buildingBlockDirection_Selected = BlockCompass.East;
                                 }
                                 break;
-                            case BlockDirection.South:
-                                if (buildingBlockDirection_Selected != BlockDirection.South)
+                            case BlockCompass.South:
+                                if (buildingBlockDirection_Selected != BlockCompass.South)
                                 {
-                                    buildingBlockDirection_Selected = BlockDirection.South;
-                                    //print("3. South");
+                                    buildingBlockDirection_Selected = BlockCompass.South;
                                 }
                                 break;
-                            case BlockDirection.West:
-                                if (buildingBlockDirection_Selected != BlockDirection.West)
+                            case BlockCompass.West:
+                                if (buildingBlockDirection_Selected != BlockCompass.West)
                                 {
-                                    buildingBlockDirection_Selected = BlockDirection.West;
-                                    //print("4. West");
+                                    buildingBlockDirection_Selected = BlockCompass.West;
+                                }
+                                break;
+                            case BlockCompass.Cross_A:
+                                if (buildingBlockDirection_Selected != BlockCompass.Cross_A)
+                                {
+                                    buildingBlockDirection_Selected = BlockCompass.Cross_A;
+                                }
+                                break;
+                            case BlockCompass.Cross_B:
+                                if (buildingBlockDirection_Selected != BlockCompass.Cross_B)
+                                {
+                                    buildingBlockDirection_Selected = BlockCompass.Cross_B;
                                 }
                                 break;
 
@@ -182,10 +193,9 @@ public class BuildingManager : MonoBehaviour
                     }
 
                     //If raycarsting is not on a buildingBlock or ghostBlock
-                    if (buildingBlockDirection_Selected != BlockDirection.None)
+                    if (buildingBlockDirection_Selected != BlockCompass.None)
                     {
-                        //print("0. BlockDirection.None");
-                        buildingBlockDirection_Selected = BlockDirection.None;
+                        buildingBlockDirection_Selected = BlockCompass.None;
                         SetAllGhostState_Off();
 
                         if (ghost_PointedAt != null)
@@ -198,10 +208,10 @@ public class BuildingManager : MonoBehaviour
             }
             else
             {
-                if (buildingBlockDirection_Selected != BlockDirection.None)
+                //When raycast doesn't hit any BuildingObjects
+                if (buildingBlockDirection_Selected != BlockCompass.None)
                 {
-                    //print("1. BlockDirection.None");
-                    buildingBlockDirection_Selected = BlockDirection.None;
+                    buildingBlockDirection_Selected = BlockCompass.None;
                     SetAllGhostState_Off();
 
                     if (ghost_PointedAt != null)
@@ -215,10 +225,9 @@ public class BuildingManager : MonoBehaviour
         else
         {
             //When Hammer isn't in the hand anymore
-            if (buildingBlockDirection_Selected != BlockDirection.None)
+            if (buildingBlockDirection_Selected != BlockCompass.None)
             {
-                //print("2. BlockDirection.None");
-                buildingBlockDirection_Selected = BlockDirection.None;
+                buildingBlockDirection_Selected = BlockCompass.None;
                 SetAllGhostState_Off();
 
                 if (ghost_PointedAt != null)
@@ -233,13 +242,13 @@ public class BuildingManager : MonoBehaviour
     {
         switch (buildingBlockDirection_Selected)
         {
-            case BlockDirection.None:
+            case BlockCompass.None:
                 break;
 
-            case BlockDirection.North:
+            case BlockCompass.North:
                 for (int i = 0; i < buildingBlock.ghostList.Count; i++)
                 {
-                    if (buildingBlock.ghostList[i].GetComponent<Building_Ghost>().blockDirection == BlockDirection.North)
+                    if (buildingBlock.ghostList[i].GetComponent<Building_Ghost>().blockDirection == BlockCompass.North)
                     {
                         SetGhostState_ON(buildingBlock, i);
                     }
@@ -249,10 +258,10 @@ public class BuildingManager : MonoBehaviour
                     }
                 }
                 break;
-            case BlockDirection.East:
+            case BlockCompass.East:
                 for (int i = 0; i < buildingBlock.ghostList.Count; i++)
                 {
-                    if (buildingBlock.ghostList[i].GetComponent<Building_Ghost>().blockDirection == BlockDirection.East)
+                    if (buildingBlock.ghostList[i].GetComponent<Building_Ghost>().blockDirection == BlockCompass.East)
                     {
                         SetGhostState_ON(buildingBlock, i);
                     }
@@ -262,10 +271,10 @@ public class BuildingManager : MonoBehaviour
                     }
                 }
                 break;
-            case BlockDirection.South:
+            case BlockCompass.South:
                 for (int i = 0; i < buildingBlock.ghostList.Count; i++)
                 {
-                    if (buildingBlock.ghostList[i].GetComponent<Building_Ghost>().blockDirection == BlockDirection.South)
+                    if (buildingBlock.ghostList[i].GetComponent<Building_Ghost>().blockDirection == BlockCompass.South)
                     {
                         SetGhostState_ON(buildingBlock, i);
                     }
@@ -275,10 +284,36 @@ public class BuildingManager : MonoBehaviour
                     }
                 }
                 break;
-            case BlockDirection.West:
+            case BlockCompass.West:
                 for (int i = 0; i < buildingBlock.ghostList.Count; i++)
                 {
-                    if (buildingBlock.ghostList[i].GetComponent<Building_Ghost>().blockDirection == BlockDirection.West)
+                    if (buildingBlock.ghostList[i].GetComponent<Building_Ghost>().blockDirection == BlockCompass.West)
+                    {
+                        SetGhostState_ON(buildingBlock, i);
+                    }
+                    else
+                    {
+                        SetGhostState_OFF(buildingBlock, i);
+                    }
+                }
+                break;
+            case BlockCompass.Cross_A:
+                for (int i = 0; i < buildingBlock.ghostList.Count; i++)
+                {
+                    if (buildingBlock.ghostList[i].GetComponent<Building_Ghost>().blockDirection == BlockCompass.Cross_A)
+                    {
+                        SetGhostState_ON(buildingBlock, i);
+                    }
+                    else
+                    {
+                        SetGhostState_OFF(buildingBlock, i);
+                    }
+                }
+                break;
+            case BlockCompass.Cross_B:
+                for (int i = 0; i < buildingBlock.ghostList.Count; i++)
+                {
+                    if (buildingBlock.ghostList[i].GetComponent<Building_Ghost>().blockDirection == BlockCompass.Cross_B)
                     {
                         SetGhostState_ON(buildingBlock, i);
                     }
@@ -310,11 +345,39 @@ public class BuildingManager : MonoBehaviour
 
         }
 
+        //Floor - triangle
+        else if (buildingType_Selected == BuildingType.Triangle)
+        {
+            //Wood
+            BuidingBlockCanBePlacedCheck(buildingBlock, i, BuildingType.Triangle, canPlace_Material, cannotPlace_Material); //Change Material when Mesh is ready
+
+            //Stone
+
+
+            //Iron
+
+
+        }
+
         //Wall
         else if (buildingType_Selected == BuildingType.Wall)
         {
             //Wood
             BuidingBlockCanBePlacedCheck(buildingBlock, i, BuildingType.Wall, canPlace_Material, cannotPlace_Material); //Change Material when Mesh is ready
+
+            //Stone
+
+
+            //Iron
+
+
+        }
+
+        //WallDiagonal
+        else if (buildingType_Selected == BuildingType.Wall_Diagonaly)
+        {
+            //Wood
+            BuidingBlockCanBePlacedCheck(buildingBlock, i, BuildingType.Wall_Diagonaly, canPlace_Material, cannotPlace_Material); //Change Material when Mesh is ready
 
             //Stone
 
@@ -405,7 +468,22 @@ public class BuildingManager : MonoBehaviour
     }
     bool CheckOverlappingGhost()
     {
+        //Floor
         if (buildingType_Selected == BuildingType.Floor)
+        {
+            //Check if ghost_PointedAt has the same position as any other buildingblock
+            for (int i = 0; i < buildingBlockList.Count; i++)
+            {
+                if (ghost_PointedAt.transform.position == buildingBlockList[i].transform.position)
+                {
+                    SetAllGhostState_Off();
+                    return true;
+                }
+            }
+        }
+
+        //Floor - Triangle
+        else if (buildingType_Selected == BuildingType.Triangle)
         {
             //Check if ghost_PointedAt has the same position as any other buildingblock
             for (int i = 0; i < buildingBlockList.Count; i++)
@@ -437,40 +515,40 @@ public class BuildingManager : MonoBehaviour
                 //    }
 
                 //}
-                if (buildingBlockDirection_Selected == BlockDirection.South)
+                if (buildingBlockDirection_Selected == BlockCompass.South)
                 {
                     Vector3 tempSouth = new Vector3(buildingBlockList[i].transform.position.x, buildingBlockList[i].transform.position.y, buildingBlockList[i].transform.position.z);
                     Vector3 tempNorth = new Vector3(buildingBlockList[i].transform.position.x, buildingBlockList[i].transform.position.y, buildingBlockList[i].transform.position.z + 2);
 
                     if (buildingBlockList[i].GetComponent<BuildingBlock_Parent>().buildingType == BuildingType.Wall
-                        && (buildingBlockList[i].GetComponent<BuildingBlock_Parent>().directionPlaced == BlockDirection.South)
+                        && (buildingBlockList[i].GetComponent<BuildingBlock_Parent>().directionPlaced == BlockCompass.South)
                         && ghost_PointedAt.GetComponent<Building_Ghost>().blockParent.transform.position == tempSouth)
                     {
                         SetAllGhostState_Off();
                         return true;
                     }
                     else if (buildingBlockList[i].GetComponent<BuildingBlock_Parent>().buildingType == BuildingType.Wall
-                        && (buildingBlockList[i].GetComponent<BuildingBlock_Parent>().directionPlaced == BlockDirection.North)
+                        && (buildingBlockList[i].GetComponent<BuildingBlock_Parent>().directionPlaced == BlockCompass.North)
                         && ghost_PointedAt.GetComponent<Building_Ghost>().blockParent.transform.position == tempNorth)
                     {
                         SetAllGhostState_Off();
                         return true;
                     }
                 }
-                else if (buildingBlockDirection_Selected == BlockDirection.North)
+                else if (buildingBlockDirection_Selected == BlockCompass.North)
                 {
                     Vector3 tempSouth = new Vector3(buildingBlockList[i].transform.position.x, buildingBlockList[i].transform.position.y, buildingBlockList[i].transform.position.z - 2);
                     Vector3 tempNorth = new Vector3(buildingBlockList[i].transform.position.x, buildingBlockList[i].transform.position.y, buildingBlockList[i].transform.position.z);
 
                     if (buildingBlockList[i].GetComponent<BuildingBlock_Parent>().buildingType == BuildingType.Wall
-                        && (buildingBlockList[i].GetComponent<BuildingBlock_Parent>().directionPlaced == BlockDirection.South)
+                        && (buildingBlockList[i].GetComponent<BuildingBlock_Parent>().directionPlaced == BlockCompass.South)
                         && ghost_PointedAt.GetComponent<Building_Ghost>().blockParent.transform.position == tempSouth)
                     {
                         SetAllGhostState_Off();
                         return true;
                     }
                     else if (buildingBlockList[i].GetComponent<BuildingBlock_Parent>().buildingType == BuildingType.Wall
-                        && (buildingBlockList[i].GetComponent<BuildingBlock_Parent>().directionPlaced == BlockDirection.North)
+                        && (buildingBlockList[i].GetComponent<BuildingBlock_Parent>().directionPlaced == BlockCompass.North)
                         && ghost_PointedAt.GetComponent<Building_Ghost>().blockParent.transform.position == tempNorth)
                     {
                         SetAllGhostState_Off();
@@ -478,40 +556,40 @@ public class BuildingManager : MonoBehaviour
                     }
                 }
                 
-                else if (buildingBlockDirection_Selected == BlockDirection.West)
+                else if (buildingBlockDirection_Selected == BlockCompass.West)
                 {
                     Vector3 tempEast = new Vector3(buildingBlockList[i].transform.position.x + 2, buildingBlockList[i].transform.position.y, buildingBlockList[i].transform.position.z);
                     Vector3 tempWest = new Vector3(buildingBlockList[i].transform.position.x, buildingBlockList[i].transform.position.y, buildingBlockList[i].transform.position.z);
 
                     if (buildingBlockList[i].GetComponent<BuildingBlock_Parent>().buildingType == BuildingType.Wall
-                        && (buildingBlockList[i].GetComponent<BuildingBlock_Parent>().directionPlaced == BlockDirection.East)
+                        && (buildingBlockList[i].GetComponent<BuildingBlock_Parent>().directionPlaced == BlockCompass.East)
                         && ghost_PointedAt.GetComponent<Building_Ghost>().blockParent.transform.position == tempEast)
                     {
                         SetAllGhostState_Off();
                         return true;
                     }
                     else if(buildingBlockList[i].GetComponent<BuildingBlock_Parent>().buildingType == BuildingType.Wall
-                        && (buildingBlockList[i].GetComponent<BuildingBlock_Parent>().directionPlaced == BlockDirection.West)
+                        && (buildingBlockList[i].GetComponent<BuildingBlock_Parent>().directionPlaced == BlockCompass.West)
                         && ghost_PointedAt.GetComponent<Building_Ghost>().blockParent.transform.position == tempWest)
                     {
                         SetAllGhostState_Off();
                         return true;
                     }
                 }
-                else if (buildingBlockDirection_Selected == BlockDirection.East)
+                else if (buildingBlockDirection_Selected == BlockCompass.East)
                 {
                     Vector3 tempEast = new Vector3(buildingBlockList[i].transform.position.x, buildingBlockList[i].transform.position.y, buildingBlockList[i].transform.position.z);
                     Vector3 tempWest = new Vector3(buildingBlockList[i].transform.position.x - 2, buildingBlockList[i].transform.position.y, buildingBlockList[i].transform.position.z);
 
                     if (buildingBlockList[i].GetComponent<BuildingBlock_Parent>().buildingType == BuildingType.Wall
-                        && (buildingBlockList[i].GetComponent<BuildingBlock_Parent>().directionPlaced == BlockDirection.East)
+                        && (buildingBlockList[i].GetComponent<BuildingBlock_Parent>().directionPlaced == BlockCompass.East)
                         && ghost_PointedAt.GetComponent<Building_Ghost>().blockParent.transform.position == tempEast)
                     {
                         SetAllGhostState_Off();
                         return true;
                     }
                     else if (buildingBlockList[i].GetComponent<BuildingBlock_Parent>().buildingType == BuildingType.Wall
-                        && (buildingBlockList[i].GetComponent<BuildingBlock_Parent>().directionPlaced == BlockDirection.West)
+                        && (buildingBlockList[i].GetComponent<BuildingBlock_Parent>().directionPlaced == BlockCompass.West)
                         && ghost_PointedAt.GetComponent<Building_Ghost>().blockParent.transform.position == tempWest)
                     {
                         SetAllGhostState_Off();
@@ -519,6 +597,34 @@ public class BuildingManager : MonoBehaviour
                     }
                 }
             }
+        }
+
+        //Wall - Diagonally
+        else if (buildingType_Selected == BuildingType.Wall_Diagonaly)
+        {
+            //Check if ghost_PointedAt has the same position as any other buildingblock
+            //for (int i = 0; i < buildingBlockList.Count; i++)
+            //{
+            //    if (ghost_PointedAt.transform.position == buildingBlockList[i].transform.position)
+            //    {
+            //        SetAllGhostState_Off();
+            //        return true;
+            //    }
+            //}
+        }
+
+        //Angeled
+        else if (buildingType_Selected == BuildingType.Angeled)
+        {
+            //Check if ghost_PointedAt has the same position as any other buildingblock
+            //for (int i = 0; i < buildingBlockList.Count; i++)
+            //{
+            //    if (ghost_PointedAt.transform.position == buildingBlockList[i].transform.position)
+            //    {
+            //        SetAllGhostState_Off();
+            //        return true;
+            //    }
+            //}
         }
 
         return false;
@@ -539,6 +645,8 @@ public class BuildingManager : MonoBehaviour
                 //Wood
                 if (buildingMaterial_Selected == BuildingMaterial.Wood)
                 {
+                    print("Placed: Wood Floor");
+
                     SetAllGhostState_Off();
                     SoundManager.instance.PlayWood_Placed_Clip();
 
@@ -563,61 +671,63 @@ public class BuildingManager : MonoBehaviour
                 }
             }
 
-            //Wall
-            else if (ghost_PointedAt.GetComponent<Building_Ghost>().buildingType == BuildingType.Wall
+            //Floor - triangle
+            if (ghost_PointedAt.GetComponent<Building_Ghost>().buildingType == BuildingType.Triangle
                 && ghost_PointedAt.GetComponent<Building_Ghost>().isSelected)
             {
                 //Wood
                 if (buildingMaterial_Selected == BuildingMaterial.Wood)
                 {
-                    //print("Placed: Wood Wall");
-
+                    print("Placed: Wood Triangle");
+                    
                     SetAllGhostState_Off();
                     SoundManager.instance.PlayWood_Placed_Clip();
 
-                    buildingBlockList.Add(Instantiate(builingBlock_Wall) as GameObject);
-                    buildingBlockList[buildingBlockList.Count - 1].transform.SetParent(buildingBlock_Parent.transform);
-                    buildingBlockList[buildingBlockList.Count - 1].transform.position = ghost_PointedAt.transform.position;
-
-                    //Change Rotation
-                    if (buildingBlockDirection_Selected == BlockDirection.North)
+                    if (buildingBlockDirection_Selected == BlockCompass.South)
                     {
+                        buildingBlockList.Add(Instantiate(builingBlock_Floor_Triangle) as GameObject);
+                        buildingBlockList[buildingBlockList.Count - 1].transform.SetParent(buildingBlock_Parent.transform);
+                        buildingBlockList[buildingBlockList.Count - 1].transform.position = ghost_PointedAt.transform.position;
+                        buildingBlockList[buildingBlockList.Count - 1].GetComponent<BuildingBlock_Parent>().directionPlaced = BlockCompass.South;
+                    }
+                    else if (buildingBlockDirection_Selected == BlockCompass.East)
+                    {
+                        buildingBlockList.Add(Instantiate(builingBlock_Floor_Triangle) as GameObject);
+                        buildingBlockList[buildingBlockList.Count - 1].transform.SetParent(buildingBlock_Parent.transform);
+                        buildingBlockList[buildingBlockList.Count - 1].transform.position = ghost_PointedAt.transform.position;
+
                         buildingBlockList[buildingBlockList.Count - 1].transform.Rotate
                         (
                             ghost_PointedAt.transform.rotation.x,
-                            ghost_PointedAt.transform.rotation.y + 180,
+                            ghost_PointedAt.transform.rotation.y -90,
                             ghost_PointedAt.transform.rotation.z,
                             Space.World
                         );
 
-                        buildingBlockList[buildingBlockList.Count - 1].GetComponent<BuildingBlock_Parent>().directionPlaced = BlockDirection.North;
+                        buildingBlockList[buildingBlockList.Count - 1].GetComponent<BuildingBlock_Parent>().directionPlaced = BlockCompass.East;
                     }
-                    else if (buildingBlockDirection_Selected == BlockDirection.East)
+                    else if (buildingBlockDirection_Selected == BlockCompass.North)
                     {
+                        buildingBlockList.Add(Instantiate(builingBlock_Floor_Triangle) as GameObject);
+                        buildingBlockList[buildingBlockList.Count - 1].transform.SetParent(buildingBlock_Parent.transform);
+                        buildingBlockList[buildingBlockList.Count - 1].transform.position = ghost_PointedAt.transform.position;
+
                         buildingBlockList[buildingBlockList.Count - 1].transform.Rotate
                         (
                             ghost_PointedAt.transform.rotation.x,
-                            ghost_PointedAt.transform.rotation.y - 90,
+                            ghost_PointedAt.transform.rotation.y - 180,
                             ghost_PointedAt.transform.rotation.z,
                             Space.World
                         );
 
-                        buildingBlockList[buildingBlockList.Count - 1].GetComponent<BuildingBlock_Parent>().directionPlaced = BlockDirection.East;
+                        buildingBlockList[buildingBlockList.Count - 1].GetComponent<BuildingBlock_Parent>().directionPlaced = BlockCompass.East;
                     }
-                    else if (buildingBlockDirection_Selected == BlockDirection.South)
+                    else if (buildingBlockDirection_Selected == BlockCompass.West)
                     {
-                        buildingBlockList[buildingBlockList.Count - 1].transform.Rotate
-                        (
-                            ghost_PointedAt.transform.rotation.x,
-                            ghost_PointedAt.transform.rotation.y,
-                            ghost_PointedAt.transform.rotation.z,
-                            Space.World
-                        );
+                        buildingBlockList.Add(Instantiate(builingBlock_Floor_Triangle) as GameObject);
+                        buildingBlockList[buildingBlockList.Count - 1].transform.SetParent(buildingBlock_Parent.transform);
+                        buildingBlockList[buildingBlockList.Count - 1].transform.position = ghost_PointedAt.transform.position;
 
-                        buildingBlockList[buildingBlockList.Count - 1].GetComponent<BuildingBlock_Parent>().directionPlaced = BlockDirection.South;
-                    }
-                    else if (buildingBlockDirection_Selected == BlockDirection.West)
-                    {
                         buildingBlockList[buildingBlockList.Count - 1].transform.Rotate
                         (
                             ghost_PointedAt.transform.rotation.x,
@@ -626,7 +736,7 @@ public class BuildingManager : MonoBehaviour
                             Space.World
                         );
 
-                        buildingBlockList[buildingBlockList.Count - 1].GetComponent<BuildingBlock_Parent>().directionPlaced = BlockDirection.West;
+                        buildingBlockList[buildingBlockList.Count - 1].GetComponent<BuildingBlock_Parent>().directionPlaced = BlockCompass.East;
                     }
                 }
 
@@ -645,17 +755,224 @@ public class BuildingManager : MonoBehaviour
                 }
             }
 
-            //Else if (Wall)
-            //Wood
-            //Stone
-            //Iron
+            //Wall
+            else if (ghost_PointedAt.GetComponent<Building_Ghost>().buildingType == BuildingType.Wall
+                && ghost_PointedAt.GetComponent<Building_Ghost>().isSelected)
+            {
+                //Wood
+                if (buildingMaterial_Selected == BuildingMaterial.Wood)
+                {
+                    print("Placed: Wood Wall");
 
-            //Else if...
-            //Wood
-            //Stone
-            //Iron
+                    SetAllGhostState_Off();
+                    SoundManager.instance.PlayWood_Placed_Clip();
+
+                    buildingBlockList.Add(Instantiate(builingBlock_Wall) as GameObject);
+                    buildingBlockList[buildingBlockList.Count - 1].transform.SetParent(buildingBlock_Parent.transform);
+                    buildingBlockList[buildingBlockList.Count - 1].transform.position = ghost_PointedAt.transform.position;
+
+                    //Change Rotation
+                    if (buildingBlockDirection_Selected == BlockCompass.North)
+                    {
+                        buildingBlockList[buildingBlockList.Count - 1].transform.Rotate
+                        (
+                            ghost_PointedAt.transform.rotation.x,
+                            ghost_PointedAt.transform.rotation.y + 180,
+                            ghost_PointedAt.transform.rotation.z,
+                            Space.World
+                        );
+
+                        buildingBlockList[buildingBlockList.Count - 1].GetComponent<BuildingBlock_Parent>().directionPlaced = BlockCompass.North;
+                    }
+                    else if (buildingBlockDirection_Selected == BlockCompass.East)
+                    {
+                        buildingBlockList[buildingBlockList.Count - 1].transform.Rotate
+                        (
+                            ghost_PointedAt.transform.rotation.x,
+                            ghost_PointedAt.transform.rotation.y - 90,
+                            ghost_PointedAt.transform.rotation.z,
+                            Space.World
+                        );
+
+                        buildingBlockList[buildingBlockList.Count - 1].GetComponent<BuildingBlock_Parent>().directionPlaced = BlockCompass.East;
+                    }
+                    else if (buildingBlockDirection_Selected == BlockCompass.South)
+                    {
+                        buildingBlockList[buildingBlockList.Count - 1].transform.Rotate
+                        (
+                            ghost_PointedAt.transform.rotation.x,
+                            ghost_PointedAt.transform.rotation.y,
+                            ghost_PointedAt.transform.rotation.z,
+                            Space.World
+                        );
+
+                        buildingBlockList[buildingBlockList.Count - 1].GetComponent<BuildingBlock_Parent>().directionPlaced = BlockCompass.South;
+                    }
+                    else if (buildingBlockDirection_Selected == BlockCompass.West)
+                    {
+                        buildingBlockList[buildingBlockList.Count - 1].transform.Rotate
+                        (
+                            ghost_PointedAt.transform.rotation.x,
+                            ghost_PointedAt.transform.rotation.y + 90,
+                            ghost_PointedAt.transform.rotation.z,
+                            Space.World
+                        );
+
+                        buildingBlockList[buildingBlockList.Count - 1].GetComponent<BuildingBlock_Parent>().directionPlaced = BlockCompass.West;
+                    }
+                }
+
+                //Stone
+                else if (buildingMaterial_Selected == BuildingMaterial.Stone)
+                {
+                    //print("Placed: Stone");
+
+                }
+
+                //Iron
+                else if (buildingMaterial_Selected == BuildingMaterial.iron)
+                {
+                    //print("Placed: Iron");
+
+                }
+            }
 
 
+            //Wall_Diagonal
+            if (ghost_PointedAt.GetComponent<Building_Ghost>().buildingType == BuildingType.Wall_Diagonaly
+                && ghost_PointedAt.GetComponent<Building_Ghost>().isSelected)
+            {
+                //Wood
+                if (buildingMaterial_Selected == BuildingMaterial.Wood)
+                {
+                    print("Placed: Wood Wall_Diagonaly");
+
+                    SetAllGhostState_Off();
+                    SoundManager.instance.PlayWood_Placed_Clip();
+
+                    if (buildingBlockDirection_Selected == BlockCompass.Cross_A)
+                    {
+                        buildingBlockList.Add(Instantiate(builingBlock_Wall_Diagonal) as GameObject);
+                        buildingBlockList[buildingBlockList.Count - 1].transform.SetParent(buildingBlock_Parent.transform);
+                        buildingBlockList[buildingBlockList.Count - 1].transform.position = ghost_PointedAt.transform.position;
+                        buildingBlockList[buildingBlockList.Count - 1].GetComponent<BuildingBlock_Parent>().directionPlaced = BlockCompass.South;
+                    }
+                    else if (buildingBlockDirection_Selected == BlockCompass.Cross_B)
+                    {
+                        buildingBlockList.Add(Instantiate(builingBlock_Wall_Diagonal) as GameObject);
+                        buildingBlockList[buildingBlockList.Count - 1].transform.SetParent(buildingBlock_Parent.transform);
+                        buildingBlockList[buildingBlockList.Count - 1].transform.position = ghost_PointedAt.transform.position;
+
+                        buildingBlockList[buildingBlockList.Count - 1].transform.Rotate
+                        (
+                            ghost_PointedAt.transform.rotation.x,
+                            ghost_PointedAt.transform.rotation.y - 90,
+                            ghost_PointedAt.transform.rotation.z,
+                            Space.World
+                        );
+
+                        buildingBlockList[buildingBlockList.Count - 1].GetComponent<BuildingBlock_Parent>().directionPlaced = BlockCompass.East;
+                    }
+                }
+
+                //Stone
+                else if (buildingMaterial_Selected == BuildingMaterial.Stone)
+                {
+                    //print("Placed: Stone");
+
+                }
+
+                //Iron
+                else if (buildingMaterial_Selected == BuildingMaterial.iron)
+                {
+                    //print("Placed: Iron");
+
+                }
+            }
+
+            //Angle
+            if (ghost_PointedAt.GetComponent<Building_Ghost>().buildingType == BuildingType.Angeled
+                && ghost_PointedAt.GetComponent<Building_Ghost>().isSelected)
+            {
+                //Wood
+                if (buildingMaterial_Selected == BuildingMaterial.Wood)
+                {
+                    print("Placed: Wood Angeled");
+
+                    SetAllGhostState_Off();
+                    SoundManager.instance.PlayWood_Placed_Clip();
+
+                    if (buildingBlockDirection_Selected == BlockCompass.South)
+                    {
+                        buildingBlockList.Add(Instantiate(builingBlock_Angle) as GameObject);
+                        buildingBlockList[buildingBlockList.Count - 1].transform.SetParent(buildingBlock_Parent.transform);
+                        buildingBlockList[buildingBlockList.Count - 1].transform.position = ghost_PointedAt.transform.position;
+                        buildingBlockList[buildingBlockList.Count - 1].GetComponent<BuildingBlock_Parent>().directionPlaced = BlockCompass.South;
+                    }
+                    else if (buildingBlockDirection_Selected == BlockCompass.East)
+                    {
+                        buildingBlockList.Add(Instantiate(builingBlock_Angle) as GameObject);
+                        buildingBlockList[buildingBlockList.Count - 1].transform.SetParent(buildingBlock_Parent.transform);
+                        buildingBlockList[buildingBlockList.Count - 1].transform.position = ghost_PointedAt.transform.position;
+
+                        buildingBlockList[buildingBlockList.Count - 1].transform.Rotate
+                        (
+                            ghost_PointedAt.transform.rotation.x,
+                            ghost_PointedAt.transform.rotation.y - 90,
+                            ghost_PointedAt.transform.rotation.z,
+                            Space.World
+                        );
+
+                        buildingBlockList[buildingBlockList.Count - 1].GetComponent<BuildingBlock_Parent>().directionPlaced = BlockCompass.East;
+                    }
+                    else if (buildingBlockDirection_Selected == BlockCompass.North)
+                    {
+                        buildingBlockList.Add(Instantiate(builingBlock_Angle) as GameObject);
+                        buildingBlockList[buildingBlockList.Count - 1].transform.SetParent(buildingBlock_Parent.transform);
+                        buildingBlockList[buildingBlockList.Count - 1].transform.position = ghost_PointedAt.transform.position;
+
+                        buildingBlockList[buildingBlockList.Count - 1].transform.Rotate
+                        (
+                            ghost_PointedAt.transform.rotation.x,
+                            ghost_PointedAt.transform.rotation.y - 180,
+                            ghost_PointedAt.transform.rotation.z,
+                            Space.World
+                        );
+
+                        buildingBlockList[buildingBlockList.Count - 1].GetComponent<BuildingBlock_Parent>().directionPlaced = BlockCompass.East;
+                    }
+                    else if (buildingBlockDirection_Selected == BlockCompass.West)
+                    {
+                        buildingBlockList.Add(Instantiate(builingBlock_Angle) as GameObject);
+                        buildingBlockList[buildingBlockList.Count - 1].transform.SetParent(buildingBlock_Parent.transform);
+                        buildingBlockList[buildingBlockList.Count - 1].transform.position = ghost_PointedAt.transform.position;
+
+                        buildingBlockList[buildingBlockList.Count - 1].transform.Rotate
+                        (
+                            ghost_PointedAt.transform.rotation.x,
+                            ghost_PointedAt.transform.rotation.y + 90,
+                            ghost_PointedAt.transform.rotation.z,
+                            Space.World
+                        );
+
+                        buildingBlockList[buildingBlockList.Count - 1].GetComponent<BuildingBlock_Parent>().directionPlaced = BlockCompass.East;
+                    }
+                }
+
+                //Stone
+                else if (buildingMaterial_Selected == BuildingMaterial.Stone)
+                {
+                    //print("Placed: Stone");
+
+                }
+
+                //Iron
+                else if (buildingMaterial_Selected == BuildingMaterial.iron)
+                {
+                    //print("Placed: Iron");
+
+                }
+            }
         }
 
         lastBuildingBlock_LookedAt = null;

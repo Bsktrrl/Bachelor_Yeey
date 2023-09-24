@@ -307,7 +307,7 @@ public class StorageManager : MonoBehaviour
         {
             for (int j = 0; j < item_SO.itemList.Count; j++)
             {
-                if (itemSlotList[i].GetComponent<ItemSlot_N>() == null || item_SO == null || item_SO.itemList == null)
+                if (itemSlotList[i] == null || itemSlotList[i].GetComponent<ItemSlot_N>() == null || item_SO == null || item_SO.itemList == null)
                 {
 
                 }

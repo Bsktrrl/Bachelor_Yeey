@@ -7,7 +7,7 @@ public class Building_Ghost : MonoBehaviour
     public BuildingType buildingType;
     public BuildingMaterial buildingMaterial;
 
-    public BlockDirection blockDirection;
+    public BlockCompass blockDirection;
 
     public bool isSelected;
     //public bool isDeleted;

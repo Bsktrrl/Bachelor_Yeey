@@ -7,6 +7,7 @@ public enum BuildingType
     None,
 
     Floor,
+    Triangle,
     Wall,
     Wall_Diagonaly,
     Stair,
