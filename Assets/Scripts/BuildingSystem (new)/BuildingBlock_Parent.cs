@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class BuildingBlock_Parent : MonoBehaviour
 {
+    public BuildingType buildingType;
     public GameObject BuildingBlcok;
 
     public List<GameObject> directionObjects = new List<GameObject>();

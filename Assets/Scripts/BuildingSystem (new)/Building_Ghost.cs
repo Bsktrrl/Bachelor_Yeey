@@ -13,4 +13,6 @@ public class Building_Ghost : MonoBehaviour
     //public bool isDeleted;
 
     public GameObject blockParent;
+
+    
 }
