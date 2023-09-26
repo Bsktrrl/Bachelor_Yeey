@@ -2206,7 +2206,7 @@ MonoBehaviour:
   BlockTagName: 
   BuildingDistance: {x: 4, y: 0.75}
   buildingBlockDirection_Selected: 0
-  buildingType_Selected: 4
+  buildingType_Selected: 3
   buildingMaterial_Selected: 1
   builingBlock_Floor: {fileID: 4763889419513853119, guid: 1883060f695bb5f4fa31f3eb733546c5, type: 3}
   builingBlock_Floor_Triangle: {fileID: 4763889419513853119, guid: 8945f25e892be384580530c4674397a6, type: 3}

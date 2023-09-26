@@ -21,5 +21,5 @@ public enum BuildingMaterial
 
     Wood,
     Stone,
-    iron
+    Iron
 }

@@ -12,7 +12,38 @@ public class PlayerButtonManager : MonoBehaviour
     static void Reinitialize()
     {
         instance = null;
-    }
+        leftMouse_isPressedDown = null;
+        rightMouse_isPressedDown = null;
+        Tab_isPressedDown = null;
+        Esc_isPressedDown = null;
+        E_isPressedDown = null;
+
+        //Inventory
+        inventory_LeftMouse_isPressedDown = null;
+        inventory_RightMouse_isPressedDown = null;
+        inventory_Shift_and_RightMouse_isPressedDown = null;
+        inventory_ScrollMouse_isPressedDown = null;
+        inventory_ScrollMouse_isRolledUP = null;
+        inventory_ScrollMouse_isRolledDown = null;
+        moveStackToStorageBox = null;
+
+        handSelection_Down = null;
+        handSelection_Up = null;
+
+        //HandSelected
+        isPressed_1 = null;
+        isPressed_2 = null;
+        isPressed_3 = null;
+        isPressed_4 = null;
+        isPressed_5 = null;
+        isPressed_6 = null;
+        isPressed_7 = null;
+        isPressed_8 = null;
+        isPressed_9 = null;
+
+        //Testing Buttons
+        T_isPressed = null;
+}
 
     public ButtonClickedState buttonClickedState = ButtonClickedState.None;
     public InventoryButtonState inventoryButtonState = InventoryButtonState.None;
@@ -23,6 +54,7 @@ public class PlayerButtonManager : MonoBehaviour
     public static Action Esc_isPressedDown;
     public static Action E_isPressedDown;
 
+    //Inventory
     public static Action inventory_LeftMouse_isPressedDown;
     public static Action inventory_RightMouse_isPressedDown;
     public static Action inventory_Shift_and_RightMouse_isPressedDown;

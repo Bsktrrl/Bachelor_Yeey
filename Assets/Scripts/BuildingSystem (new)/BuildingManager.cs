@@ -31,12 +31,28 @@ public class BuildingManager : MonoBehaviour
     public BuildingType buildingType_Selected = BuildingType.None;
     public BuildingMaterial buildingMaterial_Selected = BuildingMaterial.None;
 
-    [Header("BuildingBlocks List")]
-    [SerializeField] GameObject builingBlock_Floor;
-    [SerializeField] GameObject builingBlock_Floor_Triangle;
-    [SerializeField] GameObject builingBlock_Wall;
-    [SerializeField] GameObject builingBlock_Wall_Diagonal;
-    [SerializeField] GameObject builingBlock_Angle;
+    #region BuildingBlocks List
+    [Header("BuildingBlocks List - Wood")]
+    [SerializeField] GameObject builingBlock_Wood_Floor;
+    [SerializeField] GameObject builingBlock_Wood_Floor_Triangle;
+    [SerializeField] GameObject builingBlock_Wood_Wall;
+    [SerializeField] GameObject builingBlock_Wood_Wall_Diagonal;
+    [SerializeField] GameObject builingBlock_Wood_Angle;
+
+    [Header("BuildingBlocks List - Stone")]
+    [SerializeField] GameObject builingBlock_Stone_Floor;
+    [SerializeField] GameObject builingBlock_Stone_Floor_Triangle;
+    [SerializeField] GameObject builingBlock_Stone_Wall;
+    [SerializeField] GameObject builingBlock_Stone_Wall_Diagonal;
+    [SerializeField] GameObject builingBlock_Stone_Angle;
+
+    [Header("BuildingBlocks List - Iron")]
+    [SerializeField] GameObject builingBlock_Iron_Floor;
+    [SerializeField] GameObject builingBlock_Iron_Floor_Triangle;
+    [SerializeField] GameObject builingBlock_Iron_Wall;
+    [SerializeField] GameObject builingBlock_Iron_Wall_Diagonal;
+    [SerializeField] GameObject builingBlock_Iron_Angle;
+    #endregion
 
     [Header("Materials List")]
     [SerializeField] Material invisible_Material;
@@ -496,25 +512,12 @@ public class BuildingManager : MonoBehaviour
             }
         }
 
-        //Wall
+        //Wall [X]
         else if (buildingType_Selected == BuildingType.Wall)
         {
             //Check if ghost_PointedAt has the same position and rotation as any other buildingblock
             for (int i = 0; i < buildingBlockList.Count; i++)
             {
-                //Spacial treatment for the South, since the position is the same any time
-                //if (buildingBlockDirection_Selected == BlockDirection.South)
-                //{
-                //    if (buildingBlockList[i].GetComponent<BuildingBlock_Parent>().transform.position
-                //        == ghost_PointedAt.transform.position
-                //        && buildingBlockList[i].GetComponent<BuildingBlock_Parent>().buildingType == BuildingType.Wall
-                //        && ghost_PointedAt.GetComponent<Building_Ghost>().buildingType == BuildingType.Wall)
-                //    {
-                //        SetAllGhostState_Off();
-                //        return true;
-                //    }
-
-                //}
                 if (buildingBlockDirection_Selected == BlockCompass.South)
                 {
                     Vector3 tempSouth = new Vector3(buildingBlockList[i].transform.position.x, buildingBlockList[i].transform.position.y, buildingBlockList[i].transform.position.z);
@@ -638,343 +641,175 @@ public class BuildingManager : MonoBehaviour
     {
         if (ghost_PointedAt != null && buildingBlockCanBePlaced)
         {
+            print("1. Place Block");
+
+            //Set directionPlaced in the placed block
+            if (buildingBlockDirection_Selected == BlockCompass.North)
+            {
+                buildingBlockList[buildingBlockList.Count - 1].GetComponent<BuildingBlock_Parent>().directionPlaced = BlockCompass.North;
+            }
+            else if (buildingBlockDirection_Selected == BlockCompass.East)
+            {
+                buildingBlockList[buildingBlockList.Count - 1].GetComponent<BuildingBlock_Parent>().directionPlaced = BlockCompass.East;
+            }
+            else if (buildingBlockDirection_Selected == BlockCompass.South)
+            {
+                buildingBlockList[buildingBlockList.Count - 1].GetComponent<BuildingBlock_Parent>().directionPlaced = BlockCompass.South;
+            }
+            else if (buildingBlockDirection_Selected == BlockCompass.West)
+            {
+                buildingBlockList[buildingBlockList.Count - 1].GetComponent<BuildingBlock_Parent>().directionPlaced = BlockCompass.West;
+            }
+
+            //SetRotation of BuildingBlock
+            Quaternion rotation = new Quaternion(ghost_PointedAt.transform.rotation.x, ghost_PointedAt.transform.rotation.y, ghost_PointedAt.transform.rotation.z, ghost_PointedAt.transform.rotation.w);
+
+            #region Place correct BuildingBlock
             //Floor
-            if (ghost_PointedAt.GetComponent<Building_Ghost>().buildingType == BuildingType.Floor
-                && ghost_PointedAt.GetComponent<Building_Ghost>().isSelected)
+            if (ghost_PointedAt.GetComponent<Building_Ghost>().buildingType == BuildingType.Floor && ghost_PointedAt.GetComponent<Building_Ghost>().isSelected)
             {
                 //Wood
                 if (buildingMaterial_Selected == BuildingMaterial.Wood)
                 {
                     print("Placed: Wood Floor");
-
-                    SetAllGhostState_Off();
-                    SoundManager.instance.PlayWood_Placed_Clip();
-
-                    buildingBlockList.Add(Instantiate(builingBlock_Floor) as GameObject);
-                    buildingBlockList[buildingBlockList.Count - 1].transform.SetParent(buildingBlock_Parent.transform);
-                    buildingBlockList[buildingBlockList.Count - 1].transform.position = ghost_PointedAt.transform.position;
-                    buildingBlockList[buildingBlockList.Count - 1].GetComponent<BuildingBlock_Parent>().directionPlaced = buildingBlockDirection_Selected;
+                    buildingBlockList.Add(Instantiate(builingBlock_Wood_Floor, ghost_PointedAt.transform.position, rotation) as GameObject);
                 }
 
                 //Stone
                 else if (buildingMaterial_Selected == BuildingMaterial.Stone)
                 {
-                    //print("Placed: Stone");
+                    print("Placed: Stone Floor");
 
                 }
 
                 //Iron
-                else if (buildingMaterial_Selected == BuildingMaterial.iron)
+                else if (buildingMaterial_Selected == BuildingMaterial.Iron)
                 {
-                    //print("Placed: Iron");
+                    print("Placed: Iron Floor");
 
                 }
             }
 
-            //Floor - triangle
-            if (ghost_PointedAt.GetComponent<Building_Ghost>().buildingType == BuildingType.Triangle
-                && ghost_PointedAt.GetComponent<Building_Ghost>().isSelected)
+            //Floor - Triangle
+            if (ghost_PointedAt.GetComponent<Building_Ghost>().buildingType == BuildingType.Triangle && ghost_PointedAt.GetComponent<Building_Ghost>().isSelected)
             {
                 //Wood
                 if (buildingMaterial_Selected == BuildingMaterial.Wood)
                 {
                     print("Placed: Wood Triangle");
-                    
-                    SetAllGhostState_Off();
-                    SoundManager.instance.PlayWood_Placed_Clip();
-
-                    if (buildingBlockDirection_Selected == BlockCompass.South)
-                    {
-                        buildingBlockList.Add(Instantiate(builingBlock_Floor_Triangle) as GameObject);
-                        buildingBlockList[buildingBlockList.Count - 1].transform.SetParent(buildingBlock_Parent.transform);
-                        buildingBlockList[buildingBlockList.Count - 1].transform.position = ghost_PointedAt.transform.position;
-                        buildingBlockList[buildingBlockList.Count - 1].GetComponent<BuildingBlock_Parent>().directionPlaced = BlockCompass.South;
-                    }
-                    else if (buildingBlockDirection_Selected == BlockCompass.East)
-                    {
-                        buildingBlockList.Add(Instantiate(builingBlock_Floor_Triangle) as GameObject);
-                        buildingBlockList[buildingBlockList.Count - 1].transform.SetParent(buildingBlock_Parent.transform);
-                        buildingBlockList[buildingBlockList.Count - 1].transform.position = ghost_PointedAt.transform.position;
-
-                        buildingBlockList[buildingBlockList.Count - 1].transform.Rotate
-                        (
-                            ghost_PointedAt.transform.rotation.x,
-                            ghost_PointedAt.transform.rotation.y -90,
-                            ghost_PointedAt.transform.rotation.z,
-                            Space.World
-                        );
-
-                        buildingBlockList[buildingBlockList.Count - 1].GetComponent<BuildingBlock_Parent>().directionPlaced = BlockCompass.East;
-                    }
-                    else if (buildingBlockDirection_Selected == BlockCompass.North)
-                    {
-                        buildingBlockList.Add(Instantiate(builingBlock_Floor_Triangle) as GameObject);
-                        buildingBlockList[buildingBlockList.Count - 1].transform.SetParent(buildingBlock_Parent.transform);
-                        buildingBlockList[buildingBlockList.Count - 1].transform.position = ghost_PointedAt.transform.position;
-
-                        buildingBlockList[buildingBlockList.Count - 1].transform.Rotate
-                        (
-                            ghost_PointedAt.transform.rotation.x,
-                            ghost_PointedAt.transform.rotation.y - 180,
-                            ghost_PointedAt.transform.rotation.z,
-                            Space.World
-                        );
-
-                        buildingBlockList[buildingBlockList.Count - 1].GetComponent<BuildingBlock_Parent>().directionPlaced = BlockCompass.East;
-                    }
-                    else if (buildingBlockDirection_Selected == BlockCompass.West)
-                    {
-                        buildingBlockList.Add(Instantiate(builingBlock_Floor_Triangle) as GameObject);
-                        buildingBlockList[buildingBlockList.Count - 1].transform.SetParent(buildingBlock_Parent.transform);
-                        buildingBlockList[buildingBlockList.Count - 1].transform.position = ghost_PointedAt.transform.position;
-
-                        buildingBlockList[buildingBlockList.Count - 1].transform.Rotate
-                        (
-                            ghost_PointedAt.transform.rotation.x,
-                            ghost_PointedAt.transform.rotation.y + 90,
-                            ghost_PointedAt.transform.rotation.z,
-                            Space.World
-                        );
-
-                        buildingBlockList[buildingBlockList.Count - 1].GetComponent<BuildingBlock_Parent>().directionPlaced = BlockCompass.East;
-                    }
+                    buildingBlockList.Add(Instantiate(builingBlock_Wood_Floor_Triangle, ghost_PointedAt.transform.position, rotation) as GameObject);
                 }
 
                 //Stone
                 else if (buildingMaterial_Selected == BuildingMaterial.Stone)
                 {
-                    //print("Placed: Stone");
+                    print("Placed: Stone Triangle");
 
                 }
 
                 //Iron
-                else if (buildingMaterial_Selected == BuildingMaterial.iron)
+                else if (buildingMaterial_Selected == BuildingMaterial.Iron)
                 {
-                    //print("Placed: Iron");
+                    print("Placed: Iron Triangle");
 
                 }
             }
 
             //Wall
-            else if (ghost_PointedAt.GetComponent<Building_Ghost>().buildingType == BuildingType.Wall
-                && ghost_PointedAt.GetComponent<Building_Ghost>().isSelected)
+            else if (ghost_PointedAt.GetComponent<Building_Ghost>().buildingType == BuildingType.Wall && ghost_PointedAt.GetComponent<Building_Ghost>().isSelected)
             {
                 //Wood
                 if (buildingMaterial_Selected == BuildingMaterial.Wood)
                 {
                     print("Placed: Wood Wall");
-
-                    SetAllGhostState_Off();
-                    SoundManager.instance.PlayWood_Placed_Clip();
-
-                    buildingBlockList.Add(Instantiate(builingBlock_Wall) as GameObject);
-                    buildingBlockList[buildingBlockList.Count - 1].transform.SetParent(buildingBlock_Parent.transform);
-                    buildingBlockList[buildingBlockList.Count - 1].transform.position = ghost_PointedAt.transform.position;
-
-                    //Change Rotation
-                    if (buildingBlockDirection_Selected == BlockCompass.North)
-                    {
-                        buildingBlockList[buildingBlockList.Count - 1].transform.Rotate
-                        (
-                            ghost_PointedAt.transform.rotation.x,
-                            ghost_PointedAt.transform.rotation.y + 180,
-                            ghost_PointedAt.transform.rotation.z,
-                            Space.World
-                        );
-
-                        buildingBlockList[buildingBlockList.Count - 1].GetComponent<BuildingBlock_Parent>().directionPlaced = BlockCompass.North;
-                    }
-                    else if (buildingBlockDirection_Selected == BlockCompass.East)
-                    {
-                        buildingBlockList[buildingBlockList.Count - 1].transform.Rotate
-                        (
-                            ghost_PointedAt.transform.rotation.x,
-                            ghost_PointedAt.transform.rotation.y - 90,
-                            ghost_PointedAt.transform.rotation.z,
-                            Space.World
-                        );
-
-                        buildingBlockList[buildingBlockList.Count - 1].GetComponent<BuildingBlock_Parent>().directionPlaced = BlockCompass.East;
-                    }
-                    else if (buildingBlockDirection_Selected == BlockCompass.South)
-                    {
-                        buildingBlockList[buildingBlockList.Count - 1].transform.Rotate
-                        (
-                            ghost_PointedAt.transform.rotation.x,
-                            ghost_PointedAt.transform.rotation.y,
-                            ghost_PointedAt.transform.rotation.z,
-                            Space.World
-                        );
-
-                        buildingBlockList[buildingBlockList.Count - 1].GetComponent<BuildingBlock_Parent>().directionPlaced = BlockCompass.South;
-                    }
-                    else if (buildingBlockDirection_Selected == BlockCompass.West)
-                    {
-                        buildingBlockList[buildingBlockList.Count - 1].transform.Rotate
-                        (
-                            ghost_PointedAt.transform.rotation.x,
-                            ghost_PointedAt.transform.rotation.y + 90,
-                            ghost_PointedAt.transform.rotation.z,
-                            Space.World
-                        );
-
-                        buildingBlockList[buildingBlockList.Count - 1].GetComponent<BuildingBlock_Parent>().directionPlaced = BlockCompass.West;
-                    }
+                    buildingBlockList.Add(Instantiate(builingBlock_Wood_Wall, ghost_PointedAt.transform.position, rotation) as GameObject);
                 }
 
                 //Stone
                 else if (buildingMaterial_Selected == BuildingMaterial.Stone)
                 {
-                    //print("Placed: Stone");
+                    print("Placed: Stone Wall");
 
                 }
 
                 //Iron
-                else if (buildingMaterial_Selected == BuildingMaterial.iron)
+                else if (buildingMaterial_Selected == BuildingMaterial.Iron)
                 {
-                    //print("Placed: Iron");
+                    print("Placed: Iron Wall");
 
                 }
             }
 
-
             //Wall_Diagonal
-            if (ghost_PointedAt.GetComponent<Building_Ghost>().buildingType == BuildingType.Wall_Diagonaly
-                && ghost_PointedAt.GetComponent<Building_Ghost>().isSelected)
+            if (ghost_PointedAt.GetComponent<Building_Ghost>().buildingType == BuildingType.Wall_Diagonaly && ghost_PointedAt.GetComponent<Building_Ghost>().isSelected)
             {
                 //Wood
                 if (buildingMaterial_Selected == BuildingMaterial.Wood)
                 {
-                    print("Placed: Wood Wall_Diagonaly");
-
-                    SetAllGhostState_Off();
-                    SoundManager.instance.PlayWood_Placed_Clip();
-
-                    if (buildingBlockDirection_Selected == BlockCompass.Cross_A)
-                    {
-                        buildingBlockList.Add(Instantiate(builingBlock_Wall_Diagonal) as GameObject);
-                        buildingBlockList[buildingBlockList.Count - 1].transform.SetParent(buildingBlock_Parent.transform);
-                        buildingBlockList[buildingBlockList.Count - 1].transform.position = ghost_PointedAt.transform.position;
-                        buildingBlockList[buildingBlockList.Count - 1].GetComponent<BuildingBlock_Parent>().directionPlaced = BlockCompass.South;
-                    }
-                    else if (buildingBlockDirection_Selected == BlockCompass.Cross_B)
-                    {
-                        buildingBlockList.Add(Instantiate(builingBlock_Wall_Diagonal) as GameObject);
-                        buildingBlockList[buildingBlockList.Count - 1].transform.SetParent(buildingBlock_Parent.transform);
-                        buildingBlockList[buildingBlockList.Count - 1].transform.position = ghost_PointedAt.transform.position;
-
-                        buildingBlockList[buildingBlockList.Count - 1].transform.Rotate
-                        (
-                            ghost_PointedAt.transform.rotation.x,
-                            ghost_PointedAt.transform.rotation.y - 90,
-                            ghost_PointedAt.transform.rotation.z,
-                            Space.World
-                        );
-
-                        buildingBlockList[buildingBlockList.Count - 1].GetComponent<BuildingBlock_Parent>().directionPlaced = BlockCompass.East;
-                    }
+                    print("Placed: Wood Wall_Diagonal");
+                    buildingBlockList.Add(Instantiate(builingBlock_Wood_Wall_Diagonal, ghost_PointedAt.transform.position, rotation) as GameObject);
                 }
 
                 //Stone
                 else if (buildingMaterial_Selected == BuildingMaterial.Stone)
                 {
-                    //print("Placed: Stone");
+                    print("Placed: Stone Wall_Diagonal");
 
                 }
 
                 //Iron
-                else if (buildingMaterial_Selected == BuildingMaterial.iron)
+                else if (buildingMaterial_Selected == BuildingMaterial.Iron)
                 {
-                    //print("Placed: Iron");
+                    print("Placed: Iron Wall_Diagonal");
 
                 }
             }
 
             //Angle
-            if (ghost_PointedAt.GetComponent<Building_Ghost>().buildingType == BuildingType.Angeled
-                && ghost_PointedAt.GetComponent<Building_Ghost>().isSelected)
+            if (ghost_PointedAt.GetComponent<Building_Ghost>().buildingType == BuildingType.Angeled && ghost_PointedAt.GetComponent<Building_Ghost>().isSelected)
             {
                 //Wood
                 if (buildingMaterial_Selected == BuildingMaterial.Wood)
                 {
-                    print("Placed: Wood Angeled");
-
-                    SetAllGhostState_Off();
-                    SoundManager.instance.PlayWood_Placed_Clip();
-
-                    if (buildingBlockDirection_Selected == BlockCompass.South)
-                    {
-                        buildingBlockList.Add(Instantiate(builingBlock_Angle) as GameObject);
-                        buildingBlockList[buildingBlockList.Count - 1].transform.SetParent(buildingBlock_Parent.transform);
-                        buildingBlockList[buildingBlockList.Count - 1].transform.position = ghost_PointedAt.transform.position;
-                        buildingBlockList[buildingBlockList.Count - 1].GetComponent<BuildingBlock_Parent>().directionPlaced = BlockCompass.South;
-                    }
-                    else if (buildingBlockDirection_Selected == BlockCompass.East)
-                    {
-                        buildingBlockList.Add(Instantiate(builingBlock_Angle) as GameObject);
-                        buildingBlockList[buildingBlockList.Count - 1].transform.SetParent(buildingBlock_Parent.transform);
-                        buildingBlockList[buildingBlockList.Count - 1].transform.position = ghost_PointedAt.transform.position;
-
-                        buildingBlockList[buildingBlockList.Count - 1].transform.Rotate
-                        (
-                            ghost_PointedAt.transform.rotation.x,
-                            ghost_PointedAt.transform.rotation.y - 90,
-                            ghost_PointedAt.transform.rotation.z,
-                            Space.World
-                        );
-
-                        buildingBlockList[buildingBlockList.Count - 1].GetComponent<BuildingBlock_Parent>().directionPlaced = BlockCompass.East;
-                    }
-                    else if (buildingBlockDirection_Selected == BlockCompass.North)
-                    {
-                        buildingBlockList.Add(Instantiate(builingBlock_Angle) as GameObject);
-                        buildingBlockList[buildingBlockList.Count - 1].transform.SetParent(buildingBlock_Parent.transform);
-                        buildingBlockList[buildingBlockList.Count - 1].transform.position = ghost_PointedAt.transform.position;
-
-                        buildingBlockList[buildingBlockList.Count - 1].transform.Rotate
-                        (
-                            ghost_PointedAt.transform.rotation.x,
-                            ghost_PointedAt.transform.rotation.y - 180,
-                            ghost_PointedAt.transform.rotation.z,
-                            Space.World
-                        );
-
-                        buildingBlockList[buildingBlockList.Count - 1].GetComponent<BuildingBlock_Parent>().directionPlaced = BlockCompass.East;
-                    }
-                    else if (buildingBlockDirection_Selected == BlockCompass.West)
-                    {
-                        buildingBlockList.Add(Instantiate(builingBlock_Angle) as GameObject);
-                        buildingBlockList[buildingBlockList.Count - 1].transform.SetParent(buildingBlock_Parent.transform);
-                        buildingBlockList[buildingBlockList.Count - 1].transform.position = ghost_PointedAt.transform.position;
-
-                        buildingBlockList[buildingBlockList.Count - 1].transform.Rotate
-                        (
-                            ghost_PointedAt.transform.rotation.x,
-                            ghost_PointedAt.transform.rotation.y + 90,
-                            ghost_PointedAt.transform.rotation.z,
-                            Space.World
-                        );
-
-                        buildingBlockList[buildingBlockList.Count - 1].GetComponent<BuildingBlock_Parent>().directionPlaced = BlockCompass.East;
-                    }
+                    print("Placed: Wood Angle");
+                    buildingBlockList.Add(Instantiate(builingBlock_Wood_Angle, ghost_PointedAt.transform.position, rotation) as GameObject);
                 }
 
                 //Stone
                 else if (buildingMaterial_Selected == BuildingMaterial.Stone)
                 {
-                    //print("Placed: Stone");
+                    print("Placed: Stone Angle");
 
                 }
 
                 //Iron
-                else if (buildingMaterial_Selected == BuildingMaterial.iron)
+                else if (buildingMaterial_Selected == BuildingMaterial.Iron)
                 {
-                    //print("Placed: Iron");
+                    print("Placed: Iron Angle");
 
                 }
             }
+            #endregion
+
+            //Set Parent of placed object
+            buildingBlockList[buildingBlockList.Count - 1].transform.SetParent(buildingBlock_Parent.transform);
+
+            //Play Sound
+            if (buildingMaterial_Selected == BuildingMaterial.Wood)
+            {
+                SoundManager.instance.PlayWood_Placed_Clip();
+            }
+            else if (buildingMaterial_Selected == BuildingMaterial.Stone)
+            {
+                SoundManager.instance.PlayStone_Placed_Clip();
+            }
+            else if (buildingMaterial_Selected == BuildingMaterial.Iron)
+            {
+                SoundManager.instance.PlayIron_Placed_Clip();
+            }
         }
 
+        //Reset parameters
         lastBuildingBlock_LookedAt = null;
         buildingBlockCanBePlaced = false;
         SetAllGhostState_Off();

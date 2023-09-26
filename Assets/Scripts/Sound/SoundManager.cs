@@ -130,7 +130,7 @@ public class SoundManager : MonoBehaviour
             audioSource.Play();
         }
     }
-    public void Playiron_Placed_Clip()
+    public void PlayIron_Placed_Clip()
     {
         if (audioSource != null)
         {
