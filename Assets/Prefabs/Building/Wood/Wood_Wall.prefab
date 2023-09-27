@@ -1127,7 +1127,7 @@ BoxCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2180906533065801754}
   m_Material: {fileID: 0}
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 2, y: 2, z: 0.2}
@@ -1146,7 +1146,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   buildingType: 3
   buildingMaterial: 0
-  blockDirection: 0
+  blockDirection_A: 0
+  blockDirection_B: 1
   isSelected: 0
   blockParent: {fileID: 4763889419513853119}
 --- !u!1001 &1630874961934340143
@@ -1260,11 +1261,11 @@ BoxCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1901471163970874750}
   m_Material: {fileID: 0}
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.01, y: 0.01, z: 0.0010000002}
-  m_Center: {x: 0, y: 0, z: -0.005}
+  m_Size: {x: 2, y: 0.2, z: 2}
+  m_Center: {x: 0, y: -1, z: 0}
 --- !u!114 &7976028839154657700
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1279,7 +1280,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   buildingType: 1
   buildingMaterial: 0
-  blockDirection: 3
+  blockDirection_A: 3
+  blockDirection_B: 1
   isSelected: 0
   blockParent: {fileID: 4763889419513853119}
 --- !u!1001 &4566175411104895305
@@ -1396,7 +1398,7 @@ BoxCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3719755081647320088}
   m_Material: {fileID: 0}
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 2, y: 2, z: 0.2}
@@ -1415,7 +1417,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   buildingType: 3
   buildingMaterial: 0
-  blockDirection: 0
+  blockDirection_A: 0
+  blockDirection_B: 3
   isSelected: 0
   blockParent: {fileID: 4763889419513853119}
 --- !u!4 &4095154308452628130 stripped
@@ -1517,19 +1520,20 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: cbed84ba6cf89bb4cb1090481d7e80ad, type: 3}
   m_PrefabInstance: {fileID: 7780540203542823008}
   m_PrefabAsset: {fileID: 0}
---- !u!65 &2542890347258739798
-BoxCollider:
+--- !u!64 &8396018635970899696
+MeshCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7438646714524630321}
   m_Material: {fileID: 0}
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 0.014142, y: 0.0010000019, z: 0.010000003}
-  m_Center: {x: 8.673617e-18, y: 1.4551915e-10, z: -1.2266348e-17}
+  serializedVersion: 4
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 1568319795115118504, guid: f1367d665b931a64dbfe2a28a539fdfc, type: 3}
 --- !u!114 &5435526971277309624
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1544,7 +1548,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   buildingType: 6
   buildingMaterial: 0
-  blockDirection: 1
+  blockDirection_A: 1
+  blockDirection_B: 1
   isSelected: 0
   blockParent: {fileID: 4763889419513853119}
 --- !u!4 &7813940426312624011 stripped
@@ -1663,11 +1668,11 @@ BoxCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 9174134772677763350}
   m_Material: {fileID: 0}
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.01, y: 0.01, z: 0.0010000002}
-  m_Center: {x: 0, y: 0, z: -0.005}
+  m_Size: {x: 2, y: 0.2, z: 2}
+  m_Center: {x: 0, y: -1, z: 0}
 --- !u!114 &8561351991253813891
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1682,7 +1687,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   buildingType: 1
   buildingMaterial: 0
-  blockDirection: 1
+  blockDirection_A: 1
+  blockDirection_B: 1
   isSelected: 0
   blockParent: {fileID: 4763889419513853119}
 --- !u!1001 &8342493359603831959
@@ -1784,19 +1790,20 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: cbed84ba6cf89bb4cb1090481d7e80ad, type: 3}
   m_PrefabInstance: {fileID: 8342493359603831959}
   m_PrefabAsset: {fileID: 0}
---- !u!65 &2900662930497301192
-BoxCollider:
+--- !u!64 &4690568198562491640
+MeshCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 9153307116452243910}
   m_Material: {fileID: 0}
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 0.014142, y: 0.0010000019, z: 0.010000003}
-  m_Center: {x: 8.673617e-18, y: 1.4551915e-10, z: -1.2266348e-17}
+  serializedVersion: 4
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 1568319795115118504, guid: f1367d665b931a64dbfe2a28a539fdfc, type: 3}
 --- !u!114 &3947103862714133302
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1811,6 +1818,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   buildingType: 6
   buildingMaterial: 0
-  blockDirection: 3
+  blockDirection_A: 3
+  blockDirection_B: 1
   isSelected: 0
   blockParent: {fileID: 4763889419513853119}

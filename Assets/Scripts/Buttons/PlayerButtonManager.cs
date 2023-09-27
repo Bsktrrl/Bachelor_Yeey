@@ -41,6 +41,9 @@ public class PlayerButtonManager : MonoBehaviour
         isPressed_8 = null;
         isPressed_9 = null;
 
+        //BuildingSystem
+        isPressed_R_Rotate = null;
+
         //Testing Buttons
         T_isPressed = null;
 }
@@ -76,6 +79,9 @@ public class PlayerButtonManager : MonoBehaviour
     public static Action isPressed_7;
     public static Action isPressed_8;
     public static Action isPressed_9;
+
+    //BuildingSystem
+    public static Action isPressed_R_Rotate;
 
     //Testing Buttons
     public static Action T_isPressed;
@@ -235,6 +241,13 @@ public class PlayerButtonManager : MonoBehaviour
             isPressed_8?.Invoke();
         else if (MainManager.instance.menuStates == MenuStates.None && Input.GetKey(KeyCode.Alpha9))
             isPressed_9?.Invoke();
+
+        //BuildingSystem
+        else if (Input.GetKeyDown(KeyCode.R) && MainManager.instance.gameStates == GameStates.Building && MainManager.instance.menuStates == MenuStates.None)
+        {
+            isPressed_R_Rotate?.Invoke();
+        }
+
 
         //Testing
         else if (Input.GetKeyDown(KeyCode.T))

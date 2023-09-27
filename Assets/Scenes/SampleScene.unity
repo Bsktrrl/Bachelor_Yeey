@@ -1299,6 +1299,10 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3910974054728255592, guid: 1883060f695bb5f4fa31f3eb733546c5, type: 3}
+      propertyPath: m_Constraints
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4763889419513853116, guid: 1883060f695bb5f4fa31f3eb733546c5, type: 3}
       propertyPath: m_RootOrder
       value: 0
@@ -1574,6 +1578,26 @@ PrefabInstance:
     - target: {fileID: 2333517593856969776, guid: 1883060f695bb5f4fa31f3eb733546c5, type: 3}
       propertyPath: m_IsActive
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3910974054728255592, guid: 1883060f695bb5f4fa31f3eb733546c5, type: 3}
+      propertyPath: m_UseGravity
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3910974054728255592, guid: 1883060f695bb5f4fa31f3eb733546c5, type: 3}
+      propertyPath: m_Constraints
+      value: 112
+      objectReference: {fileID: 0}
+    - target: {fileID: 3910974054728255592, guid: 1883060f695bb5f4fa31f3eb733546c5, type: 3}
+      propertyPath: m_Interpolate
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3910974054728255592, guid: 1883060f695bb5f4fa31f3eb733546c5, type: 3}
+      propertyPath: m_IsKinematic
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3910974054728255592, guid: 1883060f695bb5f4fa31f3eb733546c5, type: 3}
+      propertyPath: m_CollisionDetection
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4763889419513853116, guid: 1883060f695bb5f4fa31f3eb733546c5, type: 3}
       propertyPath: m_RootOrder
@@ -2205,14 +2229,25 @@ MonoBehaviour:
   buildingBlockCanBePlaced: 0
   BlockTagName: 
   BuildingDistance: {x: 4, y: 0.75}
-  buildingBlockDirection_Selected: 0
-  buildingType_Selected: 3
+  buildingBlockDirection_Selected_A: 0
+  buildingBlockDirection_Selected_B: 0
+  buildingType_Selected: 2
   buildingMaterial_Selected: 1
-  builingBlock_Floor: {fileID: 4763889419513853119, guid: 1883060f695bb5f4fa31f3eb733546c5, type: 3}
-  builingBlock_Floor_Triangle: {fileID: 4763889419513853119, guid: 8945f25e892be384580530c4674397a6, type: 3}
-  builingBlock_Wall: {fileID: 4763889419513853119, guid: b3b010e049d8340419ec70bd4c4febd0, type: 3}
-  builingBlock_Wall_Diagonal: {fileID: 4763889419513853119, guid: e4684e8352a32cd47844545ce625ab21, type: 3}
-  builingBlock_Angle: {fileID: 4763889419513853119, guid: b656488a7bfbddc4197a80e7cfd51196, type: 3}
+  builingBlock_Wood_Floor: {fileID: 4763889419513853119, guid: 1883060f695bb5f4fa31f3eb733546c5, type: 3}
+  builingBlock_Wood_Floor_Triangle: {fileID: 4763889419513853119, guid: 8945f25e892be384580530c4674397a6, type: 3}
+  builingBlock_Wood_Wall: {fileID: 4763889419513853119, guid: b3b010e049d8340419ec70bd4c4febd0, type: 3}
+  builingBlock_Wood_Wall_Diagonal: {fileID: 4763889419513853119, guid: e4684e8352a32cd47844545ce625ab21, type: 3}
+  builingBlock_Wood_Angle: {fileID: 4763889419513853119, guid: b656488a7bfbddc4197a80e7cfd51196, type: 3}
+  builingBlock_Stone_Floor: {fileID: 0}
+  builingBlock_Stone_Floor_Triangle: {fileID: 0}
+  builingBlock_Stone_Wall: {fileID: 0}
+  builingBlock_Stone_Wall_Diagonal: {fileID: 0}
+  builingBlock_Stone_Angle: {fileID: 0}
+  builingBlock_Iron_Floor: {fileID: 0}
+  builingBlock_Iron_Floor_Triangle: {fileID: 0}
+  builingBlock_Iron_Wall: {fileID: 0}
+  builingBlock_Iron_Wall_Diagonal: {fileID: 0}
+  builingBlock_Iron_Angle: {fileID: 0}
   invisible_Material: {fileID: 2100000, guid: 82ccea1b1bfc77e4a871cb9efc5db31e, type: 2}
   ghost_Material: {fileID: 2100000, guid: 5dc43eb6ada116e46877d050b1ec1761, type: 2}
   canPlace_Material: {fileID: 2100000, guid: e278a96e1265f6a499cc3b2f57dfb5a2, type: 2}
@@ -2477,6 +2512,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   player: {fileID: 769334853}
   menuStates: 0
+  gameStates: 0
   treeParent: {fileID: 284216299}
 --- !u!1 &463440253
 GameObject:
