@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
@@ -16,6 +17,10 @@ public class PlayerMovement : MonoBehaviour
     public SphereCollider groundCheck;
     public bool isGrounded;
 
+    //Camera
+    [SerializeField] Camera camera;
+    [Range(-0.25f, -0.50f)] public float FOV = -0.25f;
+
 
     //--------------------
 
@@ -27,6 +32,8 @@ public class PlayerMovement : MonoBehaviour
     }
     void Update()
     {
+        camera.gameObject.transform.localPosition = new Vector3(camera.transform.localPosition.x, camera.transform.localPosition.y, FOV);
+
         //checking if we hit the ground to reset our falling velocity, otherwise we will fall faster the next time
         //isGrounded = Physics.CheckSphere(groundCheck.center, 0.5f, groundMask);
 

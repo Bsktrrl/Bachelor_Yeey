@@ -6,9 +6,8 @@ public class BuildingBlockDirection : MonoBehaviour
 {
     public GameObject parentBlock;
 
-    public BlockCompass blockDirection;
-    public BlockDirection BlockDirection;
-
+    public BlockCompass blockDirection_A;
+    public BlockDirection blockDirection_B;
 }
 
 public enum BlockCompass
@@ -28,8 +27,8 @@ public enum BlockDirection
 {
     None,
 
-    up,
-    right,
-    down,
-    left
+    Up,
+    Right,
+    Down,
+    Left
 }

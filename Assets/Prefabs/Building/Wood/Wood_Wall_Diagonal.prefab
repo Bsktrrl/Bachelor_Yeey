@@ -146,8 +146,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   parentBlock: {fileID: 4763889419513853119}
-  blockDirection: 2
-  BlockDirection: 0
+  blockDirection_A: 2
+  blockDirection_B: 0
 --- !u!1 &3098087897066191387
 GameObject:
   m_ObjectHideFlags: 0
@@ -291,8 +291,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   parentBlock: {fileID: 4763889419513853119}
-  blockDirection: 1
-  BlockDirection: 0
+  blockDirection_A: 1
+  blockDirection_B: 0
 --- !u!1 &4763889419513853119
 GameObject:
   m_ObjectHideFlags: 0
@@ -531,8 +531,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   parentBlock: {fileID: 4763889419513853119}
-  blockDirection: 4
-  BlockDirection: 0
+  blockDirection_A: 4
+  blockDirection_B: 0
 --- !u!1 &8812011368302094801
 GameObject:
   m_ObjectHideFlags: 0
@@ -644,8 +644,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   parentBlock: {fileID: 4763889419513853119}
-  blockDirection: 3
-  BlockDirection: 0
+  blockDirection_A: 3
+  blockDirection_B: 0
 --- !u!1001 &443671328666565135
 PrefabInstance:
   m_ObjectHideFlags: 0
