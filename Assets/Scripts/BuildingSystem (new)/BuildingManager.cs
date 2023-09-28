@@ -664,48 +664,37 @@ public class BuildingManager : MonoBehaviour
             for (int i = 0; i < buildingBlockList.Count; i++)
             {
                 //Set Direction Restrictions
-                if (buildingBlockDirection_Selected_A == BlockCompass.South)
-                {
-                    tempSouth = new Vector3(buildingBlockList[i].transform.position.x, buildingBlockList[i].transform.position.y, buildingBlockList[i].transform.position.z);
-                    tempNorth = new Vector3(buildingBlockList[i].transform.position.x, buildingBlockList[i].transform.position.y, buildingBlockList[i].transform.position.z + 2);
-                }
-                else if (buildingBlockDirection_Selected_A == BlockCompass.North)
-                {
-                    tempSouth = new Vector3(buildingBlockList[i].transform.position.x, buildingBlockList[i].transform.position.y, buildingBlockList[i].transform.position.z - 2);
-                    tempNorth = new Vector3(buildingBlockList[i].transform.position.x, buildingBlockList[i].transform.position.y, buildingBlockList[i].transform.position.z);
-                }
-                else if (buildingBlockDirection_Selected_A == BlockCompass.West)
-                {
-                    tempEast = new Vector3(buildingBlockList[i].transform.position.x + 2, buildingBlockList[i].transform.position.y, buildingBlockList[i].transform.position.z);
-                    tempWest = new Vector3(buildingBlockList[i].transform.position.x, buildingBlockList[i].transform.position.y, buildingBlockList[i].transform.position.z);
-                }
-                else if (buildingBlockDirection_Selected_A == BlockCompass.East)
-                {
-                    tempEast = new Vector3(buildingBlockList[i].transform.position.x, buildingBlockList[i].transform.position.y, buildingBlockList[i].transform.position.z);
-                    tempWest = new Vector3(buildingBlockList[i].transform.position.x - 2, buildingBlockList[i].transform.position.y, buildingBlockList[i].transform.position.z);
-                }
-
-                if (buildingBlockDirection_Selected_B == BlockDirection.Up)
-                {
-                    tempUp = new Vector3(buildingBlockList[i].transform.position.x, buildingBlockList[i].transform.position.y - 2, buildingBlockList[i].transform.position.z);
-                }
-                else if (buildingBlockDirection_Selected_B == BlockDirection.Down)
-                {
-                    tempDown = new Vector3(buildingBlockList[i].transform.position.x, buildingBlockList[i].transform.position.y + 2, buildingBlockList[i].transform.position.z);
-                }
-
-                //Set Ghost False if reqirement is met
-
-                //else if (buildingBlockList[i].GetComponent<BuildingBlock_Parent>().buildingType == BuildingType.Wall
-                //    && (buildingBlockList[i].GetComponent<BuildingBlock_Parent>().directionPlaced_A == BlockCompass.North
-                //        || buildingBlockList[i].GetComponent<BuildingBlock_Parent>().directionPlaced_A == BlockCompass.South)
-                //    && buildingBlockList[i].GetComponent<BuildingBlock_Parent>().directionPlaced_B == BlockDirection.Down
-                //    && ghost_PointedAt.GetComponent<Building_Ghost>().blockParent.transform.position == tempDown)
+                //if (buildingBlockDirection_Selected_A == BlockCompass.South)
                 //{
-                //    SetAllGhostState_Off();
-                //    return true;
+                //    tempSouth = new Vector3(buildingBlockList[i].transform.position.x, buildingBlockList[i].transform.position.y, buildingBlockList[i].transform.position.z);
+                //    tempNorth = new Vector3(buildingBlockList[i].transform.position.x, buildingBlockList[i].transform.position.y, buildingBlockList[i].transform.position.z + 2);
+                //}
+                //else if (buildingBlockDirection_Selected_A == BlockCompass.North)
+                //{
+                //    tempSouth = new Vector3(buildingBlockList[i].transform.position.x, buildingBlockList[i].transform.position.y, buildingBlockList[i].transform.position.z - 2);
+                //    tempNorth = new Vector3(buildingBlockList[i].transform.position.x, buildingBlockList[i].transform.position.y, buildingBlockList[i].transform.position.z);
+                //}
+                //else if (buildingBlockDirection_Selected_A == BlockCompass.West)
+                //{
+                //    tempEast = new Vector3(buildingBlockList[i].transform.position.x + 2, buildingBlockList[i].transform.position.y, buildingBlockList[i].transform.position.z);
+                //    tempWest = new Vector3(buildingBlockList[i].transform.position.x, buildingBlockList[i].transform.position.y, buildingBlockList[i].transform.position.z);
+                //}
+                //else if (buildingBlockDirection_Selected_A == BlockCompass.East)
+                //{
+                //    tempEast = new Vector3(buildingBlockList[i].transform.position.x, buildingBlockList[i].transform.position.y, buildingBlockList[i].transform.position.z);
+                //    tempWest = new Vector3(buildingBlockList[i].transform.position.x - 2, buildingBlockList[i].transform.position.y, buildingBlockList[i].transform.position.z);
                 //}
 
+                //if (buildingBlockDirection_Selected_B == BlockDirection.Up)
+                //{
+                //    tempUp = new Vector3(buildingBlockList[i].transform.position.x, buildingBlockList[i].transform.position.y - 2, buildingBlockList[i].transform.position.z);
+                //}
+                //else if (buildingBlockDirection_Selected_B == BlockDirection.Down)
+                //{
+                //    tempDown = new Vector3(buildingBlockList[i].transform.position.x, buildingBlockList[i].transform.position.y + 2, buildingBlockList[i].transform.position.z);
+                //}
+
+                //Set Ghost False if reqirement is met
                 if (buildingBlockDirection_Selected_A == BlockCompass.West
                     && buildingBlockList[i].GetComponent<BuildingBlock_Parent>().buildingType == BuildingType.Wall
                     && ghost_PointedAt.transform.position == buildingBlockList[i].transform.position
@@ -723,53 +712,33 @@ public class BuildingManager : MonoBehaviour
                     && (ghost_PointedAt.GetComponent<Building_Ghost>().blockParent.transform.rotation.y == buildingBlockList[i].transform.rotation.y
                         || ghost_PointedAt.GetComponent<Building_Ghost>().blockParent.transform.rotation.y == -buildingBlockList[i].transform.rotation.y))
                 {
-                    print("1. Easy");
+                    print("2. Easy");
 
                     SetAllGhostState_Off();
                     return true;
                 }
+                else if (buildingBlockDirection_Selected_B == BlockDirection.Up
+                    && buildingBlockList[i].GetComponent<BuildingBlock_Parent>().buildingType == BuildingType.Wall
+                    && ghost_PointedAt.transform.position == buildingBlockList[i].transform.position
+                    && (ghost_PointedAt.GetComponent<Building_Ghost>().blockParent.transform.rotation.y == buildingBlockList[i].transform.rotation.y
+                        || ghost_PointedAt.GetComponent<Building_Ghost>().blockParent.transform.rotation.y == -buildingBlockList[i].transform.rotation.y))
+                {
+                    print("3. Easy");
 
-                //if (buildingBlockList[i].GetComponent<BuildingBlock_Parent>().buildingType == BuildingType.Wall
-                //    && (buildingBlockList[i].GetComponent<BuildingBlock_Parent>().directionPlaced_A == BlockCompass.West
-                //        || buildingBlockList[i].GetComponent<BuildingBlock_Parent>().directionPlaced_A == BlockCompass.East)
-                //    && (buildingBlockDirection_Selected_A == BlockCompass.West
-                //        || buildingBlockDirection_Selected_A == BlockCompass.East)
-                //    && (ghost_PointedAt.GetComponent<Building_Ghost>().blockParent.transform.position == new Vector3(buildingBlockList[i].transform.position.x, buildingBlockList[i].transform.position.y, buildingBlockList[i].transform.position.z + 2)
-                //    || ghost_PointedAt.GetComponent<Building_Ghost>().blockParent.transform.position == new Vector3(buildingBlockList[i].transform.position.x, buildingBlockList[i].transform.position.y, buildingBlockList[i].transform.position.z - 2)))
-                //{
-                //    print("1. Easy");
+                    SetAllGhostState_Off();
+                    return true;
+                }
+                else if (buildingBlockDirection_Selected_B == BlockDirection.Down
+                    && buildingBlockList[i].GetComponent<BuildingBlock_Parent>().buildingType == BuildingType.Wall
+                    && ghost_PointedAt.transform.position == buildingBlockList[i].transform.position
+                    && (ghost_PointedAt.GetComponent<Building_Ghost>().blockParent.transform.rotation.y == buildingBlockList[i].transform.rotation.y
+                        || ghost_PointedAt.GetComponent<Building_Ghost>().blockParent.transform.rotation.y == -buildingBlockList[i].transform.rotation.y))
+                {
+                    print("4. Easy");
 
-                //    SetAllGhostState_Off();
-                //    return true;
-                //}
-
-                //else if (buildingBlockDirection_Selected_A == BlockCompass.East
-                //    && buildingBlockList[i].GetComponent<BuildingBlock_Parent>().buildingType == BuildingType.Wall
-                //    && ghost_PointedAt.transform.position == new Vector3(buildingBlockList[i].transform.position.x - 2, buildingBlockList[i].transform.position.y, buildingBlockList[i].transform.position.z))
-                //{
-                //    print("1. Easy");
-
-                //    SetAllGhostState_Off();
-                //    return true;
-                //}
-
-                //else if (buildingBlockList[i].GetComponent<BuildingBlock_Parent>().buildingType == BuildingType.Wall
-                //    && (buildingBlockList[i].GetComponent<BuildingBlock_Parent>().directionPlaced_A == BlockCompass.East)
-                //    && ghost_PointedAt.GetComponent<Building_Ghost>().blockParent.transform.position == tempEast)
-                //{
-                //    print("3. Easy");
-
-                //    SetAllGhostState_Off();
-                //    return true;
-                //}
-                //else if (buildingBlockList[i].GetComponent<BuildingBlock_Parent>().buildingType == BuildingType.Wall
-                //    && (buildingBlockList[i].GetComponent<BuildingBlock_Parent>().directionPlaced_A == BlockCompass.West)
-                //    && ghost_PointedAt.GetComponent<Building_Ghost>().blockParent.transform.position == tempWest)
-                //{
-                //    print("5. Easy");
-                //    SetAllGhostState_Off();
-                //    return true;
-                //}
+                    SetAllGhostState_Off();
+                    return true;
+                }
             }
         }
 
