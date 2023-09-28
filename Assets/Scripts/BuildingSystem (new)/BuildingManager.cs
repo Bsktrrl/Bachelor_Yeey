@@ -605,7 +605,8 @@ public class BuildingManager : MonoBehaviour
             #endregion
 
             buildingBlockCanBePlaced = false;
-            SetGhostState_OFF(buildingBlock, i);
+            SetAllGhostState_Off();
+            //SetGhostState_OFF(buildingBlock, i);
         }
     }
     bool CheckOverlappingGhost()
@@ -704,9 +705,23 @@ public class BuildingManager : MonoBehaviour
                 //    SetAllGhostState_Off();
                 //    return true;
                 //}
-                if (buildingBlockDirection_Selected_A == BlockCompass.East
+
+                if (buildingBlockDirection_Selected_A == BlockCompass.West
                     && buildingBlockList[i].GetComponent<BuildingBlock_Parent>().buildingType == BuildingType.Wall
-                    && ghost_PointedAt.transform.position == new Vector3(buildingBlockList[i].transform.position.x - 2, buildingBlockList[i].transform.position.y, buildingBlockList[i].transform.position.z))
+                    && ghost_PointedAt.transform.position == buildingBlockList[i].transform.position
+                    && (ghost_PointedAt.GetComponent<Building_Ghost>().blockParent.transform.rotation.y == buildingBlockList[i].transform.rotation.y
+                        || ghost_PointedAt.GetComponent<Building_Ghost>().blockParent.transform.rotation.y == -buildingBlockList[i].transform.rotation.y))
+                {
+                    print("1. Easy");
+
+                    SetAllGhostState_Off();
+                    return true;
+                }
+                else if (buildingBlockDirection_Selected_A == BlockCompass.East
+                    && buildingBlockList[i].GetComponent<BuildingBlock_Parent>().buildingType == BuildingType.Wall
+                    && ghost_PointedAt.transform.position == buildingBlockList[i].transform.position
+                    && (ghost_PointedAt.GetComponent<Building_Ghost>().blockParent.transform.rotation.y == buildingBlockList[i].transform.rotation.y
+                        || ghost_PointedAt.GetComponent<Building_Ghost>().blockParent.transform.rotation.y == -buildingBlockList[i].transform.rotation.y))
                 {
                     print("1. Easy");
 
@@ -714,23 +729,47 @@ public class BuildingManager : MonoBehaviour
                     return true;
                 }
 
-                else if (buildingBlockList[i].GetComponent<BuildingBlock_Parent>().buildingType == BuildingType.Wall
-                    && (buildingBlockList[i].GetComponent<BuildingBlock_Parent>().directionPlaced_A == BlockCompass.East)
-                    && ghost_PointedAt.GetComponent<Building_Ghost>().blockParent.transform.position == tempEast)
-                {
-                    print("3. Easy");
+                //if (buildingBlockList[i].GetComponent<BuildingBlock_Parent>().buildingType == BuildingType.Wall
+                //    && (buildingBlockList[i].GetComponent<BuildingBlock_Parent>().directionPlaced_A == BlockCompass.West
+                //        || buildingBlockList[i].GetComponent<BuildingBlock_Parent>().directionPlaced_A == BlockCompass.East)
+                //    && (buildingBlockDirection_Selected_A == BlockCompass.West
+                //        || buildingBlockDirection_Selected_A == BlockCompass.East)
+                //    && (ghost_PointedAt.GetComponent<Building_Ghost>().blockParent.transform.position == new Vector3(buildingBlockList[i].transform.position.x, buildingBlockList[i].transform.position.y, buildingBlockList[i].transform.position.z + 2)
+                //    || ghost_PointedAt.GetComponent<Building_Ghost>().blockParent.transform.position == new Vector3(buildingBlockList[i].transform.position.x, buildingBlockList[i].transform.position.y, buildingBlockList[i].transform.position.z - 2)))
+                //{
+                //    print("1. Easy");
 
-                    SetAllGhostState_Off();
-                    return true;
-                }
-                else if (buildingBlockList[i].GetComponent<BuildingBlock_Parent>().buildingType == BuildingType.Wall
-                    && (buildingBlockList[i].GetComponent<BuildingBlock_Parent>().directionPlaced_A == BlockCompass.West)
-                    && ghost_PointedAt.GetComponent<Building_Ghost>().blockParent.transform.position == tempWest)
-                {
-                    print("5. Easy");
-                    SetAllGhostState_Off();
-                    return true;
-                }
+                //    SetAllGhostState_Off();
+                //    return true;
+                //}
+
+                //else if (buildingBlockDirection_Selected_A == BlockCompass.East
+                //    && buildingBlockList[i].GetComponent<BuildingBlock_Parent>().buildingType == BuildingType.Wall
+                //    && ghost_PointedAt.transform.position == new Vector3(buildingBlockList[i].transform.position.x - 2, buildingBlockList[i].transform.position.y, buildingBlockList[i].transform.position.z))
+                //{
+                //    print("1. Easy");
+
+                //    SetAllGhostState_Off();
+                //    return true;
+                //}
+
+                //else if (buildingBlockList[i].GetComponent<BuildingBlock_Parent>().buildingType == BuildingType.Wall
+                //    && (buildingBlockList[i].GetComponent<BuildingBlock_Parent>().directionPlaced_A == BlockCompass.East)
+                //    && ghost_PointedAt.GetComponent<Building_Ghost>().blockParent.transform.position == tempEast)
+                //{
+                //    print("3. Easy");
+
+                //    SetAllGhostState_Off();
+                //    return true;
+                //}
+                //else if (buildingBlockList[i].GetComponent<BuildingBlock_Parent>().buildingType == BuildingType.Wall
+                //    && (buildingBlockList[i].GetComponent<BuildingBlock_Parent>().directionPlaced_A == BlockCompass.West)
+                //    && ghost_PointedAt.GetComponent<Building_Ghost>().blockParent.transform.position == tempWest)
+                //{
+                //    print("5. Easy");
+                //    SetAllGhostState_Off();
+                //    return true;
+                //}
             }
         }
 

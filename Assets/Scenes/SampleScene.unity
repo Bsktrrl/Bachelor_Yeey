@@ -1112,7 +1112,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4763889419513853116, guid: b3b010e049d8340419ec70bd4c4febd0, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 25.72
+      value: 23.286
       objectReference: {fileID: 0}
     - target: {fileID: 4763889419513853116, guid: b3b010e049d8340419ec70bd4c4febd0, type: 3}
       propertyPath: m_LocalRotation.w
@@ -2359,6 +2359,9 @@ MonoBehaviour:
   - {fileID: 291379034}
   - {fileID: 1940679690}
   - {fileID: 1865087037}
+  - {fileID: 1562170621}
+  - {fileID: 486822150}
+  - {fileID: 972790973}
   lastBuildingBlock_LookedAt: {fileID: 0}
   ghost_PointedAt: {fileID: 0}
   buildingBlockCanBePlaced: 0
@@ -2771,6 +2774,11 @@ MonoBehaviour:
   m_Spacing: {x: 0, y: 0}
   m_Constraint: 0
   m_ConstraintCount: 2
+--- !u!1 &486822150 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4763889419513853119, guid: b3b010e049d8340419ec70bd4c4febd0, type: 3}
+  m_PrefabInstance: {fileID: 200872750}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &500691559
 GameObject:
   m_ObjectHideFlags: 0
@@ -4940,6 +4948,11 @@ Transform:
   m_Father: {fileID: 769334857}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &972790973 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4763889419513853119, guid: b3b010e049d8340419ec70bd4c4febd0, type: 3}
+  m_PrefabInstance: {fileID: 173115645}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1009692533
 GameObject:
   m_ObjectHideFlags: 0
@@ -6937,6 +6950,11 @@ PrefabInstance:
 Transform:
   m_CorrespondingSourceObject: {fileID: 8909346992134183986, guid: be9b46496814a2b448e6514c12e5bbc1, type: 3}
   m_PrefabInstance: {fileID: 1555632875}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &1562170621 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4763889419513853119, guid: b3b010e049d8340419ec70bd4c4febd0, type: 3}
+  m_PrefabInstance: {fileID: 1339793072}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1567528593
 PrefabInstance:
