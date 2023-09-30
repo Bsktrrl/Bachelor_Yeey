@@ -2001,7 +2001,7 @@ MonoBehaviour:
   ghost_PointedAt: {fileID: 0}
   buildingBlockCanBePlaced: 0
   BlockTagName: 
-  buildingType_Selected: 4
+  buildingType_Selected: 2
   buildingMaterial_Selected: 1
   BuildingDistance: {x: 4, y: 0.75}
   blockDirection_A: 0
