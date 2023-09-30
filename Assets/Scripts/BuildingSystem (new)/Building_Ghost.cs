@@ -11,7 +11,6 @@ public class Building_Ghost : MonoBehaviour
     public BlockDirection blockDirection_B;
 
     public bool isSelected;
-    //public bool isDeleted;
 
     public GameObject blockParent;
 

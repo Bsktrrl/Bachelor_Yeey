@@ -7,8 +7,8 @@ public class BuildingBlock_Parent : MonoBehaviour
 {
     public BuildingType buildingType;
 
-    public BlockCompass directionPlaced_A;
-    public BlockDirection directionPlaced_B;
+    //public BlockCompass directionPlaced_A;
+    //public BlockDirection directionPlaced_B;
 
     public GameObject BuildingBlcok;
 
