@@ -343,8 +343,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cc8c77a97bd5b9944a2142f8cbd96fe7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  buildingType: 6
-  directionPlaced: 0
+  buildingType: 5
+  directionPlaced_A: 0
+  directionPlaced_B: 0
   BuildingBlcok: {fileID: 786253518913603422}
   directionObjects:
   - {fileID: 3316083994617480289}

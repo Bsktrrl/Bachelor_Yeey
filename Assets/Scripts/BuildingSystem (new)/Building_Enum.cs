@@ -10,7 +10,6 @@ public enum BuildingType
     Triangle,
     Wall,
     Wall_Diagonaly,
-    Stair,
     Angeled,
     Angeled_Corner
 }
