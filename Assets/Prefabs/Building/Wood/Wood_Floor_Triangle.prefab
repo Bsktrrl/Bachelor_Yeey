@@ -345,8 +345,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   buildingType: 2
-  directionPlaced_A: 0
-  directionPlaced_B: 0
   BuildingBlcok: {fileID: 786253518913603422}
   directionObjects:
   - {fileID: 3316083994617480289}
@@ -677,11 +675,11 @@ PrefabInstance:
     - target: {fileID: -7511558181221131132, guid: c9b941a8aa6c7b340bdf934dcbbf744e, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: e289b517caedfc04893b3c3473f73580, type: 2}
+      objectReference: {fileID: -4610143280253574502, guid: fd2181bb73ea8824bb12c11a7d60e62e, type: 3}
     - target: {fileID: -5754084199372789682, guid: c9b941a8aa6c7b340bdf934dcbbf744e, type: 3}
       propertyPath: m_Mesh
       value: 
-      objectReference: {fileID: -5698073008035350577, guid: f5513744f5f9d634f9fb6d2122b583a9, type: 3}
+      objectReference: {fileID: 1423509397519099677, guid: c5011a4d3ce036c4b85b5c7d87dcc5c2, type: 3}
     - target: {fileID: 919132149155446097, guid: c9b941a8aa6c7b340bdf934dcbbf744e, type: 3}
       propertyPath: m_Name
       value: Main Floor Tile
@@ -807,7 +805,7 @@ PrefabInstance:
     - target: {fileID: -5754084199372789682, guid: cbed84ba6cf89bb4cb1090481d7e80ad, type: 3}
       propertyPath: m_Mesh
       value: 
-      objectReference: {fileID: -196291617257788432, guid: a7728d0898573d443aa47e32a0e08344, type: 3}
+      objectReference: {fileID: -308057849561109776, guid: aebc76212f2533a4189f0589131b040a, type: 3}
     - target: {fileID: 919132149155446097, guid: cbed84ba6cf89bb4cb1090481d7e80ad, type: 3}
       propertyPath: m_Name
       value: Angle - North
@@ -938,7 +936,7 @@ PrefabInstance:
     - target: {fileID: -5754084199372789682, guid: cbed84ba6cf89bb4cb1090481d7e80ad, type: 3}
       propertyPath: m_Mesh
       value: 
-      objectReference: {fileID: -196291617257788432, guid: a7728d0898573d443aa47e32a0e08344, type: 3}
+      objectReference: {fileID: -308057849561109776, guid: aebc76212f2533a4189f0589131b040a, type: 3}
     - target: {fileID: 919132149155446097, guid: cbed84ba6cf89bb4cb1090481d7e80ad, type: 3}
       propertyPath: m_Name
       value: Angle - West
@@ -1073,7 +1071,7 @@ PrefabInstance:
     - target: {fileID: -5754084199372789682, guid: c9b941a8aa6c7b340bdf934dcbbf744e, type: 3}
       propertyPath: m_Mesh
       value: 
-      objectReference: {fileID: -6934440793689649933, guid: b48c8a7b0440d4140b2b70ae90477464, type: 3}
+      objectReference: {fileID: -3476961271436853940, guid: c6f2f76df4f3a8b408bb3df23b54fb1b, type: 3}
     - target: {fileID: 919132149155446097, guid: c9b941a8aa6c7b340bdf934dcbbf744e, type: 3}
       propertyPath: m_Name
       value: Wall - North
@@ -1207,7 +1205,7 @@ PrefabInstance:
     - target: {fileID: -5754084199372789682, guid: c9b941a8aa6c7b340bdf934dcbbf744e, type: 3}
       propertyPath: m_Mesh
       value: 
-      objectReference: {fileID: -8651911914926732462, guid: d8eab9ed2807e3446a482b1b11a3c9f7, type: 3}
+      objectReference: {fileID: 7730133331424604108, guid: 8db4d6796ba11f14a9ecded0378d0f2f, type: 3}
     - target: {fileID: 919132149155446097, guid: c9b941a8aa6c7b340bdf934dcbbf744e, type: 3}
       propertyPath: m_Name
       value: Floor - North
@@ -1345,7 +1343,7 @@ PrefabInstance:
     - target: {fileID: -5754084199372789682, guid: cbed84ba6cf89bb4cb1090481d7e80ad, type: 3}
       propertyPath: m_Mesh
       value: 
-      objectReference: {fileID: 1568319795115118504, guid: f1367d665b931a64dbfe2a28a539fdfc, type: 3}
+      objectReference: {fileID: -6124468900664536685, guid: ee55b31aad261de4780883fde7eceaad, type: 3}
     - target: {fileID: 919132149155446097, guid: cbed84ba6cf89bb4cb1090481d7e80ad, type: 3}
       propertyPath: m_Name
       value: WallDiagonal - NorthWest
@@ -1480,7 +1478,7 @@ PrefabInstance:
     - target: {fileID: -5754084199372789682, guid: c9b941a8aa6c7b340bdf934dcbbf744e, type: 3}
       propertyPath: m_Mesh
       value: 
-      objectReference: {fileID: -6934440793689649933, guid: b48c8a7b0440d4140b2b70ae90477464, type: 3}
+      objectReference: {fileID: -3476961271436853940, guid: c6f2f76df4f3a8b408bb3df23b54fb1b, type: 3}
     - target: {fileID: 919132149155446097, guid: c9b941a8aa6c7b340bdf934dcbbf744e, type: 3}
       propertyPath: m_Name
       value: Wall - West
@@ -1614,7 +1612,7 @@ PrefabInstance:
     - target: {fileID: -5754084199372789682, guid: c9b941a8aa6c7b340bdf934dcbbf744e, type: 3}
       propertyPath: m_Mesh
       value: 
-      objectReference: {fileID: -8651911914926732462, guid: d8eab9ed2807e3446a482b1b11a3c9f7, type: 3}
+      objectReference: {fileID: 7730133331424604108, guid: 8db4d6796ba11f14a9ecded0378d0f2f, type: 3}
     - target: {fileID: 919132149155446097, guid: c9b941a8aa6c7b340bdf934dcbbf744e, type: 3}
       propertyPath: m_Name
       value: Floor - West
@@ -1756,7 +1754,7 @@ PrefabInstance:
     - target: {fileID: -5754084199372789682, guid: c9b941a8aa6c7b340bdf934dcbbf744e, type: 3}
       propertyPath: m_Mesh
       value: 
-      objectReference: {fileID: -5698073008035350577, guid: f5513744f5f9d634f9fb6d2122b583a9, type: 3}
+      objectReference: {fileID: 1423509397519099677, guid: c5011a4d3ce036c4b85b5c7d87dcc5c2, type: 3}
     - target: {fileID: 919132149155446097, guid: c9b941a8aa6c7b340bdf934dcbbf744e, type: 3}
       propertyPath: m_Name
       value: Triangle - North
@@ -1899,7 +1897,7 @@ PrefabInstance:
     - target: {fileID: -5754084199372789682, guid: c9b941a8aa6c7b340bdf934dcbbf744e, type: 3}
       propertyPath: m_Mesh
       value: 
-      objectReference: {fileID: -5698073008035350577, guid: f5513744f5f9d634f9fb6d2122b583a9, type: 3}
+      objectReference: {fileID: 1423509397519099677, guid: c5011a4d3ce036c4b85b5c7d87dcc5c2, type: 3}
     - target: {fileID: 919132149155446097, guid: c9b941a8aa6c7b340bdf934dcbbf744e, type: 3}
       propertyPath: m_Name
       value: Triangle - West

@@ -25,11 +25,11 @@ public class BuildingManager : MonoBehaviour
     Ray oldRay = new Ray();
 
     [Header("Selected")]
+    public BuildingType buildingType_Selected = BuildingType.None;
+    public BuildingMaterial buildingMaterial_Selected = BuildingMaterial.None;
     [SerializeField] Vector2 BuildingDistance;
     public BlockCompass blockDirection_A;
     public BlockDirection blockDirection_B;
-    public BuildingType buildingType_Selected = BuildingType.None;
-    public BuildingMaterial buildingMaterial_Selected = BuildingMaterial.None;
 
     #region BuildingBlocks List
     [Header("BuildingBlocks List - Wood")]
@@ -1127,10 +1127,28 @@ public class BuildingManager : MonoBehaviour
             #endregion
 
             //Wall
+            #region
             else if (buildingType_Selected == BuildingType.Wall)
             {
+                //Set info on the block that is Placed
+                #region
+                BlockPlaced blockPlaced = new BlockPlaced();
+                blockPlaced.buildingBlock = lastBuildingBlock_LookedAt;
 
+                if (blockDirection_B == BlockDirection.Up)
+                    blockPlaced.directionPlaced_B = BlockDirection.Down;
+                else if (blockDirection_B == BlockDirection.Down)
+                    blockPlaced.directionPlaced_B = BlockDirection.Up;
+                else if (blockDirection_B == BlockDirection.Left)
+                    blockPlaced.directionPlaced_B = BlockDirection.Right;
+                else if (blockDirection_B == BlockDirection.Right)
+                    blockPlaced.directionPlaced_B = BlockDirection.Left;
+
+                blockPlaced.buildingType = buildingType_Selected;
+                placedParent.blockPlacedList.Add(blockPlaced);
+                #endregion
             }
+            #endregion
 
             //Wall_Diagonally
             else if (buildingType_Selected == BuildingType.Wall_Diagonaly)
