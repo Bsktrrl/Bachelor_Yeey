@@ -2001,11 +2001,11 @@ MonoBehaviour:
   ghost_PointedAt: {fileID: 0}
   buildingBlockCanBePlaced: 0
   BlockTagName: 
+  buildingType_Selected: 1
+  buildingMaterial_Selected: 1
   BuildingDistance: {x: 4, y: 0.75}
   blockDirection_A: 0
   blockDirection_B: 0
-  buildingType_Selected: 1
-  buildingMaterial_Selected: 1
   builingBlock_Wood_Floor: {fileID: 4763889419513853119, guid: 1883060f695bb5f4fa31f3eb733546c5, type: 3}
   builingBlock_Wood_Floor_Triangle: {fileID: 4763889419513853119, guid: 8945f25e892be384580530c4674397a6, type: 3}
   builingBlock_Wood_Wall: {fileID: 4763889419513853119, guid: b3b010e049d8340419ec70bd4c4febd0, type: 3}
