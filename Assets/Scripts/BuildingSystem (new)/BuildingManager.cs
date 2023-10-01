@@ -766,45 +766,50 @@ public class BuildingManager : MonoBehaviour
             return false;
         }
 
-        //BuildingBlock_Parent ghostParent = ghost_PointedAt.GetComponent<Building_Ghost>().blockParent.GetComponent<BuildingBlock_Parent>(); ;
-        //BuildingBlock_Parent lastBlockLookedAt = lastBuildingBlock_LookedAt.GetComponent<BuildingBlock_Parent>();
-
-        //Prevent any BuildingBlock of being placed at the same position as another BuildingBlock of the same Type
-        for (int i = 0; i < buildingBlockList.Count; i++)
-        {
-            //for (int j = 0; j < buildingBlockList[i].GetComponent<BuildingBlock_Parent>().blockPlacedList.Count; j++)
-            //{
-            //    BuildingBlock_Parent buildingBlockPlacedParent = buildingBlockList[i].GetComponent<BuildingBlock_Parent>();
-
-            //    for (int k = 0; k < lastBlockLookedAt.ghostList.Count; k++)
-            //    {
-            //        if (buildingBlockPlacedParent.blockPlacedList[j].buildingType == buildingType_Selected
-            //            && buildingBlockPlacedParent.blockPlacedList[j].buildingType == ghost_PointedAt.GetComponent<Building_Ghost>().buildingType
-            //            && buildingBlockPlacedParent.gameObject.transform.position == ghost_PointedAt.transform.position)
-            //        {
-            //            SetAllGhostState_Off();
-            //            return true;
-            //        }
-            //    }
-            //}
-        }
-
         for (int j = 0; j < lastBuildingBlock_LookedAt.GetComponent<BuildingBlock_Parent>().blockPlacedList.Count; j++)
         {
             for (int k = 0; k < lastBuildingBlock_LookedAt.GetComponent<BuildingBlock_Parent>().ghostList.Count; k++)
             {
                 if (lastBuildingBlock_LookedAt.GetComponent<BuildingBlock_Parent>().blockPlacedList[j].buildingBlock.transform.position == lastBuildingBlock_LookedAt.GetComponent<BuildingBlock_Parent>().ghostList[k].transform.position
-
-                    && lastBuildingBlock_LookedAt.GetComponent<BuildingBlock_Parent>().blockPlacedList[j].buildingBlock.transform.position == ghost_PointedAt.transform.position)
+                    && lastBuildingBlock_LookedAt.GetComponent<BuildingBlock_Parent>().blockPlacedList[j].buildingBlock.transform.position == ghost_PointedAt.transform.position
+                    /*&& lastBuildingBlock_LookedAt.GetComponent<BuildingBlock_Parent>().blockPlacedList[j].buildingType == buildingType_Selected*/)
                 {
                     SetGhostState_OFF(lastBuildingBlock_LookedAt.GetComponent<BuildingBlock_Parent>(), k);
-                    SetAllGhostState_Off();
+                    //SetAllGhostState_Off();
+
                     return true;
                 }
             }
         }
 
         #region
+        //BuildingBlock_Parent ghostParent = ghost_PointedAt.GetComponent<Building_Ghost>().blockParent.GetComponent<BuildingBlock_Parent>(); ;
+        //BuildingBlock_Parent lastBlockLookedAt = lastBuildingBlock_LookedAt.GetComponent<BuildingBlock_Parent>();
+
+        //Prevent any BuildingBlock of being placed at the same position as another BuildingBlock of the same Type
+        //for (int i = 0; i < buildingBlockList.Count; i++)
+        //{
+        //    for (int j = 0; j < buildingBlockList[i].GetComponent<BuildingBlock_Parent>().blockPlacedList.Count; j++)
+        //    {
+        //        BuildingBlock_Parent buildingBlockPlacedParent = buildingBlockList[i].GetComponent<BuildingBlock_Parent>();
+
+        //        for (int k = 0; k < lastBlockLookedAt.ghostList.Count; k++)
+        //        {
+        //            if (buildingBlockPlacedParent.blockPlacedList[j].buildingType == buildingType_Selected
+        //                && buildingBlockPlacedParent.blockPlacedList[j].buildingType == ghost_PointedAt.GetComponent<Building_Ghost>().buildingType
+        //                && buildingBlockPlacedParent.gameObject.transform.position == ghost_PointedAt.transform.position)
+        //            {
+        //                SetAllGhostState_Off();
+        //                return true;
+        //            }
+        //        }
+        //    }
+        //}
+
+
+        //-----
+
+
         //If "Floor"-Block is selected
         //if (buildingType_Selected == BuildingType.Floor)
         //{
@@ -1111,11 +1116,40 @@ public class BuildingManager : MonoBehaviour
 
                 }
             }
+
+
+            //Angle_Corner
+
+
+            //Stair
+
+
+            //Window
+
+
+            //Fence
+
+
+            //Fence Angle
+
+
+            //Door
+
             #endregion
 
-            //Set Parent of placed object
+            //Set Parent of the placed object
             buildingBlockList[buildingBlockList.Count - 1].transform.SetParent(buildingBlock_Parent.transform);
 
+            #region Setup the Placed Block
+            //Set info on the Placed Block
+            BlockPlaced blockPlaced = new BlockPlaced();
+            blockPlaced.buildingBlock = lastBuildingBlock_LookedAt;
+            blockPlaced.directionPlaced_A = blockDirection_A;
+            blockPlaced.directionPlaced_B = blockDirection_B;
+            blockPlaced.buildingType = lastBuildingBlock_LookedAt.GetComponent<BuildingBlock_Parent>().buildingType;
+            buildingBlockList[buildingBlockList.Count - 1].GetComponent<BuildingBlock_Parent>().blockPlacedList.Add(blockPlaced);
+            #endregion
+            #region Setup the Block that got a Block Placed on It
             //Set info on the Block that got a block placed on it
             BlockPlaced blockGotPlacedOn = new BlockPlaced();
             blockGotPlacedOn.buildingBlock = buildingBlockList[buildingBlockList.Count - 1];
@@ -1123,403 +1157,68 @@ public class BuildingManager : MonoBehaviour
             blockGotPlacedOn.directionPlaced_B = blockDirection_B;
             blockGotPlacedOn.buildingType = buildingType_Selected;
             lastBuildingBlock_LookedAt.GetComponent<BuildingBlock_Parent>().blockPlacedList.Add(blockGotPlacedOn);
+            #endregion
 
-            //Set info on the block that was placed
-            BuildingBlock_Parent placedParent = buildingBlockList[buildingBlockList.Count - 1].GetComponent<BuildingBlock_Parent>();
-
-            #region
-            //Floor
-            #region
-            if (buildingType_Selected == BuildingType.Floor)
+            #region Update all other Blocks that are Adjacent to the placed Block
+            //Insert the placed block on all adjacent other buildingBlockLists
+            for (int i = 0; i < buildingBlockList.Count; i++)
             {
-                //Set info on the block that is Placed
-                #region
-                BlockPlaced blockPlaced = new BlockPlaced();
-                blockPlaced.buildingBlock = lastBuildingBlock_LookedAt;
-
-                if (blockDirection_A == BlockCompass.South)
-                    blockPlaced.directionPlaced_A = BlockCompass.North;
-                else if (blockDirection_A == BlockCompass.North)
-                    blockPlaced.directionPlaced_A = BlockCompass.South;
-                else if (blockDirection_A == BlockCompass.East)
-                    blockPlaced.directionPlaced_A = BlockCompass.West;
-                else if (blockDirection_A == BlockCompass.West)
-                    blockPlaced.directionPlaced_A = BlockCompass.East;
-
-                blockPlaced.buildingType = buildingType_Selected;
-                placedParent.blockPlacedList.Add(blockPlaced);
-                #endregion
-
-                //Add other connections that may occur - On the Placed Block
-                for (int i = 0; i < placedParent.ghostList.Count; i++)
+                for (int j = 0; j < buildingBlockList[i].GetComponent<BuildingBlock_Parent>().ghostList.Count; j++)
                 {
-                    for (int j = 0; j < buildingBlockList.Count; j++)
+                    if (buildingBlockList[i].GetComponent<BuildingBlock_Parent>().ghostList[j].transform.position == buildingBlockList[buildingBlockList.Count - 1].transform.position
+                        && buildingBlockList[i].GetComponent<BuildingBlock_Parent>().ghostList[j].GetComponent<Building_Ghost>().buildingType == buildingBlockList[buildingBlockList.Count - 1].GetComponent<BuildingBlock_Parent>().buildingType)
                     {
-                        if (placedParent.ghostList[i].GetComponent<Building_Ghost>().buildingType == BuildingType.Floor
-                            && (buildingBlockList[j].GetComponent<BuildingBlock_Parent>().buildingType == BuildingType.Floor
-                            || buildingBlockList[j].GetComponent<BuildingBlock_Parent>().buildingType == BuildingType.Triangle)
-                            && placedParent.ghostList[i].transform.position == buildingBlockList[j].transform.position)
+                        int amount = 0;
+
+                        for (int k = 0; k < buildingBlockList[i].GetComponent<BuildingBlock_Parent>().blockPlacedList.Count; k++)
                         {
-                            //The Placed Block
-                            #region
-                            bool hasBuildingBlock = false;
-                            for (int k = 0; k < placedParent.blockPlacedList.Count; k++)
+                            if (buildingBlockList[i].GetComponent<BuildingBlock_Parent>().blockPlacedList[k].buildingBlock == buildingBlockList[buildingBlockList.Count - 1])
                             {
-                                if (placedParent.blockPlacedList[k].buildingBlock == buildingBlockList[j])
-                                {
-                                    hasBuildingBlock = true;
-                                }
+                                amount++;
                             }
-
-                            if (hasBuildingBlock == false)
-                            {
-                                BlockPlaced blockPlacedNew = new BlockPlaced();
-                                blockPlacedNew.buildingBlock = buildingBlockList[j];
-
-                                if (placedParent.ghostList[i].GetComponent<Building_Ghost>().blockDirection_A == BlockCompass.North)
-                                    blockPlacedNew.directionPlaced_A = BlockCompass.North;
-                                else if (placedParent.ghostList[i].GetComponent<Building_Ghost>().blockDirection_A == BlockCompass.South)
-                                    blockPlacedNew.directionPlaced_A = BlockCompass.South;
-                                else if (placedParent.ghostList[i].GetComponent<Building_Ghost>().blockDirection_A == BlockCompass.East)
-                                    blockPlacedNew.directionPlaced_A = BlockCompass.East;
-                                else if (placedParent.ghostList[i].GetComponent<Building_Ghost>().blockDirection_A == BlockCompass.West)
-                                    blockPlacedNew.directionPlaced_A = BlockCompass.West;
-
-                                blockPlacedNew.buildingType = BuildingType.Floor;
-
-                                placedParent.blockPlacedList.Add(blockPlacedNew);
-                            }
-                            #endregion
                         }
-                    }
-                }
 
-                //Add other connections that may occur - Based on the Placed Block
-                for (int i = 0; i < buildingBlockList.Count; i++)
-                {
-                    for (int j = 0; j < placedParent.ghostList.Count; j++)
-                    {
-                        if ((buildingBlockList[i].GetComponent<BuildingBlock_Parent>().buildingType == BuildingType.Floor
-                            || buildingBlockList[i].GetComponent<BuildingBlock_Parent>().buildingType == BuildingType.Triangle)
-                            && placedParent.ghostList[j].GetComponent<Building_Ghost>().buildingType == BuildingType.Floor
-                            && buildingBlockList[i].transform.position == placedParent.ghostList[j].transform.position)
+                        if (amount <= 0)
                         {
-                            //Check if placedParent already is included in the buildingBlockList[i]
-                            #region
-                            bool isIncluded = false;
-                            for (int k = 0; k < buildingBlockList[i].GetComponent<BuildingBlock_Parent>().blockPlacedList.Count; k++)
-                            {
-                                if (placedParent.gameObject == buildingBlockList[i].GetComponent<BuildingBlock_Parent>().blockPlacedList[k].buildingBlock)
-                                {
-                                    isIncluded = true;
-                                }
-                            }
-
-                            if (isIncluded == false)
-                            {
-                                BlockPlaced blockPlacedAdjacent = new BlockPlaced();
-                                blockPlacedAdjacent.buildingBlock = placedParent.gameObject;
-
-                                if (placedParent.ghostList[j].GetComponent<Building_Ghost>().blockDirection_A == BlockCompass.North)
-                                    blockPlacedAdjacent.directionPlaced_A = BlockCompass.South;
-                                else if (placedParent.ghostList[j].GetComponent<Building_Ghost>().blockDirection_A == BlockCompass.South)
-                                    blockPlacedAdjacent.directionPlaced_A = BlockCompass.North;
-                                else if (placedParent.ghostList[j].GetComponent<Building_Ghost>().blockDirection_A == BlockCompass.East)
-                                    blockPlacedAdjacent.directionPlaced_A = BlockCompass.West;
-                                else if (placedParent.ghostList[j].GetComponent<Building_Ghost>().blockDirection_A == BlockCompass.West)
-                                    blockPlacedAdjacent.directionPlaced_A = BlockCompass.East;
-
-                                blockPlacedAdjacent.buildingType = BuildingType.Floor;
-                                buildingBlockList[i].GetComponent<BuildingBlock_Parent>().blockPlacedList.Add(blockPlacedAdjacent);
-                            }
-                            #endregion
+                            buildingBlockList[i].GetComponent<BuildingBlock_Parent>().blockPlacedList.Add(blockGotPlacedOn);
                         }
                     }
                 }
             }
             #endregion
-
-            //Triangle
-            #region
-            else if (buildingType_Selected == BuildingType.Triangle)
+            #region Update info about Adjacent Blocks on the Placed Block
+            //insert info about ajacent Blocks on the Placed Block
+            for (int i = 0; i < buildingBlockList[buildingBlockList.Count - 1].GetComponent<BuildingBlock_Parent>().ghostList.Count; i++)
             {
-                //Set info on the block that is Placed
-                #region
-                BlockPlaced blockPlaced = new BlockPlaced();
-                blockPlaced.buildingBlock = lastBuildingBlock_LookedAt;
-
-                if (blockDirection_A == BlockCompass.South)
-                    blockPlaced.directionPlaced_A = BlockCompass.North;
-                else if (blockDirection_A == BlockCompass.North)
-                    blockPlaced.directionPlaced_A = BlockCompass.North;
-                else if (blockDirection_A == BlockCompass.East)
-                    blockPlaced.directionPlaced_A = BlockCompass.North;
-                else if (blockDirection_A == BlockCompass.West)
-                    blockPlaced.directionPlaced_A = BlockCompass.North;
-
-                blockPlaced.buildingType = buildingType_Selected;
-                placedParent.blockPlacedList.Add(blockPlaced);
-                #endregion
-
-                //Add other connections that may occur - On the Placed Block
-                for (int i = 0; i < placedParent.ghostList.Count; i++)
+                for (int j = 0; j < buildingBlockList.Count; j++)
                 {
-                    for (int j = 0; j < buildingBlockList.Count; j++)
+                    if (buildingBlockList[buildingBlockList.Count - 1].GetComponent<BuildingBlock_Parent>().ghostList[i].transform.position == buildingBlockList[j].transform.position
+                        && buildingBlockList[buildingBlockList.Count - 1].GetComponent<BuildingBlock_Parent>().ghostList[i].GetComponent<Building_Ghost>().buildingType == buildingBlockList[j].GetComponent<BuildingBlock_Parent>().buildingType)
                     {
-                        if (placedParent.ghostList[i].GetComponent<Building_Ghost>().buildingType == BuildingType.Triangle
-                            && (buildingBlockList[j].GetComponent<BuildingBlock_Parent>().buildingType == BuildingType.Floor
-                            || buildingBlockList[j].GetComponent<BuildingBlock_Parent>().buildingType == BuildingType.Triangle)
-                            && placedParent.ghostList[i].transform.position == buildingBlockList[j].transform.position)
+                        int amount = 0;
+
+                        for (int k = 0; k < buildingBlockList[buildingBlockList.Count - 1].GetComponent<BuildingBlock_Parent>().blockPlacedList.Count; k++)
                         {
-                            //The Placed Block
-                            #region
-                            bool hasBuildingBlock = false;
-                            for (int k = 0; k < placedParent.blockPlacedList.Count; k++)
+                            if (buildingBlockList[buildingBlockList.Count - 1].GetComponent<BuildingBlock_Parent>().blockPlacedList[k].buildingBlock == buildingBlockList[j])
                             {
-                                if (placedParent.blockPlacedList[k].buildingBlock == buildingBlockList[j])
-                                {
-                                    hasBuildingBlock = true;
-                                }
+                                amount++;
                             }
-
-                            if (hasBuildingBlock == false)
-                            {
-                                BlockPlaced blockPlacedNew = new BlockPlaced();
-                                blockPlacedNew.buildingBlock = buildingBlockList[j];
-
-                                if (placedParent.ghostList[i].GetComponent<Building_Ghost>().blockDirection_A == BlockCompass.North)
-                                    blockPlacedNew.directionPlaced_A = BlockCompass.North;
-                                else if (placedParent.ghostList[i].GetComponent<Building_Ghost>().blockDirection_A == BlockCompass.South)
-                                    blockPlacedNew.directionPlaced_A = BlockCompass.South;
-                                else if (placedParent.ghostList[i].GetComponent<Building_Ghost>().blockDirection_A == BlockCompass.East)
-                                    blockPlacedNew.directionPlaced_A = BlockCompass.East;
-                                else if (placedParent.ghostList[i].GetComponent<Building_Ghost>().blockDirection_A == BlockCompass.West)
-                                    blockPlacedNew.directionPlaced_A = BlockCompass.West;
-
-                                blockPlacedNew.buildingType = BuildingType.Triangle;
-
-                                placedParent.blockPlacedList.Add(blockPlacedNew);
-                            }
-                            #endregion
                         }
-                    }
-                }
 
-                //Add other connections that may occur - Based on the Placed Block
-                for (int i = 0; i < buildingBlockList.Count; i++)
-                {
-                    for (int j = 0; j < placedParent.ghostList.Count; j++)
-                    {
-                        if ((buildingBlockList[i].GetComponent<BuildingBlock_Parent>().buildingType == BuildingType.Floor
-                            || buildingBlockList[i].GetComponent<BuildingBlock_Parent>().buildingType == BuildingType.Triangle)
-                            && placedParent.ghostList[j].GetComponent<Building_Ghost>().buildingType == BuildingType.Triangle
-                            && buildingBlockList[i].transform.position == placedParent.ghostList[j].transform.position)
+                        if (amount <= 0)
                         {
-                            //Check if placedParent already is included in the buildingBlockList[i]
-                            #region
-                            bool isIncluded = false;
-                            for (int k = 0; k < buildingBlockList[i].GetComponent<BuildingBlock_Parent>().blockPlacedList.Count; k++)
-                            {
-                                if (placedParent.gameObject == buildingBlockList[i].GetComponent<BuildingBlock_Parent>().blockPlacedList[k].buildingBlock)
-                                {
-                                    isIncluded = true;
-                                }
-                            }
+                            BlockPlaced blockAdjacent = new BlockPlaced();
+                            blockAdjacent.buildingBlock = buildingBlockList[j];
+                            blockAdjacent.directionPlaced_A = blockDirection_A;
+                            blockAdjacent.directionPlaced_B = blockDirection_B;
+                            blockAdjacent.buildingType = buildingBlockList[j].GetComponent<BuildingBlock_Parent>().buildingType;
 
-                            if (isIncluded == false)
-                            {
-                                BlockPlaced blockPlacedAdjacent = new BlockPlaced();
-                                blockPlacedAdjacent.buildingBlock = placedParent.gameObject;
-                                for (int k = 0; k < buildingBlockList[i].GetComponent<BuildingBlock_Parent>().ghostList.Count; k++)
-                                {
-                                    if (buildingBlockList[i].GetComponent<BuildingBlock_Parent>().ghostList[k].transform.position
-                                        == placedParent.gameObject.transform.position)
-                                    {
-                                        blockPlacedAdjacent.directionPlaced_A = buildingBlockList[i].GetComponent<BuildingBlock_Parent>().ghostList[k].GetComponent<Building_Ghost>().blockDirection_A;
-                                    }
-                                }
-
-                                blockPlacedAdjacent.buildingType = BuildingType.Triangle;
-                                buildingBlockList[i].GetComponent<BuildingBlock_Parent>().blockPlacedList.Add(blockPlacedAdjacent);
-
-                                print("5. Add To List");
-                            }
-                            #endregion
+                            buildingBlockList[buildingBlockList.Count - 1].GetComponent<BuildingBlock_Parent>().blockPlacedList.Add(blockAdjacent);
                         }
                     }
                 }
             }
             #endregion
-
-            //Wall
-            #region
-            else if (buildingType_Selected == BuildingType.Wall)
-            {
-                //Set info on the block that is Placed
-                #region
-                BlockPlaced blockPlaced = new BlockPlaced();
-                blockPlaced.buildingBlock = lastBuildingBlock_LookedAt;
-
-                if (blockDirection_A == BlockCompass.North)
-                    blockPlaced.directionPlaced_A = BlockCompass.South;
-                else if (blockDirection_A == BlockCompass.South)
-                    blockPlaced.directionPlaced_A = BlockCompass.North;
-                else if (blockDirection_A == BlockCompass.East)
-                    blockPlaced.directionPlaced_A = BlockCompass.West;
-                else if (blockDirection_A == BlockCompass.West)
-                    blockPlaced.directionPlaced_A = BlockCompass.East;
-
-                if (blockDirection_B == BlockDirection.Up)
-                    blockPlaced.directionPlaced_B = BlockDirection.Down;
-                else if (blockDirection_B == BlockDirection.Down)
-                    blockPlaced.directionPlaced_B = BlockDirection.Up;
-                else if (blockDirection_B == BlockDirection.Left)
-                    blockPlaced.directionPlaced_B = BlockDirection.Right;
-                else if (blockDirection_B == BlockDirection.Right)
-                    blockPlaced.directionPlaced_B = BlockDirection.Left;
-
-                blockPlaced.buildingType = buildingType_Selected;
-                placedParent.blockPlacedList.Add(blockPlaced);
-                #endregion
-            }
-            #endregion
-
-            //Wall_Diagonally
-            else if (buildingType_Selected == BuildingType.Wall_Diagonaly)
-            {
-
-            }
-
-            //Angled
-            else if (buildingType_Selected == BuildingType.Angeled)
-            {
-                //Set info on the block that is Placed
-                #region
-                BlockPlaced blockPlaced = new BlockPlaced();
-                blockPlaced.buildingBlock = lastBuildingBlock_LookedAt;
-
-                if (blockDirection_A == BlockCompass.North)
-                    blockPlaced.directionPlaced_A = BlockCompass.North;
-                else if (blockDirection_A == BlockCompass.South)
-                    blockPlaced.directionPlaced_A = BlockCompass.South;
-                else if (blockDirection_A == BlockCompass.East)
-                    blockPlaced.directionPlaced_A = BlockCompass.East;
-                else if (blockDirection_A == BlockCompass.West)
-                    blockPlaced.directionPlaced_A = BlockCompass.West;
-
-                if (blockDirection_B == BlockDirection.Up)
-                    blockPlaced.directionPlaced_B = BlockDirection.Up;
-                else if (blockDirection_B == BlockDirection.Down)
-                    blockPlaced.directionPlaced_B = BlockDirection.Down;
-                else if (blockDirection_B == BlockDirection.Left)
-                    blockPlaced.directionPlaced_B = BlockDirection.Left;
-                else if (blockDirection_B == BlockDirection.Right)
-                    blockPlaced.directionPlaced_B = BlockDirection.Right;
-
-                blockPlaced.buildingType = buildingType_Selected;
-                placedParent.blockPlacedList.Add(blockPlaced);
-                #endregion
-
-                //Add other connections that may occur - On the Placed Block
-                for (int i = 0; i < placedParent.ghostList.Count; i++)
-                {
-                    for (int j = 0; j < buildingBlockList.Count; j++)
-                    {
-                        if (placedParent.ghostList[i].GetComponent<Building_Ghost>().buildingType == BuildingType.Angeled
-                            && (buildingBlockList[j].GetComponent<BuildingBlock_Parent>().buildingType == BuildingType.Floor
-                            || buildingBlockList[j].GetComponent<BuildingBlock_Parent>().buildingType == BuildingType.Triangle
-                            || buildingBlockList[j].GetComponent<BuildingBlock_Parent>().buildingType == BuildingType.Wall)
-                            && placedParent.ghostList[i].transform.position == buildingBlockList[j].transform.position)
-                        {
-                            //The Placed Block
-                            #region
-                            bool hasBuildingBlock = false;
-                            for (int k = 0; k < placedParent.blockPlacedList.Count; k++)
-                            {
-                                if (placedParent.blockPlacedList[k].buildingBlock == buildingBlockList[j])
-                                {
-                                    hasBuildingBlock = true;
-                                }
-                            }
-
-                            if (hasBuildingBlock == false)
-                            {
-                                BlockPlaced blockPlacedNew = new BlockPlaced();
-                                blockPlacedNew.buildingBlock = buildingBlockList[j];
-
-                                if (placedParent.ghostList[i].GetComponent<Building_Ghost>().blockDirection_A == BlockCompass.North)
-                                    blockPlacedNew.directionPlaced_A = BlockCompass.North;
-                                else if (placedParent.ghostList[i].GetComponent<Building_Ghost>().blockDirection_A == BlockCompass.South)
-                                    blockPlacedNew.directionPlaced_A = BlockCompass.South;
-                                else if (placedParent.ghostList[i].GetComponent<Building_Ghost>().blockDirection_A == BlockCompass.East)
-                                    blockPlacedNew.directionPlaced_A = BlockCompass.East;
-                                else if (placedParent.ghostList[i].GetComponent<Building_Ghost>().blockDirection_A == BlockCompass.West)
-                                    blockPlacedNew.directionPlaced_A = BlockCompass.West;
-
-                                blockPlacedNew.buildingType = BuildingType.Angeled;
-
-                                placedParent.blockPlacedList.Add(blockPlacedNew);
-                            }
-                            #endregion
-                        }
-                    }
-                }
-
-                //Add other connections that may occur - Based on the Placed Block
-                for (int i = 0; i < buildingBlockList.Count; i++)
-                {
-                    for (int j = 0; j < placedParent.ghostList.Count; j++)
-                    {
-                        if ((buildingBlockList[i].GetComponent<BuildingBlock_Parent>().buildingType == BuildingType.Floor
-                            || buildingBlockList[i].GetComponent<BuildingBlock_Parent>().buildingType == BuildingType.Triangle
-                            || buildingBlockList[i].GetComponent<BuildingBlock_Parent>().buildingType == BuildingType.Wall)
-                            && placedParent.ghostList[j].GetComponent<Building_Ghost>().buildingType == BuildingType.Angeled
-                            && buildingBlockList[i].transform.position == placedParent.ghostList[j].transform.position)
-                        {
-                            //Check if placedParent already is included in the buildingBlockList[i]
-                            #region
-                            bool isIncluded = false;
-                            for (int k = 0; k < buildingBlockList[i].GetComponent<BuildingBlock_Parent>().blockPlacedList.Count; k++)
-                            {
-                                if (placedParent.gameObject == buildingBlockList[i].GetComponent<BuildingBlock_Parent>().blockPlacedList[k].buildingBlock)
-                                {
-                                    isIncluded = true;
-                                }
-                            }
-
-                            if (isIncluded == false)
-                            {
-                                BlockPlaced blockPlacedAdjacent = new BlockPlaced();
-                                blockPlacedAdjacent.buildingBlock = placedParent.gameObject;
-
-                                if (placedParent.ghostList[j].GetComponent<Building_Ghost>().blockDirection_A == BlockCompass.North)
-                                    blockPlacedAdjacent.directionPlaced_A = BlockCompass.North;
-                                else if (placedParent.ghostList[j].GetComponent<Building_Ghost>().blockDirection_A == BlockCompass.South)
-                                    blockPlacedAdjacent.directionPlaced_A = BlockCompass.South;
-                                else if (placedParent.ghostList[j].GetComponent<Building_Ghost>().blockDirection_A == BlockCompass.East)
-                                    blockPlacedAdjacent.directionPlaced_A = BlockCompass.East;
-                                else if (placedParent.ghostList[j].GetComponent<Building_Ghost>().blockDirection_A == BlockCompass.West)
-                                    blockPlacedAdjacent.directionPlaced_A = BlockCompass.West;
-
-                                blockPlacedAdjacent.buildingType = BuildingType.Angeled;
-                                buildingBlockList[i].GetComponent<BuildingBlock_Parent>().blockPlacedList.Add(blockPlacedAdjacent);
-                            }
-                            #endregion
-                        }
-                    }
-                }
-            }
-
-            //Angled_Corner
-            else if (buildingType_Selected == BuildingType.Angeled_Corner)
-            {
-
-            }
-            #endregion
-
-
-            //-----
-
 
             //Play Sound
             if (buildingMaterial_Selected == BuildingMaterial.Wood)
