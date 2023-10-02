@@ -2500,7 +2500,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4763889419513853116, guid: 1883060f695bb5f4fa31f3eb733546c5, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 5
+      value: 2.73
       objectReference: {fileID: 0}
     - target: {fileID: 4763889419513853116, guid: 1883060f695bb5f4fa31f3eb733546c5, type: 3}
       propertyPath: m_LocalPosition.z
@@ -6329,7 +6329,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 3674162178478198034, guid: 1883060f695bb5f4fa31f3eb733546c5, type: 3}
       propertyPath: buildingType
-      value: 3
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3674162178478198034, guid: 1883060f695bb5f4fa31f3eb733546c5, type: 3}
       propertyPath: blockPlacedList.Array.size
