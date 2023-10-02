@@ -729,11 +729,11 @@ public class BuildingManager : MonoBehaviour
             ghost_PointedAt = blockLookingAt.ghostList[i];
         }
 
-        //print("CheckOverlappingGhost(): " + CheckOverlappingGhost() + " | BuildingType: " + blockLookingAt.ghostList[i].GetComponent<Building_Ghost>().buildingType + " = " + buildingType);
+        print("CheckOverlappingGhost(): " + CheckOverlappingGhost() + " | BuildingType: " + blockLookingAt.ghostList[i].GetComponent<Building_Ghost>().buildingType + " = " + buildingType);
 
         //Can be placed
         if (!CheckOverlappingGhost()
-            && blockLookingAt.ghostList[i].GetComponent<Building_Ghost>().buildingType == buildingType)
+            /*&& blockLookingAt.ghostList[i].GetComponent<Building_Ghost>().buildingType == buildingType*/)
         {
             blockLookingAt.ghostList[i].GetComponent<MeshRenderer>().material = material_Can;
             blockLookingAt.ghostList[i].GetComponent<Building_Ghost>().isSelected = true;
@@ -761,7 +761,7 @@ public class BuildingManager : MonoBehaviour
     }
     bool CheckOverlappingGhost()
     {
-        if (lastBuildingBlock_LookedAt == null)
+        if (lastBuildingBlock_LookedAt == null || buildingType_Selected == BuildingType.Wall)
         {
             return false;
         }
@@ -775,6 +775,7 @@ public class BuildingManager : MonoBehaviour
                     /*&& lastBuildingBlock_LookedAt.GetComponent<BuildingBlock_Parent>().blockPlacedList[j].buildingType == buildingType_Selected*/)
                 {
                     SetGhostState_OFF(lastBuildingBlock_LookedAt.GetComponent<BuildingBlock_Parent>(), k);
+
                     //SetAllGhostState_Off();
 
                     return true;
@@ -978,6 +979,20 @@ public class BuildingManager : MonoBehaviour
         {
             print("1. Place Block");
 
+            //Play Sound
+            if (buildingMaterial_Selected == BuildingMaterial.Wood)
+            {
+                SoundManager.instance.PlayWood_Placed_Clip();
+            }
+            else if (buildingMaterial_Selected == BuildingMaterial.Stone)
+            {
+                SoundManager.instance.PlayStone_Placed_Clip();
+            }
+            else if (buildingMaterial_Selected == BuildingMaterial.Iron)
+            {
+                SoundManager.instance.PlayIron_Placed_Clip();
+            }
+
             //SetRotation of BuildingBlock
             Quaternion rotation = new Quaternion(ghost_PointedAt.transform.rotation.x, ghost_PointedAt.transform.rotation.y, ghost_PointedAt.transform.rotation.z, ghost_PointedAt.transform.rotation.w);
 
@@ -1143,96 +1158,98 @@ public class BuildingManager : MonoBehaviour
             #region Setup the Placed Block
             //Set info on the Placed Block
             BlockPlaced blockPlaced = new BlockPlaced();
-            blockPlaced.buildingBlock = lastBuildingBlock_LookedAt;
-            blockPlaced.directionPlaced_A = blockDirection_A;
-            blockPlaced.directionPlaced_B = blockDirection_B;
-            blockPlaced.buildingType = lastBuildingBlock_LookedAt.GetComponent<BuildingBlock_Parent>().buildingType;
-            buildingBlockList[buildingBlockList.Count - 1].GetComponent<BuildingBlock_Parent>().blockPlacedList.Add(blockPlaced);
+            if (buildingType_Selected != BuildingType.Wall)
+            {
+                blockPlaced.buildingBlock = lastBuildingBlock_LookedAt;
+                //blockPlaced.directionPlaced_A = blockDirection_A;
+                //blockPlaced.directionPlaced_B = blockDirection_B;
+                blockPlaced.buildingType = lastBuildingBlock_LookedAt.GetComponent<BuildingBlock_Parent>().buildingType;
+                buildingBlockList[buildingBlockList.Count - 1].GetComponent<BuildingBlock_Parent>().blockPlacedList.Add(blockPlaced);
+            }
+
             #endregion
             #region Setup the Block that got a Block Placed on It
             //Set info on the Block that got a block placed on it
             BlockPlaced blockGotPlacedOn = new BlockPlaced();
-            blockGotPlacedOn.buildingBlock = buildingBlockList[buildingBlockList.Count - 1];
-            blockGotPlacedOn.directionPlaced_A = blockDirection_A;
-            blockGotPlacedOn.directionPlaced_B = blockDirection_B;
-            blockGotPlacedOn.buildingType = buildingType_Selected;
-            lastBuildingBlock_LookedAt.GetComponent<BuildingBlock_Parent>().blockPlacedList.Add(blockGotPlacedOn);
+            if (buildingType_Selected != BuildingType.Wall)
+            {
+                blockGotPlacedOn.buildingBlock = buildingBlockList[buildingBlockList.Count - 1];
+                //blockGotPlacedOn.directionPlaced_A = blockDirection_A;
+                //blockGotPlacedOn.directionPlaced_B = blockDirection_B;
+                blockGotPlacedOn.buildingType = buildingType_Selected;
+                lastBuildingBlock_LookedAt.GetComponent<BuildingBlock_Parent>().blockPlacedList.Add(blockGotPlacedOn);
+            }
+            
             #endregion
 
             #region Update all other Blocks that are Adjacent to the placed Block
             //Insert the placed block on all adjacent other buildingBlockLists
-            for (int i = 0; i < buildingBlockList.Count; i++)
+            if (buildingType_Selected != BuildingType.Wall)
             {
-                for (int j = 0; j < buildingBlockList[i].GetComponent<BuildingBlock_Parent>().ghostList.Count; j++)
+                for (int i = 0; i < buildingBlockList.Count; i++)
                 {
-                    if (buildingBlockList[i].GetComponent<BuildingBlock_Parent>().ghostList[j].transform.position == buildingBlockList[buildingBlockList.Count - 1].transform.position
-                        && buildingBlockList[i].GetComponent<BuildingBlock_Parent>().ghostList[j].GetComponent<Building_Ghost>().buildingType == buildingBlockList[buildingBlockList.Count - 1].GetComponent<BuildingBlock_Parent>().buildingType)
+                    for (int j = 0; j < buildingBlockList[i].GetComponent<BuildingBlock_Parent>().ghostList.Count; j++)
                     {
-                        int amount = 0;
-
-                        for (int k = 0; k < buildingBlockList[i].GetComponent<BuildingBlock_Parent>().blockPlacedList.Count; k++)
+                        if (buildingBlockList[i].GetComponent<BuildingBlock_Parent>().ghostList[j].transform.position == buildingBlockList[buildingBlockList.Count - 1].transform.position
+                            && buildingBlockList[i].GetComponent<BuildingBlock_Parent>().ghostList[j].GetComponent<Building_Ghost>().buildingType == buildingBlockList[buildingBlockList.Count - 1].GetComponent<BuildingBlock_Parent>().buildingType)
                         {
-                            if (buildingBlockList[i].GetComponent<BuildingBlock_Parent>().blockPlacedList[k].buildingBlock == buildingBlockList[buildingBlockList.Count - 1])
+                            int amount = 0;
+
+                            for (int k = 0; k < buildingBlockList[i].GetComponent<BuildingBlock_Parent>().blockPlacedList.Count; k++)
                             {
-                                amount++;
+                                if (buildingBlockList[i].GetComponent<BuildingBlock_Parent>().blockPlacedList[k].buildingBlock == buildingBlockList[buildingBlockList.Count - 1])
+                                {
+                                    amount++;
+                                }
                             }
-                        }
 
-                        if (amount <= 0)
-                        {
-                            buildingBlockList[i].GetComponent<BuildingBlock_Parent>().blockPlacedList.Add(blockGotPlacedOn);
+                            if (amount <= 0)
+                            {
+                                buildingBlockList[i].GetComponent<BuildingBlock_Parent>().blockPlacedList.Add(blockGotPlacedOn);
+                            }
                         }
                     }
                 }
             }
+            
             #endregion
             #region Update info about Adjacent Blocks on the Placed Block
             //insert info about ajacent Blocks on the Placed Block
-            for (int i = 0; i < buildingBlockList[buildingBlockList.Count - 1].GetComponent<BuildingBlock_Parent>().ghostList.Count; i++)
+            if (buildingType_Selected != BuildingType.Wall)
             {
-                for (int j = 0; j < buildingBlockList.Count; j++)
+                for (int i = 0; i < buildingBlockList[buildingBlockList.Count - 1].GetComponent<BuildingBlock_Parent>().ghostList.Count; i++)
                 {
-                    if (buildingBlockList[buildingBlockList.Count - 1].GetComponent<BuildingBlock_Parent>().ghostList[i].transform.position == buildingBlockList[j].transform.position
-                        && buildingBlockList[buildingBlockList.Count - 1].GetComponent<BuildingBlock_Parent>().ghostList[i].GetComponent<Building_Ghost>().buildingType == buildingBlockList[j].GetComponent<BuildingBlock_Parent>().buildingType)
+                    for (int j = 0; j < buildingBlockList.Count; j++)
                     {
-                        int amount = 0;
-
-                        for (int k = 0; k < buildingBlockList[buildingBlockList.Count - 1].GetComponent<BuildingBlock_Parent>().blockPlacedList.Count; k++)
+                        if (buildingBlockList[buildingBlockList.Count - 1].GetComponent<BuildingBlock_Parent>().ghostList[i].transform.position == buildingBlockList[j].transform.position
+                            && buildingBlockList[buildingBlockList.Count - 1].GetComponent<BuildingBlock_Parent>().ghostList[i].GetComponent<Building_Ghost>().buildingType == buildingBlockList[j].GetComponent<BuildingBlock_Parent>().buildingType)
                         {
-                            if (buildingBlockList[buildingBlockList.Count - 1].GetComponent<BuildingBlock_Parent>().blockPlacedList[k].buildingBlock == buildingBlockList[j])
+                            int amount = 0;
+
+                            for (int k = 0; k < buildingBlockList[buildingBlockList.Count - 1].GetComponent<BuildingBlock_Parent>().blockPlacedList.Count; k++)
                             {
-                                amount++;
+                                if (buildingBlockList[buildingBlockList.Count - 1].GetComponent<BuildingBlock_Parent>().blockPlacedList[k].buildingBlock == buildingBlockList[j])
+                                {
+                                    amount++;
+                                }
                             }
-                        }
 
-                        if (amount <= 0)
-                        {
-                            BlockPlaced blockAdjacent = new BlockPlaced();
-                            blockAdjacent.buildingBlock = buildingBlockList[j];
-                            blockAdjacent.directionPlaced_A = blockDirection_A;
-                            blockAdjacent.directionPlaced_B = blockDirection_B;
-                            blockAdjacent.buildingType = buildingBlockList[j].GetComponent<BuildingBlock_Parent>().buildingType;
+                            if (amount <= 0)
+                            {
+                                BlockPlaced blockAdjacent = new BlockPlaced();
+                                blockAdjacent.buildingBlock = buildingBlockList[j];
+                                //blockAdjacent.directionPlaced_A = blockDirection_A;
+                                //blockAdjacent.directionPlaced_B = blockDirection_B;
+                                blockAdjacent.buildingType = buildingBlockList[j].GetComponent<BuildingBlock_Parent>().buildingType;
 
-                            buildingBlockList[buildingBlockList.Count - 1].GetComponent<BuildingBlock_Parent>().blockPlacedList.Add(blockAdjacent);
+                                buildingBlockList[buildingBlockList.Count - 1].GetComponent<BuildingBlock_Parent>().blockPlacedList.Add(blockAdjacent);
+                            }
                         }
                     }
                 }
             }
+            
             #endregion
-
-            //Play Sound
-            if (buildingMaterial_Selected == BuildingMaterial.Wood)
-            {
-                SoundManager.instance.PlayWood_Placed_Clip();
-            }
-            else if (buildingMaterial_Selected == BuildingMaterial.Stone)
-            {
-                SoundManager.instance.PlayStone_Placed_Clip();
-            }
-            else if (buildingMaterial_Selected == BuildingMaterial.Iron)
-            {
-                SoundManager.instance.PlayIron_Placed_Clip();
-            }
         }
 
         //Reset parameters

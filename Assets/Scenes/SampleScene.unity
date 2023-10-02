@@ -2001,7 +2001,7 @@ MonoBehaviour:
   ghost_PointedAt: {fileID: 0}
   buildingBlockCanBePlaced: 0
   BlockTagName: 
-  buildingType_Selected: 1
+  buildingType_Selected: 3
   buildingMaterial_Selected: 1
   BuildingDistance: {x: 4, y: 0.75}
   blockDirection_A: 0
@@ -2500,7 +2500,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4763889419513853116, guid: 1883060f695bb5f4fa31f3eb733546c5, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 2.73
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 4763889419513853116, guid: 1883060f695bb5f4fa31f3eb733546c5, type: 3}
       propertyPath: m_LocalPosition.z

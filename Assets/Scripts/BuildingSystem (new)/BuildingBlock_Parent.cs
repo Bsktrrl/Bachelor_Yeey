@@ -25,6 +25,6 @@ public class BlockPlaced
     public GameObject buildingBlock;
     public BuildingType buildingType;
 
-    public BlockCompass directionPlaced_A;
-    public BlockDirection directionPlaced_B;
+    //public BlockCompass directionPlaced_A;
+    //public BlockDirection directionPlaced_B;
 }
