@@ -766,17 +766,24 @@ public class BuildingManager : MonoBehaviour
             return false;
         }
 
-        for (int j = 0; j < lastBuildingBlock_LookedAt.GetComponent<BuildingBlock_Parent>().blockPlacedList.Count; j++)
+        if (buildingType_Selected == BuildingType.Wall)
         {
-            for (int k = 0; k < lastBuildingBlock_LookedAt.GetComponent<BuildingBlock_Parent>().ghostList.Count; k++)
-            {
-                if (lastBuildingBlock_LookedAt.GetComponent<BuildingBlock_Parent>().blockPlacedList[j].buildingBlock.transform.position == lastBuildingBlock_LookedAt.GetComponent<BuildingBlock_Parent>().ghostList[k].transform.position
-                    && lastBuildingBlock_LookedAt.GetComponent<BuildingBlock_Parent>().blockPlacedList[j].buildingBlock.transform.position == ghost_PointedAt.transform.position
-                    && lastBuildingBlock_LookedAt.GetComponent<BuildingBlock_Parent>().blockPlacedList[j].buildingType == buildingType_Selected)
-                {
-                    SetGhostState_OFF(lastBuildingBlock_LookedAt.GetComponent<BuildingBlock_Parent>(), k);
 
-                    return true;
+        }
+        else
+        {
+            for (int j = 0; j < lastBuildingBlock_LookedAt.GetComponent<BuildingBlock_Parent>().blockPlacedList.Count; j++)
+            {
+                for (int k = 0; k < lastBuildingBlock_LookedAt.GetComponent<BuildingBlock_Parent>().ghostList.Count; k++)
+                {
+                    if (lastBuildingBlock_LookedAt.GetComponent<BuildingBlock_Parent>().blockPlacedList[j].buildingBlock.transform.position == lastBuildingBlock_LookedAt.GetComponent<BuildingBlock_Parent>().ghostList[k].transform.position
+                        && lastBuildingBlock_LookedAt.GetComponent<BuildingBlock_Parent>().blockPlacedList[j].buildingBlock.transform.position == ghost_PointedAt.transform.position
+                        && lastBuildingBlock_LookedAt.GetComponent<BuildingBlock_Parent>().blockPlacedList[j].buildingType == buildingType_Selected)
+                    {
+                        SetGhostState_OFF(lastBuildingBlock_LookedAt.GetComponent<BuildingBlock_Parent>(), k);
+
+                        return true;
+                    }
                 }
             }
         }
