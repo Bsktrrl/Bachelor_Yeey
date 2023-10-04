@@ -39,21 +39,24 @@ public class BuildingManager : MonoBehaviour
     [SerializeField] GameObject builingBlock_Wood_Floor_Triangle;
     [SerializeField] GameObject builingBlock_Wood_Wall;
     [SerializeField] GameObject builingBlock_Wood_Wall_Diagonal;
-    [SerializeField] GameObject builingBlock_Wood_Angle;
+    [SerializeField] GameObject builingBlock_Wood_Ramp;
+    [SerializeField] GameObject builingBlock_Wood_Ramp_Corner;
 
     [Header("BuildingBlocks List - Stone")]
     [SerializeField] GameObject builingBlock_Stone_Floor;
     [SerializeField] GameObject builingBlock_Stone_Floor_Triangle;
     [SerializeField] GameObject builingBlock_Stone_Wall;
     [SerializeField] GameObject builingBlock_Stone_Wall_Diagonal;
-    [SerializeField] GameObject builingBlock_Stone_Angle;
+    [SerializeField] GameObject builingBlock_Stone_Ramp;
+    [SerializeField] GameObject builingBlock_Stone_Ramp_Corner;
 
     [Header("BuildingBlocks List - Iron")]
     [SerializeField] GameObject builingBlock_Iron_Floor;
     [SerializeField] GameObject builingBlock_Iron_Floor_Triangle;
     [SerializeField] GameObject builingBlock_Iron_Wall;
     [SerializeField] GameObject builingBlock_Iron_Wall_Diagonal;
-    [SerializeField] GameObject builingBlock_Iron_Angle;
+    [SerializeField] GameObject builingBlock_Iron_Ramp;
+    [SerializeField] GameObject builingBlock_Iron_Ramp_Corner;
     #endregion
 
     [Header("Materials List")]
@@ -523,11 +526,25 @@ public class BuildingManager : MonoBehaviour
 
         }
 
-        //Angled
+        //Ramp
         else if (buildingType_Selected == BuildingType.Ramp)
         {
             //Wood
             BuidingBlockCanBePlacedCheck(blockLookingAt, i, BuildingType.Ramp, BuildingSubType.None, canPlace_Material, cannotPlace_Material); //Change Material when Mesh is ready
+
+            //Stone
+
+
+            //Iron
+
+
+        }
+
+        //Ramp_Corner
+        else if (buildingType_Selected == BuildingType.Ramp_Corner)
+        {
+            //Wood
+            BuidingBlockCanBePlacedCheck(blockLookingAt, i, BuildingType.Ramp_Corner, BuildingSubType.None, canPlace_Material, cannotPlace_Material); //Change Material when Mesh is ready
 
             //Stone
 
@@ -730,6 +747,69 @@ public class BuildingManager : MonoBehaviour
                         && lastBuildingBlock_LookedAt.GetComponent<BuildingBlock_Parent>().blockPlacedList[i].buildingBlock.GetComponent<BuildingBlock_Parent>().ghostList[j].GetComponent<Building_Ghost>().blockDirection_A == BlockCompass.South && lastBuildingBlock_LookedAt.GetComponent<BuildingBlock_Parent>().blockPlacedList[i].buildingBlock.GetComponent<BuildingBlock_Parent>().ghostList[j].GetComponent<Building_Ghost>().blockDirection_B == BlockDirection.Down
                         && lastBuildingBlock_LookedAt.GetComponent<BuildingBlock_Parent>().blockPlacedList[i].buildingBlock.transform.rotation == lastBuildingBlock_LookedAt.transform.rotation)
                     {
+                        SetGhostState_OFF(lastBuildingBlock_LookedAt.GetComponent<BuildingBlock_Parent>(), j);
+                        return true;
+                    }
+                }
+            }
+        }
+
+        //If Ramp is selected
+        else if (buildingType_Selected == BuildingType.Ramp)
+        {
+            for (int i = 0; i < lastBuildingBlock_LookedAt.GetComponent<BuildingBlock_Parent>().blockPlacedList.Count; i++)
+            {
+                for (int j = 0; j < lastBuildingBlock_LookedAt.GetComponent<BuildingBlock_Parent>().ghostList.Count; j++)
+                {
+                    //North - Up
+                    if (lastBuildingBlock_LookedAt.GetComponent<BuildingBlock_Parent>().buildingType == BuildingType.Ramp
+                        && lastBuildingBlock_LookedAt.GetComponent<BuildingBlock_Parent>().blockPlacedList[i].buildingBlock.GetComponent<BuildingBlock_Parent>().buildingType == BuildingType.Ramp
+
+                        && blockDirection_A == BlockCompass.North && blockDirection_B == BlockDirection.Up
+                        && lastBuildingBlock_LookedAt.GetComponent<BuildingBlock_Parent>().blockPlacedList[i].buildingBlock.GetComponent<BuildingBlock_Parent>().ghostList[j].GetComponent<Building_Ghost>().blockDirection_A == BlockCompass.North && lastBuildingBlock_LookedAt.GetComponent<BuildingBlock_Parent>().blockPlacedList[i].buildingBlock.GetComponent<BuildingBlock_Parent>().ghostList[j].GetComponent<Building_Ghost>().blockDirection_B == BlockDirection.Up
+                        && lastBuildingBlock_LookedAt.GetComponent<BuildingBlock_Parent>().blockPlacedList[i].buildingBlock.transform.rotation == lastBuildingBlock_LookedAt.transform.rotation)
+                    {
+                        print("1. Buu");
+                        SetGhostState_OFF(lastBuildingBlock_LookedAt.GetComponent<BuildingBlock_Parent>(), j);
+                        return true;
+                    }
+
+                    //North - Down
+                    else if (lastBuildingBlock_LookedAt.GetComponent<BuildingBlock_Parent>().buildingType == BuildingType.Ramp
+                        && lastBuildingBlock_LookedAt.GetComponent<BuildingBlock_Parent>().blockPlacedList[i].buildingBlock.GetComponent<BuildingBlock_Parent>().buildingType == BuildingType.Ramp
+
+                        && blockDirection_A == BlockCompass.North && blockDirection_B == BlockDirection.Down
+                        && lastBuildingBlock_LookedAt.GetComponent<BuildingBlock_Parent>().blockPlacedList[i].buildingBlock.GetComponent<BuildingBlock_Parent>().ghostList[j].GetComponent<Building_Ghost>().blockDirection_A == BlockCompass.North && lastBuildingBlock_LookedAt.GetComponent<BuildingBlock_Parent>().blockPlacedList[i].buildingBlock.GetComponent<BuildingBlock_Parent>().ghostList[j].GetComponent<Building_Ghost>().blockDirection_B == BlockDirection.Down
+                        && lastBuildingBlock_LookedAt.GetComponent<BuildingBlock_Parent>().blockPlacedList[i].buildingBlock.transform.rotation == lastBuildingBlock_LookedAt.transform.rotation)
+                    {
+                        print("2. Buu");
+                        SetGhostState_OFF(lastBuildingBlock_LookedAt.GetComponent<BuildingBlock_Parent>(), j);
+                        return true;
+                    }
+
+                    //South - Up
+                    else if (lastBuildingBlock_LookedAt.GetComponent<BuildingBlock_Parent>().buildingType == BuildingType.Ramp
+                        && lastBuildingBlock_LookedAt.GetComponent<BuildingBlock_Parent>().blockPlacedList[i].buildingBlock.GetComponent<BuildingBlock_Parent>().buildingType == BuildingType.Ramp
+
+                        && blockDirection_A == BlockCompass.South && blockDirection_B == BlockDirection.Up
+                        && lastBuildingBlock_LookedAt.GetComponent<BuildingBlock_Parent>().blockPlacedList[i].buildingBlock.GetComponent<BuildingBlock_Parent>().ghostList[j].GetComponent<Building_Ghost>().blockDirection_A == BlockCompass.South && lastBuildingBlock_LookedAt.GetComponent<BuildingBlock_Parent>().blockPlacedList[i].buildingBlock.GetComponent<BuildingBlock_Parent>().ghostList[j].GetComponent<Building_Ghost>().blockDirection_B == BlockDirection.Up
+                        && lastBuildingBlock_LookedAt.GetComponent<BuildingBlock_Parent>().blockPlacedList[i].buildingBlock.transform.rotation == lastBuildingBlock_LookedAt.transform.rotation)
+                    {
+                        print("3. Buu");
+
+                        SetGhostState_OFF(lastBuildingBlock_LookedAt.GetComponent<BuildingBlock_Parent>(), j);
+                        return true;
+                    }
+
+                    //South - Down
+                    else if (lastBuildingBlock_LookedAt.GetComponent<BuildingBlock_Parent>().buildingType == BuildingType.Ramp
+                        && lastBuildingBlock_LookedAt.GetComponent<BuildingBlock_Parent>().blockPlacedList[i].buildingBlock.GetComponent<BuildingBlock_Parent>().buildingType == BuildingType.Ramp
+
+                        && blockDirection_A == BlockCompass.South && blockDirection_B == BlockDirection.Down
+                        && lastBuildingBlock_LookedAt.GetComponent<BuildingBlock_Parent>().blockPlacedList[i].buildingBlock.GetComponent<BuildingBlock_Parent>().ghostList[j].GetComponent<Building_Ghost>().blockDirection_A == BlockCompass.South && lastBuildingBlock_LookedAt.GetComponent<BuildingBlock_Parent>().blockPlacedList[i].buildingBlock.GetComponent<BuildingBlock_Parent>().ghostList[j].GetComponent<Building_Ghost>().blockDirection_B == BlockDirection.Down
+                        && lastBuildingBlock_LookedAt.GetComponent<BuildingBlock_Parent>().blockPlacedList[i].buildingBlock.transform.rotation == lastBuildingBlock_LookedAt.transform.rotation)
+                    {
+                        print("4. Buu");
                         SetGhostState_OFF(lastBuildingBlock_LookedAt.GetComponent<BuildingBlock_Parent>(), j);
                         return true;
                     }
@@ -940,21 +1020,21 @@ public class BuildingManager : MonoBehaviour
                 }
             }
 
-            //Angle
+            //Ramp
             else if (ghost_PointedAt.GetComponent<Building_Ghost>().buildingType == BuildingType.Ramp && ghost_PointedAt.GetComponent<Building_Ghost>().isSelected)
             {
                 //Wood
                 if (buildingMaterial_Selected == BuildingMaterial.Wood)
                 {
                     print("Placed: Wood Angle");
-                    buildingBlockList.Add(Instantiate(builingBlock_Wood_Angle, ghost_PointedAt.transform.position, rotation) as GameObject);
+                    buildingBlockList.Add(Instantiate(builingBlock_Wood_Ramp, ghost_PointedAt.transform.position, rotation) as GameObject);
                 }
 
                 //Stone
                 else if (buildingMaterial_Selected == BuildingMaterial.Stone)
                 {
                     print("Placed: Stone Angle");
-                    buildingBlockList.Add(Instantiate(builingBlock_Stone_Angle, ghost_PointedAt.transform.position, rotation) as GameObject);
+                    buildingBlockList.Add(Instantiate(builingBlock_Stone_Ramp, ghost_PointedAt.transform.position, rotation) as GameObject);
 
                 }
 
@@ -962,13 +1042,37 @@ public class BuildingManager : MonoBehaviour
                 else if (buildingMaterial_Selected == BuildingMaterial.Iron)
                 {
                     print("Placed: Iron Angle");
-                    buildingBlockList.Add(Instantiate(builingBlock_Iron_Angle, ghost_PointedAt.transform.position, rotation) as GameObject);
+                    buildingBlockList.Add(Instantiate(builingBlock_Iron_Ramp, ghost_PointedAt.transform.position, rotation) as GameObject);
 
                 }
             }
 
+            //Ramp_Corner
+            else if (ghost_PointedAt.GetComponent<Building_Ghost>().buildingType == BuildingType.Ramp_Corner && ghost_PointedAt.GetComponent<Building_Ghost>().isSelected)
+            {
+                //Wood
+                if (buildingMaterial_Selected == BuildingMaterial.Wood)
+                {
+                    print("Placed: Wood Angle");
+                    buildingBlockList.Add(Instantiate(builingBlock_Wood_Ramp_Corner, ghost_PointedAt.transform.position, rotation) as GameObject);
+                }
 
-            //Angle_Corner
+                //Stone
+                else if (buildingMaterial_Selected == BuildingMaterial.Stone)
+                {
+                    print("Placed: Stone Angle");
+                    buildingBlockList.Add(Instantiate(builingBlock_Stone_Ramp_Corner, ghost_PointedAt.transform.position, rotation) as GameObject);
+
+                }
+
+                //Iron
+                else if (buildingMaterial_Selected == BuildingMaterial.Iron)
+                {
+                    print("Placed: Iron Angle");
+                    buildingBlockList.Add(Instantiate(builingBlock_Iron_Ramp_Corner, ghost_PointedAt.transform.position, rotation) as GameObject);
+
+                }
+            }
 
 
             //Stair
