@@ -10,8 +10,8 @@ public enum BuildingType
     Triangle,
     Wall,
     Wall_Diagonaly,
-    Angeled,
-    Angeled_Corner
+    Ramp,
+    Ramp_Corner
 }
 public enum BuildingSubType
 {

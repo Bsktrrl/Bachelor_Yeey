@@ -524,10 +524,10 @@ public class BuildingManager : MonoBehaviour
         }
 
         //Angled
-        else if (buildingType_Selected == BuildingType.Angeled)
+        else if (buildingType_Selected == BuildingType.Ramp)
         {
             //Wood
-            BuidingBlockCanBePlacedCheck(blockLookingAt, i, BuildingType.Angeled, BuildingSubType.None, canPlace_Material, cannotPlace_Material); //Change Material when Mesh is ready
+            BuidingBlockCanBePlacedCheck(blockLookingAt, i, BuildingType.Ramp, BuildingSubType.None, canPlace_Material, cannotPlace_Material); //Change Material when Mesh is ready
 
             //Stone
 
@@ -941,7 +941,7 @@ public class BuildingManager : MonoBehaviour
             }
 
             //Angle
-            else if (ghost_PointedAt.GetComponent<Building_Ghost>().buildingType == BuildingType.Angeled && ghost_PointedAt.GetComponent<Building_Ghost>().isSelected)
+            else if (ghost_PointedAt.GetComponent<Building_Ghost>().buildingType == BuildingType.Ramp && ghost_PointedAt.GetComponent<Building_Ghost>().isSelected)
             {
                 //Wood
                 if (buildingMaterial_Selected == BuildingMaterial.Wood)
