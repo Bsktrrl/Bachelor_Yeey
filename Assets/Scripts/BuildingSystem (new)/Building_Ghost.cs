@@ -7,6 +7,7 @@ public class Building_Ghost : MonoBehaviour
     [Header("Type")]
     public BuildingType buildingType;
     public BuildingSubType buildingSubType;
+    public bool isStrange;
 
     [Header("Material")]
     public BuildingMaterial buildingMaterial;
