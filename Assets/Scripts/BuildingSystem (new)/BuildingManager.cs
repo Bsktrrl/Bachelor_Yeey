@@ -648,7 +648,7 @@ public class BuildingManager : MonoBehaviour
         }
 
         //Wall_Diagonal
-        else if (buildingType_Selected == BuildingType.Wall && (blockDirection_A == BlockCompass.Cross_A || blockDirection_A == BlockCompass.Cross_B))
+        else if (buildingType_Selected == BuildingType.Wall && (blockLookingAt.buildingSubType == BuildingSubType.Wall_Diagonaly) || blockDirection_A == BlockCompass.Cross_A || blockDirection_A == BlockCompass.Cross_B)
         {
             //Wood
             BuidingBlockCanBePlacedCheck(blockLookingAt, i, BuildingType.Wall, BuildingSubType.Wall_Diagonaly, canPlace_Material, cannotPlace_Material); //Change Material when Mesh is ready
@@ -662,7 +662,7 @@ public class BuildingManager : MonoBehaviour
         }
         
         //Wall
-        else if (buildingType_Selected == BuildingType.Wall)
+        else if (buildingType_Selected == BuildingType.Wall && (blockLookingAt.buildingSubType == BuildingSubType.None) || blockDirection_A == BlockCompass.Cross_A || blockDirection_A == BlockCompass.Cross_B)
         {
             //Wood
             BuidingBlockCanBePlacedCheck(blockLookingAt, i, BuildingType.Wall, BuildingSubType.None, canPlace_Material, cannotPlace_Material); //Change Material when Mesh is ready
@@ -722,6 +722,7 @@ public class BuildingManager : MonoBehaviour
         if (blockLookingAt.ghostList[i].GetComponent<Building_Ghost>().buildingType != buildingType
             || blockLookingAt.ghostList[i].GetComponent<Building_Ghost>().buildingSubType != buildingSubType)
         {
+            print("Return!!!");
             return;
         }
 
@@ -769,7 +770,7 @@ public class BuildingManager : MonoBehaviour
         }
 
         //If Wall is selected
-        if (buildingType_Selected == BuildingType.Wall)
+        if (buildingType_Selected == BuildingType.Wall && lastBuildingBlock_LookedAt.GetComponent<BuildingBlock_Parent>().buildingSubType == BuildingSubType.None)
         {
             for (int i = 0; i < lastBuildingBlock_LookedAt.GetComponent<BuildingBlock_Parent>().blockPlacedList.Count; i++)
             {
@@ -821,7 +822,45 @@ public class BuildingManager : MonoBehaviour
                 }
             }
         }
-        
+
+        //If Wall_Diagonaly is selected
+        else if (buildingType_Selected == BuildingType.Wall && lastBuildingBlock_LookedAt.GetComponent<BuildingBlock_Parent>().buildingSubType == BuildingSubType.Wall_Diagonaly)
+        {
+            for (int i = 0; i < lastBuildingBlock_LookedAt.GetComponent<BuildingBlock_Parent>().blockPlacedList.Count; i++)
+            {
+                for (int j = 0; j < lastBuildingBlock_LookedAt.GetComponent<BuildingBlock_Parent>().ghostList.Count; j++)
+                {
+                    //Up
+                    if (lastBuildingBlock_LookedAt.GetComponent<BuildingBlock_Parent>().buildingType == BuildingType.Wall
+                        && lastBuildingBlock_LookedAt.GetComponent<BuildingBlock_Parent>().buildingSubType == BuildingSubType.Wall_Diagonaly
+                        && lastBuildingBlock_LookedAt.GetComponent<BuildingBlock_Parent>().blockPlacedList[i].buildingBlock.GetComponent<BuildingBlock_Parent>().buildingType == BuildingType.Wall
+                        && lastBuildingBlock_LookedAt.GetComponent<BuildingBlock_Parent>().blockPlacedList[i].buildingBlock.GetComponent<BuildingBlock_Parent>().buildingSubType == BuildingSubType.Wall_Diagonaly
+
+                        && blockDirection_B == BlockDirection.Up
+                        && lastBuildingBlock_LookedAt.GetComponent<BuildingBlock_Parent>().blockPlacedList[i].buildingBlock.GetComponent<BuildingBlock_Parent>().ghostList[j].GetComponent<Building_Ghost>().blockDirection_B == BlockDirection.Up
+                        && lastBuildingBlock_LookedAt.GetComponent<BuildingBlock_Parent>().blockPlacedList[i].buildingBlock.transform.rotation == lastBuildingBlock_LookedAt.transform.rotation)
+                    {
+                        SetGhostState_OFF(lastBuildingBlock_LookedAt.GetComponent<BuildingBlock_Parent>(), j);
+                        return true;
+                    }
+
+                    //Down
+                    else if (lastBuildingBlock_LookedAt.GetComponent<BuildingBlock_Parent>().buildingType == BuildingType.Wall
+                        && lastBuildingBlock_LookedAt.GetComponent<BuildingBlock_Parent>().buildingSubType == BuildingSubType.Wall_Diagonaly
+                        && lastBuildingBlock_LookedAt.GetComponent<BuildingBlock_Parent>().blockPlacedList[i].buildingBlock.GetComponent<BuildingBlock_Parent>().buildingType == BuildingType.Wall
+                        && lastBuildingBlock_LookedAt.GetComponent<BuildingBlock_Parent>().blockPlacedList[i].buildingBlock.GetComponent<BuildingBlock_Parent>().buildingSubType == BuildingSubType.Wall_Diagonaly
+
+                        && blockDirection_B == BlockDirection.Down
+                        && lastBuildingBlock_LookedAt.GetComponent<BuildingBlock_Parent>().blockPlacedList[i].buildingBlock.GetComponent<BuildingBlock_Parent>().ghostList[j].GetComponent<Building_Ghost>().blockDirection_B == BlockDirection.Down
+                        && lastBuildingBlock_LookedAt.GetComponent<BuildingBlock_Parent>().blockPlacedList[i].buildingBlock.transform.rotation == lastBuildingBlock_LookedAt.transform.rotation)
+                    {
+                        SetGhostState_OFF(lastBuildingBlock_LookedAt.GetComponent<BuildingBlock_Parent>(), j);
+                        return true;
+                    }
+                }
+            }
+        }
+
         //If any other BuildingBlock is selected
         else
         {
@@ -837,6 +876,7 @@ public class BuildingManager : MonoBehaviour
                                 || lastBuildingBlock_LookedAt.GetComponent<BuildingBlock_Parent>().blockPlacedList[j].buildingType == BuildingType.Triangle)
                             && (buildingType_Selected == BuildingType.Floor || buildingType_Selected == BuildingType.Triangle))
                         {
+                            print("3. End Return");
                             SetGhostState_OFF(lastBuildingBlock_LookedAt.GetComponent<BuildingBlock_Parent>(), k);
                             return true;
                         }
@@ -844,6 +884,7 @@ public class BuildingManager : MonoBehaviour
                         //If lastBuildingBlock_LookedAt is any other Block
                         else if (lastBuildingBlock_LookedAt.GetComponent<BuildingBlock_Parent>().blockPlacedList[j].buildingType == buildingType_Selected)
                         {
+                            print("4. End Return");
                             SetGhostState_OFF(lastBuildingBlock_LookedAt.GetComponent<BuildingBlock_Parent>(), k);
                             return true;
                         }
@@ -852,6 +893,7 @@ public class BuildingManager : MonoBehaviour
             }
         }
 
+        print("5. End Return");
         return false;
     }
 
@@ -938,7 +980,7 @@ public class BuildingManager : MonoBehaviour
             }
 
             //Wall_Diagonal
-            else if (ghost_PointedAt.GetComponent<Building_Ghost>().buildingType == BuildingType.Wall && (blockDirection_A == BlockCompass.Cross_A || blockDirection_A == BlockCompass.Cross_B) && ghost_PointedAt.GetComponent<Building_Ghost>().isSelected)
+            else if (ghost_PointedAt.GetComponent<Building_Ghost>().buildingType == BuildingType.Wall && ghost_PointedAt.GetComponent<Building_Ghost>().buildingSubType == BuildingSubType.Wall_Diagonaly && ghost_PointedAt.GetComponent<Building_Ghost>().isSelected)
             {
                 //Wood
                 if (buildingMaterial_Selected == BuildingMaterial.Wood)
@@ -965,7 +1007,7 @@ public class BuildingManager : MonoBehaviour
             }
 
             //Wall
-            else if (ghost_PointedAt.GetComponent<Building_Ghost>().buildingType == BuildingType.Wall && ghost_PointedAt.GetComponent<Building_Ghost>().isSelected)
+            else if (ghost_PointedAt.GetComponent<Building_Ghost>().buildingType == BuildingType.Wall && ghost_PointedAt.GetComponent<Building_Ghost>().buildingSubType == BuildingSubType.None && ghost_PointedAt.GetComponent<Building_Ghost>().isSelected)
             {
                 //Wood
                 if (buildingMaterial_Selected == BuildingMaterial.Wood)
