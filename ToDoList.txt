@@ -1,3 +1,23 @@
+BuildingSystem:
+- Check that "Ramp" has every component attached and working
+- Make "Markers" transparent on "Ramp"-prefab
+
+- Add "Ramp_Corner" to all possible BuildingBlocks
+- Remove "overlapping" where this occur, on "Ramp_Corner" ("Floor", "Triangle", "Wall")
+
+- Setup "Fence"
+- Setup "Stairs"
+- Setup "Door"
+- Setup "Window"
+
+- Setup "Stone" and "Iron" variants
+
+- Add "Rotation" to each BuildingBlock
+
+
+//--------------------
+
+
 Inventory/Items:
 - Make "InventorySlotList" dynamic so that further itemslots can be added (like a backpack).
 	- Make a scaler for the inventory UI BG to fit any amount of itemslots.
