@@ -13,6 +13,12 @@ public enum BuildingType
     Angeled,
     Angeled_Corner
 }
+public enum BuildingSubType
+{
+    None,
+
+    Wall_Diagonaly
+}
 
 public enum BuildingMaterial
 {

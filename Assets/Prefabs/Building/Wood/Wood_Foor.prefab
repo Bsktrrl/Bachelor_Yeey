@@ -29,7 +29,7 @@ Transform:
   m_GameObject: {fileID: 635695972740596582}
   m_LocalRotation: {x: -0, y: 0.38268343, z: -0, w: 0.92387956}
   m_LocalPosition: {x: 0, y: -0.95, z: 0}
-  m_LocalScale: {x: 0.2, y: 0.105, z: 2.5}
+  m_LocalScale: {x: 0.12, y: 0.105, z: 2.5}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 7621522326496348585}
@@ -176,7 +176,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 3302a3acc5639464fb5ad2d958b0430b, type: 2}
+  - {fileID: 2100000, guid: 82ccea1b1bfc77e4a871cb9efc5db31e, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -336,7 +336,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 3302a3acc5639464fb5ad2d958b0430b, type: 2}
+  - {fileID: 2100000, guid: 82ccea1b1bfc77e4a871cb9efc5db31e, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -449,7 +449,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 97c38dd5693e9a3499960bf9b62d4eaa, type: 2}
+  - {fileID: 2100000, guid: 82ccea1b1bfc77e4a871cb9efc5db31e, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -528,7 +528,7 @@ Transform:
   m_GameObject: {fileID: 2341888419646517064}
   m_LocalRotation: {x: 0, y: -0.38268343, z: 0, w: 0.92387956}
   m_LocalPosition: {x: 0, y: -0.95, z: 0}
-  m_LocalScale: {x: 0.2, y: 0.105, z: 2.5}
+  m_LocalScale: {x: 0.12, y: 0.105, z: 2.5}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 7621522326496348585}
@@ -714,7 +714,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 3302a3acc5639464fb5ad2d958b0430b, type: 2}
+  - {fileID: 2100000, guid: 82ccea1b1bfc77e4a871cb9efc5db31e, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -827,7 +827,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 97c38dd5693e9a3499960bf9b62d4eaa, type: 2}
+  - {fileID: 2100000, guid: 82ccea1b1bfc77e4a871cb9efc5db31e, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -906,7 +906,7 @@ Transform:
   m_GameObject: {fileID: 4372166643274934353}
   m_LocalRotation: {x: -0, y: 0.38268343, z: -0, w: 0.92387956}
   m_LocalPosition: {x: 0, y: -1.05, z: 0}
-  m_LocalScale: {x: 0.2, y: 0.105, z: 2.5}
+  m_LocalScale: {x: 0.12, y: 0.105, z: 2.5}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 7621522326496348585}
@@ -1053,7 +1053,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 87ffee5bbd91a0b44add9f98dee1e7f5, type: 2}
+  - {fileID: 2100000, guid: 82ccea1b1bfc77e4a871cb9efc5db31e, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1155,7 +1155,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   buildingType: 1
-  BuildingBlcok: {fileID: 0}
+  buildingSubType: 0
+  BuildingBlock: {fileID: 0}
   directionObjects:
   - {fileID: 3316083994617480289}
   - {fileID: 1800420891972091809}
@@ -1313,7 +1314,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 87ffee5bbd91a0b44add9f98dee1e7f5, type: 2}
+  - {fileID: 2100000, guid: 82ccea1b1bfc77e4a871cb9efc5db31e, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1392,7 +1393,7 @@ Transform:
   m_GameObject: {fileID: 5393556863787015970}
   m_LocalRotation: {x: 0, y: -0.38268343, z: 0, w: 0.92387956}
   m_LocalPosition: {x: 0, y: -1.05, z: 0}
-  m_LocalScale: {x: 0.2, y: 0.105, z: 2.5}
+  m_LocalScale: {x: 0.12, y: 0.105, z: 2.5}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 7621522326496348585}
@@ -1539,7 +1540,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 97c38dd5693e9a3499960bf9b62d4eaa, type: 2}
+  - {fileID: 2100000, guid: 82ccea1b1bfc77e4a871cb9efc5db31e, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1652,7 +1653,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 5d431ab0f0eb907409f12443e3293a82, type: 2}
+  - {fileID: 2100000, guid: 82ccea1b1bfc77e4a871cb9efc5db31e, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1765,7 +1766,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 87ffee5bbd91a0b44add9f98dee1e7f5, type: 2}
+  - {fileID: 2100000, guid: 82ccea1b1bfc77e4a871cb9efc5db31e, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1960,7 +1961,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 5d431ab0f0eb907409f12443e3293a82, type: 2}
+  - {fileID: 2100000, guid: 82ccea1b1bfc77e4a871cb9efc5db31e, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -2073,7 +2074,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 5d431ab0f0eb907409f12443e3293a82, type: 2}
+  - {fileID: 2100000, guid: 82ccea1b1bfc77e4a871cb9efc5db31e, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -2295,12 +2296,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ff31187ea14e6644393ee2ee6cc127e5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  buildingType: 4
+  buildingType: 3
+  buildingSubType: 1
   buildingMaterial: 0
   blockDirection_A: 5
   blockDirection_B: 1
-  isSelected: 0
   blockParent: {fileID: 4763889419513853119}
+  isSelected: 0
 --- !u!1001 &115231161947447274
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2431,11 +2433,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   buildingType: 5
+  buildingSubType: 0
   buildingMaterial: 0
   blockDirection_A: 3
   blockDirection_B: 3
-  isSelected: 0
   blockParent: {fileID: 4763889419513853119}
+  isSelected: 0
 --- !u!1001 &443671328666565135
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2510,7 +2513,7 @@ PrefabInstance:
     - target: {fileID: -5754084199372789682, guid: c9b941a8aa6c7b340bdf934dcbbf744e, type: 3}
       propertyPath: m_Mesh
       value: 
-      objectReference: {fileID: -8651911914926732462, guid: d8eab9ed2807e3446a482b1b11a3c9f7, type: 3}
+      objectReference: {fileID: 7730133331424604108, guid: 8db4d6796ba11f14a9ecded0378d0f2f, type: 3}
     - target: {fileID: 919132149155446097, guid: c9b941a8aa6c7b340bdf934dcbbf744e, type: 3}
       propertyPath: m_Name
       value: Main Floor Tile
@@ -2694,11 +2697,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   buildingType: 1
+  buildingSubType: 0
   buildingMaterial: 0
   blockDirection_A: 3
   blockDirection_B: 0
-  isSelected: 0
   blockParent: {fileID: 4763889419513853119}
+  isSelected: 0
 --- !u!1001 &1350236203533462688
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2829,11 +2833,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   buildingType: 5
+  buildingSubType: 0
   buildingMaterial: 0
   blockDirection_A: 1
   blockDirection_B: 1
-  isSelected: 0
   blockParent: {fileID: 4763889419513853119}
+  isSelected: 0
 --- !u!1001 &1354246707398809895
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2964,11 +2969,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   buildingType: 5
+  buildingSubType: 0
   buildingMaterial: 0
   blockDirection_A: 4
   blockDirection_B: 1
-  isSelected: 0
   blockParent: {fileID: 4763889419513853119}
+  isSelected: 0
 --- !u!1001 &2012972169445060935
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3097,12 +3103,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ff31187ea14e6644393ee2ee6cc127e5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  buildingType: 4
+  buildingType: 3
+  buildingSubType: 1
   buildingMaterial: 0
   blockDirection_A: 6
   blockDirection_B: 3
-  isSelected: 0
   blockParent: {fileID: 4763889419513853119}
+  isSelected: 0
 --- !u!4 &2046106445224105644 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: cbed84ba6cf89bb4cb1090481d7e80ad, type: 3}
@@ -3232,11 +3239,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   buildingType: 3
+  buildingSubType: 0
   buildingMaterial: 0
   blockDirection_A: 2
   blockDirection_B: 1
-  isSelected: 0
   blockParent: {fileID: 4763889419513853119}
+  isSelected: 0
 --- !u!4 &1908841475441649647 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: c9b941a8aa6c7b340bdf934dcbbf744e, type: 3}
@@ -3371,11 +3379,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   buildingType: 1
+  buildingSubType: 0
   buildingMaterial: 0
   blockDirection_A: 2
   blockDirection_B: 1
-  isSelected: 0
   blockParent: {fileID: 4763889419513853119}
+  isSelected: 0
 --- !u!1001 &2504730655044457740
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3505,11 +3514,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   buildingType: 3
+  buildingSubType: 0
   buildingMaterial: 0
   blockDirection_A: 4
   blockDirection_B: 3
-  isSelected: 0
   blockParent: {fileID: 4763889419513853119}
+  isSelected: 0
 --- !u!1001 &2528427857991367951
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3648,11 +3658,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   buildingType: 2
+  buildingSubType: 0
   buildingMaterial: 0
   blockDirection_A: 1
   blockDirection_B: 1
-  isSelected: 0
   blockParent: {fileID: 4763889419513853119}
+  isSelected: 0
 --- !u!1001 &2573737608576791912
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3782,11 +3793,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   buildingType: 3
+  buildingSubType: 0
   buildingMaterial: 0
   blockDirection_A: 1
   blockDirection_B: 1
-  isSelected: 0
   blockParent: {fileID: 4763889419513853119}
+  isSelected: 0
 --- !u!1001 &2910537101125066297
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3920,11 +3932,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   buildingType: 2
+  buildingSubType: 0
   buildingMaterial: 0
   blockDirection_A: 4
   blockDirection_B: 1
-  isSelected: 0
   blockParent: {fileID: 4763889419513853119}
+  isSelected: 0
 --- !u!4 &3453970024054323666 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: c9b941a8aa6c7b340bdf934dcbbf744e, type: 3}
@@ -4063,11 +4076,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   buildingType: 2
+  buildingSubType: 0
   buildingMaterial: 0
   blockDirection_A: 2
   blockDirection_B: 1
-  isSelected: 0
   blockParent: {fileID: 4763889419513853119}
+  isSelected: 0
 --- !u!4 &3369885515856061392 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: c9b941a8aa6c7b340bdf934dcbbf744e, type: 3}
@@ -4197,11 +4211,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   buildingType: 1
+  buildingSubType: 0
   buildingMaterial: 0
   blockDirection_A: 1
   blockDirection_B: 0
-  isSelected: 0
   blockParent: {fileID: 4763889419513853119}
+  isSelected: 0
 --- !u!4 &3110159197204403850 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: c9b941a8aa6c7b340bdf934dcbbf744e, type: 3}
@@ -4336,11 +4351,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   buildingType: 1
+  buildingSubType: 0
   buildingMaterial: 0
   blockDirection_A: 1
   blockDirection_B: 1
-  isSelected: 0
   blockParent: {fileID: 4763889419513853119}
+  isSelected: 0
 --- !u!1001 &3791250089387308838
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4470,11 +4486,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   buildingType: 3
+  buildingSubType: 0
   buildingMaterial: 0
   blockDirection_A: 2
   blockDirection_B: 0
-  isSelected: 0
   blockParent: {fileID: 4763889419513853119}
+  isSelected: 0
 --- !u!1001 &3931075179298385516
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4608,12 +4625,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ff31187ea14e6644393ee2ee6cc127e5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  buildingType: 4
+  buildingType: 3
+  buildingSubType: 1
   buildingMaterial: 0
   blockDirection_A: 6
   blockDirection_B: 1
-  isSelected: 0
   blockParent: {fileID: 4763889419513853119}
+  isSelected: 0
 --- !u!1001 &4421095356800710969
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4747,11 +4765,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   buildingType: 2
+  buildingSubType: 0
   buildingMaterial: 0
   blockDirection_A: 2
   blockDirection_B: 0
-  isSelected: 0
   blockParent: {fileID: 4763889419513853119}
+  isSelected: 0
 --- !u!4 &4237988064762355410 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: c9b941a8aa6c7b340bdf934dcbbf744e, type: 3}
@@ -4881,11 +4900,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   buildingType: 3
+  buildingSubType: 0
   buildingMaterial: 0
   blockDirection_A: 1
   blockDirection_B: 0
-  isSelected: 0
   blockParent: {fileID: 4763889419513853119}
+  isSelected: 0
 --- !u!4 &5732534907973964128 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: c9b941a8aa6c7b340bdf934dcbbf744e, type: 3}
@@ -5015,11 +5035,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   buildingType: 3
+  buildingSubType: 0
   buildingMaterial: 0
   blockDirection_A: 4
   blockDirection_B: 1
-  isSelected: 0
   blockParent: {fileID: 4763889419513853119}
+  isSelected: 0
 --- !u!4 &5556443149107064073 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: c9b941a8aa6c7b340bdf934dcbbf744e, type: 3}
@@ -5149,11 +5170,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   buildingType: 1
+  buildingSubType: 0
   buildingMaterial: 0
   blockDirection_A: 3
   blockDirection_B: 1
-  isSelected: 0
   blockParent: {fileID: 4763889419513853119}
+  isSelected: 0
 --- !u!4 &5270866320700923926 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: c9b941a8aa6c7b340bdf934dcbbf744e, type: 3}
@@ -5288,11 +5310,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   buildingType: 1
+  buildingSubType: 0
   buildingMaterial: 0
   blockDirection_A: 4
   blockDirection_B: 0
-  isSelected: 0
   blockParent: {fileID: 4763889419513853119}
+  isSelected: 0
 --- !u!1001 &5858642851609624476
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5431,11 +5454,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   buildingType: 2
+  buildingSubType: 0
   buildingMaterial: 0
   blockDirection_A: 3
   blockDirection_B: 0
-  isSelected: 0
   blockParent: {fileID: 4763889419513853119}
+  isSelected: 0
 --- !u!1001 &5905432358282572343
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5565,11 +5589,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   buildingType: 1
+  buildingSubType: 0
   buildingMaterial: 0
   blockDirection_A: 4
   blockDirection_B: 1
-  isSelected: 0
   blockParent: {fileID: 4763889419513853119}
+  isSelected: 0
 --- !u!1001 &6190381993668217404
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5699,11 +5724,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   buildingType: 3
+  buildingSubType: 0
   buildingMaterial: 0
   blockDirection_A: 4
   blockDirection_B: 0
-  isSelected: 0
   blockParent: {fileID: 4763889419513853119}
+  isSelected: 0
 --- !u!1001 &6219687092800654211
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5834,11 +5860,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   buildingType: 5
+  buildingSubType: 0
   buildingMaterial: 0
   blockDirection_A: 2
   blockDirection_B: 1
-  isSelected: 0
   blockParent: {fileID: 4763889419513853119}
+  isSelected: 0
 --- !u!1001 &6423706619947075719
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5964,11 +5991,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   buildingType: 5
+  buildingSubType: 0
   buildingMaterial: 0
   blockDirection_A: 4
   blockDirection_B: 3
-  isSelected: 0
   blockParent: {fileID: 4763889419513853119}
+  isSelected: 0
 --- !u!4 &6822722948361105260 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: cbed84ba6cf89bb4cb1090481d7e80ad, type: 3}
@@ -6107,11 +6135,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   buildingType: 2
+  buildingSubType: 0
   buildingMaterial: 0
   blockDirection_A: 3
   blockDirection_B: 1
-  isSelected: 0
   blockParent: {fileID: 4763889419513853119}
+  isSelected: 0
 --- !u!4 &6835444203429371519 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: c9b941a8aa6c7b340bdf934dcbbf744e, type: 3}
@@ -6250,11 +6279,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   buildingType: 2
+  buildingSubType: 0
   buildingMaterial: 0
   blockDirection_A: 1
   blockDirection_B: 0
-  isSelected: 0
   blockParent: {fileID: 4763889419513853119}
+  isSelected: 0
 --- !u!4 &6591459963265197892 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: c9b941a8aa6c7b340bdf934dcbbf744e, type: 3}
@@ -6390,11 +6420,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   buildingType: 5
+  buildingSubType: 0
   buildingMaterial: 0
   blockDirection_A: 1
   blockDirection_B: 3
-  isSelected: 0
   blockParent: {fileID: 4763889419513853119}
+  isSelected: 0
 --- !u!1001 &7780540203542823008
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -6520,11 +6551,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   buildingType: 5
+  buildingSubType: 0
   buildingMaterial: 0
   blockDirection_A: 3
   blockDirection_B: 1
-  isSelected: 0
   blockParent: {fileID: 4763889419513853119}
+  isSelected: 0
 --- !u!4 &7813940426312624011 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: cbed84ba6cf89bb4cb1090481d7e80ad, type: 3}
@@ -6654,11 +6686,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   buildingType: 1
+  buildingSubType: 0
   buildingMaterial: 0
   blockDirection_A: 2
   blockDirection_B: 0
-  isSelected: 0
   blockParent: {fileID: 4763889419513853119}
+  isSelected: 0
 --- !u!4 &7521300433561557537 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: c9b941a8aa6c7b340bdf934dcbbf744e, type: 3}
@@ -6794,11 +6827,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   buildingType: 5
+  buildingSubType: 0
   buildingMaterial: 0
   blockDirection_A: 2
   blockDirection_B: 3
-  isSelected: 0
   blockParent: {fileID: 4763889419513853119}
+  isSelected: 0
 --- !u!1001 &8173408289912145033
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -6932,12 +6966,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ff31187ea14e6644393ee2ee6cc127e5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  buildingType: 4
+  buildingType: 3
+  buildingSubType: 1
   buildingMaterial: 0
   blockDirection_A: 5
   blockDirection_B: 3
-  isSelected: 0
   blockParent: {fileID: 4763889419513853119}
+  isSelected: 0
 --- !u!1001 &8327291131109399623
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -7067,11 +7102,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   buildingType: 3
+  buildingSubType: 0
   buildingMaterial: 0
   blockDirection_A: 3
   blockDirection_B: 1
-  isSelected: 0
   blockParent: {fileID: 4763889419513853119}
+  isSelected: 0
 --- !u!1001 &8725375468693966147
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -7196,11 +7232,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   buildingType: 3
+  buildingSubType: 0
   buildingMaterial: 0
   blockDirection_A: 2
   blockDirection_B: 3
-  isSelected: 0
   blockParent: {fileID: 4763889419513853119}
+  isSelected: 0
 --- !u!4 &9123303005445434024 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: c9b941a8aa6c7b340bdf934dcbbf744e, type: 3}
@@ -7330,11 +7367,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   buildingType: 3
+  buildingSubType: 0
   buildingMaterial: 0
   blockDirection_A: 1
   blockDirection_B: 3
-  isSelected: 0
   blockParent: {fileID: 4763889419513853119}
+  isSelected: 0
 --- !u!4 &9094192410567549444 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: c9b941a8aa6c7b340bdf934dcbbf744e, type: 3}
@@ -7464,11 +7502,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   buildingType: 3
+  buildingSubType: 0
   buildingMaterial: 0
   blockDirection_A: 3
   blockDirection_B: 3
-  isSelected: 0
   blockParent: {fileID: 4763889419513853119}
+  isSelected: 0
 --- !u!4 &9001903596894174984 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: c9b941a8aa6c7b340bdf934dcbbf744e, type: 3}
@@ -7598,11 +7637,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   buildingType: 3
+  buildingSubType: 0
   buildingMaterial: 0
   blockDirection_A: 3
   blockDirection_B: 0
-  isSelected: 0
   blockParent: {fileID: 4763889419513853119}
+  isSelected: 0
 --- !u!4 &8845207429078272848 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: c9b941a8aa6c7b340bdf934dcbbf744e, type: 3}
@@ -7741,11 +7781,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   buildingType: 2
+  buildingSubType: 0
   buildingMaterial: 0
   blockDirection_A: 4
   blockDirection_B: 0
-  isSelected: 0
   blockParent: {fileID: 4763889419513853119}
+  isSelected: 0
 --- !u!4 &8736633791139350444 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: c9b941a8aa6c7b340bdf934dcbbf744e, type: 3}

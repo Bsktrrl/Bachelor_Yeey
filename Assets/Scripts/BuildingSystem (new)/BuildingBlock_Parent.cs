@@ -6,11 +6,12 @@ using UnityEngine;
 public class BuildingBlock_Parent : MonoBehaviour
 {
     public BuildingType buildingType;
+    public BuildingSubType buildingSubType;
 
     //public BlockCompass directionPlaced_A;
     //public BlockDirection directionPlaced_B;
 
-    public GameObject BuildingBlcok;
+    public GameObject BuildingBlock;
 
     public List<GameObject> directionObjects = new List<GameObject>();
 
@@ -24,6 +25,7 @@ public class BlockPlaced
 {
     public GameObject buildingBlock;
     public BuildingType buildingType;
+    public BuildingSubType buildingSubType;
 
     //public BlockCompass directionPlaced_A;
     //public BlockDirection directionPlaced_B;

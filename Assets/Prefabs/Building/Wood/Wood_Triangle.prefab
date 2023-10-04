@@ -28,8 +28,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 41069399079492439}
   m_LocalRotation: {x: 0, y: 0.7071068, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: -0, y: -0.9075, z: 0.935}
-  m_LocalScale: {x: 0.125, y: 0.02, z: 1.76}
+  m_LocalPosition: {x: -0, y: -0.9075, z: 0.957}
+  m_LocalScale: {x: 0.08, y: 0.02, z: 1.834}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 7621522326496348585}
@@ -63,7 +63,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 97c38dd5693e9a3499960bf9b62d4eaa, type: 2}
+  - {fileID: 2100000, guid: 82ccea1b1bfc77e4a871cb9efc5db31e, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -216,7 +216,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: dd355cac7617b2a4e858c5d8d52ef25a, type: 2}
+  - {fileID: 2100000, guid: 82ccea1b1bfc77e4a871cb9efc5db31e, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -334,8 +334,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3316083994617480289}
   m_LocalRotation: {x: 0, y: 0.7071068, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: 0, y: -1, z: 0.94}
-  m_LocalScale: {x: 0.125, y: 0.195, z: 1.76}
+  m_LocalPosition: {x: 0, y: -1, z: 0.963}
+  m_LocalScale: {x: 0.08, y: 0.195, z: 1.834}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 7621522326496348585}
@@ -369,7 +369,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 97c38dd5693e9a3499960bf9b62d4eaa, type: 2}
+  - {fileID: 2100000, guid: 82ccea1b1bfc77e4a871cb9efc5db31e, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -447,8 +447,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4630280376402705933}
   m_LocalRotation: {x: 0, y: 0.7071068, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: -0, y: -1.0925, z: 0.931}
-  m_LocalScale: {x: 0.125, y: 0.02, z: 1.76}
+  m_LocalPosition: {x: -0, y: -1.0925, z: 0.957}
+  m_LocalScale: {x: 0.08, y: 0.02, z: 1.834}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 7621522326496348585}
@@ -482,7 +482,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 97c38dd5693e9a3499960bf9b62d4eaa, type: 2}
+  - {fileID: 2100000, guid: 82ccea1b1bfc77e4a871cb9efc5db31e, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -543,7 +543,7 @@ GameObject:
   - component: {fileID: 4763889419513853116}
   - component: {fileID: 3674162178478198034}
   m_Layer: 8
-  m_Name: Wood_Floor_Triangle
+  m_Name: Wood_Triangle
   m_TagString: BuildingBlock
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -566,8 +566,8 @@ Transform:
   - {fileID: 6640580791625575775}
   - {fileID: 8548644096560628296}
   - {fileID: 4461548600013731557}
-  - {fileID: 2536738801783350193}
   - {fileID: 7857491958875139712}
+  - {fileID: 2536738801783350193}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -584,6 +584,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   buildingType: 2
+  BuildingSubType: 0
   BuildingBlcok: {fileID: 786253518913603422}
   directionObjects:
   - {fileID: 41069399079492439}
@@ -657,7 +658,7 @@ Transform:
   - {fileID: 95816220511649971}
   - {fileID: 4684854617271685641}
   m_Father: {fileID: 4763889419513853116}
-  m_RootOrder: 6
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &4973486327412215650
 GameObject:
@@ -687,8 +688,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4973486327412215650}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.935, y: -0.9075, z: 0}
-  m_LocalScale: {x: 0.125, y: 0.02, z: 1.76}
+  m_LocalPosition: {x: -0.957, y: -0.9075, z: 0}
+  m_LocalScale: {x: 0.08, y: 0.02, z: 1.834}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 7621522326496348585}
@@ -722,7 +723,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 87ffee5bbd91a0b44add9f98dee1e7f5, type: 2}
+  - {fileID: 2100000, guid: 82ccea1b1bfc77e4a871cb9efc5db31e, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -800,8 +801,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5396759898943467016}
   m_LocalRotation: {x: 0, y: 0.38268343, z: 0, w: 0.92387956}
-  m_LocalPosition: {x: -0.045, y: -0.9075, z: 0.045}
-  m_LocalScale: {x: 0.125, y: 0.02, z: 2.5}
+  m_LocalPosition: {x: -0.03, y: -0.9075, z: 0.03}
+  m_LocalScale: {x: 0.08, y: 0.02, z: 2.5}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 7621522326496348585}
@@ -835,7 +836,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: dd355cac7617b2a4e858c5d8d52ef25a, type: 2}
+  - {fileID: 2100000, guid: 82ccea1b1bfc77e4a871cb9efc5db31e, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -918,7 +919,7 @@ Transform:
   - {fileID: 2262238460428791510}
   - {fileID: 2274089192326458038}
   m_Father: {fileID: 4763889419513853116}
-  m_RootOrder: 5
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &6997006017394810342
 GameObject:
@@ -948,8 +949,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6997006017394810342}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.94, y: -1, z: 0}
-  m_LocalScale: {x: 0.125, y: 0.195, z: 1.76}
+  m_LocalPosition: {x: -0.963, y: -1, z: 0}
+  m_LocalScale: {x: 0.08, y: 0.195, z: 1.834}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 7621522326496348585}
@@ -983,7 +984,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 87ffee5bbd91a0b44add9f98dee1e7f5, type: 2}
+  - {fileID: 2100000, guid: 82ccea1b1bfc77e4a871cb9efc5db31e, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1098,8 +1099,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7772293441631117650}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.929, y: -1.0925, z: 0}
-  m_LocalScale: {x: 0.125, y: 0.02, z: 1.76}
+  m_LocalPosition: {x: -0.957, y: -1.0925, z: 0}
+  m_LocalScale: {x: 0.08, y: 0.02, z: 1.834}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 7621522326496348585}
@@ -1133,7 +1134,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 87ffee5bbd91a0b44add9f98dee1e7f5, type: 2}
+  - {fileID: 2100000, guid: 82ccea1b1bfc77e4a871cb9efc5db31e, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1248,8 +1249,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 9106151904782398985}
   m_LocalRotation: {x: 0, y: 0.38268343, z: 0, w: 0.92387956}
-  m_LocalPosition: {x: -0.045, y: -1.0925, z: 0.045}
-  m_LocalScale: {x: 0.125, y: 0.02, z: 2.5}
+  m_LocalPosition: {x: -0.03, y: -1.0925, z: 0.03}
+  m_LocalScale: {x: 0.08, y: 0.02, z: 2.5}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 7621522326496348585}
@@ -1283,7 +1284,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: dd355cac7617b2a4e858c5d8d52ef25a, type: 2}
+  - {fileID: 2100000, guid: 82ccea1b1bfc77e4a871cb9efc5db31e, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1596,7 +1597,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ff31187ea14e6644393ee2ee6cc127e5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  buildingType: 4
+  buildingType: 3
+  buildingSubType: 1
   buildingMaterial: 0
   blockDirection_A: 5
   blockDirection_B: 3
@@ -1735,6 +1737,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   buildingType: 2
+  buildingSubType: 0
   buildingMaterial: 0
   blockDirection_A: 1
   blockDirection_B: 3
@@ -1869,6 +1872,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   buildingType: 3
+  buildingSubType: 0
   buildingMaterial: 0
   blockDirection_A: 4
   blockDirection_B: 0
@@ -2008,6 +2012,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   buildingType: 1
+  buildingSubType: 0
   buildingMaterial: 0
   blockDirection_A: 1
   blockDirection_B: 1
@@ -2151,6 +2156,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   buildingType: 2
+  buildingSubType: 0
   buildingMaterial: 0
   blockDirection_A: 5
   blockDirection_B: 1
@@ -2286,6 +2292,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   buildingType: 6
+  buildingSubType: 0
   buildingMaterial: 0
   blockDirection_A: 1
   blockDirection_B: 1
@@ -2421,6 +2428,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   buildingType: 6
+  buildingSubType: 0
   buildingMaterial: 0
   blockDirection_A: 4
   blockDirection_B: 1
@@ -2551,6 +2559,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   buildingType: 6
+  buildingSubType: 0
   buildingMaterial: 0
   blockDirection_A: 4
   blockDirection_B: 3
@@ -2686,6 +2695,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   buildingType: 6
+  buildingSubType: 0
   buildingMaterial: 0
   blockDirection_A: 1
   blockDirection_B: 3
@@ -2820,6 +2830,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   buildingType: 1
+  buildingSubType: 0
   buildingMaterial: 0
   blockDirection_A: 4
   blockDirection_B: 1
@@ -2968,6 +2979,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   buildingType: 2
+  buildingSubType: 0
   buildingMaterial: 0
   blockDirection_A: 1
   blockDirection_B: 1
@@ -3102,6 +3114,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   buildingType: 3
+  buildingSubType: 0
   buildingMaterial: 0
   blockDirection_A: 1
   blockDirection_B: 1
@@ -3231,6 +3244,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   buildingType: 1
+  buildingSubType: 0
   buildingMaterial: 0
   blockDirection_A: 1
   blockDirection_B: 0
@@ -3374,7 +3388,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ff31187ea14e6644393ee2ee6cc127e5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  buildingType: 4
+  buildingType: 3
+  buildingSubType: 1
   buildingMaterial: 0
   blockDirection_A: 5
   blockDirection_B: 1
@@ -3509,6 +3524,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   buildingType: 3
+  buildingSubType: 0
   buildingMaterial: 0
   blockDirection_A: 1
   blockDirection_B: 0
@@ -3647,7 +3663,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ff31187ea14e6644393ee2ee6cc127e5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  buildingType: 4
+  buildingType: 3
+  buildingSubType: 1
   buildingMaterial: 0
   blockDirection_A: 5
   blockDirection_B: 0
@@ -3777,6 +3794,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   buildingType: 1
+  buildingSubType: 0
   buildingMaterial: 0
   blockDirection_A: 1
   blockDirection_B: 3
@@ -3911,6 +3929,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   buildingType: 3
+  buildingSubType: 0
   buildingMaterial: 0
   blockDirection_A: 4
   blockDirection_B: 1
@@ -4050,6 +4069,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   buildingType: 1
+  buildingSubType: 0
   buildingMaterial: 0
   blockDirection_A: 4
   blockDirection_B: 0
@@ -4179,6 +4199,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   buildingType: 3
+  buildingSubType: 0
   buildingMaterial: 0
   blockDirection_A: 4
   blockDirection_B: 3
@@ -4322,6 +4343,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   buildingType: 2
+  buildingSubType: 0
   buildingMaterial: 0
   blockDirection_A: 1
   blockDirection_B: 0
@@ -4456,6 +4478,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   buildingType: 3
+  buildingSubType: 0
   buildingMaterial: 0
   blockDirection_A: 1
   blockDirection_B: 3
@@ -4595,6 +4618,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   buildingType: 1
+  buildingSubType: 0
   buildingMaterial: 0
   blockDirection_A: 4
   blockDirection_B: 3
@@ -4733,6 +4757,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   buildingType: 2
+  buildingSubType: 0
   buildingMaterial: 0
   blockDirection_A: 4
   blockDirection_B: 3
@@ -4876,6 +4901,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   buildingType: 2
+  buildingSubType: 0
   buildingMaterial: 0
   blockDirection_A: 5
   blockDirection_B: 3
@@ -5019,6 +5045,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   buildingType: 2
+  buildingSubType: 0
   buildingMaterial: 0
   blockDirection_A: 4
   blockDirection_B: 1
@@ -5162,6 +5189,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   buildingType: 2
+  buildingSubType: 0
   buildingMaterial: 0
   blockDirection_A: 4
   blockDirection_B: 0
@@ -5305,6 +5333,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   buildingType: 2
+  buildingSubType: 0
   buildingMaterial: 0
   blockDirection_A: 5
   blockDirection_B: 0

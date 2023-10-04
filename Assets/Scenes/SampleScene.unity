@@ -2003,7 +2003,7 @@ MonoBehaviour:
   BlockTagName: 
   buildingType_Selected: 3
   buildingMaterial_Selected: 1
-  BuildingDistance: {x: 4, y: 0.75}
+  BuildingDistance: {x: 4.25, y: 0.75}
   blockDirection_A: 0
   blockDirection_B: 0
   builingBlock_Wood_Floor: {fileID: 4763889419513853119, guid: 1883060f695bb5f4fa31f3eb733546c5, type: 3}
