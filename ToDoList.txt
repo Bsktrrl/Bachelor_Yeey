@@ -1,9 +1,5 @@
 BuildingSystem:
-- Check that "Ramp" has every component attached and working
-- Make "Markers" transparent on "Ramp"-prefab
-
-- Add "Ramp_Corner" to all possible BuildingBlocks
-- Remove "overlapping" where this occur, on "Ramp_Corner" ("Floor", "Triangle", "Wall")
+- make "Ghosts" transparent but raytraceable
 
 - Setup "Fence"
 - Setup "Stairs"

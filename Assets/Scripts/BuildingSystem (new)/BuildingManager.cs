@@ -634,216 +634,30 @@ public class BuildingManager : MonoBehaviour
             return false;
         }
 
-        //If Wall is selected
-        if (buildingType_Selected == BuildingType.Wall && lastBuildingBlock_LookedAt.GetComponent<BuildingBlock_Parent>().buildingSubType == BuildingSubType.None)
+        //Check if Ghost can be shown
+        for (int j = 0; j < lastBuildingBlock_LookedAt.GetComponent<BuildingBlock_Parent>().blockPlacedList.Count; j++)
         {
-            for (int i = 0; i < lastBuildingBlock_LookedAt.GetComponent<BuildingBlock_Parent>().blockPlacedList.Count; i++)
+            for (int k = 0; k < lastBuildingBlock_LookedAt.GetComponent<BuildingBlock_Parent>().ghostList.Count; k++)
             {
-                for (int j = 0; j < lastBuildingBlock_LookedAt.GetComponent<BuildingBlock_Parent>().blockPlacedList[i].buildingBlock.GetComponent<BuildingBlock_Parent>().ghostList.Count; j++)
+                if (lastBuildingBlock_LookedAt.GetComponent<BuildingBlock_Parent>().blockPlacedList[j].buildingBlock.transform.position == lastBuildingBlock_LookedAt.GetComponent<BuildingBlock_Parent>().ghostList[k].transform.position
+                    && lastBuildingBlock_LookedAt.GetComponent<BuildingBlock_Parent>().blockPlacedList[j].buildingBlock.transform.position == ghost_PointedAt.transform.position)
                 {
-                    //North - Up
-                    if (lastBuildingBlock_LookedAt.GetComponent<BuildingBlock_Parent>().buildingType == BuildingType.Wall
-                        && lastBuildingBlock_LookedAt.GetComponent<BuildingBlock_Parent>().blockPlacedList[i].buildingBlock.GetComponent<BuildingBlock_Parent>().buildingType == BuildingType.Wall
-                        && blockDirection_A == BlockCompass.North && blockDirection_B == BlockDirection.Up
-                        && lastBuildingBlock_LookedAt.GetComponent<BuildingBlock_Parent>().blockPlacedList[i].buildingBlock.GetComponent<BuildingBlock_Parent>().ghostList[j].GetComponent<Building_Ghost>().blockDirection_A == BlockCompass.North && lastBuildingBlock_LookedAt.GetComponent<BuildingBlock_Parent>().blockPlacedList[i].buildingBlock.GetComponent<BuildingBlock_Parent>().ghostList[j].GetComponent<Building_Ghost>().blockDirection_B == BlockDirection.Up
-                        && lastBuildingBlock_LookedAt.GetComponent<BuildingBlock_Parent>().blockPlacedList[i].buildingBlock.transform.rotation == lastBuildingBlock_LookedAt.transform.rotation)
+                    //If selected "Floor" or "Triangle" and lastBuildingBlock_LookedAt is "Floor" or "Triangle"
+                    if ((lastBuildingBlock_LookedAt.GetComponent<BuildingBlock_Parent>().blockPlacedList[j].buildingType == BuildingType.Floor
+                            || lastBuildingBlock_LookedAt.GetComponent<BuildingBlock_Parent>().blockPlacedList[j].buildingType == BuildingType.Triangle)
+                        && (buildingType_Selected == BuildingType.Floor || buildingType_Selected == BuildingType.Triangle))
                     {
-                        SetGhostState_OFF(lastBuildingBlock_LookedAt.GetComponent<BuildingBlock_Parent>(), j);
+                        print("3. End Return");
+                        SetGhostState_OFF(lastBuildingBlock_LookedAt.GetComponent<BuildingBlock_Parent>(), k);
                         return true;
                     }
 
-                    //North - Down
-                    else if (lastBuildingBlock_LookedAt.GetComponent<BuildingBlock_Parent>().buildingType == BuildingType.Wall
-                        && lastBuildingBlock_LookedAt.GetComponent<BuildingBlock_Parent>().blockPlacedList[i].buildingBlock.GetComponent<BuildingBlock_Parent>().buildingType == BuildingType.Wall
-                        && blockDirection_A == BlockCompass.North && blockDirection_B == BlockDirection.Down
-                        && lastBuildingBlock_LookedAt.GetComponent<BuildingBlock_Parent>().blockPlacedList[i].buildingBlock.GetComponent<BuildingBlock_Parent>().ghostList[j].GetComponent<Building_Ghost>().blockDirection_A == BlockCompass.North && lastBuildingBlock_LookedAt.GetComponent<BuildingBlock_Parent>().blockPlacedList[i].buildingBlock.GetComponent<BuildingBlock_Parent>().ghostList[j].GetComponent<Building_Ghost>().blockDirection_B == BlockDirection.Down
-                        && lastBuildingBlock_LookedAt.GetComponent<BuildingBlock_Parent>().blockPlacedList[i].buildingBlock.transform.rotation == lastBuildingBlock_LookedAt.transform.rotation)
+                    //If lastBuildingBlock_LookedAt is any other Block
+                    else if (lastBuildingBlock_LookedAt.GetComponent<BuildingBlock_Parent>().blockPlacedList[j].buildingType == buildingType_Selected)
                     {
-                        SetGhostState_OFF(lastBuildingBlock_LookedAt.GetComponent<BuildingBlock_Parent>(), j);
+                        print("4. End Return");
+                        SetGhostState_OFF(lastBuildingBlock_LookedAt.GetComponent<BuildingBlock_Parent>(), k);
                         return true;
-                    }
-
-                    //South - Up
-                    if (lastBuildingBlock_LookedAt.GetComponent<BuildingBlock_Parent>().buildingType == BuildingType.Wall
-                        && lastBuildingBlock_LookedAt.GetComponent<BuildingBlock_Parent>().blockPlacedList[i].buildingBlock.GetComponent<BuildingBlock_Parent>().buildingType == BuildingType.Wall
-                        && blockDirection_A == BlockCompass.South && blockDirection_B == BlockDirection.Up
-                        && lastBuildingBlock_LookedAt.GetComponent<BuildingBlock_Parent>().blockPlacedList[i].buildingBlock.GetComponent<BuildingBlock_Parent>().ghostList[j].GetComponent<Building_Ghost>().blockDirection_A == BlockCompass.South && lastBuildingBlock_LookedAt.GetComponent<BuildingBlock_Parent>().blockPlacedList[i].buildingBlock.GetComponent<BuildingBlock_Parent>().ghostList[j].GetComponent<Building_Ghost>().blockDirection_B == BlockDirection.Up
-                        && lastBuildingBlock_LookedAt.GetComponent<BuildingBlock_Parent>().blockPlacedList[i].buildingBlock.transform.rotation == lastBuildingBlock_LookedAt.transform.rotation)
-                    {
-                        SetGhostState_OFF(lastBuildingBlock_LookedAt.GetComponent<BuildingBlock_Parent>(), j);
-                        return true;
-                    }
-
-                    //South - Down
-                    else if (lastBuildingBlock_LookedAt.GetComponent<BuildingBlock_Parent>().buildingType == BuildingType.Wall
-                        && lastBuildingBlock_LookedAt.GetComponent<BuildingBlock_Parent>().blockPlacedList[i].buildingBlock.GetComponent<BuildingBlock_Parent>().buildingType == BuildingType.Wall
-                        && blockDirection_A == BlockCompass.South && blockDirection_B == BlockDirection.Down
-                        && lastBuildingBlock_LookedAt.GetComponent<BuildingBlock_Parent>().blockPlacedList[i].buildingBlock.GetComponent<BuildingBlock_Parent>().ghostList[j].GetComponent<Building_Ghost>().blockDirection_A == BlockCompass.South && lastBuildingBlock_LookedAt.GetComponent<BuildingBlock_Parent>().blockPlacedList[i].buildingBlock.GetComponent<BuildingBlock_Parent>().ghostList[j].GetComponent<Building_Ghost>().blockDirection_B == BlockDirection.Down
-                        && lastBuildingBlock_LookedAt.GetComponent<BuildingBlock_Parent>().blockPlacedList[i].buildingBlock.transform.rotation == lastBuildingBlock_LookedAt.transform.rotation)
-                    {
-                        SetGhostState_OFF(lastBuildingBlock_LookedAt.GetComponent<BuildingBlock_Parent>(), j);
-                        return true;
-                    }
-                }
-            }
-        }
-
-        //If Wall_Diagonaly is selected
-        else if (buildingType_Selected == BuildingType.Wall && lastBuildingBlock_LookedAt.GetComponent<BuildingBlock_Parent>().buildingSubType == BuildingSubType.Wall_Diagonaly)
-        {
-            for (int i = 0; i < lastBuildingBlock_LookedAt.GetComponent<BuildingBlock_Parent>().blockPlacedList.Count; i++)
-            {
-                for (int j = 0; j < lastBuildingBlock_LookedAt.GetComponent<BuildingBlock_Parent>().ghostList.Count; j++)
-                {
-                    //North - Up
-                    if (lastBuildingBlock_LookedAt.GetComponent<BuildingBlock_Parent>().buildingType == BuildingType.Wall
-                        && lastBuildingBlock_LookedAt.GetComponent<BuildingBlock_Parent>().buildingSubType == BuildingSubType.Wall_Diagonaly
-                        && lastBuildingBlock_LookedAt.GetComponent<BuildingBlock_Parent>().blockPlacedList[i].buildingBlock.GetComponent<BuildingBlock_Parent>().buildingType == BuildingType.Wall
-                        && lastBuildingBlock_LookedAt.GetComponent<BuildingBlock_Parent>().blockPlacedList[i].buildingBlock.GetComponent<BuildingBlock_Parent>().buildingSubType == BuildingSubType.Wall_Diagonaly
-
-                        && blockDirection_A == BlockCompass.North && blockDirection_B == BlockDirection.Up
-                        && lastBuildingBlock_LookedAt.GetComponent<BuildingBlock_Parent>().blockPlacedList[i].buildingBlock.GetComponent<BuildingBlock_Parent>().ghostList[j].GetComponent<Building_Ghost>().blockDirection_A == BlockCompass.North && lastBuildingBlock_LookedAt.GetComponent<BuildingBlock_Parent>().blockPlacedList[i].buildingBlock.GetComponent<BuildingBlock_Parent>().ghostList[j].GetComponent<Building_Ghost>().blockDirection_B == BlockDirection.Up
-                        && lastBuildingBlock_LookedAt.GetComponent<BuildingBlock_Parent>().blockPlacedList[i].buildingBlock.transform.rotation == lastBuildingBlock_LookedAt.transform.rotation)
-                    {
-                        SetGhostState_OFF(lastBuildingBlock_LookedAt.GetComponent<BuildingBlock_Parent>(), j);
-                        return true;
-                    }
-
-                    //North - Down
-                    else if (lastBuildingBlock_LookedAt.GetComponent<BuildingBlock_Parent>().buildingType == BuildingType.Wall
-                        && lastBuildingBlock_LookedAt.GetComponent<BuildingBlock_Parent>().buildingSubType == BuildingSubType.Wall_Diagonaly
-                        && lastBuildingBlock_LookedAt.GetComponent<BuildingBlock_Parent>().blockPlacedList[i].buildingBlock.GetComponent<BuildingBlock_Parent>().buildingType == BuildingType.Wall
-                        && lastBuildingBlock_LookedAt.GetComponent<BuildingBlock_Parent>().blockPlacedList[i].buildingBlock.GetComponent<BuildingBlock_Parent>().buildingSubType == BuildingSubType.Wall_Diagonaly
-
-                        && blockDirection_A == BlockCompass.North && blockDirection_B == BlockDirection.Down
-                        && lastBuildingBlock_LookedAt.GetComponent<BuildingBlock_Parent>().blockPlacedList[i].buildingBlock.GetComponent<BuildingBlock_Parent>().ghostList[j].GetComponent<Building_Ghost>().blockDirection_A == BlockCompass.North && lastBuildingBlock_LookedAt.GetComponent<BuildingBlock_Parent>().blockPlacedList[i].buildingBlock.GetComponent<BuildingBlock_Parent>().ghostList[j].GetComponent<Building_Ghost>().blockDirection_B == BlockDirection.Down
-                        && lastBuildingBlock_LookedAt.GetComponent<BuildingBlock_Parent>().blockPlacedList[i].buildingBlock.transform.rotation == lastBuildingBlock_LookedAt.transform.rotation)
-                    {
-                        SetGhostState_OFF(lastBuildingBlock_LookedAt.GetComponent<BuildingBlock_Parent>(), j);
-                        return true;
-                    }
-
-                    //South - Up
-                    if (lastBuildingBlock_LookedAt.GetComponent<BuildingBlock_Parent>().buildingType == BuildingType.Wall
-                        && lastBuildingBlock_LookedAt.GetComponent<BuildingBlock_Parent>().buildingSubType == BuildingSubType.Wall_Diagonaly
-                        && lastBuildingBlock_LookedAt.GetComponent<BuildingBlock_Parent>().blockPlacedList[i].buildingBlock.GetComponent<BuildingBlock_Parent>().buildingType == BuildingType.Wall
-                        && lastBuildingBlock_LookedAt.GetComponent<BuildingBlock_Parent>().blockPlacedList[i].buildingBlock.GetComponent<BuildingBlock_Parent>().buildingSubType == BuildingSubType.Wall_Diagonaly
-
-                        && blockDirection_A == BlockCompass.South && blockDirection_B == BlockDirection.Up
-                        && lastBuildingBlock_LookedAt.GetComponent<BuildingBlock_Parent>().blockPlacedList[i].buildingBlock.GetComponent<BuildingBlock_Parent>().ghostList[j].GetComponent<Building_Ghost>().blockDirection_A == BlockCompass.South && lastBuildingBlock_LookedAt.GetComponent<BuildingBlock_Parent>().blockPlacedList[i].buildingBlock.GetComponent<BuildingBlock_Parent>().ghostList[j].GetComponent<Building_Ghost>().blockDirection_B == BlockDirection.Up
-                        && lastBuildingBlock_LookedAt.GetComponent<BuildingBlock_Parent>().blockPlacedList[i].buildingBlock.transform.rotation == lastBuildingBlock_LookedAt.transform.rotation)
-                    {
-                        SetGhostState_OFF(lastBuildingBlock_LookedAt.GetComponent<BuildingBlock_Parent>(), j);
-                        return true;
-                    }
-
-                    //South - Down
-                    else if (lastBuildingBlock_LookedAt.GetComponent<BuildingBlock_Parent>().buildingType == BuildingType.Wall
-                        && lastBuildingBlock_LookedAt.GetComponent<BuildingBlock_Parent>().buildingSubType == BuildingSubType.Wall_Diagonaly
-                        && lastBuildingBlock_LookedAt.GetComponent<BuildingBlock_Parent>().blockPlacedList[i].buildingBlock.GetComponent<BuildingBlock_Parent>().buildingType == BuildingType.Wall
-                        && lastBuildingBlock_LookedAt.GetComponent<BuildingBlock_Parent>().blockPlacedList[i].buildingBlock.GetComponent<BuildingBlock_Parent>().buildingSubType == BuildingSubType.Wall_Diagonaly
-
-                        && blockDirection_A == BlockCompass.South && blockDirection_B == BlockDirection.Down
-                        && lastBuildingBlock_LookedAt.GetComponent<BuildingBlock_Parent>().blockPlacedList[i].buildingBlock.GetComponent<BuildingBlock_Parent>().ghostList[j].GetComponent<Building_Ghost>().blockDirection_A == BlockCompass.South && lastBuildingBlock_LookedAt.GetComponent<BuildingBlock_Parent>().blockPlacedList[i].buildingBlock.GetComponent<BuildingBlock_Parent>().ghostList[j].GetComponent<Building_Ghost>().blockDirection_B == BlockDirection.Down
-                        && lastBuildingBlock_LookedAt.GetComponent<BuildingBlock_Parent>().blockPlacedList[i].buildingBlock.transform.rotation == lastBuildingBlock_LookedAt.transform.rotation)
-                    {
-                        SetGhostState_OFF(lastBuildingBlock_LookedAt.GetComponent<BuildingBlock_Parent>(), j);
-                        return true;
-                    }
-                }
-            }
-        }
-
-        //If Ramp is selected
-        else if (buildingType_Selected == BuildingType.Ramp)
-        {
-            for (int i = 0; i < lastBuildingBlock_LookedAt.GetComponent<BuildingBlock_Parent>().blockPlacedList.Count; i++)
-            {
-                for (int j = 0; j < lastBuildingBlock_LookedAt.GetComponent<BuildingBlock_Parent>().ghostList.Count; j++)
-                {
-                    //North - Up
-                    if (lastBuildingBlock_LookedAt.GetComponent<BuildingBlock_Parent>().buildingType == BuildingType.Ramp
-                        && lastBuildingBlock_LookedAt.GetComponent<BuildingBlock_Parent>().blockPlacedList[i].buildingBlock.GetComponent<BuildingBlock_Parent>().buildingType == BuildingType.Ramp
-
-                        && blockDirection_A == BlockCompass.North && blockDirection_B == BlockDirection.Up
-                        && lastBuildingBlock_LookedAt.GetComponent<BuildingBlock_Parent>().blockPlacedList[i].buildingBlock.GetComponent<BuildingBlock_Parent>().ghostList[j].GetComponent<Building_Ghost>().blockDirection_A == BlockCompass.North && lastBuildingBlock_LookedAt.GetComponent<BuildingBlock_Parent>().blockPlacedList[i].buildingBlock.GetComponent<BuildingBlock_Parent>().ghostList[j].GetComponent<Building_Ghost>().blockDirection_B == BlockDirection.Up
-                        && lastBuildingBlock_LookedAt.GetComponent<BuildingBlock_Parent>().blockPlacedList[i].buildingBlock.transform.rotation == lastBuildingBlock_LookedAt.transform.rotation)
-                    {
-                        print("1. Buu");
-                        SetGhostState_OFF(lastBuildingBlock_LookedAt.GetComponent<BuildingBlock_Parent>(), j);
-                        return true;
-                    }
-
-                    //North - Down
-                    else if (lastBuildingBlock_LookedAt.GetComponent<BuildingBlock_Parent>().buildingType == BuildingType.Ramp
-                        && lastBuildingBlock_LookedAt.GetComponent<BuildingBlock_Parent>().blockPlacedList[i].buildingBlock.GetComponent<BuildingBlock_Parent>().buildingType == BuildingType.Ramp
-
-                        && blockDirection_A == BlockCompass.North && blockDirection_B == BlockDirection.Down
-                        && lastBuildingBlock_LookedAt.GetComponent<BuildingBlock_Parent>().blockPlacedList[i].buildingBlock.GetComponent<BuildingBlock_Parent>().ghostList[j].GetComponent<Building_Ghost>().blockDirection_A == BlockCompass.North && lastBuildingBlock_LookedAt.GetComponent<BuildingBlock_Parent>().blockPlacedList[i].buildingBlock.GetComponent<BuildingBlock_Parent>().ghostList[j].GetComponent<Building_Ghost>().blockDirection_B == BlockDirection.Down
-                        && lastBuildingBlock_LookedAt.GetComponent<BuildingBlock_Parent>().blockPlacedList[i].buildingBlock.transform.rotation == lastBuildingBlock_LookedAt.transform.rotation)
-                    {
-                        print("2. Buu");
-                        SetGhostState_OFF(lastBuildingBlock_LookedAt.GetComponent<BuildingBlock_Parent>(), j);
-                        return true;
-                    }
-
-                    //South - Up
-                    else if (lastBuildingBlock_LookedAt.GetComponent<BuildingBlock_Parent>().buildingType == BuildingType.Ramp
-                        && lastBuildingBlock_LookedAt.GetComponent<BuildingBlock_Parent>().blockPlacedList[i].buildingBlock.GetComponent<BuildingBlock_Parent>().buildingType == BuildingType.Ramp
-
-                        && blockDirection_A == BlockCompass.South && blockDirection_B == BlockDirection.Up
-                        && lastBuildingBlock_LookedAt.GetComponent<BuildingBlock_Parent>().blockPlacedList[i].buildingBlock.GetComponent<BuildingBlock_Parent>().ghostList[j].GetComponent<Building_Ghost>().blockDirection_A == BlockCompass.South && lastBuildingBlock_LookedAt.GetComponent<BuildingBlock_Parent>().blockPlacedList[i].buildingBlock.GetComponent<BuildingBlock_Parent>().ghostList[j].GetComponent<Building_Ghost>().blockDirection_B == BlockDirection.Up
-                        && lastBuildingBlock_LookedAt.GetComponent<BuildingBlock_Parent>().blockPlacedList[i].buildingBlock.transform.rotation == lastBuildingBlock_LookedAt.transform.rotation)
-                    {
-                        print("3. Buu");
-
-                        SetGhostState_OFF(lastBuildingBlock_LookedAt.GetComponent<BuildingBlock_Parent>(), j);
-                        return true;
-                    }
-
-                    //South - Down
-                    else if (lastBuildingBlock_LookedAt.GetComponent<BuildingBlock_Parent>().buildingType == BuildingType.Ramp
-                        && lastBuildingBlock_LookedAt.GetComponent<BuildingBlock_Parent>().blockPlacedList[i].buildingBlock.GetComponent<BuildingBlock_Parent>().buildingType == BuildingType.Ramp
-
-                        && blockDirection_A == BlockCompass.South && blockDirection_B == BlockDirection.Down
-                        && lastBuildingBlock_LookedAt.GetComponent<BuildingBlock_Parent>().blockPlacedList[i].buildingBlock.GetComponent<BuildingBlock_Parent>().ghostList[j].GetComponent<Building_Ghost>().blockDirection_A == BlockCompass.South && lastBuildingBlock_LookedAt.GetComponent<BuildingBlock_Parent>().blockPlacedList[i].buildingBlock.GetComponent<BuildingBlock_Parent>().ghostList[j].GetComponent<Building_Ghost>().blockDirection_B == BlockDirection.Down
-                        && lastBuildingBlock_LookedAt.GetComponent<BuildingBlock_Parent>().blockPlacedList[i].buildingBlock.transform.rotation == lastBuildingBlock_LookedAt.transform.rotation)
-                    {
-                        print("4. Buu");
-                        SetGhostState_OFF(lastBuildingBlock_LookedAt.GetComponent<BuildingBlock_Parent>(), j);
-                        return true;
-                    }
-                }
-            }
-        }
-
-        //If any other BuildingBlock is selected
-        else
-        {
-            for (int j = 0; j < lastBuildingBlock_LookedAt.GetComponent<BuildingBlock_Parent>().blockPlacedList.Count; j++)
-            {
-                for (int k = 0; k < lastBuildingBlock_LookedAt.GetComponent<BuildingBlock_Parent>().ghostList.Count; k++)
-                {
-                    if (lastBuildingBlock_LookedAt.GetComponent<BuildingBlock_Parent>().blockPlacedList[j].buildingBlock.transform.position == lastBuildingBlock_LookedAt.GetComponent<BuildingBlock_Parent>().ghostList[k].transform.position
-                        && lastBuildingBlock_LookedAt.GetComponent<BuildingBlock_Parent>().blockPlacedList[j].buildingBlock.transform.position == ghost_PointedAt.transform.position)
-                    {
-                        //If lastBuildingBlock_LookedAt is Floor or Triangle
-                        if ((lastBuildingBlock_LookedAt.GetComponent<BuildingBlock_Parent>().blockPlacedList[j].buildingType == BuildingType.Floor
-                                || lastBuildingBlock_LookedAt.GetComponent<BuildingBlock_Parent>().blockPlacedList[j].buildingType == BuildingType.Triangle)
-                            && (buildingType_Selected == BuildingType.Floor || buildingType_Selected == BuildingType.Triangle))
-                        {
-                            print("3. End Return");
-                            SetGhostState_OFF(lastBuildingBlock_LookedAt.GetComponent<BuildingBlock_Parent>(), k);
-                            return true;
-                        }
-
-                        //If lastBuildingBlock_LookedAt is any other Block
-                        else if (lastBuildingBlock_LookedAt.GetComponent<BuildingBlock_Parent>().blockPlacedList[j].buildingType == buildingType_Selected)
-                        {
-                            print("4. End Return");
-                            SetGhostState_OFF(lastBuildingBlock_LookedAt.GetComponent<BuildingBlock_Parent>(), k);
-                            return true;
-                        }
                     }
                 }
             }
