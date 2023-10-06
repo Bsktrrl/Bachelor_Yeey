@@ -999,6 +999,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   buildingType: 3
   buildingSubType: 0
+  buildingMaterial: 1
   isStrange: 0
   BuildingBlock: {fileID: 786253518913603422}
   directionObjects:
@@ -1774,7 +1775,6 @@ MonoBehaviour:
   buildingType: 5
   buildingSubType: 0
   isStrange: 0
-  buildingMaterial: 0
   blockDirection_A: 1
   blockDirection_B: 3
   blockParent: {fileID: 4763889419513853119}
@@ -1918,7 +1918,6 @@ MonoBehaviour:
   buildingType: 3
   buildingSubType: 0
   isStrange: 0
-  buildingMaterial: 0
   blockDirection_A: 3
   blockDirection_B: 2
   blockParent: {fileID: 4763889419513853119}
@@ -2186,7 +2185,6 @@ MonoBehaviour:
   buildingType: 1
   buildingSubType: 0
   isStrange: 0
-  buildingMaterial: 0
   blockDirection_A: 1
   blockDirection_B: 3
   blockParent: {fileID: 4763889419513853119}
@@ -2335,7 +2333,6 @@ MonoBehaviour:
   buildingType: 3
   buildingSubType: 0
   isStrange: 0
-  buildingMaterial: 0
   blockDirection_A: 0
   blockDirection_B: 1
   blockParent: {fileID: 4763889419513853119}
@@ -2433,7 +2430,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: c9b941a8aa6c7b340bdf934dcbbf744e, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: c9b941a8aa6c7b340bdf934dcbbf744e, type: 3}
       propertyPath: m_TagString
@@ -2475,7 +2472,6 @@ MonoBehaviour:
   buildingType: 2
   buildingSubType: 0
   isStrange: 0
-  buildingMaterial: 0
   blockDirection_A: 1
   blockDirection_B: 1
   blockParent: {fileID: 4763889419513853119}
@@ -2619,7 +2615,6 @@ MonoBehaviour:
   buildingType: 3
   buildingSubType: 0
   isStrange: 0
-  buildingMaterial: 0
   blockDirection_A: 0
   blockDirection_B: 4
   blockParent: {fileID: 4763889419513853119}
@@ -2768,7 +2763,6 @@ MonoBehaviour:
   buildingType: 1
   buildingSubType: 0
   isStrange: 0
-  buildingMaterial: 0
   blockDirection_A: 1
   blockDirection_B: 1
   blockParent: {fileID: 4763889419513853119}
@@ -2912,7 +2906,6 @@ MonoBehaviour:
   buildingType: 3
   buildingSubType: 0
   isStrange: 0
-  buildingMaterial: 0
   blockDirection_A: 1
   blockDirection_B: 2
   blockParent: {fileID: 4763889419513853119}
@@ -3010,7 +3003,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: c9b941a8aa6c7b340bdf934dcbbf744e, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: c9b941a8aa6c7b340bdf934dcbbf744e, type: 3}
       propertyPath: m_TagString
@@ -3052,7 +3045,6 @@ MonoBehaviour:
   buildingType: 2
   buildingSubType: 0
   isStrange: 0
-  buildingMaterial: 0
   blockDirection_A: 3
   blockDirection_B: 3
   blockParent: {fileID: 4763889419513853119}
@@ -3196,7 +3188,6 @@ MonoBehaviour:
   buildingType: 3
   buildingSubType: 0
   isStrange: 0
-  buildingMaterial: 0
   blockDirection_A: 3
   blockDirection_B: 0
   blockParent: {fileID: 4763889419513853119}
@@ -3340,7 +3331,6 @@ MonoBehaviour:
   buildingType: 3
   buildingSubType: 0
   isStrange: 0
-  buildingMaterial: 0
   blockDirection_A: 0
   blockDirection_B: 3
   blockParent: {fileID: 4763889419513853119}
@@ -3484,7 +3474,6 @@ MonoBehaviour:
   buildingType: 3
   buildingSubType: 0
   isStrange: 0
-  buildingMaterial: 0
   blockDirection_A: 1
   blockDirection_B: 4
   blockParent: {fileID: 4763889419513853119}
@@ -3634,7 +3623,6 @@ MonoBehaviour:
   buildingType: 5
   buildingSubType: 0
   isStrange: 0
-  buildingMaterial: 0
   blockDirection_A: 3
   blockDirection_B: 3
   blockParent: {fileID: 4763889419513853119}
@@ -3732,7 +3720,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: c9b941a8aa6c7b340bdf934dcbbf744e, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: c9b941a8aa6c7b340bdf934dcbbf744e, type: 3}
       propertyPath: m_TagString
@@ -3779,7 +3767,6 @@ MonoBehaviour:
   buildingType: 2
   buildingSubType: 0
   isStrange: 0
-  buildingMaterial: 0
   blockDirection_A: 1
   blockDirection_B: 3
   blockParent: {fileID: 4763889419513853119}
@@ -3923,7 +3910,6 @@ MonoBehaviour:
   buildingType: 1
   buildingSubType: 0
   isStrange: 0
-  buildingMaterial: 0
   blockDirection_A: 3
   blockDirection_B: 1
   blockParent: {fileID: 4763889419513853119}
@@ -4067,7 +4053,6 @@ MonoBehaviour:
   buildingType: 1
   buildingSubType: 0
   isStrange: 0
-  buildingMaterial: 0
   blockDirection_A: 3
   blockDirection_B: 3
   blockParent: {fileID: 4763889419513853119}
@@ -4206,7 +4191,6 @@ MonoBehaviour:
   buildingType: 3
   buildingSubType: 0
   isStrange: 0
-  buildingMaterial: 0
   blockDirection_A: 0
   blockDirection_B: 2
   blockParent: {fileID: 4763889419513853119}
@@ -4355,7 +4339,6 @@ MonoBehaviour:
   buildingType: 3
   buildingSubType: 0
   isStrange: 0
-  buildingMaterial: 0
   blockDirection_A: 3
   blockDirection_B: 4
   blockParent: {fileID: 4763889419513853119}
@@ -4495,7 +4478,6 @@ MonoBehaviour:
   buildingType: 5
   buildingSubType: 0
   isStrange: 0
-  buildingMaterial: 0
   blockDirection_A: 3
   blockDirection_B: 1
   blockParent: {fileID: 4763889419513853119}
@@ -4598,7 +4580,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: c9b941a8aa6c7b340bdf934dcbbf744e, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: c9b941a8aa6c7b340bdf934dcbbf744e, type: 3}
       propertyPath: m_TagString
@@ -4645,7 +4627,6 @@ MonoBehaviour:
   buildingType: 2
   buildingSubType: 0
   isStrange: 0
-  buildingMaterial: 0
   blockDirection_A: 3
   blockDirection_B: 1
   blockParent: {fileID: 4763889419513853119}
@@ -4790,7 +4771,6 @@ MonoBehaviour:
   buildingType: 5
   buildingSubType: 0
   isStrange: 0
-  buildingMaterial: 0
   blockDirection_A: 1
   blockDirection_B: 1
   blockParent: {fileID: 4763889419513853119}

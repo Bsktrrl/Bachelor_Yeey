@@ -2001,7 +2001,7 @@ MonoBehaviour:
   ghost_PointedAt: {fileID: 0}
   buildingBlockCanBePlaced: 0
   BlockTagName: 
-  buildingType_Selected: 5
+  buildingType_Selected: 7
   buildingMaterial_Selected: 1
   BuildingDistance: {x: 4.25, y: 0.75}
   blockDirection_A: 0
@@ -2012,25 +2012,37 @@ MonoBehaviour:
   builingBlock_Wood_Wall_Diagonal: {fileID: 4763889419513853119, guid: e4684e8352a32cd47844545ce625ab21, type: 3}
   builingBlock_Wood_Ramp: {fileID: 4763889419513853119, guid: b656488a7bfbddc4197a80e7cfd51196, type: 3}
   builingBlock_Wood_Ramp_Corner: {fileID: 4763889419513853119, guid: 8f72aacb1736bb74c94fc865fb3a8449, type: 3}
+  builingBlock_Wood_Wall_Triangle: {fileID: 4763889419513853119, guid: fe34614a1a9fdec4c9b9e25123339115, type: 3}
+  builingBlock_Wood_Fence: {fileID: 0}
+  builingBlock_Wood_Window: {fileID: 0}
+  builingBlock_Wood_Door: {fileID: 0}
+  builingBlock_Wood_Stair: {fileID: 0}
   builingBlock_Stone_Floor: {fileID: 0}
   builingBlock_Stone_Floor_Triangle: {fileID: 0}
   builingBlock_Stone_Wall: {fileID: 0}
   builingBlock_Stone_Wall_Diagonal: {fileID: 0}
   builingBlock_Stone_Ramp: {fileID: 0}
   builingBlock_Stone_Ramp_Corner: {fileID: 0}
+  builingBlock_Stone_Wall_Triangle: {fileID: 0}
+  builingBlock_Stone_Fence: {fileID: 0}
+  builingBlock_Stone_Window: {fileID: 0}
+  builingBlock_Stone_Door: {fileID: 0}
+  builingBlock_Stone_Stair: {fileID: 0}
   builingBlock_Iron_Floor: {fileID: 0}
   builingBlock_Iron_Floor_Triangle: {fileID: 0}
   builingBlock_Iron_Wall: {fileID: 0}
   builingBlock_Iron_Wall_Diagonal: {fileID: 0}
   builingBlock_Iron_Ramp: {fileID: 0}
   builingBlock_Iron_Ramp_Corner: {fileID: 0}
+  builingBlock_Iron_Wall_Triangle: {fileID: 0}
+  builingBlock_Iron_Fence: {fileID: 0}
+  builingBlock_Iron_Window: {fileID: 0}
+  builingBlock_Iron_Door: {fileID: 0}
+  builingBlock_Iron_Stair: {fileID: 0}
   invisible_Material: {fileID: 2100000, guid: 82ccea1b1bfc77e4a871cb9efc5db31e, type: 2}
   ghost_Material: {fileID: 2100000, guid: 5dc43eb6ada116e46877d050b1ec1761, type: 2}
   canPlace_Material: {fileID: 2100000, guid: e278a96e1265f6a499cc3b2f57dfb5a2, type: 2}
   cannotPlace_Material: {fileID: 2100000, guid: 807fd160d720c6b4ab5e0acda7cd77ee, type: 2}
-  floor_Wood_Material: {fileID: 2100000, guid: e289b517caedfc04893b3c3473f73580, type: 2}
-  wall_Wood_Material: {fileID: 2100000, guid: e289b517caedfc04893b3c3473f73580, type: 2}
-  wall_Diagonaly_Wood_Material: {fileID: 2100000, guid: e289b517caedfc04893b3c3473f73580, type: 2}
 --- !u!1 &409095012
 GameObject:
   m_ObjectHideFlags: 0

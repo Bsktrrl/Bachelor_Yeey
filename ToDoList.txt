@@ -1,5 +1,5 @@
 BuildingSystem:
-- make "Ghosts" transparent but raytraceable
+- Make "Ghosts" transparent AND raytraceable
 
 - Setup "Fence"
 - Setup "Stairs"

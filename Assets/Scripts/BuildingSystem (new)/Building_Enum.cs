@@ -7,11 +7,18 @@ public enum BuildingType
     None,
 
     Floor,
-    Triangle,
+    Floor_Triangle,
     Wall,
     Wall_Diagonaly,
     Ramp,
-    Ramp_Corner
+    Ramp_Corner,
+    Wall_Triangle,
+
+    Fence,
+    Fence_Diagonaly,
+    Window,
+    Door,
+    Stair
 }
 public enum BuildingSubType
 {
