@@ -1,10 +1,7 @@
 BuildingSystem:
 - Make "Ghosts" transparent AND raytraceable
 
-- Setup "Fence"
-- Setup "Stairs"
 - Setup "Door"
-- Setup "Window"
 
 - Setup "Stone" and "Iron" variants
 

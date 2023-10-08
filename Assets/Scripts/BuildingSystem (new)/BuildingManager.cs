@@ -85,6 +85,53 @@ public class BuildingManager : MonoBehaviour
     [SerializeField] Material canPlace_Material;
     [SerializeField] Material cannotPlace_Material;
 
+    #region Mesh List
+    [Header("Mesh List - Wood")]
+    [SerializeField] Mesh wood_Door_Mesh;
+    [SerializeField] Mesh wood_DoorFrame_Mesh;
+    [SerializeField] Mesh wood_Fence_Mesh;
+    [SerializeField] Mesh wood_FenceDiagonaly_Mesh;
+    [SerializeField] Mesh wood_Floor_Mesh;
+    [SerializeField] Mesh wood_FloorTriangle_Mesh;
+    [SerializeField] Mesh wood_Ramp_Mesh;
+    [SerializeField] Mesh wood_RampTriangle_Mesh;
+    [SerializeField] Mesh wood_RampCorner_Mesh;
+    [SerializeField] Mesh wood_Stair_Mesh;
+    [SerializeField] Mesh wood_Wall_Mesh;
+    [SerializeField] Mesh wood_WallDiagonaly_Mesh;
+    [SerializeField] Mesh wood_Window_Mesh;
+
+    [Header("Mesh List - Stone")]
+    [SerializeField] Mesh stone_Door_Mesh;
+    [SerializeField] Mesh stone_DoorFrame_Mesh;
+    [SerializeField] Mesh stone_Fence_Mesh;
+    [SerializeField] Mesh stone_FenceDiagonaly_Mesh;
+    [SerializeField] Mesh stone_Floor_Mesh;
+    [SerializeField] Mesh stone_FloorTriangle_Mesh;
+    [SerializeField] Mesh stone_Ramp_Mesh;
+    [SerializeField] Mesh stone_RampTriangle_Mesh;
+    [SerializeField] Mesh stone_RampCorner_Mesh;
+    [SerializeField] Mesh stone_Stair_Mesh;
+    [SerializeField] Mesh stone_Wall_Mesh;
+    [SerializeField] Mesh stone_WallDiagonaly_Mesh;
+    [SerializeField] Mesh stone_Window_Mesh;
+
+    [Header("Mesh List - Iron")]
+    [SerializeField] Mesh iron_Door_Mesh;
+    [SerializeField] Mesh iron_DoorFrame_Mesh;
+    [SerializeField] Mesh iron_Fence_Mesh;
+    [SerializeField] Mesh iron_FenceDiagonaly_Mesh;
+    [SerializeField] Mesh iron_Floor_Mesh;
+    [SerializeField] Mesh iron_FloorTriangle_Mesh;
+    [SerializeField] Mesh iron_Ramp_Mesh;
+    [SerializeField] Mesh iron_RampTriangle_Mesh;
+    [SerializeField] Mesh iron_RampCorner_Mesh;
+    [SerializeField] Mesh iron_Stair_Mesh;
+    [SerializeField] Mesh iron_Wall_Mesh;
+    [SerializeField] Mesh iron_WallDiagonaly_Mesh;
+    [SerializeField] Mesh iron_Window_Mesh;
+    #endregion
+
 
     //--------------------
 
@@ -489,14 +536,22 @@ public class BuildingManager : MonoBehaviour
         if (buildingType_Selected == BuildingType.Floor)
         {
             //Wood
-            BuidingBlockCanBePlacedCheck(blockLookingAt, i, BuildingType.Floor, BuildingSubType.None, canPlace_Material, cannotPlace_Material); //Change Material when Mesh is ready
+            if (buildingMaterial_Selected == BuildingMaterial.Wood)
+            {
+                BuidingBlockCanBePlacedCheck(blockLookingAt, i, BuildingType.Floor, BuildingSubType.None, canPlace_Material, cannotPlace_Material); //Change Material when Mesh is ready
+            }
 
             //Stone
-
+            else if (buildingMaterial_Selected == BuildingMaterial.Stone)
+            {
+                BuidingBlockCanBePlacedCheck(blockLookingAt, i, BuildingType.Floor, BuildingSubType.None, canPlace_Material, cannotPlace_Material); //Change Material when Mesh is ready
+            }
 
             //Iron
-
-
+            else if (buildingMaterial_Selected == BuildingMaterial.Iron)
+            {
+                BuidingBlockCanBePlacedCheck(blockLookingAt, i, BuildingType.Floor, BuildingSubType.None, canPlace_Material, cannotPlace_Material); //Change Material when Mesh is ready
+            }
         }
 
         //Floor_Triangle
@@ -583,11 +638,11 @@ public class BuildingManager : MonoBehaviour
 
         }
 
-        //Fence
-        else if (buildingType_Selected == BuildingType.Fence)
+        //Fence_Diagonaly
+        else if (buildingType_Selected == BuildingType.Fence && (blockLookingAt.buildingSubType == BuildingSubType.Wall_Diagonaly || blockDirection_A == BlockCompass.Cross_A || blockDirection_A == BlockCompass.Cross_B))
         {
             //Wood
-            BuidingBlockCanBePlacedCheck(blockLookingAt, i, BuildingType.Fence, BuildingSubType.None, canPlace_Material, cannotPlace_Material); //Change Material when Mesh is ready
+            BuidingBlockCanBePlacedCheck(blockLookingAt, i, BuildingType.Fence, BuildingSubType.Wall_Diagonaly, canPlace_Material, cannotPlace_Material); //Change Material when Mesh is ready
 
             //Stone
 
@@ -597,11 +652,11 @@ public class BuildingManager : MonoBehaviour
 
         }
         
-        //Fence_Diagonaly
-        else if (buildingType_Selected == BuildingType.Fence_Diagonaly)
+        //Fence
+        else if (buildingType_Selected == BuildingType.Fence && blockLookingAt.buildingSubType == BuildingSubType.None)
         {
             //Wood
-            BuidingBlockCanBePlacedCheck(blockLookingAt, i, BuildingType.Fence_Diagonaly, BuildingSubType.None, canPlace_Material, cannotPlace_Material); //Change Material when Mesh is ready
+            BuidingBlockCanBePlacedCheck(blockLookingAt, i, BuildingType.Fence, BuildingSubType.None, canPlace_Material, cannotPlace_Material); //Change Material when Mesh is ready
 
             //Stone
 
@@ -1011,8 +1066,66 @@ public class BuildingManager : MonoBehaviour
                 }
             }
 
+            //Fence_Diagonal
+            else if (ghost_PointedAt.GetComponent<Building_Ghost>().buildingType == BuildingType.Fence && ghost_PointedAt.GetComponent<Building_Ghost>().buildingSubType == BuildingSubType.Wall_Diagonaly && ghost_PointedAt.GetComponent<Building_Ghost>().isSelected)
+            {
+                BlockCompass a = ghost_PointedAt.GetComponent<Building_Ghost>().blockDirection_A;
+                BlockDirection b = ghost_PointedAt.GetComponent<Building_Ghost>().blockDirection_B;
+
+                if ((a == BlockCompass.North && b == BlockDirection.Left) || (a == BlockCompass.South && b == BlockDirection.Left) || (a == BlockCompass.North && b == BlockDirection.Right) || (a == BlockCompass.South && b == BlockDirection.Right))
+                {
+                    //Wood
+                    if (buildingMaterial_Selected == BuildingMaterial.Wood)
+                    {
+                        print("Placed: Wood Fence_Diagonal");
+                        buildingBlockList.Add(Instantiate(builingBlock_Wood_Fence, ghost_PointedAt.transform.position, rotation) as GameObject);
+                    }
+
+                    //Stone
+                    else if (buildingMaterial_Selected == BuildingMaterial.Stone)
+                    {
+                        print("Placed: Stone Fence_Diagonal");
+                        buildingBlockList.Add(Instantiate(builingBlock_Stone_Fence, ghost_PointedAt.transform.position, rotation) as GameObject);
+
+                    }
+
+                    //Iron
+                    else if (buildingMaterial_Selected == BuildingMaterial.Iron)
+                    {
+                        print("Placed: Iron Fence_Diagonal");
+                        buildingBlockList.Add(Instantiate(builingBlock_Iron_Fence, ghost_PointedAt.transform.position, rotation) as GameObject);
+
+                    }
+                }
+                else
+                {
+                    //Wood
+                    if (buildingMaterial_Selected == BuildingMaterial.Wood)
+                    {
+                        print("Placed: Wood Fence_Diagonal");
+                        buildingBlockList.Add(Instantiate(builingBlock_Wood_Fence_Diagonaly, ghost_PointedAt.transform.position, rotation) as GameObject);
+                    }
+
+                    //Stone
+                    else if (buildingMaterial_Selected == BuildingMaterial.Stone)
+                    {
+                        print("Placed: Stone Fence_Diagonal");
+                        buildingBlockList.Add(Instantiate(builingBlock_Stone_Fence_Diagonaly, ghost_PointedAt.transform.position, rotation) as GameObject);
+
+                    }
+
+                    //Iron
+                    else if (buildingMaterial_Selected == BuildingMaterial.Iron)
+                    {
+                        print("Placed: Iron Fence_Diagonal");
+                        buildingBlockList.Add(Instantiate(builingBlock_Iron_Fence_Diagonaly, ghost_PointedAt.transform.position, rotation) as GameObject);
+
+                    }
+                }
+            }
+            
             //Fence
-            else if (ghost_PointedAt.GetComponent<Building_Ghost>().buildingType == BuildingType.Fence && ghost_PointedAt.GetComponent<Building_Ghost>().isSelected)
+            else if (ghost_PointedAt.GetComponent<Building_Ghost>().buildingType == BuildingType.Fence && ghost_PointedAt.GetComponent<Building_Ghost>().buildingSubType == BuildingSubType.None && ghost_PointedAt.GetComponent<Building_Ghost>().isSelected)
             {
                 //Wood
                 if (buildingMaterial_Selected == BuildingMaterial.Wood)
@@ -1034,33 +1147,6 @@ public class BuildingManager : MonoBehaviour
                 {
                     print("Placed: Iron Angle");
                     buildingBlockList.Add(Instantiate(builingBlock_Iron_Fence, ghost_PointedAt.transform.position, rotation) as GameObject);
-
-                }
-            }
-
-            //Fence_Diagonal
-            else if (ghost_PointedAt.GetComponent<Building_Ghost>().buildingType == BuildingType.Fence_Diagonaly && ghost_PointedAt.GetComponent<Building_Ghost>().isSelected)
-            {
-                //Wood
-                if (buildingMaterial_Selected == BuildingMaterial.Wood)
-                {
-                    print("Placed: Wood Angle");
-                    buildingBlockList.Add(Instantiate(builingBlock_Wood_Fence_Diagonaly, ghost_PointedAt.transform.position, rotation) as GameObject);
-                }
-
-                //Stone
-                else if (buildingMaterial_Selected == BuildingMaterial.Stone)
-                {
-                    print("Placed: Stone Angle");
-                    buildingBlockList.Add(Instantiate(builingBlock_Stone_Fence_Diagonaly, ghost_PointedAt.transform.position, rotation) as GameObject);
-
-                }
-
-                //Iron
-                else if (buildingMaterial_Selected == BuildingMaterial.Iron)
-                {
-                    print("Placed: Iron Angle");
-                    buildingBlockList.Add(Instantiate(builingBlock_Iron_Fence_Diagonaly, ghost_PointedAt.transform.position, rotation) as GameObject);
 
                 }
             }
@@ -1145,8 +1231,6 @@ public class BuildingManager : MonoBehaviour
 
                 }
             }
-
-
             #endregion
 
             //Set Parent of the placed object
@@ -1178,6 +1262,18 @@ public class BuildingManager : MonoBehaviour
                 
             }
             else if (buildingType_Selected == BuildingType.Wall_Triangle)
+            {
+
+            }
+            else if (buildingType_Selected == BuildingType.Fence && lastBuildingBlock_LookedAt.GetComponent<BuildingBlock_Parent>().buildingSubType == BuildingSubType.None)
+            {
+
+            }
+            else if (buildingType_Selected == BuildingType.Window)
+            {
+
+            }
+            else if (buildingType_Selected == BuildingType.Door)
             {
 
             }
