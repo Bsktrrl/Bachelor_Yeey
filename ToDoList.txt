@@ -1,10 +1,23 @@
 BuildingSystem:
 - Make "Ghosts" transparent AND raytraceable
-- Remove Ghost when placing a Buildingblock to prevent overlap
+- Remove BlockGhost when placing a Buildingblock to prevent overlap
 
 - Finetune all Models to match their "DirectionMarkers" to their models, intuitively (ex. "Wood_Stair - Up" is too high)
+	- This will most probably remove the overlap-bugs that happens fequently (the Models have gotten other hitboxes now)
+
+- Add UI to select all BuildingBlocks of each type
+	- When "buildingHammer" is in hand, hold down "Right_MouseButton" to get the Menu
+	- Hover over a Type to open selection of "Wood", "Stone" and "Iron" of that Type
+	- When Cursor hover over a BlockTypeButton, it is selected
+	- When releasing the "Right_MouseButton", hide the Menu
 
 - Add "Rotation" to each BuildingBlock
+
+- Add Crafting functionality when placing Blocks
+	- Make material "Red" when there's not enough items in the Inventory
+	- Block cannot be placed when not enough items in Inventory
+
+- Make functionality for placeing the the first block (must be a "Floor"-Block correctly leveled with the ground)
 
 
 //--------------------
@@ -15,8 +28,6 @@ Inventory/Items:
 	- Make a scaler for the inventory UI BG to fit any amount of itemslots.
 - Pickups pointed at (in the world) must give more information based on the item pointed at (like the "Skyrim" I've done)
 
-- Make HandPanel Scrollable and give selectedSlot with current Item
-- Make Chest Crafteable
 - Make Chest Spawneable (the player can place it in the world) when Holding an item of it
 
 Inventory Menu
@@ -26,7 +37,3 @@ Inventory Menu
 
 - Remove Buggs with more buttons clicked at once
 - Remove Sort-bugg with items of stack 1
-
-Slider/HP from items
-- Update Sliders upon Sorting
-- Update Sliders upon all inventoryClicks
