@@ -5,19 +5,45 @@ BuildingSystem:
 - Finetune all Models to match their "DirectionMarkers" to their models, intuitively (ex. "Wood_Stair - Up" is too high)
 	- This will most probably remove the overlap-bugs that happens fequently (the Models have gotten other hitboxes now)
 
+-----
+
 - Add UI to select all BuildingBlocks of each type
-	- When "buildingHammer" is in hand, hold down "Right_MouseButton" to get the Menu
+	- When "BuildingHammer" is in hand, hold down "Right_MouseButton" to get the Menu
 	- Hover over a Type to open selection of "Wood", "Stone" and "Iron" of that Type
 	- When Cursor hover over a BlockTypeButton, it is selected
 	- When releasing the "Right_MouseButton", hide the Menu
 
+- Add the functionality of Removing a Block when looking at it while having an "Axe" item in your Hand
+	- Be able to get some of the used resources back to the Inventory when removing a Block
+
 - Add "Rotation" to each BuildingBlock
+	- Experiment with only rotating the Block
+	- If not working, add new GhostBlocks to each Model
 
 - Add Crafting functionality when placing Blocks
 	- Make material "Red" when there's not enough items in the Inventory
-	- Block cannot be placed when not enough items in Inventory
+	- A Block cannot be placed when not enough items in Inventory
+
+- Add Detection on each GhostBlock so that the player cannot place a Block in range of another GameObject
+	- Make the GhostBlock Material "Red"
 
 - Make functionality for placeing the the first block (must be a "Floor"-Block correctly leveled with the ground)
+
+- Make Save/Load-system when placing BuildingBlocks
+	- Make a Class with all relevant information
+	- Make a list of this class which are save/load-able
+	- Update this list when successfully placing and removing a block
+
+
+//--------------------
+
+
+Player:
+- Improve the player movement
+	- Add Stamina bar
+	- Add Sprinting
+	- Add crouching
+	- Replace the "Jump"-function
 
 
 //--------------------

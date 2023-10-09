@@ -43,6 +43,8 @@ public class PlayerButtonManager : MonoBehaviour
 
         //BuildingSystem
         isPressed_R_Rotate = null;
+        isPressed_BuildingSystemMenu_Enter = null;
+        isPressed_BuildingSystemMenu_Exit = null;
 
         //Testing Buttons
         T_isPressed = null;
@@ -82,6 +84,8 @@ public class PlayerButtonManager : MonoBehaviour
 
     //BuildingSystem
     public static Action isPressed_R_Rotate;
+    public static Action isPressed_BuildingSystemMenu_Enter;
+    public static Action isPressed_BuildingSystemMenu_Exit;
 
     //Testing Buttons
     public static Action T_isPressed;
@@ -119,7 +123,7 @@ public class PlayerButtonManager : MonoBehaviour
                 leftMouse_isPressedDown?.Invoke();
             }
         }
-        else if (Input.GetKeyUp(KeyCode.Mouse0))
+        else if (Input.GetKeyUp(KeyCode.Mouse0) && MainManager.instance.menuStates == MenuStates.None)
         {
             if (MainManager.instance.menuStates == MenuStates.InventoryMenu)
             {
@@ -146,7 +150,7 @@ public class PlayerButtonManager : MonoBehaviour
             }
 
         }
-        else if(Input.GetKeyUp(KeyCode.Mouse1))
+        else if(Input.GetKeyUp(KeyCode.Mouse1) && MainManager.instance.menuStates == MenuStates.None)
         {
             if (MainManager.instance.menuStates == MenuStates.InventoryMenu)
             {
@@ -248,6 +252,14 @@ public class PlayerButtonManager : MonoBehaviour
             isPressed_R_Rotate?.Invoke();
         }
 
+        else if (Input.GetKey(KeyCode.Mouse1) && MainManager.instance.gameStates == GameStates.Building && (MainManager.instance.menuStates == MenuStates.None || MainManager.instance.menuStates == MenuStates.BuildingSystemMenu))
+        {
+            isPressed_BuildingSystemMenu_Enter?.Invoke();
+        }
+        else if (Input.GetKeyUp(KeyCode.Mouse1) && MainManager.instance.gameStates == GameStates.Building && MainManager.instance.menuStates == MenuStates.BuildingSystemMenu)
+        {
+            isPressed_BuildingSystemMenu_Exit?.Invoke();
+        }
 
         //Testing
         else if (Input.GetKeyDown(KeyCode.T))

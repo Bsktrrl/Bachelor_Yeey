@@ -78,7 +78,8 @@ public enum MenuStates
 
     MainMenu,
     PauseMenu,
-    InventoryMenu
+    InventoryMenu,
+    BuildingSystemMenu
 }
 
 public enum GameStates

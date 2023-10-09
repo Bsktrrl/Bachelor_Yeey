@@ -102,6 +102,7 @@ public class BuildingManager : MonoBehaviour
     [SerializeField] Mesh wood_Stair_Mesh;
     [SerializeField] Mesh wood_Wall_Mesh;
     [SerializeField] Mesh wood_WallDiagonaly_Mesh;
+    [SerializeField] Mesh wood_WallTriangle_Mesh;
     [SerializeField] Mesh wood_Window_Mesh;
 
     [Header("Mesh List - Stone")]
@@ -117,6 +118,7 @@ public class BuildingManager : MonoBehaviour
     [SerializeField] Mesh stone_Stair_Mesh;
     [SerializeField] Mesh stone_Wall_Mesh;
     [SerializeField] Mesh stone_WallDiagonaly_Mesh;
+    [SerializeField] Mesh stone_WallTriangle_Mesh;
     [SerializeField] Mesh stone_Window_Mesh;
 
     [Header("Mesh List - Iron")]
@@ -132,6 +134,7 @@ public class BuildingManager : MonoBehaviour
     [SerializeField] Mesh iron_Stair_Mesh;
     [SerializeField] Mesh iron_Wall_Mesh;
     [SerializeField] Mesh iron_WallDiagonaly_Mesh;
+    [SerializeField] Mesh iron_WallTriangle_Mesh;
     [SerializeField] Mesh iron_Window_Mesh;
     #endregion
 
@@ -732,7 +735,7 @@ public class BuildingManager : MonoBehaviour
             blockLookingAt.ghostList[i].GetComponent<Building_Ghost>().isSelected = false;
         }
     }
-    void SetAllGhostState_Off()
+    public void SetAllGhostState_Off()
     {
         for (int i = 0; i < buildingBlockList.Count; i++)
         {
@@ -819,7 +822,7 @@ public class BuildingManager : MonoBehaviour
         if (buildingMaterial_Selected == BuildingMaterial.Wood)
         {
             if (ghost_PointedAt.GetComponent<Building_Ghost>().buildingType == BuildingType.Door)
-                chosenMesh = wood_Door_Mesh;
+                chosenMesh = wood_DoorFrame_Mesh;
             else if (ghost_PointedAt.GetComponent<Building_Ghost>().buildingType == BuildingType.Fence && ghost_PointedAt.GetComponent<Building_Ghost>().buildingSubType == BuildingSubType.None)
                 chosenMesh = wood_Fence_Mesh;
             else if (ghost_PointedAt.GetComponent<Building_Ghost>().buildingType == BuildingType.Fence && ghost_PointedAt.GetComponent<Building_Ghost>().buildingSubType == BuildingSubType.Wall_Diagonaly)
@@ -840,6 +843,8 @@ public class BuildingManager : MonoBehaviour
                 chosenMesh = wood_Wall_Mesh;
             else if (ghost_PointedAt.GetComponent<Building_Ghost>().buildingType == BuildingType.Wall && ghost_PointedAt.GetComponent<Building_Ghost>().buildingSubType == BuildingSubType.Wall_Diagonaly)
                 chosenMesh = wood_WallDiagonaly_Mesh;
+            else if (ghost_PointedAt.GetComponent<Building_Ghost>().buildingType == BuildingType.Wall_Triangle)
+                chosenMesh = wood_WallTriangle_Mesh;
             else if (ghost_PointedAt.GetComponent<Building_Ghost>().buildingType == BuildingType.Window)
                 chosenMesh = wood_Window_Mesh;
 
@@ -853,7 +858,7 @@ public class BuildingManager : MonoBehaviour
         else if (buildingMaterial_Selected == BuildingMaterial.Stone)
         {
             if (ghost_PointedAt.GetComponent<Building_Ghost>().buildingType == BuildingType.Door)
-                chosenMesh = stone_Door_Mesh;
+                chosenMesh = stone_DoorFrame_Mesh;
             else if (ghost_PointedAt.GetComponent<Building_Ghost>().buildingType == BuildingType.Fence && ghost_PointedAt.GetComponent<Building_Ghost>().buildingSubType == BuildingSubType.None)
                 chosenMesh = stone_Fence_Mesh;
             else if (ghost_PointedAt.GetComponent<Building_Ghost>().buildingType == BuildingType.Fence && ghost_PointedAt.GetComponent<Building_Ghost>().buildingSubType == BuildingSubType.Wall_Diagonaly)
@@ -874,6 +879,8 @@ public class BuildingManager : MonoBehaviour
                 chosenMesh = stone_Wall_Mesh;
             else if (ghost_PointedAt.GetComponent<Building_Ghost>().buildingType == BuildingType.Wall && ghost_PointedAt.GetComponent<Building_Ghost>().buildingSubType == BuildingSubType.Wall_Diagonaly)
                 chosenMesh = stone_WallDiagonaly_Mesh;
+            else if (ghost_PointedAt.GetComponent<Building_Ghost>().buildingType == BuildingType.Wall_Triangle)
+                chosenMesh = stone_WallTriangle_Mesh;
             else if (ghost_PointedAt.GetComponent<Building_Ghost>().buildingType == BuildingType.Window)
                 chosenMesh = stone_Window_Mesh;
 
@@ -887,7 +894,7 @@ public class BuildingManager : MonoBehaviour
         else if (buildingMaterial_Selected == BuildingMaterial.Iron)
         {
             if (ghost_PointedAt.GetComponent<Building_Ghost>().buildingType == BuildingType.Door)
-                chosenMesh = iron_Door_Mesh;
+                chosenMesh = iron_DoorFrame_Mesh;
             else if (ghost_PointedAt.GetComponent<Building_Ghost>().buildingType == BuildingType.Fence && ghost_PointedAt.GetComponent<Building_Ghost>().buildingSubType == BuildingSubType.None)
                 chosenMesh = iron_Fence_Mesh;
             else if (ghost_PointedAt.GetComponent<Building_Ghost>().buildingType == BuildingType.Fence && ghost_PointedAt.GetComponent<Building_Ghost>().buildingSubType == BuildingSubType.Wall_Diagonaly)
@@ -908,6 +915,8 @@ public class BuildingManager : MonoBehaviour
                 chosenMesh = iron_Wall_Mesh;
             else if (ghost_PointedAt.GetComponent<Building_Ghost>().buildingType == BuildingType.Wall && ghost_PointedAt.GetComponent<Building_Ghost>().buildingSubType == BuildingSubType.Wall_Diagonaly)
                 chosenMesh = iron_WallDiagonaly_Mesh;
+            else if (ghost_PointedAt.GetComponent<Building_Ghost>().buildingType == BuildingType.Wall_Triangle)
+                chosenMesh = iron_WallTriangle_Mesh;
             else if (ghost_PointedAt.GetComponent<Building_Ghost>().buildingType == BuildingType.Window)
                 chosenMesh = iron_Window_Mesh;
 

@@ -1035,12 +1035,16 @@ public class StorageManager : MonoBehaviour
         }
         else
         {
-            storageIsOpen = true;
+            if (MainManager.instance.menuStates == MenuStates.None)
+            {
+                storageIsOpen = true;
 
-            Cursor.lockState = CursorLockMode.None;
+                Cursor.lockState = CursorLockMode.None;
 
-            SetupStorageScreens(0);
+                SetupStorageScreens(0);
+            }
         }
+        
     }
     void CloseInventoryScreen()
     {
