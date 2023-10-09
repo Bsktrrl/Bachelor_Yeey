@@ -18,7 +18,8 @@ public enum BuildingType
     Fence_Diagonaly,
     Window,
     Door,
-    Stair
+    Stair,
+    Ramp_Triangle
 }
 public enum BuildingSubType
 {

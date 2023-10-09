@@ -126,6 +126,7 @@ public class SoundManager : MonoBehaviour
         if (audioSource != null)
         {
             audioSource.clip = stone_Placed;
+            audioSource.pitch = 0.7f;
             audioSource.volume = 1f;
             audioSource.Play();
         }

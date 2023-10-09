@@ -2001,8 +2001,8 @@ MonoBehaviour:
   ghost_PointedAt: {fileID: 0}
   buildingBlockCanBePlaced: 0
   BlockTagName: 
-  buildingType_Selected: 1
-  buildingMaterial_Selected: 2
+  buildingType_Selected: 3
+  buildingMaterial_Selected: 3
   BuildingDistance: {x: 4.25, y: 0.75}
   blockDirection_A: 0
   blockDirection_B: 0
@@ -2012,36 +2012,39 @@ MonoBehaviour:
   builingBlock_Wood_Wall_Diagonal: {fileID: 4763889419513853119, guid: e4684e8352a32cd47844545ce625ab21, type: 3}
   builingBlock_Wood_Ramp: {fileID: 4763889419513853119, guid: b656488a7bfbddc4197a80e7cfd51196, type: 3}
   builingBlock_Wood_Ramp_Corner: {fileID: 4763889419513853119, guid: 8f72aacb1736bb74c94fc865fb3a8449, type: 3}
+  builingBlock_Wood_Ramp_Triangle: {fileID: 4763889419513853119, guid: 0c6be6e53e32dae489717d7c0ba0340f, type: 3}
   builingBlock_Wood_Wall_Triangle: {fileID: 4763889419513853119, guid: fe34614a1a9fdec4c9b9e25123339115, type: 3}
   builingBlock_Wood_Fence: {fileID: 4763889419513853119, guid: bfe8b5e908a10584f98896caa8ac011f, type: 3}
   builingBlock_Wood_Fence_Diagonaly: {fileID: 4763889419513853119, guid: dd12d9f01ef30694d999f85050853e44, type: 3}
   builingBlock_Wood_Window: {fileID: 4763889419513853119, guid: 63b9c0304f3304c4b9bf2a33bbf475e2, type: 3}
   builingBlock_Wood_Door: {fileID: 4763889419513853119, guid: 6ef6f0966467e064ba7fc5a253f61cc7, type: 3}
   builingBlock_Wood_Stair: {fileID: 4763889419513853119, guid: d5b9a87501cd4d6499699ddbb2b1c0a1, type: 3}
-  builingBlock_Stone_Floor: {fileID: 4763889419513853119, guid: bb4e4e71df96b73418f03ed5cf4b72b2, type: 3}
-  builingBlock_Stone_Floor_Triangle: {fileID: 0}
-  builingBlock_Stone_Wall: {fileID: 0}
-  builingBlock_Stone_Wall_Diagonal: {fileID: 0}
-  builingBlock_Stone_Ramp: {fileID: 0}
-  builingBlock_Stone_Ramp_Corner: {fileID: 0}
-  builingBlock_Stone_Wall_Triangle: {fileID: 0}
-  builingBlock_Stone_Fence: {fileID: 0}
-  builingBlock_Stone_Fence_Diagonaly: {fileID: 0}
-  builingBlock_Stone_Window: {fileID: 0}
-  builingBlock_Stone_Door: {fileID: 0}
-  builingBlock_Stone_Stair: {fileID: 0}
-  builingBlock_Iron_Floor: {fileID: 0}
-  builingBlock_Iron_Floor_Triangle: {fileID: 0}
-  builingBlock_Iron_Wall: {fileID: 0}
-  builingBlock_Iron_Wall_Diagonal: {fileID: 0}
-  builingBlock_Iron_Ramp: {fileID: 0}
-  builingBlock_Iron_Ramp_Corner: {fileID: 0}
-  builingBlock_Iron_Wall_Triangle: {fileID: 0}
-  builingBlock_Iron_Fence: {fileID: 0}
-  builingBlock_Iron_Fence_Diagonaly: {fileID: 0}
-  builingBlock_Iron_Window: {fileID: 0}
-  builingBlock_Iron_Door: {fileID: 0}
-  builingBlock_Iron_Stair: {fileID: 0}
+  builingBlock_Stone_Floor: {fileID: 4763889419513853119, guid: 1f3aa7549daec6845b8a4d23f3585a5d, type: 3}
+  builingBlock_Stone_Floor_Triangle: {fileID: 4763889419513853119, guid: e92e427af708fcd4c92973bf740f36da, type: 3}
+  builingBlock_Stone_Wall: {fileID: 4763889419513853119, guid: f8981e835a786ea439bab839f6817e61, type: 3}
+  builingBlock_Stone_Wall_Diagonal: {fileID: 4763889419513853119, guid: 99775bb8778753e498f7d51a451b292c, type: 3}
+  builingBlock_Stone_Ramp: {fileID: 4763889419513853119, guid: b818942c39af58740a398477e6da6b34, type: 3}
+  builingBlock_Stone_Ramp_Corner: {fileID: 4763889419513853119, guid: 2cf80a3841ca9d04288891967a3ef9df, type: 3}
+  builingBlock_Stone_Ramp_Triangle: {fileID: 4763889419513853119, guid: b5b1782398d63654c8bafcd50815c8e5, type: 3}
+  builingBlock_Stone_Wall_Triangle: {fileID: 4763889419513853119, guid: d7eb92e4bee21af4cabdaffc45e8eed5, type: 3}
+  builingBlock_Stone_Fence: {fileID: 4763889419513853119, guid: ca78c62b0eb138e49b42f3647b9b4c43, type: 3}
+  builingBlock_Stone_Fence_Diagonaly: {fileID: 4763889419513853119, guid: 713187e6945a64043b607b85dbf7481a, type: 3}
+  builingBlock_Stone_Window: {fileID: 4763889419513853119, guid: b9899e119eedf01449de5b2cf7619ae5, type: 3}
+  builingBlock_Stone_Door: {fileID: 4763889419513853119, guid: 8debca0ced0be134a9c453f11e14cefa, type: 3}
+  builingBlock_Stone_Stair: {fileID: 4763889419513853119, guid: 8c488686ae1899e469b48c3f06b6b633, type: 3}
+  builingBlock_Iron_Floor: {fileID: 4763889419513853119, guid: 3dc3f0893ab709348adc969dc98edc27, type: 3}
+  builingBlock_Iron_Floor_Triangle: {fileID: 4763889419513853119, guid: da4f205c26d21c84b9e566ae93955cb3, type: 3}
+  builingBlock_Iron_Wall: {fileID: 4763889419513853119, guid: 5ee03b1381a9b9947b3c8a40470fea53, type: 3}
+  builingBlock_Iron_Wall_Diagonal: {fileID: 4763889419513853119, guid: 7c9135b1f7d74c744ae7e6cb931c6b10, type: 3}
+  builingBlock_Iron_Ramp: {fileID: 4763889419513853119, guid: 898ff64720516a54eae04912378111ad, type: 3}
+  builingBlock_Iron_Ramp_Corner: {fileID: 4763889419513853119, guid: 954b9c2ef8e05594ca05cb1ecf4acf17, type: 3}
+  builingBlock_Iron_Ramp_Triangle: {fileID: 4763889419513853119, guid: 407d8c0fe905bd545902fc682158420a, type: 3}
+  builingBlock_Iron_Wall_Triangle: {fileID: 4763889419513853119, guid: 3214e390bb2789f45a75b71a5c282e9f, type: 3}
+  builingBlock_Iron_Fence: {fileID: 4763889419513853119, guid: aa39f84c33a3aaa45833a8c68d0b8620, type: 3}
+  builingBlock_Iron_Fence_Diagonaly: {fileID: 4763889419513853119, guid: 7da8e925db8d7ce4495e7b00395cb39e, type: 3}
+  builingBlock_Iron_Window: {fileID: 4763889419513853119, guid: 7f7f551e361f2bc458591e8e76800ada, type: 3}
+  builingBlock_Iron_Door: {fileID: 4763889419513853119, guid: ac5aa630145b1f5479fa046def8f541b, type: 3}
+  builingBlock_Iron_Stair: {fileID: 4763889419513853119, guid: c35ff71333f18904c8493b8042198bc5, type: 3}
   invisible_Material: {fileID: 2100000, guid: 82ccea1b1bfc77e4a871cb9efc5db31e, type: 2}
   ghost_Material: {fileID: 2100000, guid: 5dc43eb6ada116e46877d050b1ec1761, type: 2}
   canPlace_Material: {fileID: 2100000, guid: e278a96e1265f6a499cc3b2f57dfb5a2, type: 2}

@@ -1,9 +1,8 @@
 BuildingSystem:
 - Make "Ghosts" transparent AND raytraceable
+- Remove Ghost when placing a Buildingblock to prevent overlap
 
-- Setup "Door"
-
-- Setup "Stone" and "Iron" variants
+- Finetune all Models to match their "DirectionMarkers" to their models, intuitively (ex. "Wood_Stair - Up" is too high)
 
 - Add "Rotation" to each BuildingBlock
 
