@@ -756,7 +756,7 @@ public class BuildingManager : MonoBehaviour
         if (blockLookingAt.ghostList[i].GetComponent<Building_Ghost>().buildingType != buildingType
             || blockLookingAt.ghostList[i].GetComponent<Building_Ghost>().buildingSubType != buildingSubType)
         {
-            print("Return!!!");
+            //print("Return!!!");
             return;
         }
 
