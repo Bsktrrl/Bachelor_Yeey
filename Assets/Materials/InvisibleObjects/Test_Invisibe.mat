@@ -7,7 +7,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Temp_East
+  m_Name: Test_Invisibe
   m_Shader: {fileID: 4800000, guid: 9eb0c1dd2ea445648b317e77657c476c, type: 3}
   m_ValidKeywords: []
   m_InvalidKeywords: []
@@ -63,7 +63,7 @@ Material:
     m_Ints: []
     m_Floats:
     - MyGlossiness: 0.5
-    - MyLightAngle: 45
+    - MyLightAngle: 50
     - MyMetallic: 0
     - MyStrengthScalor: 50
     - _BumpScale: 1
@@ -73,6 +73,7 @@ Material:
     - _GlossMapScale: 1
     - _Glossiness: 0.5
     - _GlossyReflections: 1
+    - _LightAngle: 50
     - _Metallic: 0
     - _Mode: 0
     - _OcclusionStrength: 1
@@ -80,12 +81,15 @@ Material:
     - _SmoothnessTextureChannel: 0
     - _SpecularHighlights: 1
     - _SrcBlend: 1
+    - _StrengthScalar: 50
     - _UVSec: 0
     - _ZWrite: 1
     m_Colors:
-    - MyColor: {r: 1, g: 1, b: 1, a: 1}
-    - MyLightDirection: {r: 0, g: 0, b: 1, a: 0}
-    - MyLightPosition: {r: 0, g: 0, b: 0, a: 0}
-    - _Color: {r: 0.0033174753, g: 1, b: 0, a: 1}
+    - MyColor: {r: 1, g: 0.37169808, b: 0.37169808, a: 1}
+    - MyLightDirection: {r: -0.03164145, g: -0, b: -0.99949926, a: 0}
+    - MyLightPosition: {r: 11.35, g: 1.82, b: 20.86, a: 0}
+    - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
+    - _LightDirection: {r: 0.9953962, g: -0, b: -0.09584594, a: 0}
+    - _LightPosition: {r: 18.04, g: 2.75, b: 12.3, a: 0}
   m_BuildTextureStacks: []

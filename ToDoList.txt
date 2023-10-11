@@ -27,6 +27,11 @@ BuildingSystem:
 - Add Detection on each GhostBlock so that the player cannot place a Block in range of another GameObject
 	- Make the GhostBlock Material "Red"
 
+- Add "Change Block"-functionality where the "BuildingHammer" can be set to "Change" and 1 of the 3 materials
+	- When pointing on a block, replace it with the block of the selected Material
+	- Use items based on building the new Block
+	- Recieve items based on "remove"-settings
+
 - Make functionality for placeing the the first block (must be a "Floor"-Block correctly leveled with the ground)
 
 - Make Save/Load-system when placing BuildingBlocks
