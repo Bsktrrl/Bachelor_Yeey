@@ -7,6 +7,11 @@ using UnityEngine.UI;
 public class BuildingSystemMenu : MonoBehaviour
 {
     public static BuildingSystemMenu instance { get; set; } //Singleton
+    [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.AfterAssembliesLoaded)]
+    static void Reinitialize()
+    {
+        instance = null;
+    }
 
     [SerializeField] GameObject buildingSystemMenu;
     public Image selectedBuildingBlockImage;

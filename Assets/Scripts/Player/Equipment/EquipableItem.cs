@@ -38,9 +38,12 @@ public class EquipableItem : MonoBehaviour
         //The point in the animation where equipped item hits
 
         //If Axe is equipped
-        if (subCategories == ItemSubCategories.Axe && SelectionManager.instance.selectedTree.GetComponent<ChoppableTree>().treeParent != null)
+        if (subCategories == ItemSubCategories.Axe && SelectionManager.instance.selectedTree != null)
         {
-            SelectionManager.instance.selectedTree.GetComponent<ChoppableTree>().treeParent.gameObject.GetComponent<TreeParent>().ObjectInteraction();
+            if (SelectionManager.instance.selectedTree.GetComponent<ChoppableTree>().treeParent != null)
+            {
+                SelectionManager.instance.selectedTree.GetComponent<ChoppableTree>().treeParent.gameObject.GetComponent<TreeParent>().ObjectInteraction();
+            }
         }
     }
 
