@@ -21,6 +21,8 @@ public class Item
     [TextArea (5, 10)] public string itemDescription;
     public Sprite itemSprite;
     public Vector2 itemSize;
+
+    public GameObject worldObjectPrefab;
     public GameObject equippedPrefab;
 
     [Header("Stats")]

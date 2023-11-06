@@ -31,6 +31,8 @@ public class DataManager : MonoBehaviour, IDataPersistance
 
     //Inventories
     [HideInInspector] public List<Inventories> inventories_StoreList = new List<Inventories>();
+    [HideInInspector] public List<GridInventory> gridInventories_StoreList = new List<GridInventory>();
+
 
 
     //--------------------
@@ -60,6 +62,8 @@ public class DataManager : MonoBehaviour, IDataPersistance
         this.playerRot_Store = gameData.playerRot_Save;
 
         this.inventories_StoreList = gameData.inventories_SaveList;
+        this.gridInventories_StoreList = gameData.gridInventories_SaveList;
+
         this.worldObjects_StoreList = gameData.worldObjects_SaveList;
         this.pickupObject_CheckStoreList = gameData.pickupObject_CheckSaveList;
 
@@ -81,6 +85,8 @@ public class DataManager : MonoBehaviour, IDataPersistance
         gameData.playerRot_Save = this.playerRot_Store;
 
         gameData.inventories_SaveList = this.inventories_StoreList;
+        gameData.gridInventories_SaveList = this.gridInventories_StoreList;
+
         gameData.worldObjects_SaveList = this.worldObjects_StoreList;
         gameData.pickupObject_CheckSaveList = this.pickupObject_CheckStoreList;
     }
