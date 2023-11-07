@@ -55,6 +55,7 @@ public class SelectionManager : MonoBehaviour
 
                 //When reycasting something that is interactable
                 PickupObject pickupObject = selectionTransform.GetComponent<PickupObject>();
+                InteractableObject interactableObject = selectionTransform.GetComponent<InteractableObject>();
                 InventoryObject inventoryObject = selectionTransform.GetComponent<InventoryObject>();
                 ChoppableTree choppableTree = selectionTransform.GetComponent<ChoppableTree>();
 
@@ -82,6 +83,14 @@ public class SelectionManager : MonoBehaviour
                     onTarget = true;
 
                     selecedObject = pickupObject.gameObject;
+                }
+                else if (interactableObject && interactableObject.playerInRange)
+                {
+                    interaction_text.text = interactableObject.itemName.ToString();
+                    interaction_Info_UI.SetActive(true);
+                    onTarget = true;
+
+                    selecedObject = interactableObject.gameObject;
                 }
                 else if (inventoryObject && inventoryObject.playerInRange)
                 {

@@ -67,6 +67,7 @@ public class PickupObject : MonoBehaviour
             EquipmentManager.instance.itemIsbeingEquipped = true;
 
             StorageManager.instance.AddItem(itemName, amount);
+            //InventorySystem.instance.PickUpItem();
 
             //Remove Subscription to Event
             PlayerButtonManager.leftMouse_isPressedDown -= ObjectInteraction;

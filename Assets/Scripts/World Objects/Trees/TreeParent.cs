@@ -30,20 +30,21 @@ public class TreeParent : MonoBehaviour
             && MainManager.instance.menuStates == MenuStates.None
             && HandManager.instance.selectedSlotItem.subCategoryName == ItemSubCategories.Axe)
         {
+            print("ObjectInteraction");
             HP -= 1;
 
             if (HP <= 0)
             {
                 animator.SetTrigger("TreeCut");
+            }
+            else
+            {
+                animator.SetTrigger("TreeShake");
 
                 if (EquipmentManager.instance.toolHolderParent != null)
                 {
                     EquipmentManager.instance.toolHolderParent.GetComponentInChildren<EquipableItem>().RemoveDurability();
                 }
-            }
-            else
-            {
-                animator.SetTrigger("TreeShake");
             }
         }
     }

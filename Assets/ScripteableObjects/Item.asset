@@ -16,9 +16,10 @@ MonoBehaviour:
   - itemName: 0
     categoryName: 0
     subCategoryName: 0
-    itemSprite: {fileID: 1407191923, guid: 1f255744973958242ac00594a0e33b8b, type: 3}
-    equippedPrefab: {fileID: 0}
     itemDescription: 
+    itemSprite: {fileID: 1407191923, guid: 1f255744973958242ac00594a0e33b8b, type: 3}
+    itemSize: {x: 0, y: 0}
+    equippedPrefab: {fileID: 0}
     isActive: 0
     itemStackMax: 0
     isEquipable: 0
@@ -28,9 +29,10 @@ MonoBehaviour:
   - itemName: 1
     categoryName: 2
     subCategoryName: 1
-    itemSprite: {fileID: -1155670942, guid: 1f255744973958242ac00594a0e33b8b, type: 3}
-    equippedPrefab: {fileID: 0}
     itemDescription: This is a stone that can be used in crafting recipes.
+    itemSprite: {fileID: -1155670942, guid: 1f255744973958242ac00594a0e33b8b, type: 3}
+    itemSize: {x: 1, y: 1}
+    equippedPrefab: {fileID: 0}
     isActive: 1
     itemStackMax: 5
     isEquipable: 0
@@ -40,9 +42,10 @@ MonoBehaviour:
   - itemName: 2
     categoryName: 2
     subCategoryName: 2
-    itemSprite: {fileID: 1194086436, guid: 1f255744973958242ac00594a0e33b8b, type: 3}
-    equippedPrefab: {fileID: 0}
     itemDescription: This is a plank that can be used in crafting recipes.
+    itemSprite: {fileID: 1194086436, guid: 1f255744973958242ac00594a0e33b8b, type: 3}
+    itemSize: {x: 2, y: 2}
+    equippedPrefab: {fileID: 0}
     isActive: 1
     itemStackMax: 5
     isEquipable: 0
@@ -52,9 +55,10 @@ MonoBehaviour:
   - itemName: 3
     categoryName: 2
     subCategoryName: 3
-    itemSprite: {fileID: 1617181306, guid: 1f255744973958242ac00594a0e33b8b, type: 3}
-    equippedPrefab: {fileID: 0}
     itemDescription: This is a leaf that can be used in crafting recipes.
+    itemSprite: {fileID: 1617181306, guid: 1f255744973958242ac00594a0e33b8b, type: 3}
+    itemSize: {x: 3, y: 3}
+    equippedPrefab: {fileID: 0}
     isActive: 1
     itemStackMax: 20
     isEquipable: 0
@@ -64,14 +68,15 @@ MonoBehaviour:
   - itemName: 4
     categoryName: 4
     subCategoryName: 5
-    itemSprite: {fileID: -1939646702, guid: 1f255744973958242ac00594a0e33b8b, type: 3}
-    equippedPrefab: {fileID: 2553926483823156083, guid: da39f2b4d3c87d44cbefd48ae6bd425f, type: 3}
     itemDescription: When Equipped, this Axe can be used to chop down trees and building
       parts.
+    itemSprite: {fileID: -1939646702, guid: 1f255744973958242ac00594a0e33b8b, type: 3}
+    itemSize: {x: 0, y: 0}
+    equippedPrefab: {fileID: 2553926483823156083, guid: da39f2b4d3c87d44cbefd48ae6bd425f, type: 3}
     isActive: 1
     itemStackMax: 1
     isEquipable: 1
-    HP: 5
+    HP: 5000
     isCrafteable: 1
     craftingRequirements:
     - itemName: 1
@@ -83,10 +88,11 @@ MonoBehaviour:
   - itemName: 5
     categoryName: 4
     subCategoryName: 6
-    itemSprite: {fileID: 1958595480, guid: 1f255744973958242ac00594a0e33b8b, type: 3}
-    equippedPrefab: {fileID: 1693644012290509181, guid: 12d8621cfba74e24d95af7901dc50e1f, type: 3}
     itemDescription: When Equipped, this Building Hammer can be used to build building
       parts in the world.
+    itemSprite: {fileID: 1958595480, guid: 1f255744973958242ac00594a0e33b8b, type: 3}
+    itemSize: {x: 0, y: 0}
+    equippedPrefab: {fileID: 1693644012290509181, guid: 12d8621cfba74e24d95af7901dc50e1f, type: 3}
     isActive: 1
     itemStackMax: 1
     isEquipable: 1
@@ -100,10 +106,11 @@ MonoBehaviour:
   - itemName: 6
     categoryName: 3
     subCategoryName: 10
-    itemSprite: {fileID: 1821045299, guid: 1f255744973958242ac00594a0e33b8b, type: 3}
-    equippedPrefab: {fileID: 0}
     itemDescription: When holding a Small Chest, left click to spawn it into the
       world. You can use it as a second storage.
+    itemSprite: {fileID: 1821045299, guid: 1f255744973958242ac00594a0e33b8b, type: 3}
+    itemSize: {x: 0, y: 0}
+    equippedPrefab: {fileID: 0}
     isActive: 1
     itemStackMax: 5
     isEquipable: 0
@@ -119,10 +126,11 @@ MonoBehaviour:
   - itemName: 7
     categoryName: 3
     subCategoryName: 10
-    itemSprite: {fileID: 1780038997, guid: 1f255744973958242ac00594a0e33b8b, type: 3}
-    equippedPrefab: {fileID: 0}
     itemDescription: When holding a Medium Chest, left click to spawn it into the
       world. You can use it as a second storage.
+    itemSprite: {fileID: 1780038997, guid: 1f255744973958242ac00594a0e33b8b, type: 3}
+    itemSize: {x: 0, y: 0}
+    equippedPrefab: {fileID: 0}
     isActive: 1
     itemStackMax: 5
     isEquipable: 0

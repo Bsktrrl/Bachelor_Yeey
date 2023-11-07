@@ -18,9 +18,12 @@ public class Item
     public Items itemName;
     public ItemCategories categoryName;
     public ItemSubCategories subCategoryName;
-    public Sprite itemSprite;
-    public GameObject equippedPrefab;
     [TextArea (5, 10)] public string itemDescription;
+    public Sprite itemSprite;
+    public Vector2 itemSize;
+
+    public GameObject worldObjectPrefab;
+    public GameObject equippedPrefab;
 
     [Header("Stats")]
     public bool isActive;

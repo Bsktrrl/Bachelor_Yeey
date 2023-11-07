@@ -13,7 +13,7 @@ public class ChoppableTree : MonoBehaviour
     public float treeMaxHealth;
     public float treeCurrentHealth;
 
-    SphereCollider accessCollider = new SphereCollider();
+    //SphereCollider accessCollider = new SphereCollider();
 
 
     //--------------------
@@ -22,9 +22,9 @@ public class ChoppableTree : MonoBehaviour
     private void Start()
     {
         //Add SphereCollider for interacting with the tree
-        accessCollider = gameObject.AddComponent<SphereCollider>();
-        accessCollider.radius = WorldObjectManager.instance.objectColliderRadius;
-        accessCollider.isTrigger = true;
+        //accessCollider = gameObject.AddComponent<SphereCollider>();
+        //accessCollider.radius = WorldObjectManager.instance.objectColliderRadius;
+        //accessCollider.isTrigger = true;
 
         treeCurrentHealth = treeMaxHealth;
     }
