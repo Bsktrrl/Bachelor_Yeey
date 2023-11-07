@@ -4,12 +4,14 @@ using UnityEngine;
 
 public class InteractableObject : MonoBehaviour
 {
+    [SerializeField] GridInventoryManager gridManager;
+
     [Header("item Stats")]
     //public bool isActive = true;
     public bool playerInRange;
 
     public Items itemName;
-    GridInventoryItem gridInventoryItem;
+    GridInventoryItem gridInventoryItem = new GridInventoryItem();
 
     //public Vector3 objectPos;
 
