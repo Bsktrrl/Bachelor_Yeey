@@ -34,11 +34,9 @@ public class GridObject
     //changes what object placed in this grid object
     public void SetItem(Items itemName)
     {
-        Debug.Log("1. Set Item");
         this.item = GetItem(itemName);
         if (itemSlot == null)
         {
-            Debug.Log("2. itemImage == null");
             itemSlot = GameObject.Instantiate(uiPrefab, new Vector3(0, 0, 0) * grid.GetCellSize(), Quaternion.identity, inventoryTab.transform);
         }
 
@@ -107,7 +105,6 @@ public class GridObject
 
     public void SetTempAsReal()
     {
-        Debug.Log("SetTempAsReal");
         ClearItem();
 
         if (!EmptyTemp())

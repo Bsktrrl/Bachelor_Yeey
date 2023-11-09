@@ -99,14 +99,14 @@ public class WorldObjectManager : MonoBehaviour
 
     void Save()
     {
-        DataManager.instance.worldObjects_StoreList = worldObjectsInfoList;
+        //DataManager.instance.worldObjects_StoreList = worldObjectsInfoList;
         
         //print("WorldObjectManager - All data Saved");
     }
     void Load()
     {
         //DataPersistanceManager.instance.LoadGame();
-        worldObjectsInfoList = DataManager.instance.worldObjects_StoreList;
+        //worldObjectsInfoList = DataManager.instance.worldObjects_StoreList;
 
         BuildObjectsFromLoad();
 

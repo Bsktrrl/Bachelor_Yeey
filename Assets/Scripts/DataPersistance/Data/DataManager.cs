@@ -26,8 +26,6 @@ public class DataManager : MonoBehaviour, IDataPersistance
     [HideInInspector] public Quaternion playerRot_Store = new Quaternion();
 
     //WorldObjects
-    [HideInInspector] public List<ObjectClassSavingVariables> worldObjects_StoreList = new List<ObjectClassSavingVariables>();
-    [HideInInspector] public List<PickupObjectData> pickupObject_CheckStoreList = new List<PickupObjectData>();
 
     //Inventories
     [HideInInspector] public List<Inventories> inventories_StoreList = new List<Inventories>();
@@ -64,11 +62,6 @@ public class DataManager : MonoBehaviour, IDataPersistance
         this.inventories_StoreList = gameData.inventories_SaveList;
         this.gridInventories_StoreList = gameData.gridInventories_SaveList;
 
-        this.worldObjects_StoreList = gameData.worldObjects_SaveList;
-        this.pickupObject_CheckStoreList = gameData.pickupObject_CheckSaveList;
-
-        print("Save size: " + gameData.worldObjects_SaveList.Count);
-
         datahasLoaded?.Invoke();
 
         print("Data has Loaded");
@@ -78,8 +71,6 @@ public class DataManager : MonoBehaviour, IDataPersistance
     {
         dataIsSaving?.Invoke();
 
-        print("Data has Saved");
-
         //Input what to save
         gameData.playerPos_Save = this.playerPos_Store;
         gameData.playerRot_Save = this.playerRot_Store;
@@ -87,7 +78,6 @@ public class DataManager : MonoBehaviour, IDataPersistance
         gameData.inventories_SaveList = this.inventories_StoreList;
         gameData.gridInventories_SaveList = this.gridInventories_StoreList;
 
-        gameData.worldObjects_SaveList = this.worldObjects_StoreList;
-        gameData.pickupObject_CheckSaveList = this.pickupObject_CheckStoreList;
+        print("Data has Saved");
     }
 }

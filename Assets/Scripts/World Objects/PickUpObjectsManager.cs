@@ -147,13 +147,13 @@ public class PickUpObjectsManager : MonoBehaviour
 
     void Load()
     {
-        pickupObject_CheckList = DataManager.instance.pickupObject_CheckStoreList;
+        //pickupObject_CheckList = DataManager.instance.pickupObject_CheckStoreList;
 
         UpdatePickupDataList();
     }
     void Save()
     {
-        DataManager.instance.pickupObject_CheckStoreList = pickupObject_CheckList;
+        //DataManager.instance.pickupObject_CheckStoreList = pickupObject_CheckList;
     }
 }
 

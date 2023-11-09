@@ -8,7 +8,7 @@ public class InteractableObject : MonoBehaviour
     public bool playerInRange;
 
     public Items itemName;
-    GridInventoryItem item = new GridInventoryItem();
+    public GridInventoryItem item = new GridInventoryItem();
 
     SphereCollider accessCollider = new SphereCollider();
 
@@ -44,15 +44,11 @@ public class InteractableObject : MonoBehaviour
 
     void ObjectInteraction()
     {
-        print("Clicked");
-
         if (playerInRange && SelectionManager.instance.onTarget && SelectionManager.instance.selecedObject == gameObject
             && MainManager.instance.menuStates == MenuStates.None)
         {
-            print("Is PickUp");
-
             //Always add an item from the world to the player's inventory
-            if (GridInventoryManager.instance.AddItemToInventory(0, item))
+            if (GridInventoryManager.instance.AddItemToInventory(0, gameObject))
             {
                 //Remove this gameObject from the worldObjectList
 
@@ -68,12 +64,7 @@ public class InteractableObject : MonoBehaviour
                 //Display message that the inventory cannot take the item because of pace issues
 
                 //Leave this gameObject in the world
-
             }
-        }
-        else
-        {
-            print("Not PickUp");
         }
     }
 

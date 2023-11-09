@@ -19,6 +19,10 @@ public class SoundManager : MonoBehaviour
     [SerializeField] AudioClip menu_DropItem_Clip;
     [SerializeField] AudioClip menu_SortInventory_Clip;
 
+    [SerializeField] AudioClip menu_AddItemToInevntory_Clip;
+    [SerializeField] AudioClip menu_RemoveItemFromInevntory_Clip;
+    [SerializeField] AudioClip menu_InventoryIsFull_Clip;
+
     //Crafting
     [Header("Crafting")]
     [SerializeField] AudioClip menu_ChangeCraftingScreen_Clip;
@@ -86,6 +90,33 @@ public class SoundManager : MonoBehaviour
         if (audioSource != null)
         {
             audioSource.clip = menu_SortInventory_Clip;
+            audioSource.volume = 1f;
+            audioSource.Play();
+        }
+    }
+    public void Playmenu_AddItemToInevntory_Clip()
+    {
+        if (audioSource != null)
+        {
+            audioSource.clip = menu_AddItemToInevntory_Clip;
+            audioSource.volume = 1f;
+            audioSource.Play();
+        }
+    }
+    public void Playmenu_RemoveItemFromInevntory_Clip()
+    {
+        if (audioSource != null)
+        {
+            audioSource.clip = menu_RemoveItemFromInevntory_Clip;
+            audioSource.volume = 1f;
+            audioSource.Play();
+        }
+    }
+    public void Playmenu_InventoryIsFull_Clip()
+    {
+        if (audioSource != null)
+        {
+            audioSource.clip = menu_InventoryIsFull_Clip;
             audioSource.volume = 1f;
             audioSource.Play();
         }
