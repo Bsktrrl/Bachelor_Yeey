@@ -63,7 +63,7 @@ public class EquipmentManager : MonoBehaviour
             return;
         }
 
-        print(HandManager.instance.selectedSlotItem.itemName + " is equipped. | isEquipeable: " + HandManager.instance.selectedSlotItem.isEquipable);
+        //print(HandManager.instance.selectedSlotItem.itemName + " is equipped. | isEquipeable: " + HandManager.instance.selectedSlotItem.isEquipable);
 
         //Check if item has required states
         if (HandManager.instance.selectedSlotItem.isEquipable && toolHolderParent.GetComponentInChildren<EquipableItem>() != null)

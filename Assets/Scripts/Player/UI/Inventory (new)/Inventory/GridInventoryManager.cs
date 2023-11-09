@@ -5,16 +5,9 @@ using UnityEngine;
 using UnityEngine.UI;
 using System.Linq;
 
-public class GridInventoryManager : MonoBehaviour
+public class GridInventoryManager : MonoBehaviour, IDataPersistance
 {
-    #region Singleton
     public static GridInventoryManager instance { get; private set; } //Singleton
-    [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.AfterAssembliesLoaded)]
-    static void Reinitialize()
-    {
-        instance = null;
-    }
-    #endregion
 
     [Header("Items")]
     public Item_SO item_SO;
@@ -28,7 +21,12 @@ public class GridInventoryManager : MonoBehaviour
     [SerializeField] int gridHeight = 7;
     [SerializeField] float cellSize = 100f;
 
-    public InteractableObject fillerItem_Prefab;
+    public Item fillerItem_Prefab;
+
+    public GameObject inventoryTab;
+    public GameObject uiPrefab;
+
+    bool storageIsOpen;
 
 
     //--------------------
@@ -48,28 +46,44 @@ public class GridInventoryManager : MonoBehaviour
 
         //create the grid
         grid = new Grid<GridObject>(gridWidth, gridHeight, cellSize, new Vector3(0, 0, 0), (Grid<GridObject> g, int x, int y) => new GridObject(g, x, y));
+
+        GridObject.inventoryTab = inventoryTab;
+        GridObject.uiPrefab = uiPrefab;
     }
     private void Start()
     {
-        DataManager.datahasLoaded += Load_Inventories;
-        DataManager.dataIsSaving += Save_Inventories;
+        PlayerButtonManager.Tab_isPressedDown += OpenPlayerInventory;
+        PlayerButtonManager.Esc_isPressedDown += CloseInventoryScreen;
+
+        //SortItems(inventories[0].itemsInInventory);
+
+        fillerItem_Prefab = item_SO.itemList[0];
     }
 
 
     //--------------------
 
 
-    void Load_Inventories()
+    public void LoadData(GameData gameData)
     {
+        print("Load_Inventories");
         inventories = DataManager.instance.gridInventories_StoreList;
 
         //Safty Inventory check if starting a new game - Always have at least 1 inventory
         if (inventories.Count <= 0)
         {
+            print("AddInventory");
             AddInventory(new Vector2(5, 7));
+
+            SaveData();
         }
     }
-    void Save_Inventories()
+
+    public void SaveData()
+    {
+        DataManager.instance.gridInventories_StoreList = inventories;
+    }
+    public void SaveData(ref GameData gameData)
     {
         DataManager.instance.gridInventories_StoreList = inventories;
     }
@@ -85,27 +99,26 @@ public class GridInventoryManager : MonoBehaviour
         inventories.Add(inventory);
 
         //Set inventory stats
-        inventories[inventories.Count - 1].states = InventoryStatus.Empty;
         inventories[inventories.Count - 1].isOpen = false;
 
         inventories[inventories.Count - 1].index = inventories.Count - 1;
         inventories[inventories.Count - 1].inventorySize = size;
 
-        Save_Inventories();
+        SaveData();
         print("Inventory Added");
     }
     public void RemoveInventory(int index)
     {
         inventories.RemoveAt(index);
 
-        Save_Inventories();
+        SaveData();
         print("Inventory removed");
     }
     public void SetInventorySize(int index, Vector2 size)
     {
         inventories[index].inventorySize = size;
 
-        Save_Inventories();
+        SaveData();
         print("Inventory size set to: (" + inventories[index].inventorySize.x + ", " + inventories[index].inventorySize.y + ")");
     }
 
@@ -127,7 +140,7 @@ public class GridInventoryManager : MonoBehaviour
             return false;
         }
 
-        Save_Inventories();
+        SaveData();
         print("Saved new item in the inventory: " + inventory);
         
         return true;
@@ -139,7 +152,7 @@ public class GridInventoryManager : MonoBehaviour
             if (inventories[inventory].itemsInInventory[i].itemName == itemName)
             {
                 //Remove item from the selected inventory
-                inventories.RemoveAt(i);
+                inventories[inventory].itemsInInventory.RemoveAt(i);
 
                 //Sort inventory
                 SortItems(inventories[inventory].itemsInInventory);
@@ -147,7 +160,7 @@ public class GridInventoryManager : MonoBehaviour
                 //Drop the item into the World
                 DropItemIntoTheWorld();
 
-                Save_Inventories();
+                SaveData();
                 print("Removed item from its inventories_list");
             }
         }
@@ -181,8 +194,6 @@ public class GridInventoryManager : MonoBehaviour
 
     void ResetTempValues()
     {
-        print("reset temp");
-
         foreach (GridObject obj in grid.gridArray)
         {
             obj.ClearTemp();
@@ -233,16 +244,20 @@ public class GridInventoryManager : MonoBehaviour
                 //check if the spot is empty
                 if (grid.GetGridObject(x, y).EmptyTemp())
                 {
+                    print("1. Spot Empty");
                     //check if size one
                     if (item.itemSize == Vector2.one)
                     {
+                        print("2. Size One");
                         AssignItemToSpot(item.itemName, x, y);
                         return true;
                     }
                     else
                     {
+                        print("3. Size more than One");
                         if (CheckIfFits(item, new Vector2(x, y)))
                         {
+                            print("4. Fits");
                             return true;
                         }
                     }
@@ -251,6 +266,7 @@ public class GridInventoryManager : MonoBehaviour
             }
         }
 
+        print("5. no spots found");
         //after checking every coordinate, no spots found
         return false;
     }
@@ -259,12 +275,15 @@ public class GridInventoryManager : MonoBehaviour
     //returns false if items cannot be sorted, and deletes all the temporary values
     bool SortItems(List<GridInventoryItem> inventoryItemNameList)
     {
-        print("SortItems");
-
-        //sort items by size
+        //Sort items by size
         if (inventoryItemNameList.Count > 0)
         {
-            var sortedList = inventoryItemNameList.OrderByDescending(d => d.itemSize.x * d.itemSize.y);
+            List<GridInventoryItem> sortedList = inventoryItemNameList.OrderByDescending(item => item.itemSize.x * item.itemSize.y).ToList();
+
+            //for (int i = 0; i < sortedList.Count; i++)
+            //{
+            //    print("Name " + i + " : "+ sortedList[i].itemName);
+            //}
 
             //place items systematically
             foreach (GridInventoryItem item in sortedList)
@@ -272,8 +291,8 @@ public class GridInventoryManager : MonoBehaviour
                 bool hasSpot = AvailableSpot(GetItem(item.itemName));
                 if (hasSpot == false)
                 {
-                    Debug.Log("doesnt fit!");
                     ResetTempValues();
+
                     return false;
                 }
             }
@@ -281,6 +300,7 @@ public class GridInventoryManager : MonoBehaviour
 
         foreach (GridObject obj in grid.gridArray)
         {
+            print("SetTempAsReal");
             obj.SetTempAsReal();
         }
 
@@ -300,13 +320,49 @@ public class GridInventoryManager : MonoBehaviour
         return null;
     }
 
+    void DropItemIntoTheWorld()
+    {
+        print("DropItemIntoTheWorld");
+    }
+
 
     //--------------------
 
 
-    void DropItemIntoTheWorld()
+    void OpenPlayerInventory()
     {
+        if (storageIsOpen)
+        {
+            CloseInventoryScreen();
+        }
+        else
+        {
+            if (MainManager.instance.menuStates == MenuStates.None)
+            {
+                //Sort Player Inventory
+                SortItems(inventories[0].itemsInInventory);
 
+                storageIsOpen = true;
+
+                Cursor.lockState = CursorLockMode.None;
+                MainManager.instance.menuStates = MenuStates.InventoryMenu;
+
+                inventoryTab.SetActive(true);
+            }
+        }
+
+    }
+    void CloseInventoryScreen()
+    {
+        if (MainManager.instance.menuStates == MenuStates.InventoryMenu)
+        {
+            inventoryTab.SetActive(false);
+
+            storageIsOpen = false;
+
+            Cursor.lockState = CursorLockMode.Locked;
+            MainManager.instance.menuStates = MenuStates.None;
+        }
     }
 }
 
@@ -318,7 +374,6 @@ public class GridInventoryManager : MonoBehaviour
 public class GridInventory
 {
     [Header("Status")]
-    public InventoryStatus states;
     public bool isOpen;
 
     [Header("General")]
@@ -334,15 +389,4 @@ public class GridInventoryItem
 {
     public Items itemName;
     public Vector2 itemSize;
-}
-
-
-//--------------------
-
-
-public enum InventoryStatus
-{
-    Empty,
-    hasItems,
-    Full
 }

@@ -18,8 +18,11 @@ MonoBehaviour:
     subCategoryName: 0
     itemDescription: 
     itemSprite: {fileID: 1407191923, guid: 1f255744973958242ac00594a0e33b8b, type: 3}
-    itemSize: {x: 0, y: 0}
+    itemSize: {x: 1, y: 1}
+    worldObjectPrefab: {fileID: 0}
     equippedPrefab: {fileID: 0}
+    idleAnimation: {fileID: 0}
+    actionAnimation: {fileID: 0}
     isActive: 0
     itemStackMax: 0
     isEquipable: 0
@@ -30,9 +33,12 @@ MonoBehaviour:
     categoryName: 2
     subCategoryName: 1
     itemDescription: This is a stone that can be used in crafting recipes.
-    itemSprite: {fileID: -1155670942, guid: 1f255744973958242ac00594a0e33b8b, type: 3}
+    itemSprite: {fileID: 219978612, guid: 1f255744973958242ac00594a0e33b8b, type: 3}
     itemSize: {x: 1, y: 1}
+    worldObjectPrefab: {fileID: 4279313669877795266, guid: 28be7c47a9c5332429ac67d42f39dbbc, type: 3}
     equippedPrefab: {fileID: 0}
+    idleAnimation: {fileID: 0}
+    actionAnimation: {fileID: 0}
     isActive: 1
     itemStackMax: 5
     isEquipable: 0
@@ -43,9 +49,12 @@ MonoBehaviour:
     categoryName: 2
     subCategoryName: 2
     itemDescription: This is a plank that can be used in crafting recipes.
-    itemSprite: {fileID: 1194086436, guid: 1f255744973958242ac00594a0e33b8b, type: 3}
+    itemSprite: {fileID: 1481827232, guid: 1f255744973958242ac00594a0e33b8b, type: 3}
     itemSize: {x: 2, y: 2}
+    worldObjectPrefab: {fileID: 2937703576817829625, guid: 88618f6b46af1d4499f8d961a3befbac, type: 3}
     equippedPrefab: {fileID: 0}
+    idleAnimation: {fileID: 0}
+    actionAnimation: {fileID: 0}
     isActive: 1
     itemStackMax: 5
     isEquipable: 0
@@ -56,9 +65,12 @@ MonoBehaviour:
     categoryName: 2
     subCategoryName: 3
     itemDescription: This is a leaf that can be used in crafting recipes.
-    itemSprite: {fileID: 1617181306, guid: 1f255744973958242ac00594a0e33b8b, type: 3}
+    itemSprite: {fileID: 1251788390, guid: 1f255744973958242ac00594a0e33b8b, type: 3}
     itemSize: {x: 3, y: 3}
+    worldObjectPrefab: {fileID: 2833017258156135846, guid: 3fa7c29e95361c240985744d936a1edb, type: 3}
     equippedPrefab: {fileID: 0}
+    idleAnimation: {fileID: 0}
+    actionAnimation: {fileID: 0}
     isActive: 1
     itemStackMax: 20
     isEquipable: 0
@@ -72,7 +84,10 @@ MonoBehaviour:
       parts.
     itemSprite: {fileID: -1939646702, guid: 1f255744973958242ac00594a0e33b8b, type: 3}
     itemSize: {x: 0, y: 0}
+    worldObjectPrefab: {fileID: 0}
     equippedPrefab: {fileID: 2553926483823156083, guid: da39f2b4d3c87d44cbefd48ae6bd425f, type: 3}
+    idleAnimation: {fileID: 0}
+    actionAnimation: {fileID: 0}
     isActive: 1
     itemStackMax: 1
     isEquipable: 1
@@ -92,7 +107,10 @@ MonoBehaviour:
       parts in the world.
     itemSprite: {fileID: 1958595480, guid: 1f255744973958242ac00594a0e33b8b, type: 3}
     itemSize: {x: 0, y: 0}
+    worldObjectPrefab: {fileID: 0}
     equippedPrefab: {fileID: 1693644012290509181, guid: 12d8621cfba74e24d95af7901dc50e1f, type: 3}
+    idleAnimation: {fileID: 0}
+    actionAnimation: {fileID: 0}
     isActive: 1
     itemStackMax: 1
     isEquipable: 1
@@ -110,7 +128,10 @@ MonoBehaviour:
       world. You can use it as a second storage.
     itemSprite: {fileID: 1821045299, guid: 1f255744973958242ac00594a0e33b8b, type: 3}
     itemSize: {x: 0, y: 0}
+    worldObjectPrefab: {fileID: 0}
     equippedPrefab: {fileID: 0}
+    idleAnimation: {fileID: 0}
+    actionAnimation: {fileID: 0}
     isActive: 1
     itemStackMax: 5
     isEquipable: 0
@@ -130,7 +151,10 @@ MonoBehaviour:
       world. You can use it as a second storage.
     itemSprite: {fileID: 1780038997, guid: 1f255744973958242ac00594a0e33b8b, type: 3}
     itemSize: {x: 0, y: 0}
+    worldObjectPrefab: {fileID: 0}
     equippedPrefab: {fileID: 0}
+    idleAnimation: {fileID: 0}
+    actionAnimation: {fileID: 0}
     isActive: 1
     itemStackMax: 5
     isEquipable: 0

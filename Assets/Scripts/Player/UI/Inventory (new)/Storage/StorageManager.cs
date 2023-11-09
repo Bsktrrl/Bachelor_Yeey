@@ -121,8 +121,8 @@ public class StorageManager : MonoBehaviour
     private void Start()
     {
         //Make access to Events
-        PlayerButtonManager.Tab_isPressedDown += OpenPlayerInventory;
-        PlayerButtonManager.Esc_isPressedDown += CloseInventoryScreen;
+        //PlayerButtonManager.Tab_isPressedDown += OpenPlayerInventory;
+        //PlayerButtonManager.Esc_isPressedDown += CloseInventoryScreen;
 
         PlayerButtonManager.inventory_LeftMouse_isPressedDown += ItemStackPickAll;
         PlayerButtonManager.inventory_RightMouse_isPressedDown += ItemStack_PickOne;
@@ -1044,7 +1044,7 @@ public class StorageManager : MonoBehaviour
                 SetupStorageScreens(0);
             }
         }
-        
+
     }
     void CloseInventoryScreen()
     {

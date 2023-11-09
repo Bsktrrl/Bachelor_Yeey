@@ -25,6 +25,9 @@ public class Item
     public GameObject worldObjectPrefab;
     public GameObject equippedPrefab;
 
+    public Animation idleAnimation;
+    public Animation actionAnimation;
+
     [Header("Stats")]
     public bool isActive;
     public int itemStackMax;

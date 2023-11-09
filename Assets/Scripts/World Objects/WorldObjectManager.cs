@@ -122,7 +122,7 @@ public class WorldObjectManager : MonoBehaviour
     }
     void BuildObjectsFromLoad()
     {
-        print("Building InventoryObjectsList.Count = " + worldObjectsInfoList.Count);
+        //print("Building InventoryObjectsList.Count = " + worldObjectsInfoList.Count);
 
         worldObjectsList.Clear();
 

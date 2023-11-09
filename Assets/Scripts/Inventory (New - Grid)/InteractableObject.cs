@@ -4,16 +4,11 @@ using UnityEngine;
 
 public class InteractableObject : MonoBehaviour
 {
-    [SerializeField] GridInventoryManager gridManager;
-
     [Header("item Stats")]
-    //public bool isActive = true;
     public bool playerInRange;
 
     public Items itemName;
-    GridInventoryItem gridInventoryItem = new GridInventoryItem();
-
-    //public Vector3 objectPos;
+    GridInventoryItem item = new GridInventoryItem();
 
     SphereCollider accessCollider = new SphereCollider();
 
@@ -35,8 +30,8 @@ public class InteractableObject : MonoBehaviour
         {
             if (GridInventoryManager.instance.item_SO.itemList[i].itemName == itemName)
             {
-                gridInventoryItem.itemName = GridInventoryManager.instance.item_SO.itemList[i].itemName;
-                gridInventoryItem.itemSize = GridInventoryManager.instance.item_SO.itemList[i].itemSize;
+                item.itemName = GridInventoryManager.instance.item_SO.itemList[i].itemName;
+                item.itemSize = GridInventoryManager.instance.item_SO.itemList[i].itemSize;
 
                 break;
             }
@@ -49,16 +44,21 @@ public class InteractableObject : MonoBehaviour
 
     void ObjectInteraction()
     {
+        print("Clicked");
+
         if (playerInRange && SelectionManager.instance.onTarget && SelectionManager.instance.selecedObject == gameObject
             && MainManager.instance.menuStates == MenuStates.None)
         {
             print("Is PickUp");
 
             //Always add an item from the world to the player's inventory
-            if (GridInventoryManager.instance.AddItemToInventory(0, gridInventoryItem))
+            if (GridInventoryManager.instance.AddItemToInventory(0, item))
             {
                 //Remove this gameObject from the worldObjectList
 
+
+                //Unsubscribe from Event
+                PlayerButtonManager.leftMouse_isPressedDown -= ObjectInteraction;
 
                 //Destroy this gameObject from the world
                 Destroy(gameObject);

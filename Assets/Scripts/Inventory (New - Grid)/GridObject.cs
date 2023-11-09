@@ -7,21 +7,23 @@ public class GridObject
 {
     public static GameObject inventoryTab;
     public static GameObject uiPrefab;
-    private Grid<GridObject> grid;
+    
+    Grid<GridObject> grid;
+    GameObject itemSlot;
+    
     public int x;
     public int y;
-    private GameObject itemImage;
 
-    public Items item;
-    public Items tempItem;
+    public Item item;
+    public Item tempItem;
 
-    //class constructor
+    //Constructor
     public GridObject(Grid<GridObject> grid, int x, int y)
     {
         this.grid = grid;
         this.x = x;
         this.y = y;
-        item = Items.None;
+        item = null;
     }
 
     public override string ToString()
@@ -32,17 +34,22 @@ public class GridObject
     //changes what object placed in this grid object
     public void SetItem(Items itemName)
     {
-        this.item = itemName;
-        if (itemImage == null)
+        Debug.Log("1. Set Item");
+        this.item = GetItem(itemName);
+        if (itemSlot == null)
         {
-            itemImage = GameObject.Instantiate(uiPrefab, new Vector3(0, 0, 0) * grid.GetCellSize(), Quaternion.identity, inventoryTab.transform);
+            Debug.Log("2. itemImage == null");
+            itemSlot = GameObject.Instantiate(uiPrefab, new Vector3(0, 0, 0) * grid.GetCellSize(), Quaternion.identity, inventoryTab.transform);
         }
 
-        itemImage.GetComponentInChildren<Image>().sprite = GetItem(itemName).itemSprite;
-        itemImage.GetComponentsInChildren<RectTransform>()[1].sizeDelta = grid.GetCellSize() * GetItem(itemName).itemSize;
-        itemImage.GetComponent<RectTransform>().anchoredPosition = new Vector3(x, y, 0) * grid.GetCellSize();
-        //itemImage.GetComponentInChildren<InteractableObject>().item = item;
-        itemImage.SetActive(true);
+        Item item = GetItem(itemName);
+
+        itemSlot.GetComponentInChildren<Image>().sprite = item.itemSprite;
+        itemSlot.GetComponentsInChildren<RectTransform>()[1].sizeDelta = grid.GetCellSize() * item.itemSize;
+        itemSlot.GetComponentInChildren<InteractableObject>().itemName = item.itemName;
+        
+        itemSlot.GetComponent<RectTransform>().anchoredPosition = new Vector3(x, y, 0) * grid.GetCellSize();
+        itemSlot.SetActive(true);
 
         //trigger event handler
         grid.TriggerGridObjectChanged(x, y);
@@ -51,11 +58,11 @@ public class GridObject
     //clear item from the gridobject
     public void ClearItem()
     {
-        item = Items.None;
+        item = null;
 
-        if (itemImage != null)
+        if (itemSlot != null)
         {
-            itemImage.SetActive(false);
+            itemSlot.SetActive(false);
         }
 
         //trigger event handler
@@ -70,7 +77,7 @@ public class GridObject
 
     public void SetTemp(Items itemName)
     {
-        tempItem = itemName;
+        tempItem = GetItem(itemName);
     }
 
     public bool EmptyTemp()
@@ -80,31 +87,34 @@ public class GridObject
 
     public void ClearTemp()
     {
-        tempItem = Items.None;
+        tempItem = null;
     }
 
     public Item GetTemp(Items itemName)
     {
-        List<Item> itemList = GridInventoryManager.instance.item_SO.itemList;
+        //List<Item> itemList = GridInventoryManager.instance.item_SO.itemList;
 
-        for (int i = 0; i < itemList.Count; i++)
-        {
-            if (itemList[i].itemName == itemName)
-            {
-                return itemList[i];
-            }
-        }
+        //for (int i = 0; i < itemList.Count; i++)
+        //{
+        //    if (itemList[i].itemName == itemName)
+        //    {
+        //        return itemList[i];
+        //    }
+        //}
 
-        return null;
+        return GetItem(itemName);
     }
 
     public void SetTempAsReal()
     {
+        Debug.Log("SetTempAsReal");
         ClearItem();
+
         if (!EmptyTemp())
         {
-            SetItem(tempItem);
+            SetItem(tempItem.itemName);
         }
+
         ClearTemp();
     }
 
