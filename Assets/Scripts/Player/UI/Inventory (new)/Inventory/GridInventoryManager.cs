@@ -14,6 +14,7 @@ public class GridInventoryManager : MonoBehaviour, IDataPersistance
 
     [Header("All Inventories")]
     public List<GridInventory> inventories = new List<GridInventory>();
+    public List<GridObject> gridItemsList = new List<GridObject>();
 
     public List<GameObject> WorldItemTempList = new List<GameObject>(); //Temporary
 
@@ -135,6 +136,7 @@ public class GridInventoryManager : MonoBehaviour, IDataPersistance
             SoundManager.instance.Playmenu_AddItemToInevntory_Clip();
 
             inventories[inventory].itemsInInventory.Add(obj.GetComponent<InteractableObject>().item);
+            inventories[inventory].itemsInInventory[inventories[inventory].itemsInInventory.Count - 1].isInInventory = inventory;
 
             //Sort the inventory based on the new item
             SortItems(inventories[inventory].itemsInInventory);
@@ -236,11 +238,6 @@ public class GridInventoryManager : MonoBehaviour, IDataPersistance
         {
             List<GridInventoryItem> sortedList = inventoryItemNameList.OrderByDescending(item => item.itemSize.x * item.itemSize.y).ToList();
 
-            //for (int i = 0; i < sortedList.Count; i++)
-            //{
-            //    print("Name " + i + " : "+ sortedList[i].itemName);
-            //}
-
             //place items systematically
             foreach (GridInventoryItem item in sortedList)
             {
@@ -248,18 +245,17 @@ public class GridInventoryManager : MonoBehaviour, IDataPersistance
                 if (hasSpot == false)
                 {
                     ResetTempValues();
-
-                    //return false;
                 }
             }
         }
 
+        gridItemsList.Clear();
+
         foreach (GridObject obj in grid.gridArray)
         {
             obj.SetTempAsReal();
+            gridItemsList.Add(obj);
         }
-
-        //return true;
     }
 
     //check through every spot to find the next available spot
@@ -422,4 +418,6 @@ public class GridInventoryItem
 {
     public Items itemName;
     public Vector2 itemSize;
+
+    public int isInInventory;
 }

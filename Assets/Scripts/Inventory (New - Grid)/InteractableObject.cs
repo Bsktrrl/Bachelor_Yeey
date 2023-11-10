@@ -8,6 +8,8 @@ public class InteractableObject : MonoBehaviour
     public bool playerInRange;
 
     public Items itemName;
+    public Vector2 itemPos;
+
     public GridInventoryItem item = new GridInventoryItem();
 
     SphereCollider accessCollider = new SphereCollider();

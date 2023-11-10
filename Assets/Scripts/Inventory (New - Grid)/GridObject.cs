@@ -1,8 +1,10 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+[Serializable]
 public class GridObject
 {
     public static GameObject inventoryTab;
@@ -45,13 +47,20 @@ public class GridObject
         itemSlot.GetComponentInChildren<Image>().sprite = item.itemSprite;
         itemSlot.GetComponentsInChildren<RectTransform>()[1].sizeDelta = grid.GetCellSize() * item.itemSize;
         itemSlot.GetComponentInChildren<InteractableObject>().itemName = item.itemName;
-        
+
         itemSlot.GetComponent<RectTransform>().anchoredPosition = new Vector3(x, y, 0) * grid.GetCellSize();
+        itemSlot.GetComponentInChildren<InteractableObject>().itemPos = itemSlot.GetComponent<RectTransform>().anchoredPosition;
+        
         itemSlot.SetActive(true);
 
         //trigger event handler
         grid.TriggerGridObjectChanged(x, y);
     }
+
+    //public GameObject GetItemSlotList()
+    //{
+    //    return itemSlot;
+    //}
 
     //clear item from the gridobject
     public void ClearItem()
