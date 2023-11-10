@@ -14,12 +14,12 @@ public class GridInventoryManager : MonoBehaviour, IDataPersistance
 
     [Header("All Inventories")]
     public List<GridInventory> inventories = new List<GridInventory>();
-    public List<GridObject> gridItemsList = new List<GridObject>();
+    //public List<GridObject> gridItemsList = new List<GridObject>();
 
     public List<GameObject> WorldItemTempList = new List<GameObject>(); //Temporary
 
     [Header("The Inventory Grid")]
-    private Grid<GridObject> grid;
+    public Grid<GridObject> grid;
     [SerializeField] int gridWidth = 5;
     [SerializeField] int gridHeight = 7;
     [SerializeField] float cellSize = 100f;
@@ -139,20 +139,20 @@ public class GridInventoryManager : MonoBehaviour, IDataPersistance
             inventories[inventory].itemsInInventory[inventories[inventory].itemsInInventory.Count - 1].isInInventory = inventory;
 
             //Sort the inventory based on the new item
-            SortItems(inventories[inventory].itemsInInventory);
+            //SortItems(inventories[inventory].itemsInInventory);
 
-            //if (!SortItems(inventories[inventory].itemsInInventory))
-            //{
-            //    //If the item is to large to place in the inventory, remove the item from the inventory
-            //    RemoveItemFromInventory(inventory, obj);
+            if (!SortItems(inventories[inventory].itemsInInventory))
+            {
+                //If the item is to large to place in the inventory, remove the item from the inventory
+                RemoveItemFromInventory(inventory, GetItem(obj.GetComponent<InteractableObject>().itemName).itemName);
 
-            //    print("2. Inventory if full!");
-            //    return false;
-            //}
-            //else
-            //{
-            //    SaveData();
-            //}
+                print("2. Inventory if full!");
+                return false;
+            }
+            else
+            {
+                SaveData();
+            }
 
             SaveData();
 
@@ -231,7 +231,7 @@ public class GridInventoryManager : MonoBehaviour, IDataPersistance
     #region Sort Items in Inventory
     //function returns true if all items can be sorted, and sorts them properly
     //returns false if items cannot be sorted, and deletes all the temporary values
-    void SortItems(List<GridInventoryItem> inventoryItemNameList)
+    bool SortItems(List<GridInventoryItem> inventoryItemNameList)
     {
         //Sort items by size
         if (inventoryItemNameList.Count > 0)
@@ -245,17 +245,21 @@ public class GridInventoryManager : MonoBehaviour, IDataPersistance
                 if (hasSpot == false)
                 {
                     ResetTempValues();
+
+                    return false;
                 }
             }
         }
 
-        gridItemsList.Clear();
+        //gridItemsList.Clear();
 
         foreach (GridObject obj in grid.gridArray)
         {
             obj.SetTempAsReal();
-            gridItemsList.Add(obj);
+            //gridItemsList.Add(obj);
         }
+
+        return true;
     }
 
     //check through every spot to find the next available spot
@@ -266,22 +270,26 @@ public class GridInventoryManager : MonoBehaviour, IDataPersistance
             for (int x = 0; x < gridWidth; x++)
             {
                 //check if the spot is empty
-                if (grid.GetGridObject(x, y).EmptyTemp())
+                if (grid.GetGridObject(x, y) != null)
                 {
-                    //check if size one
-                    if (item.itemSize == Vector2.one)
+                    if (grid.GetGridObject(x, y).EmptyTemp())
                     {
-                        AssignItemToSpot(item.itemName, x, y);
-                        return true;
-                    }
-                    else
-                    {
-                        if (CheckIfFits(item, new Vector2(x, y)))
+                        //check if size one
+                        if (item.itemSize == Vector2.one)
                         {
+                            AssignItemToSpot(item.itemName, x, y);
                             return true;
+                        }
+                        else
+                        {
+                            if (CheckIfFits(item, new Vector2(x, y)))
+                            {
+                                return true;
+                            }
                         }
                     }
                 }
+                
             }
         }
 
@@ -311,19 +319,28 @@ public class GridInventoryManager : MonoBehaviour, IDataPersistance
         //check all the coordinates
         foreach (Vector2 coord in coordsToCheck)
         {
-            if (!grid.GetGridObject((int)coord.x, (int)coord.y).EmptyTemp())
+            if (grid.GetGridObject((int)coord.x, (int)coord.y) != null)
             {
-                //if there is something in one of these coordinates, return false
-                return false;
+                if (!grid.GetGridObject((int)coord.x, (int)coord.y).EmptyTemp())
+                {
+                    //if there is something in one of these coordinates, return false
+                    return false;
+                }
             }
         }
 
         //return true
-        AssignItemToSpot(item.itemName, coordsToCheck);
-        return true;
+        if (AssignItemToSpot(item.itemName, coordsToCheck))
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }  
     }
 
-    void AssignItemToSpot(Items itemName, List<Vector2> itemSizeList)
+    bool AssignItemToSpot(Items itemName, List<Vector2> itemSizeList)
     {
         for (int i = 0; i < itemSizeList.Count; i++)
         {
@@ -332,16 +349,33 @@ public class GridInventoryManager : MonoBehaviour, IDataPersistance
 
             if (i != 0)
             {
-                grid.GetGridObject(x, y).SetTemp(Items.None);
+                if (grid.GetGridObject(x, y) != null)
+                {
+                    grid.GetGridObject(x, y).SetTemp(Items.None);
+                }
+                else
+                {
+                    return false;
+                }
             }
             else
             {
-                grid.GetGridObject(x, y).SetTemp(itemName);
+                if (grid.GetGridObject(x, y) != null)
+                {
+                    grid.GetGridObject(x, y).SetTemp(itemName);
+                }
             }
         }
+
+        return true;
     }
     void AssignItemToSpot(Items itemName, int x, int y)
     {
+        //if (grid.GetGridObject(x, y) != null)
+        //{
+        //    grid.GetGridObject(x, y).SetTemp(itemName);
+        //}
+
         grid.GetGridObject(x, y).SetTemp(itemName);
     }
 
@@ -390,6 +424,9 @@ public class GridInventoryManager : MonoBehaviour, IDataPersistance
 
             Cursor.lockState = CursorLockMode.Locked;
             MainManager.instance.menuStates = MenuStates.None;
+
+            PlayerButtonManager.instance.buttonClickedState = ButtonClickedState.None;
+            PlayerButtonManager.instance.inventoryButtonState = InventoryButtonState.None;
         }
     }
     #endregion

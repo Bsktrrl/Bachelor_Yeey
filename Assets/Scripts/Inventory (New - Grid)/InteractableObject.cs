@@ -50,7 +50,7 @@ public class InteractableObject : MonoBehaviour
             && MainManager.instance.menuStates == MenuStates.None)
         {
             //Always add an item from the world to the player's inventory
-            if (GridInventoryManager.instance.AddItemToInventory(0, gameObject))
+            if (GridInventoryManager.instance.AddItemToInventory(0, this.gameObject))
             {
                 //Remove this gameObject from the worldObjectList
 
@@ -67,6 +67,10 @@ public class InteractableObject : MonoBehaviour
 
                 //Leave this gameObject in the world
             }
+        }
+        else
+        {
+            print("Clicking doesen't work");
         }
     }
 
