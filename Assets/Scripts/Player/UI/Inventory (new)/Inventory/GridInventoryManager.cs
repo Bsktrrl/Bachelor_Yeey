@@ -134,8 +134,6 @@ public class GridInventoryManager : MonoBehaviour, IDataPersistance
     {
         inventories[index].inventorySize = size;
 
-        grid.SetWidthAndHeigh((int)size.x, (int)size.y);
-
         SaveData();
     }
 
