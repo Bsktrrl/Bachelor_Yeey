@@ -12,6 +12,8 @@ public class GridInventoryManager : MonoBehaviour, IDataPersistance
     [Header("Items")]
     public Item_SO item_SO;
 
+    public Vector2 SetInventorySizeTemp; //Temp
+
     [SerializeField] int gridWidth = 5;
     [SerializeField] int gridHeight = 7;
     public float cellSize = 100f;
@@ -63,6 +65,15 @@ public class GridInventoryManager : MonoBehaviour, IDataPersistance
         PlayerButtonManager.Esc_isPressedDown += CloseInventoryScreen;
 
         fillerItem_Prefab = item_SO.itemList[0];
+    }
+    private void Update()
+    {
+        if (Input.GetKeyUp(KeyCode.K))
+        {
+            SetInventorySize(0, SetInventorySizeTemp);
+
+            print("New Inventory Size Set");
+        }
     }
 
 
@@ -123,6 +134,8 @@ public class GridInventoryManager : MonoBehaviour, IDataPersistance
     {
         inventories[index].inventorySize = size;
 
+        grid.SetWidthAndHeigh((int)size.x, (int)size.y);
+
         SaveData();
     }
 
@@ -140,7 +153,7 @@ public class GridInventoryManager : MonoBehaviour, IDataPersistance
             inventories[inventory].itemsInInventory[inventories[inventory].itemsInInventory.Count - 1].isInInventory = inventory;
 
             //Sort the inventory based on the new item
-            if (!SortItems(inventories[inventory].itemsInInventory))
+            if (!SortItems(inventories[inventory]))
             {
                 //If the item is to large to place in the inventory, remove the item from the inventory
                 RemoveItemFromInventory(inventory, GetItem(obj.GetComponent<InteractableObject>().itemName).itemName);
@@ -165,7 +178,7 @@ public class GridInventoryManager : MonoBehaviour, IDataPersistance
                 inventories[inventory].itemsInInventory.RemoveAt(i);
 
                 //Sort inventory
-                SortItems(inventories[inventory].itemsInInventory);
+                SortItems(inventories[inventory]);
 
                 SpawnItemInWorld(inventory, itemName);
 
@@ -230,22 +243,22 @@ public class GridInventoryManager : MonoBehaviour, IDataPersistance
     #region Sort Items in Inventory
     //function returns true if all items can be sorted, and sorts them properly
     //returns false if items cannot be sorted, and deletes all the temporary values
-    bool SortItems(List<GridInventoryItem> inventoryItemNameList)
+    bool SortItems(GridInventory inventory)
     {
+        print("Inventory Size: | X: " + inventory.inventorySize.x + " | Y: " + inventory.inventorySize.y);
+
         //Sort items by size
-        if (inventoryItemNameList.Count > 0)
+        if (inventory.itemsInInventory.Count > 0)
         {
-            List<GridInventoryItem> sortedList = inventoryItemNameList.OrderByDescending(item => item.itemSize.x * item.itemSize.y).ToList();
+            List<GridInventoryItem> sortedList = inventory.itemsInInventory.OrderByDescending(item => item.itemSize.x * item.itemSize.y).ToList();
 
             //place items systematically
             foreach (GridInventoryItem item in sortedList)
             {
-                bool hasSpot = AvailableSpot(GetItem(item.itemName));
+                bool hasSpot = AvailableSpot(GetItem(item.itemName), inventory);
                 if (hasSpot == false)
                 {
                     ResetTempValues();
-
-                    print("AvailableSpot - False");
 
                     return false;
                 }
@@ -255,18 +268,17 @@ public class GridInventoryManager : MonoBehaviour, IDataPersistance
         foreach (GridObject obj in grid.gridArray)
         {
             obj.SetTempAsReal();
-            //gridItemsList.Add(obj);
         }
 
         return true;
     }
 
     //check through every spot to find the next available spot
-    bool AvailableSpot(Item item)
+    bool AvailableSpot(Item item, GridInventory inventory)
     {
-        for (int y = gridHeight - 1; y >= 0; y--)
+        for (int y = (int)inventory.inventorySize.y - 1; y >= 0; y--)
         {
-            for (int x = 0; x < gridWidth; x++)
+            for (int x = 0; x < (int)inventory.inventorySize.x; x++)
             {
                 //check if the spot is empty
                 if (grid.GetGridObject(x, y) != null)
@@ -278,21 +290,13 @@ public class GridInventoryManager : MonoBehaviour, IDataPersistance
                         {
                             AssignItemToSpot(item.itemName, x, y);
 
-                            print("AssignItemToSpot - One");
-
                             return true;
                         }
                         else
                         {
-                            if (CheckIfFits(item, new Vector2(x, y)))
+                            if (CheckIfFits(item, inventory, new Vector2(x, y)))
                             {
-                                print("1. CheckIfFits - True");
-
                                 return true;
-                            }
-                            else
-                            {
-                                print("2. CheckIfFits - False");
                             }
                         }
                     }
@@ -304,7 +308,7 @@ public class GridInventoryManager : MonoBehaviour, IDataPersistance
         return false;
     }
 
-    bool CheckIfFits(Item item, Vector2 gridCoordinate)
+    bool CheckIfFits(Item item, GridInventory inventory, Vector2 gridCoordinate)
     {
         List<Vector2> coordsToCheck = new List<Vector2>();
 
@@ -314,7 +318,7 @@ public class GridInventoryManager : MonoBehaviour, IDataPersistance
             for (int y = 0; y > -item.itemSize.y; y--)
             {
                 //if one of the coords is out of bounds, return false
-                if ((x + gridCoordinate.x) >= gridWidth || (gridCoordinate.y + y) >= gridHeight)
+                if ((x + gridCoordinate.x) >= (int)inventory.inventorySize.x || (gridCoordinate.y + y) >= (int)inventory.inventorySize.y)
                 {
                     return false;
                 }
@@ -378,11 +382,6 @@ public class GridInventoryManager : MonoBehaviour, IDataPersistance
     }
     void AssignItemToSpot(Items itemName, int x, int y)
     {
-        //if (grid.GetGridObject(x, y) != null)
-        //{
-        //    grid.GetGridObject(x, y).SetTemp(itemName);
-        //}
-
         grid.GetGridObject(x, y).SetTemp(itemName);
     }
 
@@ -390,7 +389,10 @@ public class GridInventoryManager : MonoBehaviour, IDataPersistance
     {
         foreach (GridObject obj in grid.gridArray)
         {
-            obj.ClearTemp();
+            if (obj != null)
+            {
+                obj.ClearTemp();
+            }
         }
     }
     #endregion
@@ -413,7 +415,7 @@ public class GridInventoryManager : MonoBehaviour, IDataPersistance
                 playerInevntory_BackgroundImage.GetComponent<RectTransform>().sizeDelta = new Vector2(inventories[0].inventorySize.x * cellSize, inventories[0].inventorySize.y * cellSize);
 
                 //Sort Player Inventory
-                SortItems(inventories[0].itemsInInventory);
+                SortItems(inventories[0]);
 
                 storageIsOpen = true;
 
