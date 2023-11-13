@@ -12,21 +12,24 @@ public class GridInventoryManager : MonoBehaviour, IDataPersistance
     [Header("Items")]
     public Item_SO item_SO;
 
+    [SerializeField] int gridWidth = 5;
+    [SerializeField] int gridHeight = 7;
+    public float cellSize = 100f;
+
     [Header("All Inventories")]
     public List<GridInventory> inventories = new List<GridInventory>();
-    //public List<GridObject> gridItemsList = new List<GridObject>();
 
     public List<GameObject> WorldItemTempList = new List<GameObject>(); //Temporary
 
     [Header("The Inventory Grid")]
+    [SerializeField] Image playerInevntory_BackgroundImage;
     public Grid<GridObject> grid;
-    [SerializeField] int gridWidth = 5;
-    [SerializeField] int gridHeight = 7;
-    [SerializeField] float cellSize = 100f;
 
     public Item fillerItem_Prefab;
 
-    public GameObject inventoryTab;
+    //public GameObject inventoryTab;
+    public GameObject playerInventory_Parent;
+    public GameObject chestInventory_Parent;
     public GameObject uiPrefab;
     [SerializeField] GameObject itemDropPoint;
 
@@ -51,15 +54,13 @@ public class GridInventoryManager : MonoBehaviour, IDataPersistance
         //create the grid
         grid = new Grid<GridObject>(gridWidth, gridHeight, cellSize, new Vector3(0, 0, 0), (Grid<GridObject> g, int x, int y) => new GridObject(g, x, y));
 
-        GridObject.inventoryTab = inventoryTab;
+        GridObject.inventoryTab = playerInventory_Parent;
         GridObject.uiPrefab = uiPrefab;
     }
     private void Start()
     {
         PlayerButtonManager.Tab_isPressedDown += OpenPlayerInventory;
         PlayerButtonManager.Esc_isPressedDown += CloseInventoryScreen;
-
-        //SortItems(inventories[0].itemsInInventory);
 
         fillerItem_Prefab = item_SO.itemList[0];
     }
@@ -129,7 +130,7 @@ public class GridInventoryManager : MonoBehaviour, IDataPersistance
     //--------------------
 
 
-    public bool AddItemToInventory(int inventory, GameObject obj)
+    public void AddItemToInventory(int inventory, GameObject obj)
     {
         if (checkInventorySpace(inventories[inventory], obj))
         {
@@ -139,15 +140,12 @@ public class GridInventoryManager : MonoBehaviour, IDataPersistance
             inventories[inventory].itemsInInventory[inventories[inventory].itemsInInventory.Count - 1].isInInventory = inventory;
 
             //Sort the inventory based on the new item
-            //SortItems(inventories[inventory].itemsInInventory);
-
             if (!SortItems(inventories[inventory].itemsInInventory))
             {
                 //If the item is to large to place in the inventory, remove the item from the inventory
                 RemoveItemFromInventory(inventory, GetItem(obj.GetComponent<InteractableObject>().itemName).itemName);
 
                 print("2. Inventory if full!");
-                return false;
             }
             else
             {
@@ -155,11 +153,7 @@ public class GridInventoryManager : MonoBehaviour, IDataPersistance
             }
 
             SaveData();
-
-            return true;
         }
-
-        return false;
     }
     public void RemoveItemFromInventory(int inventory, Items itemName)
     {
@@ -173,17 +167,21 @@ public class GridInventoryManager : MonoBehaviour, IDataPersistance
                 //Sort inventory
                 SortItems(inventories[inventory].itemsInInventory);
 
-                //Drop the item into the World
-                print("DropItemIntoTheWorld");
-                WorldItemTempList.Add(Instantiate(GetItem(itemName).worldObjectPrefab, itemDropPoint.transform.position, Quaternion.identity) as GameObject);
-                WorldItemTempList[WorldItemTempList.Count - 1].GetComponent<Rigidbody>().isKinematic = false;
-                WorldItemTempList[WorldItemTempList.Count - 1].GetComponent<Rigidbody>().useGravity = true;
+                SpawnItemInWorld(inventory, itemName);
 
                 SaveData();
 
                 break;
             }
         }
+    }
+    public void SpawnItemInWorld(int inventory, Items itemName)
+    {
+        //Drop the item into the World
+        print("DropItemIntoTheWorld");
+        WorldItemTempList.Add(Instantiate(GetItem(itemName).worldObjectPrefab, itemDropPoint.transform.position, Quaternion.identity) as GameObject);
+        WorldItemTempList[WorldItemTempList.Count - 1].GetComponent<Rigidbody>().isKinematic = false;
+        WorldItemTempList[WorldItemTempList.Count - 1].GetComponent<Rigidbody>().useGravity = true;
     }
 
 
@@ -205,6 +203,8 @@ public class GridInventoryManager : MonoBehaviour, IDataPersistance
 
         if (inventorySpaceLeft - itemSize < 0)
         {
+            SpawnItemInWorld(inventory.index, obj.GetComponent<InteractableObject>().item.itemName);
+
             print("1. Inventory is full!");
             SoundManager.instance.Playmenu_InventoryIsFull_Clip();
 
@@ -227,7 +227,6 @@ public class GridInventoryManager : MonoBehaviour, IDataPersistance
         return null;
     }
 
-
     #region Sort Items in Inventory
     //function returns true if all items can be sorted, and sorts them properly
     //returns false if items cannot be sorted, and deletes all the temporary values
@@ -246,12 +245,12 @@ public class GridInventoryManager : MonoBehaviour, IDataPersistance
                 {
                     ResetTempValues();
 
+                    print("AvailableSpot - False");
+
                     return false;
                 }
             }
         }
-
-        //gridItemsList.Clear();
 
         foreach (GridObject obj in grid.gridArray)
         {
@@ -272,28 +271,36 @@ public class GridInventoryManager : MonoBehaviour, IDataPersistance
                 //check if the spot is empty
                 if (grid.GetGridObject(x, y) != null)
                 {
-                    if (grid.GetGridObject(x, y).EmptyTemp())
+                    if (grid.GetGridObject(x, y).EmptyTempItem())
                     {
                         //check if size one
                         if (item.itemSize == Vector2.one)
                         {
                             AssignItemToSpot(item.itemName, x, y);
+
+                            print("AssignItemToSpot - One");
+
                             return true;
                         }
                         else
                         {
                             if (CheckIfFits(item, new Vector2(x, y)))
                             {
+                                print("1. CheckIfFits - True");
+
                                 return true;
+                            }
+                            else
+                            {
+                                print("2. CheckIfFits - False");
                             }
                         }
                     }
                 }
-                
             }
         }
 
-        //after checking every coordinate, no spots found
+        //after checking every coordinate and no spots is found
         return false;
     }
 
@@ -321,7 +328,7 @@ public class GridInventoryManager : MonoBehaviour, IDataPersistance
         {
             if (grid.GetGridObject((int)coord.x, (int)coord.y) != null)
             {
-                if (!grid.GetGridObject((int)coord.x, (int)coord.y).EmptyTemp())
+                if (!grid.GetGridObject((int)coord.x, (int)coord.y).EmptyTempItem())
                 {
                     //if there is something in one of these coordinates, return false
                     return false;
@@ -388,6 +395,7 @@ public class GridInventoryManager : MonoBehaviour, IDataPersistance
     }
     #endregion
 
+
     //--------------------
 
     #region Open/Close Invnetory
@@ -401,6 +409,9 @@ public class GridInventoryManager : MonoBehaviour, IDataPersistance
         {
             if (MainManager.instance.menuStates == MenuStates.None)
             {
+                //Get PlayerInventory Background
+                playerInevntory_BackgroundImage.GetComponent<RectTransform>().sizeDelta = new Vector2(inventories[0].inventorySize.x * cellSize, inventories[0].inventorySize.y * cellSize);
+
                 //Sort Player Inventory
                 SortItems(inventories[0].itemsInInventory);
 
@@ -409,16 +420,15 @@ public class GridInventoryManager : MonoBehaviour, IDataPersistance
                 Cursor.lockState = CursorLockMode.None;
                 MainManager.instance.menuStates = MenuStates.InventoryMenu;
 
-                inventoryTab.SetActive(true);
+                playerInventory_Parent.SetActive(true);
             }
         }
-
     }
     void CloseInventoryScreen()
     {
         if (MainManager.instance.menuStates == MenuStates.InventoryMenu)
         {
-            inventoryTab.SetActive(false);
+            playerInventory_Parent.SetActive(false);
 
             storageIsOpen = false;
 

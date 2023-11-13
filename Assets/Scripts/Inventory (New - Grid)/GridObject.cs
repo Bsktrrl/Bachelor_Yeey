@@ -39,16 +39,18 @@ public class GridObject
         this.item = GetItem(itemName);
         if (itemSlot == null)
         {
-            itemSlot = GameObject.Instantiate(uiPrefab, new Vector3(0, 0, 0) * grid.GetCellSize(), Quaternion.identity, inventoryTab.transform);
+            itemSlot = GameObject.Instantiate(uiPrefab, new Vector3(0, 0, 0) * GridInventoryManager.instance.cellSize, Quaternion.identity, inventoryTab.transform);
         }
 
         Item item = GetItem(itemName);
 
         itemSlot.GetComponentInChildren<Image>().sprite = item.itemSprite;
-        itemSlot.GetComponentsInChildren<RectTransform>()[1].sizeDelta = grid.GetCellSize() * item.itemSize;
+        itemSlot.GetComponentsInChildren<RectTransform>()[1].sizeDelta = GridInventoryManager.instance.cellSize * item.itemSize;
         itemSlot.GetComponentInChildren<InteractableObject>().itemName = item.itemName;
 
-        itemSlot.GetComponent<RectTransform>().anchoredPosition = new Vector3(x, y, 0) * grid.GetCellSize();
+        itemSlot.GetComponent<RectTransform>().sizeDelta = new Vector2(GridInventoryManager.instance.cellSize, GridInventoryManager.instance.cellSize);
+        itemSlot.GetComponent<RectTransform>().anchoredPosition = new Vector3(x, y, 0) * GridInventoryManager.instance.cellSize;
+
         itemSlot.GetComponentInChildren<InteractableObject>().itemPos = itemSlot.GetComponent<RectTransform>().anchoredPosition;
         
         itemSlot.SetActive(true);
@@ -87,7 +89,7 @@ public class GridObject
         tempItem = GetItem(itemName);
     }
 
-    public bool EmptyTemp()
+    public bool EmptyTempItem()
     {
         return tempItem == null;
     }
@@ -116,7 +118,7 @@ public class GridObject
     {
         ClearItem();
 
-        if (!EmptyTemp())
+        if (!EmptyTempItem())
         {
             SetItem(tempItem.itemName);
         }

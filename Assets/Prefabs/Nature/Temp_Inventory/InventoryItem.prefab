@@ -98,9 +98,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerInRange: 0
   itemName: 0
+  itemPos: {x: 0, y: 0}
   item:
     itemName: 0
     itemSize: {x: 0, y: 0}
+    isInInventory: 0
 --- !u!114 &2762155538305543304
 MonoBehaviour:
   m_ObjectHideFlags: 0

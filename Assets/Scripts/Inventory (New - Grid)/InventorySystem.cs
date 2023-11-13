@@ -232,7 +232,7 @@ public class InventorySystem : MonoBehaviour
         //check all the coordinates
         foreach (Vector2 coord in coordsToCheck)
         {
-            if (!grid.GetGridObject((int)coord.x, (int)coord.y).EmptyTemp())
+            if (!grid.GetGridObject((int)coord.x, (int)coord.y).EmptyTempItem())
             {
                 //if there is something in one of these coordinates, return false
                 return false;
@@ -252,7 +252,7 @@ public class InventorySystem : MonoBehaviour
             for (int x = 0; x < gridWidth; x++)
             {
                 //check if the spot is empty
-                if (grid.GetGridObject(x, y).EmptyTemp())
+                if (grid.GetGridObject(x, y).EmptyTempItem())
                 {
                     //check if size one
                     if (item.itemSize == Vector2.one)

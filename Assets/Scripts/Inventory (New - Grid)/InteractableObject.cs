@@ -49,28 +49,14 @@ public class InteractableObject : MonoBehaviour
         if (playerInRange && SelectionManager.instance.onTarget && SelectionManager.instance.selecedObject == gameObject
             && MainManager.instance.menuStates == MenuStates.None)
         {
-            //Always add an item from the world to the player's inventory
-            if (GridInventoryManager.instance.AddItemToInventory(0, this.gameObject))
-            {
-                //Remove this gameObject from the worldObjectList
+            //Check If item can be added
+            GridInventoryManager.instance.AddItemToInventory(0, gameObject);
 
+            //Unsubscribe from Event
+            PlayerButtonManager.leftMouse_isPressedDown -= ObjectInteraction;
 
-                //Unsubscribe from Event
-                PlayerButtonManager.leftMouse_isPressedDown -= ObjectInteraction;
-
-                //Destroy this gameObject from the world
-                Destroy(gameObject);
-            }
-            else
-            {
-                //Display message that the inventory cannot take the item because of pace issues
-
-                //Leave this gameObject in the world
-            }
-        }
-        else
-        {
-            print("Clicking doesen't work");
+            //Destroy gameObject (If full inventory, drop the item from "RemoveItemFromInventory" in "GridInventorymanager")
+            Destroy(gameObject);
         }
     }
 
