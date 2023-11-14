@@ -149,6 +149,18 @@ Material:
         m_Texture: {fileID: 2800000, guid: 76bad2ff9a5045342babdf5be1254e60, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    - _SandWindAlbedo:
+        m_Texture: {fileID: 2800000, guid: 53f9676c826149e408cf21108d4c7816, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _SandWindNormal:
+        m_Texture: {fileID: 2800000, guid: 722892ed88b6f5d4db4b94e7bc0a2e3b, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _SandWindRoughness:
+        m_Texture: {fileID: 2800000, guid: 0ab472b511353b141b6d8e4e2d7f1a23, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _SpecGlossMap:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
@@ -194,13 +206,14 @@ Material:
     - _QueueControl: 0
     - _QueueOffset: 0
     - _ReceiveShadows: 1
+    - _SandWindSpeed: 0.015
     - _Smoothness: 0.5
     - _SmoothnessTextureChannel: 0
     - _SpecularHighlights: 1
     - _Speed: 0
     - _SrcBlend: 1
     - _Surface: 0
-    - _Tiling: 200
+    - _Tiling: 100
     - _WorkflowMode: 1
     - _ZWrite: 1
     m_Colors:
