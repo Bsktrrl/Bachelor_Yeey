@@ -128,7 +128,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerInRange: 0
+  objectType: 1
   itemName: 2
+  itemPos: {x: 0, y: 0}
   item:
     itemName: 0
     itemSize: {x: 0, y: 0}
+    isInInventory: 0

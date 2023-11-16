@@ -143,12 +143,3 @@ public class WorldObjectManager : MonoBehaviour
         }
     }
 }
-
-public enum ObjectType
-{
-    None,
-
-    Pickups,
-    Inventory,
-    Interacteable
-}

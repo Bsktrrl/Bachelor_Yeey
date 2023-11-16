@@ -5,11 +5,6 @@ using UnityEngine;
 public class HandManager : MonoBehaviour
 {
     public static HandManager instance { get; private set; } //Singleton
-    [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.AfterAssembliesLoaded)]
-    static void Reinitialize()
-    {
-        instance = null;
-    }
 
     public List<Items> handList = new List<Items>();
     public int selectedSlot;
@@ -51,25 +46,25 @@ public class HandManager : MonoBehaviour
     }
     private void Update()
     {
-        if (StorageManager.instance.PlayerInventoryItemSlotList.Count > 10)
-        {
-            for (int i = 0; i < handList.Count; i++)
-            {
-                handList[i] = StorageManager.instance.PlayerInventoryItemSlotList[i].GetComponent<ItemSlot_N>().itemInThisSlot.itemName;
-            }
-        }
+        //if (StorageManager.instance.PlayerInventoryItemSlotList.Count > 10)
+        //{
+        //    for (int i = 0; i < handList.Count; i++)
+        //    {
+        //        handList[i] = StorageManager.instance.PlayerInventoryItemSlotList[i].GetComponent<ItemSlot_N>().itemInThisSlot.itemName;
+        //    }
+        //}
 
-        for (int i = 0; i < 9; i++)
-        {
-            if (selectedSlot == i)
-            {
-                StorageManager.instance.PlayerInventoryItemSlotList[i].GetComponent<ItemSlot_N>().selectedInHand.SetActive(true);
-            }
-            else
-            {
-                StorageManager.instance.PlayerInventoryItemSlotList[i].GetComponent<ItemSlot_N>().selectedInHand.SetActive(false);
-            }
-        }
+        //for (int i = 0; i < 9; i++)
+        //{
+        //    if (selectedSlot == i)
+        //    {
+        //        StorageManager.instance.PlayerInventoryItemSlotList[i].GetComponent<ItemSlot_N>().selectedInHand.SetActive(true);
+        //    }
+        //    else
+        //    {
+        //        StorageManager.instance.PlayerInventoryItemSlotList[i].GetComponent<ItemSlot_N>().selectedInHand.SetActive(false);
+        //    }
+        //}
     }
 
 
@@ -85,7 +80,7 @@ public class HandManager : MonoBehaviour
             selectedSlot = 8;
         }
 
-        UpdateSlotInfo();
+        //UpdateSlotInfo();
     }
     void HandSelection_UP()
     {
@@ -96,7 +91,7 @@ public class HandManager : MonoBehaviour
             selectedSlot = 0;
         }
 
-        UpdateSlotInfo();
+        //UpdateSlotInfo();
     }
 
     public void UpdateSlotInfo()
@@ -139,47 +134,47 @@ public class HandManager : MonoBehaviour
     void QuickHandSelect_0()
     {
         selectedSlot = 0;
-        UpdateSlotInfo();
+        //UpdateSlotInfo();
     }
     void QuickHandSelect_1()
     {
         selectedSlot = 1;
-        UpdateSlotInfo();
+        //UpdateSlotInfo();
     }
     void QuickHandSelect_2()
     {
         selectedSlot = 2;
-        UpdateSlotInfo();
+        //UpdateSlotInfo();
     }
     void QuickHandSelect_3()
     {
         selectedSlot = 3;
-        UpdateSlotInfo();
+        //UpdateSlotInfo();
     }
     void QuickHandSelect_4()
     {
         selectedSlot = 4;
-        UpdateSlotInfo();
+        //UpdateSlotInfo();
     }
     void QuickHandSelect_5()
     {
         selectedSlot = 5;
-        UpdateSlotInfo();
+        //UpdateSlotInfo();
     }
     void QuickHandSelect_6()
     {
         selectedSlot = 6;
-        UpdateSlotInfo();
+        //UpdateSlotInfo();
     }
     void QuickHandSelect_7()
     {
         selectedSlot = 7;
-        UpdateSlotInfo();
+        //UpdateSlotInfo();
     }
     void QuickHandSelect_8()
     {
         selectedSlot = 8;
-        UpdateSlotInfo();
+        //UpdateSlotInfo();
     }
     #endregion
 

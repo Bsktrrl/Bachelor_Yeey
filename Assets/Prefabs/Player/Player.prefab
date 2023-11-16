@@ -619,7 +619,6 @@ GameObject:
   m_Component:
   - component: {fileID: 76071829509611235}
   - component: {fileID: 76071829509611232}
-  - component: {fileID: 76071829509611233}
   m_Layer: 0
   m_Name: StorageManager
   m_TagString: Untagged
@@ -716,26 +715,6 @@ MonoBehaviour:
   PlayerHandPanelScreenUI: {fileID: 76071831010121552}
   PlayerHandPanelItemSlot_Parent: {fileID: 76071830297635948}
   CraftingMenuScreenUI: {fileID: 76071829522874670}
---- !u!114 &76071829509611233
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 76071829509611234}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 344d40b1d86f768489543d2666d635ec, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  inventoryList: []
-  itemList_SO: {fileID: 0}
-  inventoryTab: {fileID: 0}
-  uiPrefab: {fileID: 0}
-  inventoryOpen: 0
-  cam: {fileID: 0}
-  playerReach: 0
-  fillerItem_Prefab: {fileID: 0}
 --- !u!1 &76071829511424434
 GameObject:
   m_ObjectHideFlags: 0
@@ -1862,12 +1841,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   item_SO: {fileID: 11400000, guid: 0a007afa344d6074eb63f8caa075c01a, type: 2}
+  SetInventorySizeTemp: {x: 5, y: 7}
+  cellSize: 100
   inventories: []
   WorldItemTempList: []
   playerInevntory_BackgroundImage: {fileID: 76071831248001142}
-  gridWidth: 5
-  gridHeight: 7
-  cellSize: 100
   fillerItem_Prefab:
     itemName: 0
     categoryName: 0

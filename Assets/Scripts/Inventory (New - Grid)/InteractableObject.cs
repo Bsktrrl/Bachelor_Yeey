@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -7,10 +8,20 @@ public class InteractableObject : MonoBehaviour
     [Header("item Stats")]
     public bool playerInRange;
 
-    public Items itemName;
-    public Vector2 itemPos;
+    [Header("Object Type")]
+    public ObjectType objectType;
 
-    public GridInventoryItem item = new GridInventoryItem();
+    [Header("If PickUp")]
+    public Items itemName;
+    [HideInInspector] public Vector2 itemPos;
+
+    [Header("If Inventory")]
+    public int inventoryIndex;
+    public Vector2 size;
+
+    public Grid<GridObject> grid;
+
+    [HideInInspector] public GridInventoryItem item = new GridInventoryItem();
 
     SphereCollider accessCollider = new SphereCollider();
 
@@ -20,11 +31,12 @@ public class InteractableObject : MonoBehaviour
 
     private void Start()
     {
-        PlayerButtonManager.leftMouse_isPressedDown += ObjectInteraction;
+        PlayerButtonManager.E_isPressedDown += ObjectInteraction;
 
         //Add SphereCollider for the item
         accessCollider = gameObject.AddComponent<SphereCollider>();
-        accessCollider.radius = WorldObjectManager.instance.objectColliderRadius;
+        Vector3 scale = gameObject.transform.lossyScale;
+        accessCollider.radius = WorldObjectManager.instance.objectColliderRadius / scale.x / 2; //Chenge to only "objectColliderRadius"
         accessCollider.isTrigger = true;
 
         //Get correct gridInventoryItem
@@ -38,6 +50,33 @@ public class InteractableObject : MonoBehaviour
                 break;
             }
         }
+
+        //If inventory, get grid and size
+        if (objectType == ObjectType.Inventory)
+        {
+            //Spawn in-game
+            if (itemName == Items.SmallChest)
+            {
+                GridInventoryManager.instance.gridList.Add(new Grid<GridObject>((int)GridInventoryManager.instance.SetSmallChestInventorySize.x, (int)GridInventoryManager.instance.SetSmallChestInventorySize.y, GridInventoryManager.instance.cellSize, new Vector3(0, 0, 0), (Grid<GridObject> g, int x, int y) => new GridObject(g, x, y)));
+                size = GridInventoryManager.instance.SetSmallChestInventorySize;
+            }
+            else if (itemName == Items.MediumChest)
+            {
+                GridInventoryManager.instance.gridList.Add(new Grid<GridObject>((int)GridInventoryManager.instance.SetMediumChestInventorySize.x, (int)GridInventoryManager.instance.SetMediumChestInventorySize.y, GridInventoryManager.instance.cellSize, new Vector3(0, 0, 0), (Grid<GridObject> g, int x, int y) => new GridObject(g, x, y)));
+                size = GridInventoryManager.instance.SetMediumChestInventorySize;
+            }
+
+            //Spawn from Editor
+            else
+            {
+                GridInventoryManager.instance.gridList.Add(new Grid<GridObject>((int)size.x, (int)size.y, GridInventoryManager.instance.cellSize, new Vector3(0, 0, 0), (Grid<GridObject> g, int x, int y) => new GridObject(g, x, y)));
+            }
+
+            if (inventoryIndex <= 0)
+            {
+                inventoryIndex = GridInventoryManager.instance.gridList.Count - 1;
+            }
+        }
     }
 
 
@@ -49,14 +88,60 @@ public class InteractableObject : MonoBehaviour
         if (playerInRange && SelectionManager.instance.onTarget && SelectionManager.instance.selecedObject == gameObject
             && MainManager.instance.menuStates == MenuStates.None)
         {
-            //Check If item can be added
-            GridInventoryManager.instance.AddItemToInventory(0, gameObject);
+            //If Object is a PickUp
+            if (objectType == ObjectType.Pickups)
+            {
+                //Check If item can be added
+                GridInventoryManager.instance.AddItemToInventory(0, gameObject, itemName, true);
 
-            //Unsubscribe from Event
-            PlayerButtonManager.leftMouse_isPressedDown -= ObjectInteraction;
+                //Unsubscribe from Event
+                PlayerButtonManager.E_isPressedDown -= ObjectInteraction;
 
-            //Destroy gameObject (If full inventory, drop the item from "RemoveItemFromInventory" in "GridInventorymanager")
-            Destroy(gameObject);
+                //Destroy gameObject (If full inventory, drop the item from "RemoveItemFromInventory" in "GridInventorymanager")
+                Destroy(gameObject);
+            }
+
+            //If Object is an Inventory
+            else if (objectType == ObjectType.Inventory)
+            {
+                GridInventoryManager.instance.chestIndexOpen = inventoryIndex;
+
+                //Set ChestInventory Size
+                GridInventoryManager.instance.SetInventorySize(inventoryIndex, size);
+
+                //Get ChestInventory Background
+                GridInventoryManager.instance.chestInevntory_BackgroundImage.GetComponent<RectTransform>().sizeDelta = new Vector2(GridInventoryManager.instance.inventories[inventoryIndex].inventorySize.x * GridInventoryManager.instance.cellSize, GridInventoryManager.instance.inventories[inventoryIndex].inventorySize.y * GridInventoryManager.instance.cellSize);
+
+                //Sort ChestInventory
+                GridInventoryManager.instance.SortItems(GridInventoryManager.instance.inventories[inventoryIndex]);
+
+                //Reset ChestInventory
+                GridInventoryManager.instance.ResetItemInventoryPlacements(GridInventoryManager.instance.inventories[inventoryIndex]);
+
+                //Open Inventory panels
+                GridInventoryManager.instance.chestInventory_Parent.SetActive(true);
+                GridInventoryManager.instance.OpenPlayerInventory();
+
+                MainManager.instance.menuStates = MenuStates.chestMenu;
+            }
+
+            //If Object is an ItemSlot
+            else if (objectType == ObjectType.ItemSlot)
+            {
+
+            }
+
+            //If Object is another Interacteable
+            else if (objectType == ObjectType.Interacteable)
+            {
+                print("Object is an interactable");
+            }
+
+            //If Object is something else
+            else
+            {
+                print("Object is something else");
+            }
         }
     }
 
@@ -80,4 +165,15 @@ public class InteractableObject : MonoBehaviour
             playerInRange = false;
         }
     }
+}
+
+public enum ObjectType
+{
+    None,
+
+    Pickups,
+    Inventory,
+    ItemSlot,
+
+    Interacteable
 }

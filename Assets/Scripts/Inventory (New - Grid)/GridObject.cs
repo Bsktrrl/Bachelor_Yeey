@@ -34,17 +34,18 @@ public class GridObject
     }
 
     //changes what object placed in this grid object
-    public void SetItem(Items itemName)
+    public void SetItem(Items itemName, GameObject parent)
     {
         this.item = GetItem(itemName);
         if (itemSlot == null)
         {
-            itemSlot = GameObject.Instantiate(uiPrefab, new Vector3(0, 0, 0) * GridInventoryManager.instance.cellSize, Quaternion.identity, inventoryTab.transform);
+            itemSlot = GameObject.Instantiate(uiPrefab, new Vector3(0, 0, 0) * GridInventoryManager.instance.cellSize, Quaternion.identity, parent.transform);
         }
 
         Item item = GetItem(itemName);
 
         itemSlot.GetComponentInChildren<Image>().sprite = item.itemSprite;
+        itemSlot.GetComponentInChildren<Image>().type = Image.Type.Simple;
         itemSlot.GetComponentsInChildren<RectTransform>()[1].sizeDelta = GridInventoryManager.instance.cellSize * item.itemSize;
         itemSlot.GetComponentInChildren<InteractableObject>().itemName = item.itemName;
 
@@ -58,11 +59,6 @@ public class GridObject
         //trigger event handler
         grid.TriggerGridObjectChanged(x, y);
     }
-
-    //public GameObject GetItemSlotList()
-    //{
-    //    return itemSlot;
-    //}
 
     //clear item from the gridobject
     public void ClearItem()
@@ -101,26 +97,16 @@ public class GridObject
 
     public Item GetTemp(Items itemName)
     {
-        //List<Item> itemList = GridInventoryManager.instance.item_SO.itemList;
-
-        //for (int i = 0; i < itemList.Count; i++)
-        //{
-        //    if (itemList[i].itemName == itemName)
-        //    {
-        //        return itemList[i];
-        //    }
-        //}
-
         return GetItem(itemName);
     }
 
-    public void SetTempAsReal()
+    public void SetTempAsReal(GameObject parent)
     {
         ClearItem();
 
         if (!EmptyTempItem())
         {
-            SetItem(tempItem.itemName);
+            SetItem(tempItem.itemName, parent);
         }
 
         ClearTemp();

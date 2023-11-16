@@ -8,13 +8,6 @@ using UnityEngine;
 public class DataManager : MonoBehaviour, IDataPersistance
 {
     public static DataManager instance { get; private set; } //Singleton
-    [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
-    static void Reinitialize()
-    {
-        instance = null;
-        dataIsSaving = null;
-        datahasLoaded = null;
-    }
 
     public static Action dataIsSaving;
     public static Action datahasLoaded;
@@ -61,6 +54,8 @@ public class DataManager : MonoBehaviour, IDataPersistance
 
         this.inventories_StoreList = gameData.inventories_SaveList;
         this.gridInventories_StoreList = gameData.gridInventories_SaveList;
+
+        print("1. SaveList.Count = " + gameData.gridInventories_SaveList.Count + " | StoreList.Count = " + this.gridInventories_StoreList.Count);
 
         datahasLoaded?.Invoke();
 

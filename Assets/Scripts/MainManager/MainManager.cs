@@ -79,6 +79,7 @@ public enum MenuStates
     MainMenu,
     PauseMenu,
     InventoryMenu,
+    chestMenu,
     BuildingSystemMenu
 }
 

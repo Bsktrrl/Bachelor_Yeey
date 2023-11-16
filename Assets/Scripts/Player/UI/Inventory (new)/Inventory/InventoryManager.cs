@@ -32,8 +32,8 @@ public class InventoryManager : MonoBehaviour
     }
     private void Start()
     {
-        DataManager.datahasLoaded += Load;
-        DataManager.dataIsSaving += Save;
+        //DataManager.datahasLoaded += Load;
+        //DataManager.dataIsSaving += Save;
     }
 
 

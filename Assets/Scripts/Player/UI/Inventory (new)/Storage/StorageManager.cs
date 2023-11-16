@@ -135,7 +135,7 @@ public class StorageManager : MonoBehaviour
         PlayerButtonManager.moveStackToStorageBox += QuickMoveItems;
 
         //Close all ScreenUI's
-        PlayerHandPanelScreenUI.SetActive(true);
+        //PlayerHandPanelScreenUI.SetActive(true);
 
         PlayerInventoryScreenUI.SetActive(false);
         StorageBoxScreenUI.SetActive(false);
@@ -146,8 +146,8 @@ public class StorageManager : MonoBehaviour
         itemName_Display.text = "";
         itemDescription_Display.text = "";
 
-        OpenPlayerInventory();
-        CloseInventoryScreen();
+        //OpenPlayerInventory();
+        //CloseInventoryScreen();
 
         if (storageReverseButton_State)
         {
@@ -167,7 +167,7 @@ public class StorageManager : MonoBehaviour
             PlayerInventoryReverseButton.GetComponent<Image>().color = new Color(0.75f, 0.75f, 0.75f, 1);
         }
 
-        HandManager.instance.UpdateSlotInfo();
+        //HandManager.instance.UpdateSlotInfo();
     }
     private void Update()
     {

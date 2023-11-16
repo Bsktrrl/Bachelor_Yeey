@@ -41,7 +41,7 @@ public class Grid<TGridObject>
         }
 
         bool showDebug = false;
-        //this draws out the grid so u can see it
+        //this draws out the grid so you can see it
         if (showDebug)
         {
             TextMesh[,] debugTextArray = new TextMesh[width, height];

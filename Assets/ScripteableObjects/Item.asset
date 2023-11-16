@@ -82,9 +82,9 @@ MonoBehaviour:
     subCategoryName: 5
     itemDescription: When Equipped, this Axe can be used to chop down trees and building
       parts.
-    itemSprite: {fileID: -1939646702, guid: 1f255744973958242ac00594a0e33b8b, type: 3}
-    itemSize: {x: 0, y: 0}
-    worldObjectPrefab: {fileID: 0}
+    itemSprite: {fileID: -1674125463, guid: 1f255744973958242ac00594a0e33b8b, type: 3}
+    itemSize: {x: 1, y: 2}
+    worldObjectPrefab: {fileID: 4279313669877795266, guid: dc174aabc84666741a383722e6448947, type: 3}
     equippedPrefab: {fileID: 2553926483823156083, guid: da39f2b4d3c87d44cbefd48ae6bd425f, type: 3}
     idleAnimation: {fileID: 0}
     actionAnimation: {fileID: 0}
@@ -105,9 +105,9 @@ MonoBehaviour:
     subCategoryName: 6
     itemDescription: When Equipped, this Building Hammer can be used to build building
       parts in the world.
-    itemSprite: {fileID: 1958595480, guid: 1f255744973958242ac00594a0e33b8b, type: 3}
-    itemSize: {x: 0, y: 0}
-    worldObjectPrefab: {fileID: 0}
+    itemSprite: {fileID: 734079632, guid: 1f255744973958242ac00594a0e33b8b, type: 3}
+    itemSize: {x: 1, y: 3}
+    worldObjectPrefab: {fileID: 4279313669877795266, guid: b0229b2dc402cd445b34321ee6111672, type: 3}
     equippedPrefab: {fileID: 1693644012290509181, guid: 12d8621cfba74e24d95af7901dc50e1f, type: 3}
     idleAnimation: {fileID: 0}
     actionAnimation: {fileID: 0}
@@ -126,9 +126,9 @@ MonoBehaviour:
     subCategoryName: 10
     itemDescription: When holding a Small Chest, left click to spawn it into the
       world. You can use it as a second storage.
-    itemSprite: {fileID: 1821045299, guid: 1f255744973958242ac00594a0e33b8b, type: 3}
-    itemSize: {x: 0, y: 0}
-    worldObjectPrefab: {fileID: 0}
+    itemSprite: {fileID: 1787513396, guid: 1f255744973958242ac00594a0e33b8b, type: 3}
+    itemSize: {x: 2, y: 1}
+    worldObjectPrefab: {fileID: 4279313669877795266, guid: 8c70823081d6d8f438d5592c4857fbbf, type: 3}
     equippedPrefab: {fileID: 0}
     idleAnimation: {fileID: 0}
     actionAnimation: {fileID: 0}
@@ -149,9 +149,9 @@ MonoBehaviour:
     subCategoryName: 10
     itemDescription: When holding a Medium Chest, left click to spawn it into the
       world. You can use it as a second storage.
-    itemSprite: {fileID: 1780038997, guid: 1f255744973958242ac00594a0e33b8b, type: 3}
-    itemSize: {x: 0, y: 0}
-    worldObjectPrefab: {fileID: 0}
+    itemSprite: {fileID: 320462180, guid: 1f255744973958242ac00594a0e33b8b, type: 3}
+    itemSize: {x: 3, y: 1}
+    worldObjectPrefab: {fileID: 4279313669877795266, guid: ee59082d7bf50da46b477b1c479ad7bd, type: 3}
     equippedPrefab: {fileID: 0}
     idleAnimation: {fileID: 0}
     actionAnimation: {fileID: 0}
