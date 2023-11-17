@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting.FullSerializer;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -68,6 +69,11 @@ public class GridObject
         if (itemSlot != null)
         {
             itemSlot.SetActive(false);
+
+            itemSlot.GetComponentInChildren<InteractableObject>().itemName = Items.None;
+            itemSlot.GetComponentsInChildren<RectTransform>()[1].sizeDelta = Vector2.one;
+
+            itemSlot = null;
         }
 
         //trigger event handler

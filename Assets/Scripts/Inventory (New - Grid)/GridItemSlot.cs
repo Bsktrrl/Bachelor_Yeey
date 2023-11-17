@@ -30,54 +30,103 @@ public class GridItemSlot : MonoBehaviour, IPointerUpHandler
         {
             InteractableObject thisItem = gameObject.GetComponent<InteractableObject>();
 
-            //If the left Mouse button is pressed - Remove item from inventory
-            if (eventData.button == PointerEventData.InputButton.Left)
-            {
-                ////From Player inventory
-                //if (thisItem.inventoryIndex <= 0)
-                //{
-                //    CalculateItemToRemove(thisItem, GridInventoryManager.instance.playerInventory_Parent);
-                //}
+            ////If the left Mouse button is pressed - Remove item from inventory
+            //if (eventData.button == PointerEventData.InputButton.Left)
+            //{
+            //    //From Player inventory
+            //    if (thisItem.inventoryIndex <= 0)
+            //    {
+            //        CalculateItemToRemove(thisItem, GridInventoryManager.instance.playerInventory_Parent);
+            //    }
 
-                ////From Chest inventory
-                //else
-                //{
-                //    CalculateItemToRemove(thisItem, GridInventoryManager.instance.chestInventory_Parent);
-                //}
-            }
+            //    //From Chest inventory
+            //    else
+            //    {
+            //        CalculateItemToRemove(thisItem, GridInventoryManager.instance.chestInventory_Parent);
+            //    }
+            //}
 
-            //If the right Mouse button is pressed - Move this item between open inventories, if possible
-            else if (eventData.button == PointerEventData.InputButton.Right)
+            //If the right Mouse button is pressed - Move this item between the open inventories, if possible
+            if (eventData.button == PointerEventData.InputButton.Right)
             {
                 //Move from Player Inventory to chest
                 if (thisItem.inventoryIndex <= 0)
                 {
+                    //Check PlayerInventory
                     Items tempName = CalculateItemToMove(thisItem, GridInventoryManager.instance.playerInventory_Parent);
                     print("1. tempName = " + tempName);
 
+                    //Check ChestInventory
                     if (tempName != Items.None)
                     {
+                        //Set TempValues
+                        Items itemNameTemp = gameObject.GetComponent<InteractableObject>().itemName;
+                        Vector2 sizeTemp = gameObject.GetComponent<InteractableObject>().size;
+                        int inventoryIndexTemp = gameObject.GetComponent<InteractableObject>().inventoryIndex;
+
+                        //Change values in this gameObject's InteractableObject
+                        gameObject.GetComponent<InteractableObject>().itemName = tempName;
+                        gameObject.GetComponent<InteractableObject>().size = GridInventoryManager.instance.GetItem(tempName).itemSize;
+                        gameObject.GetComponent<InteractableObject>().inventoryIndex = GridInventoryManager.instance.chestIndexOpen;
+
                         if (GridInventoryManager.instance.AddItemToInventory(GridInventoryManager.instance.chestIndexOpen, gameObject, tempName, false))
                         {
                             //Remove item from old inventory
                             GridInventoryManager.instance.RemoveItemFromInventory(0, tempName, false);
+
+                            //Reset ChestInventory
+                            GridInventoryManager.instance.ResetItemInventoryPlacements(GridInventoryManager.instance.inventories[0]);
+                            GridInventoryManager.instance.ResetItemInventoryPlacements(GridInventoryManager.instance.inventories[GridInventoryManager.instance.chestIndexOpen]);
                         }
+                        else
+                        {
+                            //Reset values back to normal
+                            gameObject.GetComponent<InteractableObject>().itemName = itemNameTemp;
+                            gameObject.GetComponent<InteractableObject>().size = sizeTemp;
+                            gameObject.GetComponent<InteractableObject>().inventoryIndex = inventoryIndexTemp;
+                        }
+                    }
+                    else
+                    {
+                        return;
                     }
                 }
 
                 //Move from chest to Player Inventory
                 else
                 {
+                    //Check ChestInventory
                     Items tempName = CalculateItemToMove(thisItem, GridInventoryManager.instance.chestInventory_Parent);
                     print("2. tempName = " + tempName);
 
+                    //Check PlayerInventory
                     if (tempName != Items.None)
                     {
+                        //Set TempValues
+                        Items itemNameTemp = gameObject.GetComponent<InteractableObject>().itemName;
+                        Vector2 sizeTemp = gameObject.GetComponent<InteractableObject>().size;
+                        int inventoryIndexTemp = gameObject.GetComponent<InteractableObject>().inventoryIndex;
+
                         if (GridInventoryManager.instance.AddItemToInventory(0, gameObject, tempName, false))
                         {
                             //Remove item from old inventory
                             GridInventoryManager.instance.RemoveItemFromInventory(GridInventoryManager.instance.chestIndexOpen, tempName, false);
+
+                            //Reset ChestInventory
+                            GridInventoryManager.instance.ResetItemInventoryPlacements(GridInventoryManager.instance.inventories[0]);
+                            GridInventoryManager.instance.ResetItemInventoryPlacements(GridInventoryManager.instance.inventories[GridInventoryManager.instance.chestIndexOpen]);
                         }
+                        else
+                        {
+                            //Reset values back to normal
+                            gameObject.GetComponent<InteractableObject>().itemName = itemNameTemp;
+                            gameObject.GetComponent<InteractableObject>().size = sizeTemp;
+                            gameObject.GetComponent<InteractableObject>().inventoryIndex = inventoryIndexTemp;
+                        }
+                    }
+                    else
+                    {
+                        return;
                     }
                 }
             }

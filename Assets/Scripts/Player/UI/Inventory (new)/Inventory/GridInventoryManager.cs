@@ -170,20 +170,26 @@ public class GridInventoryManager : MonoBehaviour
         {
             for (int i = 0; i < playerInventory_Parent.transform.childCount; i++)
             {
-                playerInventory_Parent.transform.GetChild(i).GetComponent<InteractableObject>().item.itemName =
-                        playerInventory_Parent.transform.GetChild(i).GetComponent<InteractableObject>().itemName;
+                InteractableObject interactableObject = playerInventory_Parent.transform.GetChild(i).GetComponent<InteractableObject>();
 
-                playerInventory_Parent.transform.GetChild(i).GetComponent<InteractableObject>().inventoryIndex = 0;
+                //playerInventory_Parent.transform.GetChild(i).GetComponent<InteractableObject>().item.itemName =
+                //        playerInventory_Parent.transform.GetChild(i).GetComponent<InteractableObject>().itemName;
+
+                interactableObject.inventoryIndex = 0;
+                interactableObject.size = GetItem(interactableObject.itemName).itemSize;
             }
         }
         else
         {
             for (int i = 0; i < chestInventory_Parent.transform.childCount; i++)
             {
-                chestInventory_Parent.transform.GetChild(i).GetComponent<InteractableObject>().item.itemName =
-                        chestInventory_Parent.transform.GetChild(i).GetComponent<InteractableObject>().itemName;
+                InteractableObject interactableObject = chestInventory_Parent.transform.GetChild(i).GetComponent<InteractableObject>();
 
-                chestInventory_Parent.transform.GetChild(i).GetComponent<InteractableObject>().inventoryIndex = chestIndexOpen;
+                //chestInventory_Parent.transform.GetChild(i).GetComponent<InteractableObject>().item.itemName =
+                //        chestInventory_Parent.transform.GetChild(i).GetComponent<InteractableObject>().itemName;
+
+                interactableObject.inventoryIndex = chestIndexOpen;
+                interactableObject.size = GetItem(interactableObject.itemName).itemSize;
             }
         }
     }
@@ -194,36 +200,45 @@ public class GridInventoryManager : MonoBehaviour
 
     public bool AddItemToInventory(int inventory, GameObject obj, Items itemName, bool remove)
     {
-        if (checkInventorySpace(inventories[inventory], obj))
+        if (checkInventorySpace(inventories[inventory], obj, remove))
         {
             SoundManager.instance.Playmenu_AddItemToInevntory_Clip();
 
             inventories[inventory].itemsInInventory.Add(obj.GetComponent<InteractableObject>().item);
-            inventories[inventory].itemsInInventory[inventories[inventory].itemsInInventory.Count - 1].isInInventory = inventory;
-            inventories[inventory].itemsInInventory[inventories[inventory].itemsInInventory.Count - 1].itemName = itemName;
-            inventories[inventory].itemsInInventory[inventories[inventory].itemsInInventory.Count - 1].itemSize = GetItem(itemName).itemSize;
 
-            if (inventories[inventory].itemsInInventory[inventories[inventory].itemsInInventory.Count - 1].itemName == Items.None)
+            print("200. checkInventorySpace - ItemName: = " + obj.GetComponent<InteractableObject>().itemName);
+
+            //inventories[inventory].itemsInInventory[inventories[inventory].itemsInInventory.Count - 1].isInInventory = inventory;
+            //inventories[inventory].itemsInInventory[inventories[inventory].itemsInInventory.Count - 1].itemName = GetItem(itemName).itemName;
+            //inventories[inventory].itemsInInventory[inventories[inventory].itemsInInventory.Count - 1].itemSize = GetItem(itemName).itemSize;
+
+            //Safety check for not getting Items.None in any inventory
+            for (int i = 0; i < inventories[inventory].itemsInInventory.Count; i++)
             {
-                RemoveItemFromInventory(inventory, Items.None, false);
+                if (inventories[inventory].itemsInInventory[i].itemName == Items.None)
+                {
+                    RemoveItemFromInventory(inventory, Items.None, false);
 
-                return false;
+                    return false;
+                }
             }
-
+            
             //Sort the inventory based on the new item
             if (!SortItems(inventories[inventory]))
             {
                 //If the item is to large to place in the inventory, remove the item from the inventory
+                Items itemNameTemp = inventories[inventory].itemsInInventory[inventories[inventory].itemsInInventory.Count - 1].itemName;
+                
                 if (remove)
                 {
-                    RemoveItemFromInventory(inventory, GetItem(obj.GetComponent<InteractableObject>().itemName).itemName, true);
+                    RemoveItemFromInventory(inventory, itemNameTemp, true);
                 }
                 else
                 {
-                    RemoveItemFromInventory(inventory, GetItem(obj.GetComponent<InteractableObject>().itemName).itemName, false);
+                    RemoveItemFromInventory(inventory, itemNameTemp, false);
                 }
 
-                print("2. Inventory if full!");
+                print("2. Inventory if full! | itemNametemp: " + itemNameTemp);
 
                 SaveData();
 
@@ -281,7 +296,7 @@ public class GridInventoryManager : MonoBehaviour
     //--------------------
 
 
-    bool checkInventorySpace(GridInventory inventory, GameObject obj)
+    bool checkInventorySpace(GridInventory inventory, GameObject obj, bool spawnItemInWorld)
     {
         int itemSize = ((int)obj.GetComponent<InteractableObject>().item.itemSize.x * (int)obj.GetComponent<InteractableObject>().item.itemSize.y);
         int tempGridSize = ((int)inventory.inventorySize.x * (int)inventory.inventorySize.y);
@@ -294,7 +309,7 @@ public class GridInventoryManager : MonoBehaviour
 
         int inventorySpaceLeft = tempGridSize - tempInventorySpaceUsed;
 
-        if (inventorySpaceLeft - itemSize < 0)
+        if (inventorySpaceLeft - itemSize < 0 && spawnItemInWorld)
         {
             SpawnItemInWorld(inventory.index, obj.GetComponent<InteractableObject>().item.itemName);
 
@@ -307,7 +322,7 @@ public class GridInventoryManager : MonoBehaviour
         return true;
     }
 
-    Item GetItem(Items itemName)
+    public Item GetItem(Items itemName)
     {
         for (int i = 0; i < item_SO.itemList.Count; i++)
         {
