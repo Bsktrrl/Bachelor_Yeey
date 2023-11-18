@@ -37,11 +37,12 @@ public class NewInteractableObject : MonoBehaviour
         if (playerInRange && SelectionManager.instance.onTarget && SelectionManager.instance.selecedObject == gameObject
             && MainManager.instance.menuStates == MenuStates.None)
         {
-            print("Interract with Pickup");
 
             //If Object is a Pickup
             if (interacteableType == InteracteableType.Pickup)
             {
+                print("Interract with Pickup");
+
                 //Check If item can be added
                 if (NewGridInventoryManager.instance.AddItemToInventory(0, gameObject, false))
                 {
@@ -67,6 +68,8 @@ public class NewInteractableObject : MonoBehaviour
                 NewGridInventoryManager.instance.chestInventory_Parent.GetComponent<RectTransform>().sizeDelta = NewGridInventoryManager.instance.inventories[inventoryIndex].inventorySize * NewGridInventoryManager.instance.cellsize;
                 NewGridInventoryManager.instance.chestInventory_Parent.GetComponent<GridLayoutGroup>().cellSize = new Vector2(NewGridInventoryManager.instance.cellsize, NewGridInventoryManager.instance.cellsize);
                 NewGridInventoryManager.instance.chestInventory_Parent.SetActive(true);
+
+                MainManager.instance.menuStates = MenuStates.chestMenu;
             }
 
             //If Object is a machine

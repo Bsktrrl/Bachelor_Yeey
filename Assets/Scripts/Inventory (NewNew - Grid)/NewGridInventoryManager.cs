@@ -139,6 +139,8 @@ public class NewGridInventoryManager : MonoBehaviour
         //If item is being moved to another inventory
         if (itemIsMoved)
         {
+            print("1000. item : " + obj.GetComponent<NewItemSlot>().itemName + " is added to inventory: " + inventory);
+
             item.inventoryIndex = inventory;
             item.itemName = obj.GetComponent<NewItemSlot>().itemName;
             item.itemSize = GetItem(obj.GetComponent<NewItemSlot>().itemName).itemSize;
@@ -185,14 +187,14 @@ public class NewGridInventoryManager : MonoBehaviour
 
         inventories[inventory].itemsInInventory.Add(item);
 
-        PrepareInventoryUI(inventory, false);
+        PrepareInventoryUI(inventory, itemIsMoved);
         RemoveInventoriesUI();
 
         return true;
     }
     public void RemoveItemFromInventory(int inventory, Items itemName)
     {
-        print("item : " + itemName + " is removed from inventory: " + inventory);
+        print("100. item : " + itemName + " is removed from inventory: " + inventory);
 
         for (int i = 0; i < inventories[inventory].itemsInInventory.Count; i++)
         {
@@ -217,9 +219,9 @@ public class NewGridInventoryManager : MonoBehaviour
         worldItemList[worldItemList.Count - 1].GetComponent<Rigidbody>().isKinematic = false;
         worldItemList[worldItemList.Count - 1].GetComponent<Rigidbody>().useGravity = true;
     }
-    public void RemoveItemFromInventory(int inventory, Items itemName, bool InventoryIsOpen)
+    public void RemoveItemFromInventory(int inventory, Items itemName, bool itemIsMoved)
     {
-        print("item : " + itemName + " is removed from inventory: " + inventory);
+        print("200. item : " + itemName + " is removed from inventory: " + inventory);
 
         for (int i = 0; i < inventories[inventory].itemsInInventory.Count; i++)
         {
@@ -235,6 +237,27 @@ public class NewGridInventoryManager : MonoBehaviour
         PrepareInventoryUI(inventory, true);
     }
 
+    public void MoveItemToInventory(int inventory, GameObject obj)
+    {
+        //Move item to Player Inventory
+        if (inventory <= 0)
+        {
+            RemoveItemFromInventory(0, obj.GetComponent<NewItemSlot>().itemName, true);
+            AddItemToInventory(chestInventoryOpen, obj, true);
+        }
+
+        //Move item to Chest Inventory
+        else
+        {
+            RemoveItemFromInventory(chestInventoryOpen, obj.GetComponent<NewItemSlot>().itemName, true);
+            AddItemToInventory(0, obj, true);
+        }
+
+
+        RemoveInventoriesUI();
+        PrepareInventoryUI(0, true);
+        PrepareInventoryUI(chestInventoryOpen, true);
+    }
 
     //--------------------
 
@@ -251,6 +274,7 @@ public class NewGridInventoryManager : MonoBehaviour
             {
                 itemSlotList_Player.Add(Instantiate(itemSlot_Prefab, Vector3.zero, Quaternion.identity) as GameObject);
                 itemSlotList_Player[itemSlotList_Player.Count - 1].transform.parent = playerInventory_Parent.transform;
+                itemSlotList_Player[itemSlotList_Player.Count - 1].GetComponent<NewItemSlot>().inventoryIndex = inventory;
             }
 
             //Add for the Chest Inventory
@@ -258,10 +282,8 @@ public class NewGridInventoryManager : MonoBehaviour
             {
                 itemSlotList_Chest.Add(Instantiate(itemSlot_Prefab, Vector3.zero, Quaternion.identity) as GameObject);
                 itemSlotList_Chest[itemSlotList_Chest.Count - 1].transform.parent = chestInventory_Parent.transform;
+                itemSlotList_Chest[itemSlotList_Chest.Count - 1].GetComponent<NewItemSlot>().inventoryIndex = inventory;
             }
-
-            //Give the itemSlot an inventoryIndex if it's in the Player Inventory
-            //itemSlotList_Player[itemSlotList_Player.Count - 1].GetComponent<NewItemSlot>().inventoryIndex = inventory;
         }
         
         //Sort inventory so the biggest items are first
@@ -405,7 +427,7 @@ public class NewGridInventoryManager : MonoBehaviour
                             #region
                             if (tempCount == itemSizeX * itemSizeY)
                             {
-                                print("2. posList = " + posList.Count + " | tempCount = " + tempCount + " | sizeX = " + itemSizeX + " | sizeY = " + itemSizeY);
+                                //print("2. posList = " + posList.Count + " | tempCount = " + tempCount + " | sizeX = " + itemSizeX + " | sizeY = " + itemSizeY);
 
                                 itemPlaced++;
 
@@ -429,12 +451,12 @@ public class NewGridInventoryManager : MonoBehaviour
             }
         }
 
-        print("20. itemPlaced: " + itemPlaced + " | inventory.Count: " + inventories[inventory].itemsInInventory.Count);
+        //print("20. itemPlaced: " + itemPlaced + " | inventory.Count: " + inventories[inventory].itemsInInventory.Count);
 
         //If there isn't enough room for the item in the inventory
         if (itemPlaced < inventories[inventory].itemsInInventory.Count)
         {
-            print("1. Inventory doesn't have enough room to place this item");
+            //print("1. Inventory doesn't have enough room to place this item");
 
             //Remove the last picked up item from the inventory and spawn it into the world
             for (int i = 0; i < inventories[inventory].itemsInInventory.Count; i++)
@@ -444,7 +466,7 @@ public class NewGridInventoryManager : MonoBehaviour
                     //If Item was attempted moved into another inventory
                     if (isMovingItem)
                     {
-                        RemoveItemFromInventory(inventory, lastItemToGet, false);
+                        RemoveItemFromInventory(inventory, lastItemToGet, true);
 
                         if (inventory <= 0)
                         {
@@ -470,6 +492,8 @@ public class NewGridInventoryManager : MonoBehaviour
 
     void RemoveInventoriesUI()
     {
+        print("Reset Both Inventories");
+
         for (int i = 0; i < itemSlotList_Player.Count; i++)
         {
             itemSlotList_Player[i].GetComponent<NewItemSlot>().DestroyItemSlot();
