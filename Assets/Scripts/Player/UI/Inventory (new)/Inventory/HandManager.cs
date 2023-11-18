@@ -115,7 +115,7 @@ public class HandManager : MonoBehaviour
         selectedSlotItem.categoryName = StorageManager.instance.item_SO.itemList[i].categoryName;
         selectedSlotItem.subCategoryName = StorageManager.instance.item_SO.itemList[i].subCategoryName;
 
-        selectedSlotItem.itemSprite = StorageManager.instance.item_SO.itemList[i].itemSprite;
+        //selectedSlotItem.itemSprite = StorageManager.instance.item_SO.itemList[i].itemSprite;
         selectedSlotItem.equippedPrefab = StorageManager.instance.item_SO.itemList[i].equippedPrefab;
 
         selectedSlotItem.itemDescription = StorageManager.instance.item_SO.itemList[i].itemDescription;

@@ -82,8 +82,8 @@ public class DraggeableSlot : MonoBehaviour, IPointerDownHandler, IPointerUpHand
             {
                 if (StorageManager.instance.item_SO.itemList[i].itemName == parentScript.itemInThisSlot.itemName)
                 {
-                    itemImage.sprite = StorageManager.instance.item_SO.itemList[i].itemSprite;
-                    ghostImage.sprite = StorageManager.instance.item_SO.itemList[i].itemSprite;
+                    //itemImage.sprite = StorageManager.instance.item_SO.itemList[i].itemSprite;
+                    //ghostImage.sprite = StorageManager.instance.item_SO.itemList[i].itemSprite;
 
                     itemAmountText.text = parentScript.itemInThisSlot.amount.ToString();
                     ghostAmountText.text = StorageManager.instance.itemAmountLeftBehind.ToString();
@@ -98,8 +98,8 @@ public class DraggeableSlot : MonoBehaviour, IPointerDownHandler, IPointerUpHand
             {
                 if (StorageManager.instance.item_SO.itemList[i].itemName == parentScript.itemInThisSlot.itemName)
                 {
-                    itemImage.sprite = StorageManager.instance.item_SO.itemList[0].itemSprite;
-                    ghostImage.sprite = StorageManager.instance.item_SO.itemList[0].itemSprite;
+                    //itemImage.sprite = StorageManager.instance.item_SO.itemList[0].itemSprite;
+                    //ghostImage.sprite = StorageManager.instance.item_SO.itemList[0].itemSprite;
 
                     itemAmountText.text = "";
                     ghostAmountText.text = "";
@@ -324,7 +324,7 @@ public class DraggeableSlot : MonoBehaviour, IPointerDownHandler, IPointerUpHand
             {
                 if (parentScript.itemInThisSlot.itemName == itemList[0].itemName)
                 {
-                    StorageManager.instance.itemSprite_Display.sprite = itemList[0].itemSprite;
+                    //StorageManager.instance.itemSprite_Display.sprite = itemList[0].itemSprite;
                     StorageManager.instance.itemName_Display.text = "";
                     StorageManager.instance.itemDescription_Display.text = "";
 
@@ -332,7 +332,7 @@ public class DraggeableSlot : MonoBehaviour, IPointerDownHandler, IPointerUpHand
                 }
                 else if (parentScript.itemInThisSlot.itemName == itemList[i].itemName)
                 {
-                    StorageManager.instance.itemSprite_Display.sprite = itemList[i].itemSprite;
+                    //StorageManager.instance.itemSprite_Display.sprite = itemList[i].itemSprite;
                     StorageManager.instance.itemName_Display.text = itemList[i].itemName.ToString();
                     StorageManager.instance.itemDescription_Display.text = itemList[i].itemDescription;
 
@@ -350,7 +350,7 @@ public class DraggeableSlot : MonoBehaviour, IPointerDownHandler, IPointerUpHand
         {
             List<Item> itemList = StorageManager.instance.item_SO.itemList;
 
-            StorageManager.instance.itemSprite_Display.sprite = itemList[0].itemSprite;
+            //StorageManager.instance.itemSprite_Display.sprite = itemList[0].itemSprite;
             StorageManager.instance.itemName_Display.text = "";
             StorageManager.instance.itemDescription_Display.text = "";
         }

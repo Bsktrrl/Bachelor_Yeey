@@ -142,7 +142,7 @@ public class StorageManager : MonoBehaviour
         CraftingMenuScreenUI.SetActive(false);
 
         //Reset PlayerDisplay 
-        itemSprite_Display.sprite = item_SO.itemList[0].itemSprite;
+        //itemSprite_Display.sprite = item_SO.itemList[0].itemSprite;
         itemName_Display.text = "";
         itemDescription_Display.text = "";
 
@@ -313,8 +313,8 @@ public class StorageManager : MonoBehaviour
                 }
                 else if (itemSlotList[i].GetComponent<ItemSlot_N>().itemInThisSlot.itemName == item_SO.itemList[j].itemName)
                 {
-                    itemSlotList[i].GetComponent<ItemSlot_N>().draggeableSlotScript.itemImage.sprite = item_SO.itemList[j].itemSprite;
-                    itemSlotList[i].GetComponent<ItemSlot_N>().draggeableSlotScript.ghostImage.sprite = item_SO.itemList[j].itemSprite;
+                    //itemSlotList[i].GetComponent<ItemSlot_N>().draggeableSlotScript.itemImage.sprite = item_SO.itemList[j].itemSprite;
+                    //itemSlotList[i].GetComponent<ItemSlot_N>().draggeableSlotScript.ghostImage.sprite = item_SO.itemList[j].itemSprite;
                 }
             }
         }

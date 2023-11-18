@@ -45,7 +45,7 @@ public class GridObject
 
         Item item = GetItem(itemName);
 
-        itemSlot.GetComponentInChildren<Image>().sprite = item.itemSprite;
+        //itemSlot.GetComponentInChildren<Image>().sprite = item.itemSprite;
         itemSlot.GetComponentInChildren<Image>().type = Image.Type.Simple;
         itemSlot.GetComponentsInChildren<RectTransform>()[1].sizeDelta = GridInventoryManager.instance.cellSize * item.itemSize;
         itemSlot.GetComponentInChildren<InteractableObject>().itemName = item.itemName;

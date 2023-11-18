@@ -271,7 +271,7 @@ public class CraftingManager : MonoBehaviour
         //Reset Panel Size
         craftingScreen.GetComponent<RectTransform>().sizeDelta = new Vector2(270, 220);
 
-        categoryCraftingImage.sprite = item.itemSprite;
+        //categoryCraftingImage.sprite = item.itemSprite;
         categoryCraftingName.text = item.itemName.ToString();
         categoryCraftingDescription.text = item.itemDescription;
 
@@ -290,7 +290,7 @@ public class CraftingManager : MonoBehaviour
             {
                 if (SO_itemList[j].itemName == item.craftingRequirements[i].itemName)
                 {
-                    requirementPrefabList[requirementPrefabList.Count - 1].GetComponent<CraftingRequirementPrefab>().craftingItemSprite = SO_itemList[j].itemSprite;
+                    //requirementPrefabList[requirementPrefabList.Count - 1].GetComponent<CraftingRequirementPrefab>().craftingItemSprite = SO_itemList[j].itemSprite;
 
                     break;
                 }

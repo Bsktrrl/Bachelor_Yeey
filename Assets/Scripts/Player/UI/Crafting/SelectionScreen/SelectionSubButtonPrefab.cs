@@ -12,7 +12,7 @@ public class SelectionSubButtonPrefab : MonoBehaviour, IPointerEnterHandler
 
     public void SetDisplay()
     {
-        buttonImage.sprite = item.itemSprite;
+        //buttonImage.sprite = item.itemSprite;
         gameObject.name = item.itemName.ToString();
     }
 
