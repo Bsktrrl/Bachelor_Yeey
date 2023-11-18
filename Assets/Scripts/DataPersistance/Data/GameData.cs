@@ -16,6 +16,7 @@ public class GameData
     //Inventories
     public List<Inventories> inventories_SaveList = new List<Inventories>();
     public List<GridInventory> gridInventories_SaveList = new List<GridInventory>();
+    public List<NewGridInventory> newGridInventories_SaveList = new List<NewGridInventory>();
 
 
     //--------------------
@@ -26,5 +27,6 @@ public class GameData
         //Input All Lists to clear
         this.inventories_SaveList.Clear();
         this.gridInventories_SaveList.Clear();
+        this.newGridInventories_SaveList.Clear();
     }
 }

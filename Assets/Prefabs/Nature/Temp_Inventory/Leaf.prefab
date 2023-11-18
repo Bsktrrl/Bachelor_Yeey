@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 2833017258156135898}
   - component: {fileID: -8180838104141051634}
   - component: {fileID: 2833017258156135899}
-  - component: {fileID: 2833017258156135896}
+  - component: {fileID: -4849921129029132924}
   m_Layer: 0
   m_Name: Leaf
   m_TagString: Untagged
@@ -115,7 +115,7 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &2833017258156135896
+--- !u!114 &-4849921129029132924
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -124,14 +124,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 2833017258156135846}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 28f62184b850d4b43b00c57ff4aaf57e, type: 3}
+  m_Script: {fileID: 11500000, guid: 723c2b76ce662894cb31d94f240770fa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   playerInRange: 0
-  objectType: 1
   itemName: 3
-  itemPos: {x: 0, y: 0}
-  item:
-    itemName: 0
-    itemSize: {x: 0, y: 0}
-    isInInventory: 0
+  interacteableType: 1
+  inventoryIndex: 0

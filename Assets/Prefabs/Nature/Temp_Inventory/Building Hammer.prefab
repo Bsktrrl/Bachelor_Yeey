@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 4279313669877795270}
   - component: {fileID: -6402724981232276340}
   - component: {fileID: 4279313669877795271}
-  - component: {fileID: 4279313669877795268}
+  - component: {fileID: -6328518862804486604}
   m_Layer: 0
   m_Name: Building Hammer
   m_TagString: Untagged
@@ -115,7 +115,7 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &4279313669877795268
+--- !u!114 &-6328518862804486604
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -124,16 +124,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 4279313669877795266}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 28f62184b850d4b43b00c57ff4aaf57e, type: 3}
+  m_Script: {fileID: 11500000, guid: 723c2b76ce662894cb31d94f240770fa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   playerInRange: 0
-  objectType: 1
   itemName: 5
-  itemPos: {x: 0, y: 0}
-  index: 0
-  size: {x: 0, y: 0}
-  item:
-    itemName: 0
-    itemSize: {x: 0, y: 0}
-    isInInventory: 0
+  interacteableType: 1
+  inventoryIndex: 0

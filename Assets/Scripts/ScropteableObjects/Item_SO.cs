@@ -20,6 +20,7 @@ public class Item
     public ItemSubCategories subCategoryName;
     [TextArea (5, 10)] public string itemDescription;
     public Sprite itemSprite;
+    public List<Sprite> itemSpriteList = new List<Sprite>();
     public Vector2 itemSize;
 
     public GameObject worldObjectPrefab;

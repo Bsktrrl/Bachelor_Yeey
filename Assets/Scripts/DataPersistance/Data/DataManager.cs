@@ -23,6 +23,7 @@ public class DataManager : MonoBehaviour, IDataPersistance
     //Inventories
     [HideInInspector] public List<Inventories> inventories_StoreList = new List<Inventories>();
     [HideInInspector] public List<GridInventory> gridInventories_StoreList = new List<GridInventory>();
+    [HideInInspector] public List<NewGridInventory> newGridInventories_StoreList = new List<NewGridInventory>();
 
 
 
@@ -54,8 +55,7 @@ public class DataManager : MonoBehaviour, IDataPersistance
 
         this.inventories_StoreList = gameData.inventories_SaveList;
         this.gridInventories_StoreList = gameData.gridInventories_SaveList;
-
-        print("1. SaveList.Count = " + gameData.gridInventories_SaveList.Count + " | StoreList.Count = " + this.gridInventories_StoreList.Count);
+        this.newGridInventories_StoreList = gameData.newGridInventories_SaveList;
 
         datahasLoaded?.Invoke();
 
@@ -72,6 +72,7 @@ public class DataManager : MonoBehaviour, IDataPersistance
 
         gameData.inventories_SaveList = this.inventories_StoreList;
         gameData.gridInventories_SaveList = this.gridInventories_StoreList;
+        gameData.newGridInventories_SaveList = this.newGridInventories_StoreList;
 
         print("Data has Saved");
     }

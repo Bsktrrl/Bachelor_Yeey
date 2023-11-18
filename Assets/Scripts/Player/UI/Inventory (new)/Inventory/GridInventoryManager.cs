@@ -63,10 +63,10 @@ public class GridInventoryManager : MonoBehaviour
     }
     private void Start()
     {
-        DataManager.datahasLoaded += LoadData;
-        PlayerButtonManager.Tab_isPressedDown += OpenPlayerInventory;
-        PlayerButtonManager.Esc_isPressedDown += CloseInventoryScreen;
-        PlayerButtonManager.E_isPressedDown += CloseInventoryScreen;
+        //DataManager.datahasLoaded += LoadData;
+        //PlayerButtonManager.Tab_isPressedDown += OpenPlayerInventory;
+        //PlayerButtonManager.Esc_isPressedDown += CloseInventoryScreen;
+        //PlayerButtonManager.E_isPressedDown += CloseInventoryScreen;
 
         fillerItem_Prefab = item_SO.itemList[0];
     }
@@ -74,9 +74,9 @@ public class GridInventoryManager : MonoBehaviour
     {
         if (Input.GetKeyUp(KeyCode.K))
         {
-            SetInventorySize(0, SetInventorySizeTemp);
+            //SetInventorySize(0, SetInventorySizeTemp);
 
-            print("New Inventory Size Set");
+            //print("New Inventory Size Set");
         }
     }
 
