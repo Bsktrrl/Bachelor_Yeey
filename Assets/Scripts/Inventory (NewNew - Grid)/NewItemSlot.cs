@@ -7,7 +7,7 @@ using UnityEngine.UI;
 public class NewItemSlot : MonoBehaviour, IPointerUpHandler
 {
     public Items itemName = Items.None;
-    public int itemIndex;
+    public int itemID;
     public int inventoryIndex;
 
 
@@ -16,7 +16,7 @@ public class NewItemSlot : MonoBehaviour, IPointerUpHandler
 
     public void OnPointerUp(PointerEventData eventData)
     {
-        print("You clicked on item: " + itemName + " with index: " + itemIndex + " and from inventory: " + inventoryIndex);
+        print("You clicked on item: " + itemName + " with index: " + itemID + " and from inventory: " + inventoryIndex);
 
         //If only player inventory is used
         if (MainManager.instance.menuStates == MenuStates.InventoryMenu)
@@ -24,7 +24,7 @@ public class NewItemSlot : MonoBehaviour, IPointerUpHandler
             //If the right Mouse button is pressed - Remove item from inventory
             if (eventData.button == PointerEventData.InputButton.Right)
             {
-                NewGridInventoryManager.instance.RemoveItemFromInventory(inventoryIndex, itemName, true);
+                NewGridInventoryManager.instance.RemoveItemFromInventory(inventoryIndex, itemName);
             }
 
             //If the left Mouse button is pressed - Mark this item to an available Hotbar space
@@ -38,18 +38,18 @@ public class NewItemSlot : MonoBehaviour, IPointerUpHandler
         else if (MainManager.instance.menuStates == MenuStates.chestMenu)
         {
             //If the left Mouse button is pressed - Move this item between the open inventories, if possible
-            if (eventData.button == PointerEventData.InputButton.Left)
+            if (eventData.button == PointerEventData.InputButton.Left && itemName != Items.None)
             {
                 //Move from Player Inventory to chest
                 if (inventoryIndex <= 0)
                 {
-                    
+                    NewGridInventoryManager.instance.AddItemToInventory(0, gameObject, true);
                 }
 
                 //Move from chest to Player Inventory
                 else
                 {
-                    
+                    NewGridInventoryManager.instance.AddItemToInventory(inventoryIndex, gameObject, true);
                 }
             }
         }

@@ -43,7 +43,7 @@ public class NewInteractableObject : MonoBehaviour
             if (interacteableType == InteracteableType.Pickup)
             {
                 //Check If item can be added
-                if (NewGridInventoryManager.instance.AddItemToInventory(0, gameObject))
+                if (NewGridInventoryManager.instance.AddItemToInventory(0, gameObject, false))
                 {
                     //Unsubscribe from Event
                     PlayerButtonManager.E_isPressedDown -= ObjectInteraction;
@@ -62,7 +62,8 @@ public class NewInteractableObject : MonoBehaviour
                 NewGridInventoryManager.instance.OpenPlayerInventory();
 
                 //Open the chest Inventory
-                NewGridInventoryManager.instance.PrepareInventoryUI(inventoryIndex); //Prepare Player Inventory
+                NewGridInventoryManager.instance.chestInventoryOpen = inventoryIndex;
+                NewGridInventoryManager.instance.PrepareInventoryUI(inventoryIndex, false); //Prepare Player Inventory
                 NewGridInventoryManager.instance.chestInventory_Parent.GetComponent<RectTransform>().sizeDelta = NewGridInventoryManager.instance.inventories[inventoryIndex].inventorySize * NewGridInventoryManager.instance.cellsize;
                 NewGridInventoryManager.instance.chestInventory_Parent.GetComponent<GridLayoutGroup>().cellSize = new Vector2(NewGridInventoryManager.instance.cellsize, NewGridInventoryManager.instance.cellsize);
                 NewGridInventoryManager.instance.chestInventory_Parent.SetActive(true);

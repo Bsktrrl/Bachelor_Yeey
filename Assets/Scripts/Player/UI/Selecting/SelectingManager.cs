@@ -5,11 +5,6 @@ using UnityEngine;
 public class SelectingManager : MonoBehaviour
 {
     public static SelectingManager instance { get; set; } //Singleton
-    [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.AfterAssembliesLoaded)]
-    static void Reinitialize()
-    {
-        instance = null;
-    }
 
     [SerializeField] GameObject selectingScreen;
     List<Item> SO_item = new List<Item>();
