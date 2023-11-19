@@ -18,6 +18,8 @@ public enum Items
 
     //Other
     [Description("Small Chest")][InspectorName("Other/SmallChest")] SmallChest,
-    [Description("Medium Chest")][InspectorName("Other/MediumChest")] MediumChest
+    [Description("Medium Chest")][InspectorName("Other/MediumChest")] MediumChest,
+
+    [Description("TempTest")][InspectorName("Other/TempTest")] tempTest
 
 }

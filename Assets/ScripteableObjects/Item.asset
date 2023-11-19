@@ -192,3 +192,26 @@ MonoBehaviour:
       amount: 3
     - itemName: 3
       amount: 5
+  - itemName: 8
+    categoryName: 3
+    subCategoryName: 10
+    itemDescription: Temp
+    itemSpriteList:
+    - {fileID: -34546620, guid: 06521b7ca3b82d74f8e75837a7cd33f5, type: 3}
+    itemSize: {x: 1, y: 1}
+    worldObjectPrefab: {fileID: 4279313669877795266, guid: f2bde7fc4196fd44a8fcde2f934623b9, type: 3}
+    equippedPrefab: {fileID: 0}
+    idleAnimation: {fileID: 0}
+    actionAnimation: {fileID: 0}
+    isActive: 1
+    itemStackMax: 5
+    isEquipable: 0
+    HP: 0
+    isCrafteable: 1
+    craftingRequirements:
+    - itemName: 2
+      amount: 6
+    - itemName: 1
+      amount: 3
+    - itemName: 3
+      amount: 5

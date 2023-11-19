@@ -296,6 +296,7 @@ public class NewGridInventoryManager : MonoBehaviour
     {
         //Perform Bubble sort of the inventory based on the highest size
         int n = inventories[inventory].itemsInInventory.Count;
+        List<NewGridInventoryItem> item = inventories[inventory].itemsInInventory;
 
         for (int i = 0; i < n - 1; i++)
         {
@@ -324,6 +325,23 @@ public class NewGridInventoryManager : MonoBehaviour
                         inventories[inventory].itemsInInventory[j] = inventories[inventory].itemsInInventory[j + 1];
                         inventories[inventory].itemsInInventory[j + 1] = temp;
                     }
+                }
+            }
+        }
+
+        //Swap places if items are not of the same itemName
+
+        for (int i = 0; i < n - 1; i++)
+        {
+            for (int j = 0; j < n - i - 1; j++)
+            {
+                // Compare adjacent strings and swap if they are in the wrong order
+                if (item[j].itemSize == item[j + 1].itemSize && item[j].itemName > item[j + 1].itemName)
+                {
+                    NewGridInventoryItem temp = item[j];
+
+                    item[j] = item[j + 1];
+                    item[j + 1] = temp;
                 }
             }
         }
