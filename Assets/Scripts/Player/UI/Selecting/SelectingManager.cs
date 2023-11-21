@@ -10,7 +10,7 @@ public class SelectingManager : MonoBehaviour
     List<Item> SO_item = new List<Item>();
 
     //public List<GameObject> selectingSlotList = new List<GameObject>();
-    public List<InventoryItem> selectingItemList = new List<InventoryItem>();
+    //public List<InventoryItem> selectingItemList = new List<InventoryItem>();
 
     [Header("Other")]
     public bool SelectingScreen_isOpen = true;

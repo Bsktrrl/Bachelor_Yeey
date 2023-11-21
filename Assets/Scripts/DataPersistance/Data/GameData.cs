@@ -5,8 +5,6 @@ using UnityEngine;
 [System.Serializable]
 public class GameData
 {
-    //Variables to Save/Load
-
     //Player Pos and Rotation
     [HideInInspector] public Vector3 playerPos_Save = new Vector3();
     [HideInInspector] public Quaternion playerRot_Save = new Quaternion();
@@ -14,9 +12,15 @@ public class GameData
     //WorldObjects
 
     //Inventories
-    public List<Inventories> inventories_SaveList = new List<Inventories>();
-    public List<GridInventory> gridInventories_SaveList = new List<GridInventory>();
-    public List<NewGridInventory> newGridInventories_SaveList = new List<NewGridInventory>();
+    public List<Inventory> Inventories_SaveList = new List<Inventory>();
+
+    //Hotbar
+    [HideInInspector] public int selectedSlot_Save = new int();
+    public List<Items> hotbarItem_SaveList = new List<Items>();
+
+    //BuidingSystem
+    [HideInInspector] public BuildingType buildingType_Save = new BuildingType();
+    [HideInInspector] public BuildingMaterial buildingMaterial_Save = new BuildingMaterial();
 
 
     //--------------------
@@ -25,8 +29,7 @@ public class GameData
     public GameData()
     {
         //Input All Lists to clear
-        this.inventories_SaveList.Clear();
-        this.gridInventories_SaveList.Clear();
-        this.newGridInventories_SaveList.Clear();
+        this.Inventories_SaveList.Clear();
+        this.hotbarItem_SaveList.Clear();
     }
 }

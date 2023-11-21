@@ -18,22 +18,25 @@ public class Item
     public Items itemName;
     public ItemCategories categoryName;
     public ItemSubCategories subCategoryName;
-    [TextArea (5, 10)] public string itemDescription;
-    public List<Sprite> itemSpriteList = new List<Sprite>();
     public Vector2 itemSize;
+    [TextArea (5, 10)] public string itemDescription;
 
+    [Header("Sprites")]
+    public Sprite hotbarSprite;
+    public List<Sprite> itemSpriteList = new List<Sprite>();
+
+    [Header("Prefabs")]
     public GameObject worldObjectPrefab;
     public GameObject equippedPrefab;
 
-    public Animation idleAnimation;
-    public Animation actionAnimation;
-
     [Header("Stats")]
     public bool isActive;
-    public int itemStackMax;
     public bool isEquipable;
-
     public int HP;
+
+    [Header("Animations")]
+    public Animation idleAnimation;
+    public Animation actionAnimation;
 
     [Header("Crafting")]
     public bool isCrafteable = false;

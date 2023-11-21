@@ -128,6 +128,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerInRange: 0
-  itemName: 8
+  itemName: 9
   interacteableType: 1
   inventoryIndex: 0

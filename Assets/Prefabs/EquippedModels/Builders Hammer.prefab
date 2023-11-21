@@ -12,9 +12,9 @@ GameObject:
   - component: {fileID: 1693644012290509177}
   - component: {fileID: 1693644012290509176}
   - component: {fileID: 1693644012290509179}
-  - component: {fileID: -7491028194612631631}
-  - component: {fileID: -6565080470602098}
   - component: {fileID: 1486883135727411641}
+  - component: {fileID: -6565080470602098}
+  - component: {fileID: 1417224262918884002}
   m_Layer: 0
   m_Name: Builders Hammer
   m_TagString: Untagged
@@ -101,32 +101,6 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &-7491028194612631631
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1693644012290509181}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2c562939f42c0fa4785077a9ef758f54, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  animator: {fileID: 0}
-  subCategories: 0
---- !u!114 &-6565080470602098
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1693644012290509181}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2c583ca34ced47f4ea13120f39f27412, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!95 &1486883135727411641
 Animator:
   serializedVersion: 5
@@ -147,6 +121,32 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
+--- !u!114 &-6565080470602098
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1693644012290509181}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2c583ca34ced47f4ea13120f39f27412, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1417224262918884002
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1693644012290509181}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cc24ee7acbc75234b9a9891c6efa648f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  animator: {fileID: 0}
+  subCategories: 6
 --- !u!1 &1693644014323827687
 GameObject:
   m_ObjectHideFlags: 0

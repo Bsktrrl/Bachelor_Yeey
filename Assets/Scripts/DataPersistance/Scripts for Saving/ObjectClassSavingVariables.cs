@@ -7,7 +7,7 @@ using UnityEngine;
 public class ObjectClassSavingVariables
 {
     [Header("Universal")]
-    public ObjectType objectType;
+    //public ObjectType objectType;
     public Vector3 position;
 
     [Header("Inventory")]

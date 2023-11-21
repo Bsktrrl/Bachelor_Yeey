@@ -12,7 +12,9 @@ public class DataManager : MonoBehaviour, IDataPersistance
     public static Action dataIsSaving;
     public static Action datahasLoaded;
 
-    //Variables to Save/Load
+
+    //--------------------
+
 
     //Player Pos and Rotation
     [HideInInspector] public Vector3 playerPos_Store = new Vector3();
@@ -21,9 +23,15 @@ public class DataManager : MonoBehaviour, IDataPersistance
     //WorldObjects
 
     //Inventories
-    [HideInInspector] public List<Inventories> inventories_StoreList = new List<Inventories>();
-    [HideInInspector] public List<GridInventory> gridInventories_StoreList = new List<GridInventory>();
-    [HideInInspector] public List<NewGridInventory> newGridInventories_StoreList = new List<NewGridInventory>();
+    [HideInInspector] public List<Inventory> Inventories_StoreList = new List<Inventory>();
+
+    //Hotbar
+    [HideInInspector] public int selectedSlot_Store = new int();
+    public List<Items> hotbarItem_StoreList = new List<Items>();
+
+    //BuidingSystem
+    [HideInInspector] public BuildingType buildingType_Store = new BuildingType();
+    [HideInInspector] public BuildingMaterial buildingMaterial_Store = new BuildingMaterial();
 
 
 
@@ -53,9 +61,13 @@ public class DataManager : MonoBehaviour, IDataPersistance
         this.playerPos_Store = gameData.playerPos_Save;
         this.playerRot_Store = gameData.playerRot_Save;
 
-        this.inventories_StoreList = gameData.inventories_SaveList;
-        this.gridInventories_StoreList = gameData.gridInventories_SaveList;
-        this.newGridInventories_StoreList = gameData.newGridInventories_SaveList;
+        this.Inventories_StoreList = gameData.Inventories_SaveList;
+
+        this.hotbarItem_StoreList = gameData.hotbarItem_SaveList;
+        this.selectedSlot_Store = gameData.selectedSlot_Save;
+
+        this.buildingType_Store = gameData.buildingType_Save;
+        this.buildingMaterial_Store = gameData.buildingMaterial_Save;
 
         datahasLoaded?.Invoke();
 
@@ -67,12 +79,16 @@ public class DataManager : MonoBehaviour, IDataPersistance
         dataIsSaving?.Invoke();
 
         //Input what to save
-        gameData.playerPos_Save = this.playerPos_Store;
-        gameData.playerRot_Save = this.playerRot_Store;
+        gameData.playerPos_Save = MainManager.instance.player.transform.position;
+        gameData.playerRot_Save = MainManager.instance.player.transform.rotation;
 
-        gameData.inventories_SaveList = this.inventories_StoreList;
-        gameData.gridInventories_SaveList = this.gridInventories_StoreList;
-        gameData.newGridInventories_SaveList = this.newGridInventories_StoreList;
+        gameData.Inventories_SaveList = this.Inventories_StoreList;
+
+        gameData.hotbarItem_SaveList = this.hotbarItem_StoreList;
+        gameData.selectedSlot_Save = this.selectedSlot_Store;
+
+        gameData.buildingType_Save = this.buildingType_Store;
+        gameData.buildingMaterial_Save = this.buildingMaterial_Store;
 
         print("Data has Saved");
     }

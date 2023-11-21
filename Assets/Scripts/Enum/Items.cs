@@ -16,9 +16,12 @@ public enum Items
     [Description("Axe")][InspectorName("Tools/Axe")] Axe,
     [Description("Building Hammer")][InspectorName("Tools/Building Hammer")] BuildingHammer,
 
-    //Other
-    [Description("Small Chest")][InspectorName("Other/SmallChest")] SmallChest,
-    [Description("Medium Chest")][InspectorName("Other/MediumChest")] MediumChest,
+    //Chests/Storage
+    [Description("Small Chest")][InspectorName("Storage/SmallChest")] SmallChest,
+    [Description("Medium Chest")][InspectorName("Storage/MediumChest")] MediumChest,
+
+    //Machines
+    [Description("Crafting Table")][InspectorName("Machines/CraftingTable")] CraftingTable,
 
     [Description("TempTest")][InspectorName("Other/TempTest")] tempTest
 

@@ -1,7 +1,4 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine.UI;
 using UnityEngine;
 
 public class PlayerButtonManager : MonoBehaviour
@@ -9,45 +6,37 @@ public class PlayerButtonManager : MonoBehaviour
     //Singleton
     public static PlayerButtonManager instance { get; set; } //Singleton
     
-    public ButtonClickedState buttonClickedState = ButtonClickedState.None;
-    public InventoryButtonState inventoryButtonState = InventoryButtonState.None;
+    //public ButtonClickedState buttonClickedState = ButtonClickedState.None;
+    //public InventoryButtonState inventoryButtonState = InventoryButtonState.None;
 
-    public static Action leftMouse_isPressedDown;
-    public static Action rightMouse_isPressedDown;
-    public static Action leftMouse_isPressedUp;
-    public static Action rightMouse_isPressedUp;
-    public static Action Tab_isPressedDown;       //Inventory Screen
-    public static Action Esc_isPressedDown;
-
-    public static Action E_isPressedDown;
-
-    //Inventory
-    public static Action inventory_LeftMouse_isPressedDown;
-    public static Action inventory_RightMouse_isPressedDown;
-    public static Action inventory_Shift_and_RightMouse_isPressedDown;
-    public static Action inventory_ScrollMouse_isPressedDown;
-    public static Action inventory_ScrollMouse_isRolledUP;
-    public static Action inventory_ScrollMouse_isRolledDown;
-    public static Action moveStackToStorageBox;
-
-    public static Action handSelection_Down;
-    public static Action handSelection_Up;
+    //public static Action leftMouse_isPressedDown;
+    //public static Action rightMouse_isPressedDown;
+    //public static Action leftMouse_isPressedUp;
+    //public static Action rightMouse_isPressedUp;
+    public static Action OpenPlayerInventory_isPressedDown;
+    public static Action ClosePlayerInventory_isPressedDown;
+    public static Action objectInterraction_isPressedDown;
 
     //HandSelected
+    public static Action hotbarSelectionDown_isPressed;
+    public static Action hotbarSelectionUp_isPressed;
+
     public static Action isPressed_1;
     public static Action isPressed_2;
     public static Action isPressed_3;
     public static Action isPressed_4;
     public static Action isPressed_5;
-    public static Action isPressed_6;
-    public static Action isPressed_7;
-    public static Action isPressed_8;
-    public static Action isPressed_9;
 
     //BuildingSystem
-    public static Action isPressed_R_Rotate;
     public static Action isPressed_BuildingSystemMenu_Enter;
     public static Action isPressed_BuildingSystemMenu_Exit;
+    public static Action isPressed_BuildingRotate;
+
+    //Equipment
+    public static Action isPressed_EquipmentActivate;
+
+    //Crafting
+    public static Action isPressed_CloseCraftingMenu;
 
     //Testing Buttons
     public static Action T_isPressed;
@@ -71,176 +60,124 @@ public class PlayerButtonManager : MonoBehaviour
     }
     private void Update()
     {
-        //Left Mouse
-        if (!Input.GetKey(KeyCode.LeftShift) && Input.GetKeyDown(KeyCode.Mouse0) && inventoryButtonState == InventoryButtonState.None && buttonClickedState == ButtonClickedState.None)
-        {
-            if (MainManager.instance.menuStates == MenuStates.InventoryMenu)
-            {
-                inventoryButtonState = InventoryButtonState.leftMouse;
-                inventory_LeftMouse_isPressedDown?.Invoke();
-            }
-            else
-            {
-                buttonClickedState = ButtonClickedState.leftMouse;
-                leftMouse_isPressedDown?.Invoke();
-            }
-        }
-        else if (Input.GetKeyUp(KeyCode.Mouse0) && MainManager.instance.menuStates == MenuStates.None)
-        {
-            if (MainManager.instance.menuStates == MenuStates.InventoryMenu)
-            {
-                inventoryButtonState = InventoryButtonState.None;
-            }
-            else
-            {
-                buttonClickedState = ButtonClickedState.None;
-            }
-        }
-        else if (Input.GetKeyUp(KeyCode.Mouse0))
-        {
-            leftMouse_isPressedUp?.Invoke();
-        }
-
-        //Right Mouse
-        else if (!Input.GetKey(KeyCode.LeftShift) && Input.GetKeyDown(KeyCode.Mouse1) && inventoryButtonState == InventoryButtonState.None && buttonClickedState == ButtonClickedState.None)
-        {
-            if (MainManager.instance.menuStates == MenuStates.InventoryMenu)
-            {
-                inventoryButtonState = InventoryButtonState.rightMouse;
-                inventory_RightMouse_isPressedDown?.Invoke();
-            }
-            else
-            {
-                buttonClickedState = ButtonClickedState.rightMouse;
-                rightMouse_isPressedDown?.Invoke();
-            }
-
-        }
-        else if(Input.GetKeyUp(KeyCode.Mouse1) && MainManager.instance.menuStates == MenuStates.None)
-        {
-            if (MainManager.instance.menuStates == MenuStates.InventoryMenu)
-            {
-                inventoryButtonState = InventoryButtonState.None;
-            }
-            else
-            {
-                buttonClickedState = ButtonClickedState.None;
-            }
-        }
-        else if (Input.GetKeyUp(KeyCode.Mouse1))
-        {
-            rightMouse_isPressedUp?.Invoke();
-        }
-
-        //Menus
-        else if (Input.GetKeyDown(KeyCode.Tab))
-        {
-            buttonClickedState = ButtonClickedState.tab;
-            Tab_isPressedDown?.Invoke();
-        }       //Open Inventory
-        else if (Input.GetKeyDown(KeyCode.Escape))
-        {
-            buttonClickedState = ButtonClickedState.Esc;
-            Esc_isPressedDown?.Invoke();
-        }  //Close Menus   
-        
-        //Object Interraction
-        else if (Input.GetKeyDown(KeyCode.E))
-        {
-            buttonClickedState = ButtonClickedState.E;
-            E_isPressedDown?.Invoke();
-        }
-
-        //Inventory Buttons
-        else if (Input.GetKey(KeyCode.LeftShift) && Input.GetKeyDown(KeyCode.Mouse0) && inventoryButtonState == InventoryButtonState.None)
-        {
-            if (MainManager.instance.menuStates == MenuStates.InventoryMenu)
-            {
-                moveStackToStorageBox?.Invoke();
-            }
-        }
-        else if (Input.GetKey(KeyCode.LeftShift) && Input.GetKeyDown(KeyCode.Mouse1) && inventoryButtonState == InventoryButtonState.None)
-        {
-            if (MainManager.instance.menuStates == MenuStates.InventoryMenu)
-            {
-                inventoryButtonState = InventoryButtonState.Shift_RightMouse;
-                inventory_Shift_and_RightMouse_isPressedDown?.Invoke();
-            }
-        }
-        else if (Input.GetKeyDown(KeyCode.Mouse2) && inventoryButtonState == InventoryButtonState.None)
-        {
-            if (MainManager.instance.menuStates == MenuStates.InventoryMenu)
-            {
-                inventoryButtonState = InventoryButtonState.ScrollWheel;
-                inventory_ScrollMouse_isPressedDown?.Invoke();
-            }
-        }
-        else if ((Input.GetKey(KeyCode.Mouse1) && MainManager.instance.menuStates == MenuStates.InventoryMenu && Input.GetAxis("Mouse ScrollWheel") > 0)
-            || (Input.GetKey(KeyCode.Mouse0) && MainManager.instance.menuStates == MenuStates.InventoryMenu && Input.GetAxis("Mouse ScrollWheel") > 0))
-        {
-            inventory_ScrollMouse_isRolledUP?.Invoke();
-        }
-        else if ((Input.GetKey(KeyCode.Mouse1) && MainManager.instance.menuStates == MenuStates.InventoryMenu && Input.GetAxis("Mouse ScrollWheel") < 0)
-            || (Input.GetKey(KeyCode.Mouse0) && MainManager.instance.menuStates == MenuStates.InventoryMenu && Input.GetAxis("Mouse ScrollWheel") < 0))
-        {
-            inventory_ScrollMouse_isRolledDown?.Invoke();
-        }
-
-        //Select Hand
-        else if (MainManager.instance.menuStates == MenuStates.None && Input.GetAxis("Mouse ScrollWheel") > 0)
-        {
-            handSelection_Down?.Invoke();
-        }
-        else if (MainManager.instance.menuStates == MenuStates.None && Input.GetAxis("Mouse ScrollWheel") < 0)
-        {
-            handSelection_Up?.Invoke();
-        }
-
-        //Hand QuickAction
-        else if (MainManager.instance.menuStates == MenuStates.None && Input.GetKey(KeyCode.Alpha1))
-            isPressed_1?.Invoke();
-        else if (MainManager.instance.menuStates == MenuStates.None && Input.GetKey(KeyCode.Alpha2))
-            isPressed_2?.Invoke();
-        else if (MainManager.instance.menuStates == MenuStates.None && Input.GetKey(KeyCode.Alpha3))
-            isPressed_3?.Invoke();
-        else if (MainManager.instance.menuStates == MenuStates.None && Input.GetKey(KeyCode.Alpha4))
-            isPressed_4?.Invoke();
-        else if (MainManager.instance.menuStates == MenuStates.None && Input.GetKey(KeyCode.Alpha5))
-            isPressed_5?.Invoke();
-        else if (MainManager.instance.menuStates == MenuStates.None && Input.GetKey(KeyCode.Alpha6))
-            isPressed_6?.Invoke();
-        else if (MainManager.instance.menuStates == MenuStates.None && Input.GetKey(KeyCode.Alpha7))
-            isPressed_7?.Invoke();
-        else if (MainManager.instance.menuStates == MenuStates.None && Input.GetKey(KeyCode.Alpha8))
-            isPressed_8?.Invoke();
-        else if (MainManager.instance.menuStates == MenuStates.None && Input.GetKey(KeyCode.Alpha9))
-            isPressed_9?.Invoke();
-
         //BuildingSystem
-        else if (Input.GetKeyDown(KeyCode.R) && MainManager.instance.gameStates == GameStates.Building && MainManager.instance.menuStates == MenuStates.None)
+        #region
+        if (Input.GetKeyDown(KeyCode.R) && MainManager.instance.gameStates == GameStates.Building && MainManager.instance.menuStates == MenuStates.None)
         {
-            isPressed_R_Rotate?.Invoke();
+            isPressed_BuildingRotate?.Invoke();
         }
 
-        else if (Input.GetKey(KeyCode.Mouse1) && MainManager.instance.gameStates == GameStates.Building && (MainManager.instance.menuStates == MenuStates.None || MainManager.instance.menuStates == MenuStates.BuildingSystemMenu))
+        else if (Input.GetKeyDown(KeyCode.Mouse1) && MainManager.instance.gameStates == GameStates.Building
+            && MainManager.instance.menuStates == MenuStates.None)
         {
             isPressed_BuildingSystemMenu_Enter?.Invoke();
         }
-        else if (Input.GetKeyUp(KeyCode.Mouse1) && MainManager.instance.gameStates == GameStates.Building && MainManager.instance.menuStates == MenuStates.BuildingSystemMenu)
+        else if (Input.GetKeyUp(KeyCode.Mouse1) && MainManager.instance.gameStates == GameStates.Building
+            && (MainManager.instance.menuStates == MenuStates.None || MainManager.instance.menuStates == MenuStates.BuildingSystemMenu))
         {
             isPressed_BuildingSystemMenu_Exit?.Invoke();
         }
+        #endregion
+
+        //Equipment
+        #region
+        else if (Input.GetKeyDown(KeyCode.Mouse0) && MainManager.instance.menuStates == MenuStates.None 
+            && EquippmentManager.instance.toolHolderParent.transform.childCount > 0
+            && HotbarManager.instance.selectedItem != Items.None)
+        {
+            if (EquippmentManager.instance.toolHolderParent.GetComponentInChildren<EquippedItem>() != null)
+            {
+                isPressed_EquipmentActivate?.Invoke();
+            }
+        }
+        #endregion
+
+        //Crafting
+        #region
+        else if ((Input.GetKeyDown(KeyCode.Tab) || Input.GetKeyDown(KeyCode.E) || Input.GetKeyDown(KeyCode.Escape))
+            && MainManager.instance.menuStates == MenuStates.CraftingMenu)
+        {
+            isPressed_CloseCraftingMenu?.Invoke();
+        }
+        #endregion
+
+        //PlayerInventory
+        #region
+        else if (Input.GetKeyDown(KeyCode.Tab) && MainManager.instance.menuStates == MenuStates.None)
+        {
+            OpenPlayerInventory_isPressedDown?.Invoke();
+        }
+        else if ((Input.GetKeyDown(KeyCode.Tab) || Input.GetKeyDown(KeyCode.E) || Input.GetKeyDown(KeyCode.Escape))
+            && (MainManager.instance.menuStates == MenuStates.InventoryMenu || MainManager.instance.menuStates == MenuStates.chestMenu))
+        {
+            ClosePlayerInventory_isPressedDown?.Invoke();
+        }  
+        #endregion
+
+        //Object Interraction
+        #region
+        else if (Input.GetKeyDown(KeyCode.E) && MainManager.instance.menuStates == MenuStates.None)
+        {
+            objectInterraction_isPressedDown?.Invoke();
+        }
+        #endregion
+
+        //Hotbar
+        #region
+        else if (Input.GetAxis("Mouse ScrollWheel") > 0 && MainManager.instance.menuStates == MenuStates.None)
+        {
+            hotbarSelectionDown_isPressed?.Invoke();
+        }
+        else if (Input.GetAxis("Mouse ScrollWheel") < 0 && MainManager.instance.menuStates == MenuStates.None)
+        {
+            hotbarSelectionUp_isPressed?.Invoke();
+        }
+
+        //QuickSlots
+        else if (Input.GetKey(KeyCode.Alpha1) && MainManager.instance.menuStates == MenuStates.None)
+            isPressed_1?.Invoke();
+        else if (Input.GetKey(KeyCode.Alpha2) && MainManager.instance.menuStates == MenuStates.None)
+            isPressed_2?.Invoke();
+        else if (Input.GetKey(KeyCode.Alpha3) && MainManager.instance.menuStates == MenuStates.None)
+            isPressed_3?.Invoke();
+        else if (Input.GetKey(KeyCode.Alpha4) && MainManager.instance.menuStates == MenuStates.None)
+            isPressed_4?.Invoke();
+        else if (Input.GetKey(KeyCode.Alpha5) && MainManager.instance.menuStates == MenuStates.None)
+            isPressed_5?.Invoke();
+        #endregion
+
+        //Left Mouse
+        #region
+        //else if (Input.GetKeyDown(KeyCode.Mouse0))
+        //{
+        //    leftMouse_isPressedDown?.Invoke();
+        //}
+        //else if (Input.GetKeyUp(KeyCode.Mouse0))
+        //{
+        //    leftMouse_isPressedUp?.Invoke();
+        //}
+        #endregion
+
+        //Right Mouse
+        #region
+        //else if (Input.GetKeyDown(KeyCode.Mouse1))
+        //{
+        //    rightMouse_isPressedDown?.Invoke();
+        //}
+        //else if (Input.GetKeyUp(KeyCode.Mouse1))
+        //{
+        //    rightMouse_isPressedUp?.Invoke();
+        //}
+        #endregion
 
         //Testing
+        #region
         else if (Input.GetKeyDown(KeyCode.T))
         {
             T_isPressed?.Invoke();
         }
+        #endregion
 
-        else
-        {
-            buttonClickedState = ButtonClickedState.None;
-        }
     }
 }
 public enum ButtonClickedState

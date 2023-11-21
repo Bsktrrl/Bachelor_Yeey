@@ -12,8 +12,8 @@ GameObject:
   - component: {fileID: 2553926483823156087}
   - component: {fileID: 2553926483823156086}
   - component: {fileID: 2553926483823156085}
-  - component: {fileID: 492968905762140196}
   - component: {fileID: 7030356553261885006}
+  - component: {fileID: -5346814736921937151}
   m_Layer: 0
   m_Name: Axe
   m_TagString: Axe
@@ -100,20 +100,6 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &492968905762140196
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2553926483823156083}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2c562939f42c0fa4785077a9ef758f54, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  animator: {fileID: 0}
-  subCategories: 5
 --- !u!95 &7030356553261885006
 Animator:
   serializedVersion: 5
@@ -134,6 +120,18 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
+--- !u!114 &-5346814736921937151
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2553926483823156083}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cc24ee7acbc75234b9a9891c6efa648f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2553926485313049065
 GameObject:
   m_ObjectHideFlags: 0

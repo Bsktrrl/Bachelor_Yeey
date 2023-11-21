@@ -1,8 +1,11 @@
 using System;
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
+    public GameObject playerObject;
     public CharacterController controller;
 
     public float speed = 12f;
@@ -24,11 +27,6 @@ public class PlayerMovement : MonoBehaviour
     //--------------------
 
 
-    private void Start()
-    {
-        DataManager.dataIsSaving += Save;
-        DataManager.datahasLoaded += Load;
-    }
     void Update()
     {
         //checking if we hit the ground to reset our falling velocity, otherwise we will fall faster the next time
@@ -62,15 +60,4 @@ public class PlayerMovement : MonoBehaviour
 
     //--------------------
 
-
-    void Save()
-    {
-        DataManager.instance.playerPos_Store = gameObject.transform.position;
-        DataManager.instance.playerRot_Store = gameObject.transform.rotation;
-    }
-    void Load()
-    {
-        gameObject.transform.position = DataManager.instance.playerPos_Store;
-        gameObject.transform.rotation = DataManager.instance.playerRot_Store;
-    }
 }

@@ -27,8 +27,7 @@ public class TreeParent : MonoBehaviour
     {
         if (Healthytree.GetComponent<ChoppableTree>().playerInRange && Healthytree.GetComponent<ChoppableTree>().canBeChopped
             && SelectionManager.instance.selectedTree == gameObject.GetComponentInChildren<ChoppableTree>().gameObject
-            && MainManager.instance.menuStates == MenuStates.None
-            && HandManager.instance.selectedSlotItem.subCategoryName == ItemSubCategories.Axe)
+            && MainManager.instance.menuStates == MenuStates.None)
         {
             print("ObjectInteraction");
             HP -= 1;
@@ -41,10 +40,10 @@ public class TreeParent : MonoBehaviour
             {
                 animator.SetTrigger("TreeShake");
 
-                if (EquipmentManager.instance.toolHolderParent != null)
-                {
-                    EquipmentManager.instance.toolHolderParent.GetComponentInChildren<EquipableItem>().RemoveDurability();
-                }
+                //if (EquipmentManager.instance.toolHolderParent != null)
+                //{
+                //    EquipmentManager.instance.toolHolderParent.GetComponentInChildren<EquipableItem>().RemoveDurability();
+                //}
             }
         }
     }

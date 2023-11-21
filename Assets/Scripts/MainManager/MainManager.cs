@@ -5,15 +5,16 @@ using UnityEngine;
 public class MainManager : MonoBehaviour
 {
     public static MainManager instance { get; set; } //Singleton
-    [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.AfterAssembliesLoaded)]
-    static void Reinitialize()
-    {
-        instance = null;
-    }
 
+    [Header("Player")]
     public GameObject player;
+
+    [Header("Game States")]
     public MenuStates menuStates;
     public GameStates gameStates;
+
+    [Header("Item_SO")]
+    public Item_SO item_SO;
 
     [Header("Parents")]
     public GameObject treeParent;
@@ -50,7 +51,7 @@ public class MainManager : MonoBehaviour
     void UpdateGameStates()
     {
         //Set to Building
-        if (HandManager.instance.selectedSlotItem.subCategoryName == ItemSubCategories.BuildingHammer)
+        if (GetItem(HotbarManager.instance.selectedItem).subCategoryName == ItemSubCategories.BuildingHammer)
         {
             gameStates = GameStates.Building;
         }
@@ -66,7 +67,24 @@ public class MainManager : MonoBehaviour
     //--------------------
 
 
-    void Save()
+    public Item GetItem(Items itemName)
+    {
+        for (int i = 0; i < item_SO.itemList.Count; i++)
+        {
+            if (item_SO.itemList[i].itemName == itemName)
+            {
+                return item_SO.itemList[i];
+            }
+        }
+
+        return null;
+    }
+
+
+    //--------------------
+
+    
+    void SaveData()
     {
         DataPersistanceManager.instance.SaveGame();
     }
@@ -80,7 +98,8 @@ public enum MenuStates
     PauseMenu,
     InventoryMenu,
     chestMenu,
-    BuildingSystemMenu
+    BuildingSystemMenu,
+    CraftingMenu
 }
 
 public enum GameStates

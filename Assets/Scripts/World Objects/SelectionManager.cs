@@ -48,7 +48,7 @@ public class SelectionManager : MonoBehaviour
                 var selectionTransform = hit.transform;
 
                 //When reycasting something that is interactable
-                NewInteractableObject newInteractableObject = selectionTransform.GetComponent<NewInteractableObject>();
+                InteractableObject newInteractableObject = selectionTransform.GetComponent<InteractableObject>();
                 ChoppableTree choppableTree = selectionTransform.GetComponent<ChoppableTree>();
 
                 //PickupObject pickupObject = selectionTransform.GetComponent<PickupObject>();
