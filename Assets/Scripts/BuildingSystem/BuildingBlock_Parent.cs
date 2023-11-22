@@ -20,6 +20,22 @@ public class BuildingBlock_Parent : MonoBehaviour
     public List<BlockPlaced> blockPlacedList = new List<BlockPlaced>();
 
     public List<GameObject> ghostList = new List<GameObject>();
+    
+    private void Start()
+    {
+        //Let the player don't collide with all directionObjects
+        for (int i = 0; i < directionObjects.Count; i++)
+        {
+            Physics.IgnoreCollision(MainManager.instance.player.GetComponent<CharacterController>(), directionObjects[i].GetComponent<Collider>(), true);
+        }
+
+        //Let the player don't collide with all ghostListObjects
+        for (int i = 0; i < ghostList.Count; i++)
+        {
+            Physics.IgnoreCollision(MainManager.instance.player.GetComponent<CharacterController>(), ghostList[i].GetComponent<Collider>(), true);
+        }
+    }
+
 }
 
 [Serializable]

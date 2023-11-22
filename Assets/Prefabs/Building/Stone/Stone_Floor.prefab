@@ -1891,7 +1891,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   buildingType: 1
   buildingSubType: 0
-  buildingMaterial: 1
+  buildingMaterial: 2
   isStrange: 0
   BuildingBlock: {fileID: 786253518913603422}
   directionObjects:

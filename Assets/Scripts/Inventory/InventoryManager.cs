@@ -453,7 +453,6 @@ public class InventoryManager : MonoBehaviour
                 //If slot is empty, check if item can be placed in its range
                 if (inventoryList[i].GetComponent<ItemSlot>().itemName == Items.None)
                 {
-                    print("--. Rounds j: " + j + " | i: " + i + " | InventoryList.count = " + inventoryList.Count);
                     int itemSizeX = (int)MainManager.instance.GetItem(inventories[inventory].itemsInInventory[j].itemName).itemSize.x;
                     int itemSizeY = (int)MainManager.instance.GetItem(inventories[inventory].itemsInInventory[j].itemName).itemSize.y;
 
@@ -620,9 +619,7 @@ public class InventoryManager : MonoBehaviour
             Cursor.lockState = CursorLockMode.None;
             MainManager.instance.menuStates = MenuStates.InventoryMenu;
 
-            print("999. First");
             PrepareInventoryUI(0, false); //Prepare PLAYER Inventory
-            print("999. Second");
 
             playerInventory_Parent.GetComponent<RectTransform>().sizeDelta = inventories[0].inventorySize * cellsize;
             playerInventory_Parent.GetComponent<GridLayoutGroup>().cellSize = new Vector2(cellsize, cellsize);

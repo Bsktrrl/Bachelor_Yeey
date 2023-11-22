@@ -1092,7 +1092,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   buildingType: 3
   buildingSubType: 1
-  buildingMaterial: 1
+  buildingMaterial: 3
   isStrange: 0
   BuildingBlock: {fileID: 786253518913603422}
   directionObjects:

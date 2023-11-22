@@ -130,6 +130,9 @@ public class BuildingManager : MonoBehaviour
 
     float timer = 0;
 
+    //When true, shift buildingGhosts available to the mirrored version
+    public bool mirroredBlocks;
+
 
     //--------------------
 
@@ -206,7 +209,8 @@ public class BuildingManager : MonoBehaviour
     void RaycastSetup()
     {
         //Only active when not in a menu
-        if (MainManager.instance.GetItem(HotbarManager.instance.selectedItem).subCategoryName == ItemSubCategories.BuildingHammer)
+        if (MainManager.instance.GetItem(HotbarManager.instance.selectedItem).subCategoryName == ItemSubCategories.BuildingHammer
+            && !BuildingSystemMenu.instance.buildingSystemMenu_isOpen)
         {
             RaycastBuidingDirectionMarkers();
         }

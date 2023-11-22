@@ -13,6 +13,8 @@ public class BuildingSystemMenu : MonoBehaviour
 
     public List<GameObject> buildingBlockUIList = new List<GameObject>();
 
+    public bool buildingSystemMenu_isOpen;
+
 
     //--------------------
 
@@ -51,18 +53,21 @@ public class BuildingSystemMenu : MonoBehaviour
 
     void BuildingBlockSelecter_Enter()
     {
-        //print("Pressing Mouse - Enter");
-        buildingSystemMenu.SetActive(true);
+        buildingSystemMenu_isOpen = true;
+
         Cursor.lockState = CursorLockMode.None;
         MainManager.instance.menuStates = MenuStates.BuildingSystemMenu;
-
         BuildingManager.instance.SetAllGhostState_Off();
+
+        buildingSystemMenu.SetActive(true);
     }
     void BuildingBlockSelecter_Exit()
     {
-        //print("Pressing Mouse - Exit");
         buildingSystemMenu.SetActive(false);
+
         Cursor.lockState = CursorLockMode.Locked;
         MainManager.instance.menuStates = MenuStates.None;
+
+        buildingSystemMenu_isOpen = false;
     }
 }
