@@ -188,6 +188,48 @@ public class InventoryManager : MonoBehaviour
 
         return true;
     }
+    public bool AddItemToInventory(int inventory, Items itemName)
+    {
+        InventoryItem item = new InventoryItem();
+
+        item.inventoryIndex = inventory;
+        item.itemName = itemName;
+        item.itemSize = MainManager.instance.GetItem(itemName).itemSize;
+
+        lastItemToGet = itemName;
+
+        //Give the item an ID to be unique
+        #region
+        bool check = false;
+        while (!check)
+        {
+            bool innerCheck = false;
+            item.itemID = UnityEngine.Random.Range(0, 10000000);
+
+            for (int i = 0; i < inventories[inventory].itemsInInventory.Count; i++)
+            {
+                if (inventories[inventory].itemsInInventory[i].itemID == item.itemID)
+                {
+                    innerCheck = true;
+
+                    break;
+                }
+            }
+
+            if (!innerCheck)
+            {
+                check = true;
+            }
+        }
+        #endregion
+
+        inventories[inventory].itemsInInventory.Add(item);
+
+        PrepareInventoryUI(inventory, false);
+        RemoveInventoriesUI();
+
+        return true;
+    }
     public void RemoveItemFromInventory(int inventory, Items itemName)
     {
         //print("100. item : " + itemName + " is removed from inventory: " + inventory);
@@ -263,7 +305,7 @@ public class InventoryManager : MonoBehaviour
         CheckHotbarItemInInventory();
     }
 
-    void CheckHotbarItemInInventory()
+    public void CheckHotbarItemInInventory()
     {
         print("100. CheckHotbarItemInInventory");
 

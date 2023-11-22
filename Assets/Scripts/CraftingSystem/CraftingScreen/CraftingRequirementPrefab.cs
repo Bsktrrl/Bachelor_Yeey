@@ -31,7 +31,7 @@ public class CraftingRequirementPrefab : MonoBehaviour
     }
     private void Update()
     {
-        if (MainManager.instance.menuStates == MenuStates.InventoryMenu)
+        if (MainManager.instance.menuStates == MenuStates.CraftingMenu)
         {
             SetDisplay();
             CheckRequrement();
@@ -46,12 +46,12 @@ public class CraftingRequirementPrefab : MonoBehaviour
     {
         craftingItemImage.sprite = craftingItemSprite;
         craftingItemName.text = requirements.itemName.ToString();
-        craftingItemAmountDisplay.text = GetItemAmontInInventories(requirements).ToString() + "/" + requirements.amount;
+        craftingItemAmountDisplay.text = GetItemAmontInPlayerInventory(requirements).ToString() + "/" + requirements.amount;
     }
 
     public void CheckRequrement()
     {
-        if (GetItemAmontInInventories(requirements) >= requirements.amount) //Enough of the Item available in Inventory
+        if (GetItemAmontInPlayerInventory(requirements) >= requirements.amount) //Enough of the Item available in Inventory
         {
             requirementIsMet = true;
             craftingItemImageOverlay.color = new Color(overlayColor_Active.r, overlayColor_Active.g, overlayColor_Active.b, overlayColor_Active.a);
@@ -67,34 +67,22 @@ public class CraftingRequirementPrefab : MonoBehaviour
         }
     }
 
-    int GetItemAmontInInventories(CraftingRequirements item)
+    int GetItemAmontInPlayerInventory(CraftingRequirements item)
     {
-        int itemInventoryCounter = 0;
+        int itemInPlayerInventoryCounter = 0;
 
-        //List<Inventories> itemList = InventoryManager.instance.inventories;
-        //for (int i = 0; i < itemList.Count; i++)
-        //{
-        //    if (itemList[i].isOpen)
-        //    {
-        //        for (int j = 0; j < itemList[i].itemList.Count; j++)
-        //        {
-        //            if (item.itemName == itemList[i].itemList[j].itemName)
-        //            {
-        //                //Check if item is dragging
-        //                if (StorageManager.instance.activeInventoryItem == itemList[i].itemList[j]
-        //                    && StorageManager.instance.itemIsClicked)
-        //                {
-        //                    itemInventoryCounter += StorageManager.instance.itemAmountSelected + StorageManager.instance.itemAmountLeftBehind;
-        //                }
-        //                else
-        //                {
-        //                    itemInventoryCounter += itemList[i].itemList[j].amount;
-        //                }
-        //            }
-        //        }
-        //    }
-        //}
+        //Get player inventory
+        Inventory itemList = InventoryManager.instance.inventories[0];
 
-        return itemInventoryCounter;
+        for (int i = 0; i < itemList.itemsInInventory.Count; i++)
+        {
+            if (item.itemName == itemList.itemsInInventory[i].itemName)
+            {
+                //Add the amount of this Item in the player inventory 
+                itemInPlayerInventoryCounter += 1;
+            }
+        }
+
+        return itemInPlayerInventoryCounter;
     }
 }

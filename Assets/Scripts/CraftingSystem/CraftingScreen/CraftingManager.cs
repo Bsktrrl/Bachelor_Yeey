@@ -11,7 +11,6 @@ public class CraftingManager : MonoBehaviour
     #region Variables
     [Header("Main Screen")]
     [SerializeField] GameObject craftingMenu;
-    List<Item> SO_itemList = new List<Item>();
 
     [Header("Overview Screen")]
     [SerializeField] ItemCategory_SO itemCategory_SO;
@@ -159,8 +158,8 @@ public class CraftingManager : MonoBehaviour
             }
         }
 
-        //Turn available subCategoryies on
-        for (int k = 1; k < SO_itemList.Count; k++)
+        //Turn available subCategories on
+        for (int k = 1; k < MainManager.instance.item_SO.itemList.Count; k++)
         {
             for (int i = 1; i < itemCategory_SO.ItemCategoryList.Count; i++)
             {
@@ -168,7 +167,7 @@ public class CraftingManager : MonoBehaviour
                 {
                     for (int j = 0; j < itemCategory_SO.ItemCategoryList[i].subCategoryName.Count; j++)
                     {
-                        if (SO_itemList[k].subCategoryName == itemCategory_SO.ItemCategoryList[i].subCategoryName[j])
+                        if (MainManager.instance.item_SO.itemList[k].subCategoryName == itemCategory_SO.ItemCategoryList[i].subCategoryName[j])
                         {
                             selectionSubActiveList[j] = true;
                         }
@@ -211,8 +210,6 @@ public class CraftingManager : MonoBehaviour
                     }
                 }
 
-                
-                
                 //Adjust Frame
                 selectionScreen.GetComponent<RectTransform>().sizeDelta += new Vector2(0, 67);
             }
@@ -238,16 +235,16 @@ public class CraftingManager : MonoBehaviour
         for (int i = 0; i < selectionSubGridLayoutGroupList.Count; i++)
         {
             //Find amount of items
-            for (int j = 0; j < SO_itemList.Count; j++)
+            for (int j = 0; j < MainManager.instance.item_SO.itemList.Count; j++)
             {
-                if (SO_itemList[j].isActive
-                    && SO_itemList[j].categoryName == activeCategory
-                    && SO_itemList[j].subCategoryName == selectionSubGridLayoutGroupList[i].GetComponent<SelectionSubPanel>().panelName)
+                if (MainManager.instance.item_SO.itemList[j].isActive
+                    && MainManager.instance.item_SO.itemList[j].categoryName == activeCategory
+                    && MainManager.instance.item_SO.itemList[j].subCategoryName == selectionSubGridLayoutGroupList[i].GetComponent<SelectionSubPanel>().panelName)
                 {
                     selectionButtonPrefabList.Add(Instantiate(selectionButton_Prefab) as GameObject);
                     selectionButtonPrefabList[selectionButtonPrefabList.Count - 1].transform.SetParent(selectionSubGridLayoutGroupList[i].transform);
 
-                    selectionButtonPrefabList[selectionButtonPrefabList.Count - 1].GetComponent<SelectionSubButtonPrefab>().item = SO_itemList[j];
+                    selectionButtonPrefabList[selectionButtonPrefabList.Count - 1].GetComponent<SelectionSubButtonPrefab>().item = MainManager.instance.item_SO.itemList[j];
                     selectionButtonPrefabList[selectionButtonPrefabList.Count - 1].GetComponent<SelectionSubButtonPrefab>().SetDisplay();
                 }
             }
@@ -268,7 +265,7 @@ public class CraftingManager : MonoBehaviour
         //Reset Panel Size
         craftingScreen.GetComponent<RectTransform>().sizeDelta = new Vector2(270, 220);
 
-        //categoryCraftingImage.sprite = item.itemSprite;
+        categoryCraftingImage.sprite = item.hotbarSprite;
         categoryCraftingName.text = item.itemName.ToString();
         categoryCraftingDescription.text = item.itemDescription;
 
@@ -283,11 +280,11 @@ public class CraftingManager : MonoBehaviour
             
             requirementPrefabList[requirementPrefabList.Count - 1].GetComponent<CraftingRequirementPrefab>().requirements = item.craftingRequirements[i];
 
-            for (int j = 0; j < SO_itemList.Count; j++)
+            for (int j = 0; j < MainManager.instance.item_SO.itemList.Count; j++)
             {
-                if (SO_itemList[j].itemName == item.craftingRequirements[i].itemName)
+                if (MainManager.instance.item_SO.itemList[j].itemName == item.craftingRequirements[i].itemName)
                 {
-                    //requirementPrefabList[requirementPrefabList.Count - 1].GetComponent<CraftingRequirementPrefab>().craftingItemSprite = SO_itemList[j].itemSprite;
+                    requirementPrefabList[requirementPrefabList.Count - 1].GetComponent<CraftingRequirementPrefab>().craftingItemSprite = MainManager.instance.GetItem(MainManager.instance.item_SO.itemList[j].itemName).hotbarSprite;
 
                     break;
                 }

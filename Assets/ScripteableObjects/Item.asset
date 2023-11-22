@@ -90,8 +90,10 @@ MonoBehaviour:
     HP: 0
     idleAnimation: {fileID: 0}
     actionAnimation: {fileID: 0}
-    isCrafteable: 0
-    craftingRequirements: []
+    isCrafteable: 1
+    craftingRequirements:
+    - itemName: 1
+      amount: 1
   - itemName: 4
     categoryName: 4
     subCategoryName: 5
@@ -210,8 +212,8 @@ MonoBehaviour:
     isCrafteable: 1
     craftingRequirements:
     - itemName: 2
-      amount: 6
-    - itemName: 1
       amount: 3
+    - itemName: 1
+      amount: 1
     - itemName: 3
-      amount: 5
+      amount: 30

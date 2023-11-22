@@ -11,7 +11,7 @@ public class CraftButton : MonoBehaviour
 
     private void Update()
     {
-        if (MainManager.instance.menuStates == MenuStates.InventoryMenu)
+        if (MainManager.instance.menuStates == MenuStates.CraftingMenu)
         {
             if (CraftingManager.instance.totalRequirementMet)
             {
@@ -28,6 +28,8 @@ public class CraftButton : MonoBehaviour
     {
         if (CraftingManager.instance.totalRequirementMet)
         {
+            print("CraftingButton - TotalRequirementMet = true");
+
             //Remove items from inventory
             for (int i = 0; i < CraftingManager.instance.requirementPrefabList.Count; i++)
             {
@@ -36,16 +38,18 @@ public class CraftButton : MonoBehaviour
 
                 for (int j = 0; j < amount; j++)
                 {
-                    //StorageManager.instance.RemoveLastItem(itemName);
+                    InventoryManager.instance.RemoveItemFromInventory(0, itemName, false);
                 }
             }
 
-            //StorageManager.instance.AddItem(CraftingManager.instance.itemSelected.itemName, 1);
+            InventoryManager.instance.AddItemToInventory(0, CraftingManager.instance.itemSelected.itemName);
+            InventoryManager.instance.CheckHotbarItemInInventory();
 
             SoundManager.instance.Playmenu_Crafting_Clip();
         }
         else
         {
+            print("CraftingButton - TotalRequirementMet = false");
             SoundManager.instance.Playmenu_CanntoCraft_Clip();
         }
     }
