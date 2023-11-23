@@ -697,7 +697,7 @@ public class BuildingManager : MonoBehaviour
         }
         #endregion
 
-        print("newBuildingType: " + newBuildingType + " | newBblockDirection_X: " + newBblockDirection_X + " | newBblockDirection_Y: " + newBblockDirection_Y);
+        //print("newBuildingType: " + newBuildingType + " | newBblockDirection_X: " + newBblockDirection_X + " | newBblockDirection_Y: " + newBblockDirection_Y);
 
         GhostSelection(blockLookingAt, newBuildingType, newBblockDirection_X, newBblockDirection_Y);
 
