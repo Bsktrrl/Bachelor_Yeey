@@ -10,23 +10,24 @@ public class BuildingBlock_Parent : MonoBehaviour
     public BuildingMaterial buildingMaterial;
     public bool isStrange;
 
-    //public BlockCompass directionPlaced_A;
-    //public BlockDirection directionPlaced_B;
-
     public GameObject BuildingBlock;
 
-    public List<GameObject> directionObjects = new List<GameObject>();
+    public List<GameObject> directionObjectList = new List<GameObject>();
 
     public List<BlockPlaced> blockPlacedList = new List<BlockPlaced>();
 
     public List<GameObject> ghostList = new List<GameObject>();
-    
+
+
+    //--------------------
+
+
     private void Start()
     {
         //Let the player don't collide with all directionObjects
-        for (int i = 0; i < directionObjects.Count; i++)
+        for (int i = 0; i < directionObjectList.Count; i++)
         {
-            Physics.IgnoreCollision(MainManager.instance.player.GetComponent<CharacterController>(), directionObjects[i].GetComponent<Collider>(), true);
+            Physics.IgnoreCollision(MainManager.instance.player.GetComponent<CharacterController>(), directionObjectList[i].GetComponent<Collider>(), true);
         }
 
         //Let the player don't collide with all ghostListObjects
@@ -44,8 +45,6 @@ public class BlockPlaced
     public GameObject buildingBlock;
     public BuildingType buildingType;
     public BuildingSubType buildingSubType;
-    public bool isStrange;
 
-    //public BlockCompass directionPlaced_A;
-    //public BlockDirection directionPlaced_B;
+    public bool isStrange;
 }

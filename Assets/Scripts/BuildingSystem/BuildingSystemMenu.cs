@@ -59,6 +59,20 @@ public class BuildingSystemMenu : MonoBehaviour
         MainManager.instance.menuStates = MenuStates.BuildingSystemMenu;
         BuildingManager.instance.SetAllGhostState_Off();
 
+        //Deactivate old directionObjectList
+        if (BuildingManager.instance.old_lastBuildingBlock_LookedAt != null)
+        {
+            for (int i = 0; i < BuildingManager.instance.old_lastBuildingBlock_LookedAt.GetComponent<BuildingBlock_Parent>().directionObjectList.Count; i++)
+            {
+                if (BuildingManager.instance.old_lastBuildingBlock_LookedAt.GetComponent<BuildingBlock_Parent>().directionObjectList[i].activeInHierarchy)
+                {
+                    BuildingManager.instance.old_lastBuildingBlock_LookedAt.GetComponent<BuildingBlock_Parent>().directionObjectList[i].SetActive(false);
+                }
+            }
+
+            BuildingManager.instance.old_lastBuildingBlock_LookedAt = null;
+        }
+
         buildingSystemMenu.SetActive(true);
     }
     void BuildingBlockSelecter_Exit()

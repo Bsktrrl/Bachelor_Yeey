@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -11,6 +12,7 @@ public class BuildingManager : MonoBehaviour
 
     [Header("Ghost")]
     public GameObject lastBuildingBlock_LookedAt;
+    [HideInInspector] public GameObject old_lastBuildingBlock_LookedAt;
     public GameObject ghost_PointedAt;
     public bool buildingBlockCanBePlaced;
     public string BlockTagName;
@@ -22,8 +24,9 @@ public class BuildingManager : MonoBehaviour
     public BuildingMaterial buildingMaterial_Selected = BuildingMaterial.None;
 
     [SerializeField] Vector2 BuildingDistance;
-    public BlockCompass blockDirection_A;
-    public BlockDirection blockDirection_B;
+    public BlockCompass blockDirection_X;
+    public BlockDirection blockDirection_Y;
+    public BuildingType buildingType;
 
     #region BuildingBlocks List
     [Header("BuildingBlocks List - Wood")]
@@ -189,7 +192,6 @@ public class BuildingManager : MonoBehaviour
             if (BuildingSystemMenu.instance.buildingBlockUIList[i].GetComponent<BuildingBlock_UI>().BuildingType == buildingType_Selected
                 && BuildingSystemMenu.instance.buildingBlockUIList[i].GetComponent<BuildingBlock_UI>().BuildingMaterial == buildingMaterial_Selected)
             {
-                print("2. inside");
                 BuildingSystemMenu.instance.SetSelectedImage(BuildingSystemMenu.instance.buildingBlockUIList[i].GetComponent<Image>().sprite);
 
                 break;
@@ -217,12 +219,12 @@ public class BuildingManager : MonoBehaviour
         else
         {
             //When Hammer isn't in the hand anymore
-            if ((blockDirection_A != BlockCompass.None && blockDirection_B != BlockDirection.None)
-                || blockDirection_A != BlockCompass.None
-                || blockDirection_B != BlockDirection.None)
+            if ((blockDirection_X != BlockCompass.None && blockDirection_Y != BlockDirection.None)
+                || blockDirection_X != BlockCompass.None
+                || blockDirection_Y != BlockDirection.None)
             {
-                blockDirection_A = BlockCompass.None;
-                blockDirection_B = BlockDirection.None;
+                blockDirection_X = BlockCompass.None;
+                blockDirection_Y = BlockDirection.None;
                 SetAllGhostState_Off();
 
                 if (ghost_PointedAt != null)
@@ -272,49 +274,88 @@ public class BuildingManager : MonoBehaviour
             }
 
             //Get the BuildingBlockDirection
-            if (hitTransform.gameObject.CompareTag("BuidingDirectionMarkers") || hitTransform.gameObject.CompareTag("BuildingBlock_Ghost"))
+            if (hitTransform.gameObject.CompareTag("BuildingBlock"))
+            {
+                SetAllGhostState_Off();
+                lastBuildingBlock_LookedAt = hitTransform.gameObject.GetComponent<BuildingBlock>().buidingBlock_Parent;
+
+                //Show selected DirectionBoxes
+                if (lastBuildingBlock_LookedAt != null && lastBuildingBlock_LookedAt != old_lastBuildingBlock_LookedAt)
+                {
+                    //Activate relevant directionObject from the list
+                    for (int i = 0; i < lastBuildingBlock_LookedAt.GetComponent<BuildingBlock_Parent>().directionObjectList.Count; i++)
+                    {
+                        if (lastBuildingBlock_LookedAt.GetComponent<BuildingBlock_Parent>().directionObjectList[i].GetComponent<BuildingBlockDirection>().BuildingType == buildingType_Selected)
+                        {
+                            lastBuildingBlock_LookedAt.GetComponent<BuildingBlock_Parent>().directionObjectList[i].SetActive(true);
+                        }
+                        else
+                        {
+                            lastBuildingBlock_LookedAt.GetComponent<BuildingBlock_Parent>().directionObjectList[i].SetActive(false);
+                        }
+                    }
+
+                    //Deactivate old directionObjectList
+                    if (old_lastBuildingBlock_LookedAt != null)
+                    {
+                        for (int i = 0; i < old_lastBuildingBlock_LookedAt.GetComponent<BuildingBlock_Parent>().directionObjectList.Count; i++)
+                        {
+                            if (old_lastBuildingBlock_LookedAt.GetComponent<BuildingBlock_Parent>().directionObjectList[i].activeInHierarchy)
+                            {
+                                old_lastBuildingBlock_LookedAt.GetComponent<BuildingBlock_Parent>().directionObjectList[i].SetActive(false);
+                            }
+                        }
+                    }
+                }
+
+                old_lastBuildingBlock_LookedAt = lastBuildingBlock_LookedAt;
+            }
+
+            //Get the BuidingDirectionMarkers
+            else if (hitTransform.gameObject.CompareTag("BuidingDirectionMarkers") || hitTransform.gameObject.CompareTag("BuildingBlock_Ghost"))
             {
                 if (hitTransform.gameObject.CompareTag("BuidingDirectionMarkers"))
                 {
+                    //Set parameters based on the block looked at
                     switch (hitTransform.gameObject.GetComponent<BuildingBlockDirection>().blockDirection_A)
                     {
                         case BlockCompass.None:
                             break;
 
                         case BlockCompass.North:
-                            if (blockDirection_A != BlockCompass.North)
+                            if (blockDirection_X != BlockCompass.North)
                             {
-                                blockDirection_A = BlockCompass.North;
+                                blockDirection_X = BlockCompass.North;
                             }
                             break;
                         case BlockCompass.East:
-                            if (blockDirection_A != BlockCompass.East)
+                            if (blockDirection_X != BlockCompass.East)
                             {
-                                blockDirection_A = BlockCompass.East;
+                                blockDirection_X = BlockCompass.East;
                             }
                             break;
                         case BlockCompass.South:
-                            if (blockDirection_A != BlockCompass.South)
+                            if (blockDirection_X != BlockCompass.South)
                             {
-                                blockDirection_A = BlockCompass.South;
+                                blockDirection_X = BlockCompass.South;
                             }
                             break;
                         case BlockCompass.West:
-                            if (blockDirection_A != BlockCompass.West)
+                            if (blockDirection_X != BlockCompass.West)
                             {
-                                blockDirection_A = BlockCompass.West;
+                                blockDirection_X = BlockCompass.West;
                             }
                             break;
                         case BlockCompass.Cross_A:
-                            if (blockDirection_A != BlockCompass.Cross_A)
+                            if (blockDirection_X != BlockCompass.Cross_A)
                             {
-                                blockDirection_A = BlockCompass.Cross_A;
+                                blockDirection_X = BlockCompass.Cross_A;
                             }
                             break;
                         case BlockCompass.Cross_B:
-                            if (blockDirection_A != BlockCompass.Cross_B)
+                            if (blockDirection_X != BlockCompass.Cross_B)
                             {
-                                blockDirection_A = BlockCompass.Cross_B;
+                                blockDirection_X = BlockCompass.Cross_B;
                             }
                             break;
 
@@ -327,27 +368,118 @@ public class BuildingManager : MonoBehaviour
                             break;
 
                         case BlockDirection.Up:
-                            if (blockDirection_B != BlockDirection.Up)
+                            if (blockDirection_Y != BlockDirection.Up)
                             {
-                                blockDirection_B = BlockDirection.Up;
+                                blockDirection_Y = BlockDirection.Up;
                             }
                             break;
                         case BlockDirection.Right:
-                            if (blockDirection_B != BlockDirection.Right)
+                            if (blockDirection_Y != BlockDirection.Right)
                             {
-                                blockDirection_B = BlockDirection.Right;
+                                blockDirection_Y = BlockDirection.Right;
                             }
                             break;
                         case BlockDirection.Down:
-                            if (blockDirection_B != BlockDirection.Down)
+                            if (blockDirection_Y != BlockDirection.Down)
                             {
-                                blockDirection_B = BlockDirection.Down;
+                                blockDirection_Y = BlockDirection.Down;
                             }
                             break;
                         case BlockDirection.Left:
-                            if (blockDirection_B != BlockDirection.Left)
+                            if (blockDirection_Y != BlockDirection.Left)
                             {
-                                blockDirection_B = BlockDirection.Left;
+                                blockDirection_Y = BlockDirection.Left;
+                            }
+                            break;
+
+                        default:
+                            break;
+                    }
+                    switch (hitTransform.gameObject.GetComponent<BuildingBlockDirection>().BuildingType)
+                    {
+                        case BuildingType.None:
+                            if (buildingType != BuildingType.None)
+                            {
+                                buildingType = BuildingType.None;
+                            }
+                            break;
+
+                        case BuildingType.Floor:
+                            if (buildingType != BuildingType.Floor)
+                            {
+                                buildingType = BuildingType.Floor;
+                            }
+                            break;
+                        case BuildingType.Floor_Triangle:
+                            if (buildingType != BuildingType.Floor_Triangle)
+                            {
+                                buildingType = BuildingType.Floor_Triangle;
+                            }
+                            break;
+                        case BuildingType.Wall:
+                            if (buildingType != BuildingType.Wall)
+                            {
+                                buildingType = BuildingType.Wall;
+                            }
+                            break;
+                        case BuildingType.Wall_Diagonaly:
+                            if (buildingType != BuildingType.Wall_Diagonaly)
+                            {
+                                buildingType = BuildingType.Wall_Diagonaly;
+                            }
+                            break;
+                        case BuildingType.Ramp:
+                            if (buildingType != BuildingType.Ramp)
+                            {
+                                buildingType = BuildingType.Ramp;
+                            }
+                            break;
+                        case BuildingType.Ramp_Corner:
+                            if (buildingType != BuildingType.Ramp_Corner)
+                            {
+                                buildingType = BuildingType.Ramp_Corner;
+                            }
+                            break;
+                        case BuildingType.Wall_Triangle:
+                            if (buildingType != BuildingType.Wall_Triangle)
+                            {
+                                buildingType = BuildingType.Wall_Triangle;
+                            }
+                            break;
+                        case BuildingType.Fence:
+                            if (buildingType != BuildingType.Fence)
+                            {
+                                buildingType = BuildingType.Fence;
+                            }
+                            break;
+                        case BuildingType.Fence_Diagonaly:
+                            if (buildingType != BuildingType.Fence_Diagonaly)
+                            {
+                                buildingType = BuildingType.Fence_Diagonaly;
+                            }
+                            break;
+                        case BuildingType.Window:
+                            if (buildingType != BuildingType.Window)
+                            {
+                                buildingType = BuildingType.Window;
+                            }
+                            break;
+                        case BuildingType.Door:
+                            if (buildingType != BuildingType.Door)
+                            {
+                                buildingType = BuildingType.Door;
+                            }
+                            break;
+                        case BuildingType.Stair:
+                            if (buildingType != BuildingType.Stair)
+                            {
+                                buildingType = BuildingType.Stair;
+                            }
+                            break;
+                        case BuildingType.Ramp_Triangle:
+                            if (buildingType != BuildingType.Ramp_Triangle)
+                            {
+                                buildingType = BuildingType.Ramp_Triangle;
                             }
                             break;
 
@@ -405,13 +537,13 @@ public class BuildingManager : MonoBehaviour
                 }
 
                 //If raycarsting is not on a BuidingDirectionMarkers or ghostBlock
-                if ((blockDirection_A != BlockCompass.None
-                    && blockDirection_B != BlockDirection.None)
-                    || blockDirection_A != BlockCompass.None
-                    || blockDirection_B != BlockDirection.None)
+                if ((blockDirection_X != BlockCompass.None
+                    && blockDirection_Y != BlockDirection.None)
+                    || blockDirection_X != BlockCompass.None
+                    || blockDirection_Y != BlockDirection.None)
                 {
-                    blockDirection_A = BlockCompass.None;
-                    blockDirection_B = BlockDirection.None;
+                    blockDirection_X = BlockCompass.None;
+                    blockDirection_Y = BlockDirection.None;
                     SetAllGhostState_Off();
 
                     if (ghost_PointedAt != null)
@@ -425,13 +557,13 @@ public class BuildingManager : MonoBehaviour
         else
         {
             //When raycast doesn't hit any BuildingObjects
-            if ((blockDirection_A != BlockCompass.None
-                && blockDirection_B != BlockDirection.None)
-                || blockDirection_A != BlockCompass.None
-                || blockDirection_B != BlockDirection.None)
+            if ((blockDirection_X != BlockCompass.None
+                && blockDirection_Y != BlockDirection.None)
+                || blockDirection_X != BlockCompass.None
+                || blockDirection_Y != BlockDirection.None)
             {
-                blockDirection_A = BlockCompass.None;
-                blockDirection_B = BlockDirection.None;
+                blockDirection_X = BlockCompass.None;
+                blockDirection_Y = BlockDirection.None;
                 SetAllGhostState_Off();
 
                 if (ghost_PointedAt != null)
@@ -445,144 +577,254 @@ public class BuildingManager : MonoBehaviour
 
     void FindGhostDirection(BuildingBlock_Parent blockLookingAt)
     {
-        //blockDirection_A
-        if (blockDirection_A == BlockCompass.North && blockDirection_B == BlockDirection.None)
+        BuildingType newBuildingType = BuildingType.None;
+        BlockCompass newBblockDirection_X = BlockCompass.None;
+        BlockDirection newBblockDirection_Y = BlockDirection.None;
+
+        //BuildingType
+        if (buildingType == BuildingType.None)
         {
-            GhostSelection(blockLookingAt, BlockCompass.North, BlockDirection.None);
+            newBuildingType = BuildingType.None;
         }
-        else if (blockDirection_A == BlockCompass.East && blockDirection_B == BlockDirection.None)
+        else if (buildingType == BuildingType.Floor)
         {
-            GhostSelection(blockLookingAt, BlockCompass.East, BlockDirection.None);
+            newBuildingType = BuildingType.Floor;
         }
-        else if (blockDirection_A == BlockCompass.South && blockDirection_B == BlockDirection.None)
+        else if (buildingType == BuildingType.Floor_Triangle)
         {
-            GhostSelection(blockLookingAt, BlockCompass.South, BlockDirection.None);
+            newBuildingType = BuildingType.Floor_Triangle;
         }
-        else if (blockDirection_A == BlockCompass.West && blockDirection_B == BlockDirection.None)
+        else if (buildingType == BuildingType.Wall)
         {
-            GhostSelection(blockLookingAt, BlockCompass.West, BlockDirection.None);
+            newBuildingType = BuildingType.Wall;
         }
-        else if (blockDirection_A == BlockCompass.Cross_A && blockDirection_B == BlockDirection.None)
+        else if (buildingType == BuildingType.Wall_Diagonaly)
         {
-            GhostSelection(blockLookingAt, BlockCompass.Cross_A, BlockDirection.None);
+            newBuildingType = BuildingType.Wall_Diagonaly;
         }
-        else if (blockDirection_A == BlockCompass.Cross_B && blockDirection_B == BlockDirection.None)
+        else if (buildingType == BuildingType.Ramp)
         {
-            GhostSelection(blockLookingAt, BlockCompass.Cross_B, BlockDirection.None);
+            newBuildingType = BuildingType.Ramp;
+        }
+        else if (buildingType == BuildingType.Ramp_Corner)
+        {
+            newBuildingType = BuildingType.Ramp_Corner;
+        }
+        else if (buildingType == BuildingType.Wall_Triangle)
+        {
+            newBuildingType = BuildingType.Wall_Triangle;
+        }
+        else if (buildingType == BuildingType.Fence)
+        {
+            newBuildingType = BuildingType.Fence;
+        }
+        else if (buildingType == BuildingType.Fence_Diagonaly)
+        {
+            newBuildingType = BuildingType.Fence_Diagonaly;
+        }
+        else if (buildingType == BuildingType.Window)
+        {
+            newBuildingType = BuildingType.Window;
+        }
+        else if (buildingType == BuildingType.Door)
+        {
+            newBuildingType = BuildingType.Door;
+        }
+        else if (buildingType == BuildingType.Stair)
+        {
+            newBuildingType = BuildingType.Stair;
+        }
+        else if (buildingType == BuildingType.Ramp_Triangle)
+        {
+            newBuildingType = BuildingType.Ramp_Triangle;
         }
 
-        //blockDirection_B
-        if (blockDirection_B == BlockDirection.Up && blockDirection_A == BlockCompass.None)
+        //BlockDirection_X
+        if (blockDirection_X == BlockCompass.None)
         {
-            GhostSelection(blockLookingAt, BlockCompass.None, BlockDirection.Up);
+            newBblockDirection_X = BlockCompass.None;
         }
-        else if (blockDirection_B == BlockDirection.Right && blockDirection_A == BlockCompass.None)
+        else if (blockDirection_X == BlockCompass.North)
         {
-            GhostSelection(blockLookingAt, BlockCompass.None, BlockDirection.Right);
+            newBblockDirection_X = BlockCompass.North;
         }
-        else if (blockDirection_B == BlockDirection.Down && blockDirection_A == BlockCompass.None)
+        else if (blockDirection_X == BlockCompass.East)
         {
-            GhostSelection(blockLookingAt, BlockCompass.None, BlockDirection.Down);
+            newBblockDirection_X = BlockCompass.East;
         }
-        else if (blockDirection_B == BlockDirection.Left && blockDirection_A == BlockCompass.None)
+        else if (blockDirection_X == BlockCompass.South)
         {
-            GhostSelection(blockLookingAt, BlockCompass.None, BlockDirection.Left);
+            newBblockDirection_X = BlockCompass.South;
         }
-
-        //Up...
-        else if (blockDirection_B == BlockDirection.Up && blockDirection_A == BlockCompass.North)
+        else if (blockDirection_X == BlockCompass.West)
         {
-            GhostSelection(blockLookingAt, BlockCompass.North, BlockDirection.Up);
-        }
-        else if (blockDirection_B == BlockDirection.Up && blockDirection_A == BlockCompass.East)
-        {
-            GhostSelection(blockLookingAt, BlockCompass.East, BlockDirection.Up);
-        }
-        else if (blockDirection_B == BlockDirection.Up && blockDirection_A == BlockCompass.South)
-        {
-            GhostSelection(blockLookingAt, BlockCompass.South, BlockDirection.Up);
-        }
-        else if (blockDirection_B == BlockDirection.Up && blockDirection_A == BlockCompass.West)
-        {
-            GhostSelection(blockLookingAt, BlockCompass.West, BlockDirection.Up);
-        }
-        else if (blockDirection_B == BlockDirection.Up && blockDirection_A == BlockCompass.Cross_A)
-        {
-            GhostSelection(blockLookingAt, BlockCompass.Cross_A, BlockDirection.Up);
-        }
-        else if (blockDirection_B == BlockDirection.Up && blockDirection_A == BlockCompass.Cross_B)
-        {
-            GhostSelection(blockLookingAt, BlockCompass.Cross_B, BlockDirection.Up);
+            newBblockDirection_X = BlockCompass.West;
         }
 
-        //Down...
-        else if (blockDirection_B == BlockDirection.Down && blockDirection_A == BlockCompass.North)
+        //BlockDirection_Y
+        if (blockDirection_Y == BlockDirection.None)
         {
-            GhostSelection(blockLookingAt, BlockCompass.North, BlockDirection.Down);
+            newBblockDirection_Y = BlockDirection.None;
         }
-        else if (blockDirection_B == BlockDirection.Down && blockDirection_A == BlockCompass.East)
+        else if (blockDirection_Y == BlockDirection.Up)
         {
-            GhostSelection(blockLookingAt, BlockCompass.East, BlockDirection.Down);
+            newBblockDirection_Y = BlockDirection.Up;
         }
-        else if (blockDirection_B == BlockDirection.Down && blockDirection_A == BlockCompass.South)
+        else if (blockDirection_Y == BlockDirection.Right)
         {
-            GhostSelection(blockLookingAt, BlockCompass.South, BlockDirection.Down);
+            newBblockDirection_Y = BlockDirection.Right;
         }
-        else if (blockDirection_B == BlockDirection.Down && blockDirection_A == BlockCompass.West)
+        else if (blockDirection_Y == BlockDirection.Down)
         {
-            GhostSelection(blockLookingAt, BlockCompass.West, BlockDirection.Down);
+            newBblockDirection_Y = BlockDirection.Down;
         }
-        else if (blockDirection_B == BlockDirection.Down && blockDirection_A == BlockCompass.Cross_A)
+        else if (blockDirection_Y == BlockDirection.Left)
         {
-            GhostSelection(blockLookingAt, BlockCompass.Cross_A, BlockDirection.Down);
+            newBblockDirection_Y = BlockDirection.Left;
         }
-        else if (blockDirection_B == BlockDirection.Down && blockDirection_A == BlockCompass.Cross_B)
-        {
-            GhostSelection(blockLookingAt, BlockCompass.Cross_B, BlockDirection.Down);
-        }
+        
+        GhostSelection(blockLookingAt, newBuildingType, newBblockDirection_X, newBblockDirection_Y);
 
-        //Right...
-        else if (blockDirection_B == BlockDirection.Right && blockDirection_A == BlockCompass.North)
-        {
-            GhostSelection(blockLookingAt, BlockCompass.North, BlockDirection.Right);
-        }
-        else if (blockDirection_B == BlockDirection.Right && blockDirection_A == BlockCompass.East)
-        {
-            GhostSelection(blockLookingAt, BlockCompass.East, BlockDirection.Right);
-        }
-        else if (blockDirection_B == BlockDirection.Right && blockDirection_A == BlockCompass.South)
-        {
-            GhostSelection(blockLookingAt, BlockCompass.South, BlockDirection.Right);
-        }
-        else if (blockDirection_B == BlockDirection.Right && blockDirection_A == BlockCompass.West)
-        {
-            GhostSelection(blockLookingAt, BlockCompass.West, BlockDirection.Right);
-        }
 
-        //Left...
-        else if (blockDirection_B == BlockDirection.Left && blockDirection_A == BlockCompass.North)
-        {
-            GhostSelection(blockLookingAt, BlockCompass.North, BlockDirection.Left);
-        }
-        else if (blockDirection_B == BlockDirection.Left && blockDirection_A == BlockCompass.East)
-        {
-            GhostSelection(blockLookingAt, BlockCompass.East, BlockDirection.Left);
-        }
-        else if (blockDirection_B == BlockDirection.Left && blockDirection_A == BlockCompass.South)
-        {
-            GhostSelection(blockLookingAt, BlockCompass.South, BlockDirection.Left);
-        }
-        else if (blockDirection_B == BlockDirection.Left && blockDirection_A == BlockCompass.West)
-        {
-            GhostSelection(blockLookingAt, BlockCompass.West, BlockDirection.Left);
-        }
+        ////blockDirection_A
+        //if (blockDirection_A == BlockCompass.North && blockDirection_B == BlockDirection.None)
+        //{
+        //    GhostSelection(blockLookingAt, BlockCompass.North, BlockDirection.None);
+        //}
+        //else if (blockDirection_A == BlockCompass.East && blockDirection_B == BlockDirection.None)
+        //{
+        //    GhostSelection(blockLookingAt, BlockCompass.East, BlockDirection.None);
+        //}
+        //else if (blockDirection_A == BlockCompass.South && blockDirection_B == BlockDirection.None)
+        //{
+        //    GhostSelection(blockLookingAt, BlockCompass.South, BlockDirection.None);
+        //}
+        //else if (blockDirection_A == BlockCompass.West && blockDirection_B == BlockDirection.None)
+        //{
+        //    GhostSelection(blockLookingAt, BlockCompass.West, BlockDirection.None);
+        //}
+        //else if (blockDirection_A == BlockCompass.Cross_A && blockDirection_B == BlockDirection.None)
+        //{
+        //    GhostSelection(blockLookingAt, BlockCompass.Cross_A, BlockDirection.None);
+        //}
+        //else if (blockDirection_A == BlockCompass.Cross_B && blockDirection_B == BlockDirection.None)
+        //{
+        //    GhostSelection(blockLookingAt, BlockCompass.Cross_B, BlockDirection.None);
+        //}
+
+        ////blockDirection_B
+        //if (blockDirection_B == BlockDirection.Up && blockDirection_A == BlockCompass.None)
+        //{
+        //    GhostSelection(blockLookingAt, BlockCompass.None, BlockDirection.Up);
+        //}
+        //else if (blockDirection_B == BlockDirection.Right && blockDirection_A == BlockCompass.None)
+        //{
+        //    GhostSelection(blockLookingAt, BlockCompass.None, BlockDirection.Right);
+        //}
+        //else if (blockDirection_B == BlockDirection.Down && blockDirection_A == BlockCompass.None)
+        //{
+        //    GhostSelection(blockLookingAt, BlockCompass.None, BlockDirection.Down);
+        //}
+        //else if (blockDirection_B == BlockDirection.Left && blockDirection_A == BlockCompass.None)
+        //{
+        //    GhostSelection(blockLookingAt, BlockCompass.None, BlockDirection.Left);
+        //}
+
+        ////Up...
+        //else if (blockDirection_B == BlockDirection.Up && blockDirection_A == BlockCompass.North)
+        //{
+        //    GhostSelection(blockLookingAt, BlockCompass.North, BlockDirection.Up);
+        //}
+        //else if (blockDirection_B == BlockDirection.Up && blockDirection_A == BlockCompass.East)
+        //{
+        //    GhostSelection(blockLookingAt, BlockCompass.East, BlockDirection.Up);
+        //}
+        //else if (blockDirection_B == BlockDirection.Up && blockDirection_A == BlockCompass.South)
+        //{
+        //    GhostSelection(blockLookingAt, BlockCompass.South, BlockDirection.Up);
+        //}
+        //else if (blockDirection_B == BlockDirection.Up && blockDirection_A == BlockCompass.West)
+        //{
+        //    GhostSelection(blockLookingAt, BlockCompass.West, BlockDirection.Up);
+        //}
+        //else if (blockDirection_B == BlockDirection.Up && blockDirection_A == BlockCompass.Cross_A)
+        //{
+        //    GhostSelection(blockLookingAt, BlockCompass.Cross_A, BlockDirection.Up);
+        //}
+        //else if (blockDirection_B == BlockDirection.Up && blockDirection_A == BlockCompass.Cross_B)
+        //{
+        //    GhostSelection(blockLookingAt, BlockCompass.Cross_B, BlockDirection.Up);
+        //}
+
+        ////Down...
+        //else if (blockDirection_B == BlockDirection.Down && blockDirection_A == BlockCompass.North)
+        //{
+        //    GhostSelection(blockLookingAt, BlockCompass.North, BlockDirection.Down);
+        //}
+        //else if (blockDirection_B == BlockDirection.Down && blockDirection_A == BlockCompass.East)
+        //{
+        //    GhostSelection(blockLookingAt, BlockCompass.East, BlockDirection.Down);
+        //}
+        //else if (blockDirection_B == BlockDirection.Down && blockDirection_A == BlockCompass.South)
+        //{
+        //    GhostSelection(blockLookingAt, BlockCompass.South, BlockDirection.Down);
+        //}
+        //else if (blockDirection_B == BlockDirection.Down && blockDirection_A == BlockCompass.West)
+        //{
+        //    GhostSelection(blockLookingAt, BlockCompass.West, BlockDirection.Down);
+        //}
+        //else if (blockDirection_B == BlockDirection.Down && blockDirection_A == BlockCompass.Cross_A)
+        //{
+        //    GhostSelection(blockLookingAt, BlockCompass.Cross_A, BlockDirection.Down);
+        //}
+        //else if (blockDirection_B == BlockDirection.Down && blockDirection_A == BlockCompass.Cross_B)
+        //{
+        //    GhostSelection(blockLookingAt, BlockCompass.Cross_B, BlockDirection.Down);
+        //}
+
+        ////Right...
+        //else if (blockDirection_B == BlockDirection.Right && blockDirection_A == BlockCompass.North)
+        //{
+        //    GhostSelection(blockLookingAt, BlockCompass.North, BlockDirection.Right);
+        //}
+        //else if (blockDirection_B == BlockDirection.Right && blockDirection_A == BlockCompass.East)
+        //{
+        //    GhostSelection(blockLookingAt, BlockCompass.East, BlockDirection.Right);
+        //}
+        //else if (blockDirection_B == BlockDirection.Right && blockDirection_A == BlockCompass.South)
+        //{
+        //    GhostSelection(blockLookingAt, BlockCompass.South, BlockDirection.Right);
+        //}
+        //else if (blockDirection_B == BlockDirection.Right && blockDirection_A == BlockCompass.West)
+        //{
+        //    GhostSelection(blockLookingAt, BlockCompass.West, BlockDirection.Right);
+        //}
+
+        ////Left...
+        //else if (blockDirection_B == BlockDirection.Left && blockDirection_A == BlockCompass.North)
+        //{
+        //    GhostSelection(blockLookingAt, BlockCompass.North, BlockDirection.Left);
+        //}
+        //else if (blockDirection_B == BlockDirection.Left && blockDirection_A == BlockCompass.East)
+        //{
+        //    GhostSelection(blockLookingAt, BlockCompass.East, BlockDirection.Left);
+        //}
+        //else if (blockDirection_B == BlockDirection.Left && blockDirection_A == BlockCompass.South)
+        //{
+        //    GhostSelection(blockLookingAt, BlockCompass.South, BlockDirection.Left);
+        //}
+        //else if (blockDirection_B == BlockDirection.Left && blockDirection_A == BlockCompass.West)
+        //{
+        //    GhostSelection(blockLookingAt, BlockCompass.West, BlockDirection.Left);
+        //}
     }
-    void GhostSelection(BuildingBlock_Parent blockLookingAt, BlockCompass blockCompass, BlockDirection blockDirection)
+    void GhostSelection(BuildingBlock_Parent blockLookingAt, BuildingType buildingType, BlockCompass blockCompass, BlockDirection blockDirection)
     {
         for (int i = 0; i < blockLookingAt.ghostList.Count; i++)
         {
             if (blockLookingAt.ghostList[i].GetComponent<Building_Ghost>().blockDirection_A == blockCompass
-                && blockLookingAt.ghostList[i].GetComponent<Building_Ghost>().blockDirection_B == blockDirection)
+                && blockLookingAt.ghostList[i].GetComponent<Building_Ghost>().blockDirection_B == blockDirection
+                && blockLookingAt.ghostList[i].GetComponent<Building_Ghost>().buildingType == buildingType)
             {
                 SetGhostState_ON(blockLookingAt, i);
             }
@@ -621,7 +863,7 @@ public class BuildingManager : MonoBehaviour
         }
 
         //Wall_Diagonaly
-        else if (buildingType_Selected == BuildingType.Wall && (blockLookingAt.buildingSubType == BuildingSubType.Wall_Diagonaly || blockDirection_A == BlockCompass.Cross_A || blockDirection_A == BlockCompass.Cross_B))
+        else if (buildingType_Selected == BuildingType.Wall && (blockLookingAt.buildingSubType == BuildingSubType.Wall_Diagonaly || blockDirection_X == BlockCompass.Cross_A || blockDirection_X == BlockCompass.Cross_B))
         {
             //Wood
             BuidingBlockCanBePlacedCheck(blockLookingAt, i, BuildingType.Wall, BuildingSubType.Wall_Diagonaly, canPlace_Material, cannotPlace_Material); //Change Material when Mesh is ready
@@ -705,7 +947,7 @@ public class BuildingManager : MonoBehaviour
         }
 
         //Fence_Diagonaly
-        else if (buildingType_Selected == BuildingType.Fence && (blockLookingAt.buildingSubType == BuildingSubType.Wall_Diagonaly || blockDirection_A == BlockCompass.Cross_A || blockDirection_A == BlockCompass.Cross_B))
+        else if (buildingType_Selected == BuildingType.Fence && (blockLookingAt.buildingSubType == BuildingSubType.Wall_Diagonaly || blockDirection_X == BlockCompass.Cross_A || blockDirection_X == BlockCompass.Cross_B))
         {
             //Wood
             BuidingBlockCanBePlacedCheck(blockLookingAt, i, BuildingType.Fence, BuildingSubType.Wall_Diagonaly, canPlace_Material, cannotPlace_Material); //Change Material when Mesh is ready

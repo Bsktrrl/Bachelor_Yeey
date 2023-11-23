@@ -8,6 +8,7 @@ public class BuildingBlockDirection : MonoBehaviour
 
     public BlockCompass blockDirection_A;
     public BlockDirection blockDirection_B;
+    public BuildingType BuildingType;
 }
 
 public enum BlockCompass
