@@ -14,7 +14,7 @@ public class BuildingBlock_Parent : MonoBehaviour
 
     public List<GameObject> directionObjectList = new List<GameObject>();
 
-    public List<BlockPlaced> blockPlacedList = new List<BlockPlaced>();
+    //public List<BlockPlaced> blockPlacedList = new List<BlockPlaced>();
 
     public List<GameObject> ghostList = new List<GameObject>();
 

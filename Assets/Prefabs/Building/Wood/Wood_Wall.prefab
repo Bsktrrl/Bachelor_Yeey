@@ -113,6 +113,7 @@ MonoBehaviour:
   parentBlock: {fileID: 4763889419513853119}
   blockDirection_A: 3
   blockDirection_B: 3
+  BuildingType: 0
 --- !u!1 &329952903570852859
 GameObject:
   m_ObjectHideFlags: 0
@@ -265,6 +266,7 @@ MonoBehaviour:
   parentBlock: {fileID: 4763889419513853119}
   blockDirection_A: 1
   blockDirection_B: 3
+  BuildingType: 0
 --- !u!1 &869745612692017885
 GameObject:
   m_ObjectHideFlags: 0
@@ -421,6 +423,7 @@ MonoBehaviour:
   parentBlock: {fileID: 4763889419513853119}
   blockDirection_A: 3
   blockDirection_B: 4
+  BuildingType: 0
 --- !u!1 &1324318706735316011
 GameObject:
   m_ObjectHideFlags: 0
@@ -573,6 +576,7 @@ MonoBehaviour:
   parentBlock: {fileID: 4763889419513853119}
   blockDirection_A: 0
   blockDirection_B: 3
+  BuildingType: 0
 --- !u!1 &1382036653383229908
 GameObject:
   m_ObjectHideFlags: 0
@@ -686,6 +690,7 @@ MonoBehaviour:
   parentBlock: {fileID: 4763889419513853119}
   blockDirection_A: 0
   blockDirection_B: 2
+  BuildingType: 0
 --- !u!1 &1597647899984029679
 GameObject:
   m_ObjectHideFlags: 0
@@ -799,6 +804,7 @@ MonoBehaviour:
   parentBlock: {fileID: 4763889419513853119}
   blockDirection_A: 1
   blockDirection_B: 4
+  BuildingType: 0
 --- !u!1 &1873108208705593139
 GameObject:
   m_ObjectHideFlags: 0
@@ -1010,6 +1016,7 @@ MonoBehaviour:
   parentBlock: {fileID: 4763889419513853119}
   blockDirection_A: 0
   blockDirection_B: 4
+  BuildingType: 0
 --- !u!1 &2400827620718257303
 GameObject:
   m_ObjectHideFlags: 0
@@ -1417,6 +1424,7 @@ MonoBehaviour:
   parentBlock: {fileID: 4763889419513853119}
   blockDirection_A: 3
   blockDirection_B: 1
+  BuildingType: 0
 --- !u!1 &4763889419513853119
 GameObject:
   m_ObjectHideFlags: 0
@@ -1477,20 +1485,7 @@ MonoBehaviour:
   buildingMaterial: 1
   isStrange: 0
   BuildingBlock: {fileID: 786253518913603422}
-  directionObjects:
-  - {fileID: 1597647899984029679}
-  - {fileID: 1321192758341701038}
-  - {fileID: 8812011368302094801}
-  - {fileID: 4105419202659661727}
-  - {fileID: 6997006017394810342}
-  - {fileID: 7060488537786034602}
-  - {fileID: 527286815950836466}
-  - {fileID: 269490838445263805}
-  - {fileID: 5594943178581738501}
-  - {fileID: 1382036653383229908}
-  - {fileID: 1333141027279884092}
-  - {fileID: 2375715354967444901}
-  blockPlacedList: []
+  directionObjectList: []
   ghostList:
   - {fileID: 2180906533065801754}
   - {fileID: 3719755081647320088}
@@ -1814,6 +1809,7 @@ MonoBehaviour:
   parentBlock: {fileID: 4763889419513853119}
   blockDirection_A: 0
   blockDirection_B: 1
+  BuildingType: 0
 --- !u!1 &6165759521203064285
 GameObject:
   m_ObjectHideFlags: 0
@@ -2060,6 +2056,7 @@ MonoBehaviour:
   parentBlock: {fileID: 4763889419513853119}
   blockDirection_A: 1
   blockDirection_B: 2
+  BuildingType: 0
 --- !u!1 &7041568900633830339
 GameObject:
   m_ObjectHideFlags: 0
@@ -2208,6 +2205,7 @@ MonoBehaviour:
   parentBlock: {fileID: 4763889419513853119}
   blockDirection_A: 3
   blockDirection_B: 2
+  BuildingType: 0
 --- !u!1 &8101822308054064501
 GameObject:
   m_ObjectHideFlags: 0
@@ -2591,6 +2589,7 @@ MonoBehaviour:
   parentBlock: {fileID: 4763889419513853119}
   blockDirection_A: 1
   blockDirection_B: 1
+  BuildingType: 0
 --- !u!1 &9146392892632103799
 GameObject:
   m_ObjectHideFlags: 0

@@ -113,6 +113,7 @@ MonoBehaviour:
   parentBlock: {fileID: 4763889419513853119}
   blockDirection_A: 1
   blockDirection_B: 2
+  BuildingType: 0
 --- !u!1 &869745612692017885
 GameObject:
   m_ObjectHideFlags: 0
@@ -263,6 +264,7 @@ MonoBehaviour:
   parentBlock: {fileID: 4763889419513853119}
   blockDirection_A: 3
   blockDirection_B: 4
+  BuildingType: 0
 --- !u!1 &3316083994617480289
 GameObject:
   m_ObjectHideFlags: 0
@@ -376,6 +378,7 @@ MonoBehaviour:
   parentBlock: {fileID: 4763889419513853119}
   blockDirection_A: 0
   blockDirection_B: 4
+  BuildingType: 0
 --- !u!1 &4763889419513853119
 GameObject:
   m_ObjectHideFlags: 0
@@ -429,14 +432,7 @@ MonoBehaviour:
   buildingMaterial: 1
   isStrange: 0
   BuildingBlock: {fileID: 786253518913603422}
-  directionObjects:
-  - {fileID: 6829130559210635421}
-  - {fileID: 1066209095865306942}
-  - {fileID: 3316083994617480289}
-  - {fileID: 431774116693939503}
-  - {fileID: 7763158508679034124}
-  - {fileID: 8812011368302094801}
-  blockPlacedList: []
+  directionObjectList: []
   ghostList:
   - {fileID: 5741155338349053189}
   - {fileID: 4318738808810884201}
@@ -592,6 +588,7 @@ MonoBehaviour:
   parentBlock: {fileID: 4763889419513853119}
   blockDirection_A: 1
   blockDirection_B: 4
+  BuildingType: 0
 --- !u!1 &7763158508679034124
 GameObject:
   m_ObjectHideFlags: 0
@@ -705,6 +702,7 @@ MonoBehaviour:
   parentBlock: {fileID: 4763889419513853119}
   blockDirection_A: 3
   blockDirection_B: 2
+  BuildingType: 0
 --- !u!1 &8032527097582038448
 GameObject:
   m_ObjectHideFlags: 0
@@ -851,6 +849,7 @@ MonoBehaviour:
   parentBlock: {fileID: 4763889419513853119}
   blockDirection_A: 0
   blockDirection_B: 2
+  BuildingType: 0
 --- !u!1001 &443671328666565135
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -967,7 +966,7 @@ MeshCollider:
   serializedVersion: 4
   m_Convex: 0
   m_CookingOptions: 30
-  m_Mesh: {fileID: -9158220483565954683, guid: 7207d9821687a3b45a961a6ba502d215, type: 3}
+  m_Mesh: {fileID: 1568319795115118504, guid: f1367d665b931a64dbfe2a28a539fdfc, type: 3}
 --- !u!114 &527008230032393379
 MonoBehaviour:
   m_ObjectHideFlags: 0

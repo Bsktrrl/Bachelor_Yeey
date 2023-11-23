@@ -582,6 +582,7 @@ public class BuildingManager : MonoBehaviour
         BlockDirection newBblockDirection_Y = BlockDirection.None;
 
         //BuildingType
+        #region
         if (buildingType == BuildingType.None)
         {
             newBuildingType = BuildingType.None;
@@ -638,8 +639,10 @@ public class BuildingManager : MonoBehaviour
         {
             newBuildingType = BuildingType.Ramp_Triangle;
         }
+        #endregion
 
         //BlockDirection_X
+        #region
         if (blockDirection_X == BlockCompass.None)
         {
             newBblockDirection_X = BlockCompass.None;
@@ -660,8 +663,18 @@ public class BuildingManager : MonoBehaviour
         {
             newBblockDirection_X = BlockCompass.West;
         }
+        else if (blockDirection_X == BlockCompass.Cross_A)
+        {
+            newBblockDirection_X = BlockCompass.Cross_A;
+        }
+        else if (blockDirection_X == BlockCompass.Cross_B)
+        {
+            newBblockDirection_X = BlockCompass.Cross_B;
+        }
+        #endregion
 
         //BlockDirection_Y
+        #region
         if (blockDirection_Y == BlockDirection.None)
         {
             newBblockDirection_Y = BlockDirection.None;
@@ -682,7 +695,10 @@ public class BuildingManager : MonoBehaviour
         {
             newBblockDirection_Y = BlockDirection.Left;
         }
-        
+        #endregion
+
+        print("newBuildingType: " + newBuildingType + " | newBblockDirection_X: " + newBblockDirection_X + " | newBblockDirection_Y: " + newBblockDirection_Y);
+
         GhostSelection(blockLookingAt, newBuildingType, newBblockDirection_X, newBblockDirection_Y);
 
 
@@ -1077,7 +1093,7 @@ public class BuildingManager : MonoBehaviour
         //print("CheckOverlappingGhost(): " + CheckOverlappingGhost() + " | BuildingType: " + blockLookingAt.ghostList[i].GetComponent<Building_Ghost>().buildingType + " = " + buildingType);
 
         //Can be placed
-        if (!CheckOverlappingGhost() && timer >= 0.2f)
+        if (/*!CheckOverlappingGhost() &&*/ timer >= 0.2f)
         {
             blockLookingAt.ghostList[i].GetComponent<MeshFilter>().mesh = GetCorrectGhostMesh();
             blockLookingAt.ghostList[i].GetComponent<MeshRenderer>().material = material_Can;
@@ -1225,46 +1241,46 @@ public class BuildingManager : MonoBehaviour
 
         return chosenMesh;
     }
-    bool CheckOverlappingGhost()
-    {
-        if (lastBuildingBlock_LookedAt == null || lastBuildingBlock_LookedAt.GetComponent<BuildingBlock_Parent>() == null || lastBuildingBlock_LookedAt.GetComponent<BuildingBlock_Parent>().blockPlacedList == null || lastBuildingBlock_LookedAt.GetComponent<BuildingBlock_Parent>().ghostList == null)
-        {
-            //print("1. CheckOverlappingGhost");
-            return false;
-        }
+    //bool CheckOverlappingGhost()
+    //{
+    //    if (lastBuildingBlock_LookedAt == null || lastBuildingBlock_LookedAt.GetComponent<BuildingBlock_Parent>() == null || lastBuildingBlock_LookedAt.GetComponent<BuildingBlock_Parent>().blockPlacedList == null || lastBuildingBlock_LookedAt.GetComponent<BuildingBlock_Parent>().ghostList == null)
+    //    {
+    //        //print("1. CheckOverlappingGhost");
+    //        return false;
+    //    }
 
-        //Check if Ghost can be shown
-        for (int j = 0; j < lastBuildingBlock_LookedAt.GetComponent<BuildingBlock_Parent>().blockPlacedList.Count; j++)
-        {
-            for (int k = 0; k < lastBuildingBlock_LookedAt.GetComponent<BuildingBlock_Parent>().ghostList.Count; k++)
-            {
-                if (lastBuildingBlock_LookedAt.GetComponent<BuildingBlock_Parent>().blockPlacedList[j].buildingBlock.transform.position == lastBuildingBlock_LookedAt.GetComponent<BuildingBlock_Parent>().ghostList[k].transform.position
-                    && lastBuildingBlock_LookedAt.GetComponent<BuildingBlock_Parent>().blockPlacedList[j].buildingBlock.transform.position == ghost_PointedAt.transform.position)
-                {
-                    //If selected "Floor" or "Triangle" and lastBuildingBlock_LookedAt is "Floor" or "Triangle"
-                    if ((lastBuildingBlock_LookedAt.GetComponent<BuildingBlock_Parent>().blockPlacedList[j].buildingType == BuildingType.Floor
-                            || lastBuildingBlock_LookedAt.GetComponent<BuildingBlock_Parent>().blockPlacedList[j].buildingType == BuildingType.Floor_Triangle)
-                        && (buildingType_Selected == BuildingType.Floor || buildingType_Selected == BuildingType.Floor_Triangle))
-                    {
-                        //print("1. Fail");
-                        SetGhostState_OFF(lastBuildingBlock_LookedAt.GetComponent<BuildingBlock_Parent>(), k);
-                        return true;
-                    }
+    //    //Check if Ghost can be shown
+    //    for (int j = 0; j < lastBuildingBlock_LookedAt.GetComponent<BuildingBlock_Parent>().blockPlacedList.Count; j++)
+    //    {
+    //        for (int k = 0; k < lastBuildingBlock_LookedAt.GetComponent<BuildingBlock_Parent>().ghostList.Count; k++)
+    //        {
+    //            if (lastBuildingBlock_LookedAt.GetComponent<BuildingBlock_Parent>().blockPlacedList[j].buildingBlock.transform.position == lastBuildingBlock_LookedAt.GetComponent<BuildingBlock_Parent>().ghostList[k].transform.position
+    //                && lastBuildingBlock_LookedAt.GetComponent<BuildingBlock_Parent>().blockPlacedList[j].buildingBlock.transform.position == ghost_PointedAt.transform.position)
+    //            {
+    //                //If selected "Floor" or "Triangle" and lastBuildingBlock_LookedAt is "Floor" or "Triangle"
+    //                if ((lastBuildingBlock_LookedAt.GetComponent<BuildingBlock_Parent>().blockPlacedList[j].buildingType == BuildingType.Floor
+    //                        || lastBuildingBlock_LookedAt.GetComponent<BuildingBlock_Parent>().blockPlacedList[j].buildingType == BuildingType.Floor_Triangle)
+    //                    && (buildingType_Selected == BuildingType.Floor || buildingType_Selected == BuildingType.Floor_Triangle))
+    //                {
+    //                    //print("1. Fail");
+    //                    SetGhostState_OFF(lastBuildingBlock_LookedAt.GetComponent<BuildingBlock_Parent>(), k);
+    //                    return true;
+    //                }
 
-                    //If lastBuildingBlock_LookedAt is any other Block
-                    else if (lastBuildingBlock_LookedAt.GetComponent<BuildingBlock_Parent>().blockPlacedList[j].buildingType == buildingType_Selected
-                        /*&& buildingType_Selected != BuildingType.Wall*/) // May contain buggs
-                    {
-                        //print("2. Fail");
-                        SetGhostState_OFF(lastBuildingBlock_LookedAt.GetComponent<BuildingBlock_Parent>(), k);
-                        return true;
-                    }
-                }
-            }
-        }
+    //                //If lastBuildingBlock_LookedAt is any other Block
+    //                else if (lastBuildingBlock_LookedAt.GetComponent<BuildingBlock_Parent>().blockPlacedList[j].buildingType == buildingType_Selected
+    //                    /*&& buildingType_Selected != BuildingType.Wall*/) // May contain buggs
+    //                {
+    //                    //print("2. Fail");
+    //                    SetGhostState_OFF(lastBuildingBlock_LookedAt.GetComponent<BuildingBlock_Parent>(), k);
+    //                    return true;
+    //                }
+    //            }
+    //        }
+    //    }
 
-        return false;
-    }
+    //    return false;
+    //}
 
 
     //--------------------
@@ -1718,7 +1734,7 @@ public class BuildingManager : MonoBehaviour
             blockPlaced.buildingType = lastBuildingBlock_LookedAt.GetComponent<BuildingBlock_Parent>().buildingType;
             blockPlaced.buildingSubType = lastBuildingBlock_LookedAt.GetComponent<BuildingBlock_Parent>().buildingSubType;
             buildingBlockList[buildingBlockList.Count - 1].GetComponent<BuildingBlock_Parent>().isStrange = ghost_PointedAt.GetComponent<Building_Ghost>().isStrange;
-            buildingBlockList[buildingBlockList.Count - 1].GetComponent<BuildingBlock_Parent>().blockPlacedList.Add(blockPlaced);
+            //buildingBlockList[buildingBlockList.Count - 1].GetComponent<BuildingBlock_Parent>().blockPlacedList.Add(blockPlaced);
 
             #endregion
             #region Setup the Block that got a Block Placed on It
@@ -1727,107 +1743,107 @@ public class BuildingManager : MonoBehaviour
             blockGotPlacedOn.buildingBlock = buildingBlockList[buildingBlockList.Count - 1];
             blockGotPlacedOn.buildingType = buildingType_Selected;
             blockGotPlacedOn.buildingSubType = buildingBlockList[buildingBlockList.Count - 1].GetComponent<BuildingBlock_Parent>().buildingSubType;
-            lastBuildingBlock_LookedAt.GetComponent<BuildingBlock_Parent>().blockPlacedList.Add(blockGotPlacedOn);
+            //lastBuildingBlock_LookedAt.GetComponent<BuildingBlock_Parent>().blockPlacedList.Add(blockGotPlacedOn);
             #endregion
 
             #region Update all other Blocks that are Adjacent to the placed Block
             //Insert the placed block on all adjacent other buildingBlockLists
-            if (buildingType_Selected == BuildingType.Wall && lastBuildingBlock_LookedAt.GetComponent<BuildingBlock_Parent>().buildingSubType == BuildingSubType.None)
-            {
+            //if (buildingType_Selected == BuildingType.Wall && lastBuildingBlock_LookedAt.GetComponent<BuildingBlock_Parent>().buildingSubType == BuildingSubType.None)
+            //{
                 
-            }
-            else if (buildingType_Selected == BuildingType.Wall_Triangle)
-            {
+            //}
+            //else if (buildingType_Selected == BuildingType.Wall_Triangle)
+            //{
 
-            }
-            else if (buildingType_Selected == BuildingType.Fence && lastBuildingBlock_LookedAt.GetComponent<BuildingBlock_Parent>().buildingSubType == BuildingSubType.None)
-            {
+            //}
+            //else if (buildingType_Selected == BuildingType.Fence && lastBuildingBlock_LookedAt.GetComponent<BuildingBlock_Parent>().buildingSubType == BuildingSubType.None)
+            //{
 
-            }
-            else if (buildingType_Selected == BuildingType.Window)
-            {
+            //}
+            //else if (buildingType_Selected == BuildingType.Window)
+            //{
 
-            }
-            else if (buildingType_Selected == BuildingType.Door)
-            {
+            //}
+            //else if (buildingType_Selected == BuildingType.Door)
+            //{
 
-            }
-            else
-            {
-                for (int i = 0; i < buildingBlockList.Count; i++)
-                {
-                    for (int j = 0; j < buildingBlockList[i].GetComponent<BuildingBlock_Parent>().ghostList.Count; j++)
-                    {
-                        if (buildingBlockList[i].GetComponent<BuildingBlock_Parent>().ghostList[j].transform.position == buildingBlockList[buildingBlockList.Count - 1].transform.position
-                            && buildingBlockList[i].GetComponent<BuildingBlock_Parent>().ghostList[j].GetComponent<Building_Ghost>().buildingType == buildingBlockList[buildingBlockList.Count - 1].GetComponent<BuildingBlock_Parent>().buildingType)
-                        {
-                            int amount = 0;
+            //}
+            //else
+            //{
+            //    for (int i = 0; i < buildingBlockList.Count; i++)
+            //    {
+            //        for (int j = 0; j < buildingBlockList[i].GetComponent<BuildingBlock_Parent>().ghostList.Count; j++)
+            //        {
+            //            if (buildingBlockList[i].GetComponent<BuildingBlock_Parent>().ghostList[j].transform.position == buildingBlockList[buildingBlockList.Count - 1].transform.position
+            //                && buildingBlockList[i].GetComponent<BuildingBlock_Parent>().ghostList[j].GetComponent<Building_Ghost>().buildingType == buildingBlockList[buildingBlockList.Count - 1].GetComponent<BuildingBlock_Parent>().buildingType)
+            //            {
+            //                int amount = 0;
 
-                            for (int k = 0; k < buildingBlockList[i].GetComponent<BuildingBlock_Parent>().blockPlacedList.Count; k++)
-                            {
-                                if (buildingBlockList[i].GetComponent<BuildingBlock_Parent>().blockPlacedList[k].buildingBlock == buildingBlockList[buildingBlockList.Count - 1])
-                                {
-                                    amount++;
-                                }
-                            }
+            //                for (int k = 0; k < buildingBlockList[i].GetComponent<BuildingBlock_Parent>().blockPlacedList.Count; k++)
+            //                {
+            //                    if (buildingBlockList[i].GetComponent<BuildingBlock_Parent>().blockPlacedList[k].buildingBlock == buildingBlockList[buildingBlockList.Count - 1])
+            //                    {
+            //                        amount++;
+            //                    }
+            //                }
 
-                            if (amount <= 0)
-                            {
-                                buildingBlockList[i].GetComponent<BuildingBlock_Parent>().blockPlacedList.Add(blockGotPlacedOn);
-                            }
-                        }
-                    }
-                }
-            }
+            //                if (amount <= 0)
+            //                {
+            //                    buildingBlockList[i].GetComponent<BuildingBlock_Parent>().blockPlacedList.Add(blockGotPlacedOn);
+            //                }
+            //            }
+            //        }
+            //    }
+            //}
             
 
             #endregion
             #region Insert info about Adjacent Blocks on the Placed Block
-            for (int i = 0; i < buildingBlockList[buildingBlockList.Count - 1].GetComponent<BuildingBlock_Parent>().ghostList.Count; i++)
-            {
-                for (int j = 0; j < buildingBlockList.Count; j++)
-                {
-                    if (buildingBlockList[buildingBlockList.Count - 1].GetComponent<BuildingBlock_Parent>().ghostList[i].transform.position == buildingBlockList[j].transform.position
-                        && buildingBlockList[buildingBlockList.Count - 1].GetComponent<BuildingBlock_Parent>().ghostList[i].GetComponent<Building_Ghost>().buildingType == buildingBlockList[j].GetComponent<BuildingBlock_Parent>().buildingType)
-                    {
-                        int amount = 0;
+            //for (int i = 0; i < buildingBlockList[buildingBlockList.Count - 1].GetComponent<BuildingBlock_Parent>().ghostList.Count; i++)
+            //{
+            //    for (int j = 0; j < buildingBlockList.Count; j++)
+            //    {
+            //        if (buildingBlockList[buildingBlockList.Count - 1].GetComponent<BuildingBlock_Parent>().ghostList[i].transform.position == buildingBlockList[j].transform.position
+            //            && buildingBlockList[buildingBlockList.Count - 1].GetComponent<BuildingBlock_Parent>().ghostList[i].GetComponent<Building_Ghost>().buildingType == buildingBlockList[j].GetComponent<BuildingBlock_Parent>().buildingType)
+            //        {
+            //            int amount = 0;
 
-                        for (int k = 0; k < buildingBlockList[buildingBlockList.Count - 1].GetComponent<BuildingBlock_Parent>().blockPlacedList.Count; k++)
-                        {
-                            if (buildingBlockList[buildingBlockList.Count - 1].GetComponent<BuildingBlock_Parent>().blockPlacedList[k].buildingBlock == buildingBlockList[j])
-                            {
-                                amount++;
-                            }
-                        }
+            //            for (int k = 0; k < buildingBlockList[buildingBlockList.Count - 1].GetComponent<BuildingBlock_Parent>().blockPlacedList.Count; k++)
+            //            {
+            //                if (buildingBlockList[buildingBlockList.Count - 1].GetComponent<BuildingBlock_Parent>().blockPlacedList[k].buildingBlock == buildingBlockList[j])
+            //                {
+            //                    amount++;
+            //                }
+            //            }
 
-                        if (amount <= 0)
-                        {
-                            BlockPlaced blockAdjacent = new BlockPlaced();
-                            blockAdjacent.buildingBlock = buildingBlockList[j];
-                            blockAdjacent.buildingType = buildingBlockList[j].GetComponent<BuildingBlock_Parent>().buildingType;
+            //            if (amount <= 0)
+            //            {
+            //                BlockPlaced blockAdjacent = new BlockPlaced();
+            //                blockAdjacent.buildingBlock = buildingBlockList[j];
+            //                blockAdjacent.buildingType = buildingBlockList[j].GetComponent<BuildingBlock_Parent>().buildingType;
 
-                            buildingBlockList[buildingBlockList.Count - 1].GetComponent<BuildingBlock_Parent>().blockPlacedList.Add(blockAdjacent);
-                        }
-                    }
-                }
-            }
+            //                buildingBlockList[buildingBlockList.Count - 1].GetComponent<BuildingBlock_Parent>().blockPlacedList.Add(blockAdjacent);
+            //            }
+            //        }
+            //    }
+            //}
             #endregion
 
             #region Block exclude Itself from its list
-            for (int i = 0; i < buildingBlockList.Count; i++)
-            {
-                for (int j = 0; j < buildingBlockList[i].GetComponent<BuildingBlock_Parent>().blockPlacedList.Count; j++)
-                {
-                    if (buildingBlockList[i].GetComponent<BuildingBlock_Parent>().buildingSubType != BuildingSubType.Wall_Diagonaly)
-                    {
-                        if (buildingBlockList[i].GetComponent<BuildingBlock_Parent>().blockPlacedList[j].buildingBlock == buildingBlockList[i])
-                        {
-                            buildingBlockList[i].GetComponent<BuildingBlock_Parent>().blockPlacedList.RemoveAt(j);
-                            break;
-                        }
-                    }
-                }
-            }
+            //for (int i = 0; i < buildingBlockList.Count; i++)
+            //{
+            //    for (int j = 0; j < buildingBlockList[i].GetComponent<BuildingBlock_Parent>().blockPlacedList.Count; j++)
+            //    {
+            //        if (buildingBlockList[i].GetComponent<BuildingBlock_Parent>().buildingSubType != BuildingSubType.Wall_Diagonaly)
+            //        {
+            //            if (buildingBlockList[i].GetComponent<BuildingBlock_Parent>().blockPlacedList[j].buildingBlock == buildingBlockList[i])
+            //            {
+            //                buildingBlockList[i].GetComponent<BuildingBlock_Parent>().blockPlacedList.RemoveAt(j);
+            //                break;
+            //            }
+            //        }
+            //    }
+            //}
             #endregion
         }
 
