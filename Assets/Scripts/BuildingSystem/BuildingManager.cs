@@ -164,9 +164,11 @@ public class BuildingManager : MonoBehaviour
 
     private void Update()
     {
-        RaycastSetup();
+        if (Time.frameCount % MainManager.instance.updateInterval == 0)
+        {
+            RaycastSetup();
+        }
     }
-
 
     //--------------------
 

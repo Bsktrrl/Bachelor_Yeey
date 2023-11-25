@@ -19,6 +19,9 @@ public class MainManager : MonoBehaviour
     [Header("Parents")]
     public GameObject treeParent;
 
+    //Update Delayer
+    public int updateInterval = 10;
+
 
     //--------------------
 
