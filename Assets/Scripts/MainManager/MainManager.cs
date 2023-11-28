@@ -109,5 +109,6 @@ public enum GameStates
 {
     None,
 
-    Building
+    Building,
+    Cutting
 }

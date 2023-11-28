@@ -7,11 +7,10 @@ public class Building_Ghost : MonoBehaviour
     [Header("Type")]
     public BuildingType buildingType;
     public BuildingSubType buildingSubType;
-    public bool isStrange;
 
     [Header("Directions")]
-    public BlockCompass blockDirection_A;
-    public BlockDirection blockDirection_B;
+    public BlockDirection_A blockDirection_A;
+    public BlockDirection_B blockDirection_B;
 
     [Header("Other")]
     public GameObject blockParent;

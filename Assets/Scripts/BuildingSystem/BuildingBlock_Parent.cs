@@ -8,14 +8,10 @@ public class BuildingBlock_Parent : MonoBehaviour
     public BuildingType buildingType;
     public BuildingSubType buildingSubType;
     public BuildingMaterial buildingMaterial;
-    public bool isStrange;
 
     public GameObject BuildingBlock;
 
     public List<GameObject> directionObjectList = new List<GameObject>();
-
-    //public List<BlockPlaced> blockPlacedList = new List<BlockPlaced>();
-
     public List<GameObject> ghostList = new List<GameObject>();
 
 
@@ -37,6 +33,10 @@ public class BuildingBlock_Parent : MonoBehaviour
         }
     }
 
+    public void DestroyThisObject()
+    {
+        Destroy(gameObject);
+    }
 }
 
 [Serializable]

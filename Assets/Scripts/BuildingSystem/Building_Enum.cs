@@ -28,7 +28,7 @@ public enum BuildingSubType
 {
     None,
 
-    Wall_Diagonaly
+    Diagonaly
 }
 
 public enum BuildingMaterial

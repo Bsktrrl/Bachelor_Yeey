@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 2553926483823156086}
   - component: {fileID: 2553926483823156085}
   - component: {fileID: 7030356553261885006}
+  - component: {fileID: 4982862447586979342}
   - component: {fileID: -5346814736921937151}
   m_Layer: 0
   m_Name: Axe
@@ -120,6 +121,18 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
+--- !u!114 &4982862447586979342
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2553926483823156083}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b84335cf050495b429ae905ac03d894c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &-5346814736921937151
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -132,6 +145,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cc24ee7acbc75234b9a9891c6efa648f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  animator: {fileID: 0}
+  subCategories: 0
 --- !u!1 &2553926485313049065
 GameObject:
   m_ObjectHideFlags: 0

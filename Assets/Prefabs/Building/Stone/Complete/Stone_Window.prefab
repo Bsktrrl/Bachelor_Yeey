@@ -2904,7 +2904,7 @@ GameObject:
   - component: {fileID: 4763889419513853116}
   - component: {fileID: 3674162178478198034}
   m_Layer: 8
-  m_Name: Wood_Window
+  m_Name: Stone_Window
   m_TagString: BuildingBlock
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2950,7 +2950,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   buildingType: 10
   buildingSubType: 0
-  buildingMaterial: 1
+  buildingMaterial: 2
   BuildingBlock: {fileID: 786253518913603422}
   directionObjectList:
   - {fileID: 1154528423360437536}
@@ -6298,7 +6298,7 @@ PrefabInstance:
     - target: {fileID: -5754084199372789682, guid: c9b941a8aa6c7b340bdf934dcbbf744e, type: 3}
       propertyPath: m_Mesh
       value: 
-      objectReference: {fileID: 6413668139619916810, guid: c1b6aa6ada38877458d3085f4714ae2a, type: 3}
+      objectReference: {fileID: 726354786050087640, guid: 5753952cae09ff546ab4de865a777c00, type: 3}
     - target: {fileID: 919132149155446097, guid: c9b941a8aa6c7b340bdf934dcbbf744e, type: 3}
       propertyPath: m_Name
       value: Main Window Tile
@@ -6340,7 +6340,7 @@ MeshCollider:
   serializedVersion: 4
   m_Convex: 0
   m_CookingOptions: 30
-  m_Mesh: {fileID: 6413668139619916810, guid: c1b6aa6ada38877458d3085f4714ae2a, type: 3}
+  m_Mesh: {fileID: 726354786050087640, guid: 5753952cae09ff546ab4de865a777c00, type: 3}
 --- !u!114 &527008230032393379
 MonoBehaviour:
   m_ObjectHideFlags: 0
