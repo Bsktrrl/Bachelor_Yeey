@@ -14,6 +14,9 @@ public class BuildingBlock_Parent : MonoBehaviour
     public List<GameObject> directionObjectList = new List<GameObject>();
     public List<GameObject> ghostList = new List<GameObject>();
 
+    public List<BuildingBlockRequirement> buildingRequirementList = new List<BuildingBlockRequirement>();
+    public List<BuildingBlockRequirement> removeBuildingRequirementList = new List<BuildingBlockRequirement>();
+
 
     //--------------------
 
@@ -47,4 +50,12 @@ public class BlockPlaced
     public BuildingSubType buildingSubType;
 
     public bool isStrange;
+}
+
+
+[Serializable]
+public class BuildingBlockRequirement
+{
+    public Items itemName;
+    public int amount;
 }

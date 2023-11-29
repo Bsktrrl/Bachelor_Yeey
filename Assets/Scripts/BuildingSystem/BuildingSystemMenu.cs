@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -14,6 +15,10 @@ public class BuildingSystemMenu : MonoBehaviour
     public List<GameObject> buildingBlockUIList = new List<GameObject>();
 
     public bool buildingSystemMenu_isOpen;
+
+    [Header("BuildingRequirement Slot")]
+    public GameObject buildingRequirement_Parent;
+    public List<GameObject> buildingRequirement_List = new List<GameObject>();
 
 
     //--------------------
@@ -46,6 +51,7 @@ public class BuildingSystemMenu : MonoBehaviour
     {
         selectedBuildingBlockImage.sprite = sprite;
     }
+    
 
 
     //--------------------

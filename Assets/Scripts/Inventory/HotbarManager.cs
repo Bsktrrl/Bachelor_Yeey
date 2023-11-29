@@ -60,15 +60,21 @@ public class HotbarManager : MonoBehaviour
         {
             if (DataManager.instance.hotbarItem_StoreList.Count == hotbarList.Count)
             {
-                hotbarList[i].GetComponent<HotbarSlot>().hotbarItem = DataManager.instance.hotbarItem_StoreList[i];
+                hotbarList[i].GetComponent<HotbarSlot>().hotbarItemName = DataManager.instance.hotbarItem_StoreList[i];
                 hotbarList[i].GetComponent<HotbarSlot>().SetHotbarSlotImage();
             }
         }
 
         hotbarList[selectedSlot].GetComponent<HotbarSlot>().SetHotbarSlotActive();
-        selectedItem = hotbarList[selectedSlot].GetComponent<HotbarSlot>().hotbarItem;
+        selectedItem = hotbarList[selectedSlot].GetComponent<HotbarSlot>().hotbarItemName;
 
         ChangeItemInHand();
+
+        if (hotbarList[selectedSlot].GetComponent<HotbarSlot>().hotbarItemName == Items.BuildingHammer)
+        {
+            BuildingManager.instance.SetBuildingRequirements(BuildingManager.instance.GetBuildingBlock(BuildingManager.instance.buildingType_Selected, BuildingManager.instance.buildingMaterial_Selected), BuildingManager.instance.buildingRequirement_Parent);
+            BuildingManager.instance.buildingRequirement_Parent.SetActive(true);
+        }
     }
     public void SaveData()
     {
@@ -77,7 +83,7 @@ public class HotbarManager : MonoBehaviour
         DataManager.instance.hotbarItem_StoreList.Clear();
         for (int i = 0; i < hotbarList.Count; i++)
         {
-            DataManager.instance.hotbarItem_StoreList.Add(hotbarList[i].GetComponent<HotbarSlot>().hotbarItem);
+            DataManager.instance.hotbarItem_StoreList.Add(hotbarList[i].GetComponent<HotbarSlot>().hotbarItemName);
         }
     }
     public void SaveData(ref GameData gameData)
@@ -87,7 +93,7 @@ public class HotbarManager : MonoBehaviour
         DataManager.instance.hotbarItem_StoreList.Clear();
         for (int i = 0; i < hotbarList.Count; i++)
         {
-            DataManager.instance.hotbarItem_StoreList.Add(hotbarList[i].GetComponent<HotbarSlot>().hotbarItem);
+            DataManager.instance.hotbarItem_StoreList.Add(hotbarList[i].GetComponent<HotbarSlot>().hotbarItemName);
         }
         print("Save_Hotbar");
     }
@@ -168,7 +174,7 @@ public class HotbarManager : MonoBehaviour
         }
 
         hotbarList[selectedSlot].GetComponent<HotbarSlot>().SetHotbarSlotActive();
-        selectedItem = hotbarList[selectedSlot].GetComponent<HotbarSlot>().hotbarItem;
+        selectedItem = hotbarList[selectedSlot].GetComponent<HotbarSlot>().hotbarItemName;
 
         ChangeItemInHand();
         SaveData();
@@ -190,7 +196,7 @@ public class HotbarManager : MonoBehaviour
         }
 
         hotbarList[selectedSlot].GetComponent<HotbarSlot>().SetHotbarSlotActive();
-        selectedItem = hotbarList[selectedSlot].GetComponent<HotbarSlot>().hotbarItem;
+        selectedItem = hotbarList[selectedSlot].GetComponent<HotbarSlot>().hotbarItemName;
 
         ChangeItemInHand();
         SaveData();
@@ -198,7 +204,7 @@ public class HotbarManager : MonoBehaviour
 
     public void SetSelectedItem()
     {
-        selectedItem = hotbarList[selectedSlot].GetComponent<HotbarSlot>().hotbarItem;
+        selectedItem = hotbarList[selectedSlot].GetComponent<HotbarSlot>().hotbarItemName;
 
         SaveData();
     }
@@ -213,7 +219,7 @@ public class HotbarManager : MonoBehaviour
 
         selectedSlot = 0;
         hotbarList[selectedSlot].GetComponent<HotbarSlot>().SetHotbarSlotActive();
-        selectedItem = hotbarList[selectedSlot].GetComponent<HotbarSlot>().hotbarItem;
+        selectedItem = hotbarList[selectedSlot].GetComponent<HotbarSlot>().hotbarItemName;
 
         ChangeItemInHand();
         SaveData();
@@ -227,7 +233,7 @@ public class HotbarManager : MonoBehaviour
 
         selectedSlot = 1;
         hotbarList[selectedSlot].GetComponent<HotbarSlot>().SetHotbarSlotActive();
-        selectedItem = hotbarList[selectedSlot].GetComponent<HotbarSlot>().hotbarItem;
+        selectedItem = hotbarList[selectedSlot].GetComponent<HotbarSlot>().hotbarItemName;
 
         ChangeItemInHand();
         SaveData();
@@ -241,7 +247,7 @@ public class HotbarManager : MonoBehaviour
 
         selectedSlot = 2;
         hotbarList[selectedSlot].GetComponent<HotbarSlot>().SetHotbarSlotActive();
-        selectedItem = hotbarList[selectedSlot].GetComponent<HotbarSlot>().hotbarItem;
+        selectedItem = hotbarList[selectedSlot].GetComponent<HotbarSlot>().hotbarItemName;
 
         ChangeItemInHand();
         SaveData();
@@ -255,7 +261,7 @@ public class HotbarManager : MonoBehaviour
 
         selectedSlot = 3;
         hotbarList[selectedSlot].GetComponent<HotbarSlot>().SetHotbarSlotActive();
-        selectedItem = hotbarList[selectedSlot].GetComponent<HotbarSlot>().hotbarItem;
+        selectedItem = hotbarList[selectedSlot].GetComponent<HotbarSlot>().hotbarItemName;
 
         ChangeItemInHand();
         SaveData();
@@ -269,7 +275,7 @@ public class HotbarManager : MonoBehaviour
 
         selectedSlot = 4;
         hotbarList[selectedSlot].GetComponent<HotbarSlot>().SetHotbarSlotActive();
-        selectedItem = hotbarList[selectedSlot].GetComponent<HotbarSlot>().hotbarItem;
+        selectedItem = hotbarList[selectedSlot].GetComponent<HotbarSlot>().hotbarItemName;
 
         ChangeItemInHand();
         SaveData();

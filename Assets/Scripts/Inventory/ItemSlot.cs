@@ -37,10 +37,10 @@ public class ItemSlot : MonoBehaviour, IPointerUpHandler
                     //Check if item is already on the Hotbar
                     for (int i = 0; i < HotbarManager.instance.hotbarList.Count; i++)
                     {
-                        if (HotbarManager.instance.hotbarList[i].GetComponent<HotbarSlot>().hotbarItem != Items.None
-                            && HotbarManager.instance.hotbarList[i].GetComponent<HotbarSlot>().hotbarItem == itemName)
+                        if (HotbarManager.instance.hotbarList[i].GetComponent<HotbarSlot>().hotbarItemName != Items.None
+                            && HotbarManager.instance.hotbarList[i].GetComponent<HotbarSlot>().hotbarItemName == itemName)
                         {
-                            HotbarManager.instance.hotbarList[i].GetComponent<HotbarSlot>().hotbarItem = Items.None;
+                            HotbarManager.instance.hotbarList[i].GetComponent<HotbarSlot>().hotbarItemName = Items.None;
                             HotbarManager.instance.hotbarList[i].GetComponent<HotbarSlot>().RemoVeHotbarSlotImage();
                             HotbarManager.instance.SetSelectedItem();
 
@@ -51,9 +51,9 @@ public class ItemSlot : MonoBehaviour, IPointerUpHandler
                     //Add item to the Hotbar if item isn't already on the Hotbar
                     for (int i = 0; i < HotbarManager.instance.hotbarList.Count; i++)
                     {
-                        if (HotbarManager.instance.hotbarList[i].GetComponent<HotbarSlot>().hotbarItem == Items.None)
+                        if (HotbarManager.instance.hotbarList[i].GetComponent<HotbarSlot>().hotbarItemName == Items.None)
                         {
-                            HotbarManager.instance.hotbarList[i].GetComponent<HotbarSlot>().hotbarItem = itemName;
+                            HotbarManager.instance.hotbarList[i].GetComponent<HotbarSlot>().hotbarItemName = itemName;
                             HotbarManager.instance.hotbarList[i].GetComponent<HotbarSlot>().SetHotbarSlotImage();
                             HotbarManager.instance.SetSelectedItem();
 
@@ -93,10 +93,10 @@ public class ItemSlot : MonoBehaviour, IPointerUpHandler
                     //Check if item is already on the Hotbar
                     for (int i = 0; i < HotbarManager.instance.hotbarList.Count; i++)
                     {
-                        if (HotbarManager.instance.hotbarList[i].GetComponent<HotbarSlot>().hotbarItem != Items.None
-                            && HotbarManager.instance.hotbarList[i].GetComponent<HotbarSlot>().hotbarItem == itemName)
+                        if (HotbarManager.instance.hotbarList[i].GetComponent<HotbarSlot>().hotbarItemName != Items.None
+                            && HotbarManager.instance.hotbarList[i].GetComponent<HotbarSlot>().hotbarItemName == itemName)
                         {
-                            HotbarManager.instance.hotbarList[i].GetComponent<HotbarSlot>().hotbarItem = Items.None;
+                            HotbarManager.instance.hotbarList[i].GetComponent<HotbarSlot>().hotbarItemName = Items.None;
                             HotbarManager.instance.hotbarList[i].GetComponent<HotbarSlot>().RemoVeHotbarSlotImage();
                             HotbarManager.instance.SetSelectedItem();
 
@@ -107,9 +107,9 @@ public class ItemSlot : MonoBehaviour, IPointerUpHandler
                     //Add item to the Hotbar if item isn't already on the Hotbar
                     for (int i = 0; i < HotbarManager.instance.hotbarList.Count; i++)
                     {
-                        if (HotbarManager.instance.hotbarList[i].GetComponent<HotbarSlot>().hotbarItem == Items.None)
+                        if (HotbarManager.instance.hotbarList[i].GetComponent<HotbarSlot>().hotbarItemName == Items.None)
                         {
-                            HotbarManager.instance.hotbarList[i].GetComponent<HotbarSlot>().hotbarItem = itemName;
+                            HotbarManager.instance.hotbarList[i].GetComponent<HotbarSlot>().hotbarItemName = itemName;
                             HotbarManager.instance.hotbarList[i].GetComponent<HotbarSlot>().SetHotbarSlotImage();
                             HotbarManager.instance.SetSelectedItem();
 

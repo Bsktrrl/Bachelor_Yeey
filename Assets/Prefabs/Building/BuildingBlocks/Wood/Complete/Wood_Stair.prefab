@@ -114,6 +114,7 @@ MonoBehaviour:
   blockDirection_A: 0
   blockDirection_B: 1
   BuildingType: 5
+  buildingSubType: 0
 --- !u!1 &269525894414947555
 GameObject:
   m_ObjectHideFlags: 0
@@ -295,6 +296,7 @@ MonoBehaviour:
   blockDirection_A: 3
   blockDirection_B: 3
   BuildingType: 3
+  buildingSubType: 0
 --- !u!1 &518151418732860636
 GameObject:
   m_ObjectHideFlags: 0
@@ -539,6 +541,7 @@ MonoBehaviour:
   blockDirection_A: 3
   blockDirection_B: 1
   BuildingType: 1
+  buildingSubType: 0
 --- !u!1 &1521735472325169129
 GameObject:
   m_ObjectHideFlags: 0
@@ -723,6 +726,7 @@ MonoBehaviour:
   blockDirection_A: 1
   blockDirection_B: 3
   BuildingType: 11
+  buildingSubType: 0
 --- !u!1 &2355033780457740126
 GameObject:
   m_ObjectHideFlags: 0
@@ -872,6 +876,7 @@ MonoBehaviour:
   blockDirection_A: 3
   blockDirection_B: 1
   BuildingType: 3
+  buildingSubType: 0
 --- !u!1 &2553213010335490156
 GameObject:
   m_ObjectHideFlags: 0
@@ -986,6 +991,7 @@ MonoBehaviour:
   blockDirection_A: 0
   blockDirection_B: 3
   BuildingType: 12
+  buildingSubType: 0
 --- !u!1 &2909759125604657531
 GameObject:
   m_ObjectHideFlags: 0
@@ -1133,6 +1139,7 @@ MonoBehaviour:
   blockDirection_A: 0
   blockDirection_B: 2
   BuildingType: 12
+  buildingSubType: 0
 --- !u!1 &3662620563270766601
 GameObject:
   m_ObjectHideFlags: 0
@@ -1247,6 +1254,7 @@ MonoBehaviour:
   blockDirection_A: 3
   blockDirection_B: 3
   BuildingType: 1
+  buildingSubType: 0
 --- !u!1 &3871826975406118152
 GameObject:
   m_ObjectHideFlags: 0
@@ -1361,6 +1369,7 @@ MonoBehaviour:
   blockDirection_A: 1
   blockDirection_B: 3
   BuildingType: 10
+  buildingSubType: 0
 --- !u!1 &3989450556916245399
 GameObject:
   m_ObjectHideFlags: 0
@@ -1475,6 +1484,7 @@ MonoBehaviour:
   blockDirection_A: 1
   blockDirection_B: 1
   BuildingType: 3
+  buildingSubType: 0
 --- !u!1 &3999896448354710099
 GameObject:
   m_ObjectHideFlags: 0
@@ -1659,6 +1669,7 @@ MonoBehaviour:
   blockDirection_A: 1
   blockDirection_B: 1
   BuildingType: 10
+  buildingSubType: 0
 --- !u!1 &4223166015176857181
 GameObject:
   m_ObjectHideFlags: 0
@@ -1773,6 +1784,7 @@ MonoBehaviour:
   blockDirection_A: 0
   blockDirection_B: 3
   BuildingType: 5
+  buildingSubType: 0
 --- !u!1 &4379292842743416104
 GameObject:
   m_ObjectHideFlags: 0
@@ -1887,6 +1899,7 @@ MonoBehaviour:
   blockDirection_A: 0
   blockDirection_B: 2
   BuildingType: 5
+  buildingSubType: 0
 --- !u!1 &4607561296036094226
 GameObject:
   m_ObjectHideFlags: 0
@@ -2001,6 +2014,7 @@ MonoBehaviour:
   blockDirection_A: 0
   blockDirection_B: 4
   BuildingType: 13
+  buildingSubType: 0
 --- !u!1 &4677319446109213178
 GameObject:
   m_ObjectHideFlags: 0
@@ -2099,7 +2113,6 @@ MonoBehaviour:
   buildingType: 12
   buildingSubType: 0
   buildingMaterial: 1
-  isStrange: 0
   BuildingBlock: {fileID: 786253518913603422}
   directionObjectList:
   - {fileID: 64016547725432179}
@@ -2161,6 +2174,12 @@ MonoBehaviour:
   - {fileID: 8680815479573487778}
   - {fileID: 6001820109515455558}
   - {fileID: 182836398745093748}
+  buildingRequirementList:
+  - itemName: 2
+    amount: 2
+  removeBuildingRequirementList:
+  - itemName: 2
+    amount: 1
 --- !u!1 &4949373295826052274
 GameObject:
   m_ObjectHideFlags: 0
@@ -2275,6 +2294,7 @@ MonoBehaviour:
   blockDirection_A: 3
   blockDirection_B: 3
   BuildingType: 11
+  buildingSubType: 0
 --- !u!1 &5261392378287015524
 GameObject:
   m_ObjectHideFlags: 0
@@ -2389,6 +2409,7 @@ MonoBehaviour:
   blockDirection_A: 1
   blockDirection_B: 1
   BuildingType: 1
+  buildingSubType: 0
 --- !u!1 &5615447317164305489
 GameObject:
   m_ObjectHideFlags: 0
@@ -2503,6 +2524,7 @@ MonoBehaviour:
   blockDirection_A: 3
   blockDirection_B: 3
   BuildingType: 10
+  buildingSubType: 0
 --- !u!1 &6164082233893319016
 GameObject:
   m_ObjectHideFlags: 0
@@ -2652,6 +2674,7 @@ MonoBehaviour:
   blockDirection_A: 0
   blockDirection_B: 2
   BuildingType: 6
+  buildingSubType: 0
 --- !u!1 &6402943851249481703
 GameObject:
   m_ObjectHideFlags: 0
@@ -2766,6 +2789,7 @@ MonoBehaviour:
   blockDirection_A: 0
   blockDirection_B: 2
   BuildingType: 13
+  buildingSubType: 0
 --- !u!1 &6452869581605355300
 GameObject:
   m_ObjectHideFlags: 0
@@ -2978,6 +3002,7 @@ MonoBehaviour:
   blockDirection_A: 1
   blockDirection_B: 3
   BuildingType: 1
+  buildingSubType: 0
 --- !u!1 &6562940531414328032
 GameObject:
   m_ObjectHideFlags: 0
@@ -3190,6 +3215,7 @@ MonoBehaviour:
   blockDirection_A: 0
   blockDirection_B: 1
   BuildingType: 12
+  buildingSubType: 0
 --- !u!1 &6693617243598782170
 GameObject:
   m_ObjectHideFlags: 0
@@ -3304,6 +3330,7 @@ MonoBehaviour:
   blockDirection_A: 0
   blockDirection_B: 4
   BuildingType: 6
+  buildingSubType: 0
 --- !u!1 &6776672476112907232
 GameObject:
   m_ObjectHideFlags: 0
@@ -3453,6 +3480,7 @@ MonoBehaviour:
   blockDirection_A: 0
   blockDirection_B: 1
   BuildingType: 8
+  buildingSubType: 0
 --- !u!1 &7041568900633830339
 GameObject:
   m_ObjectHideFlags: 0
@@ -3602,6 +3630,7 @@ MonoBehaviour:
   blockDirection_A: 3
   blockDirection_B: 1
   BuildingType: 10
+  buildingSubType: 0
 --- !u!1 &7096898244693740888
 GameObject:
   m_ObjectHideFlags: 0
@@ -3716,6 +3745,7 @@ MonoBehaviour:
   blockDirection_A: 1
   blockDirection_B: 1
   BuildingType: 11
+  buildingSubType: 0
 --- !u!1 &7278417649179653837
 GameObject:
   m_ObjectHideFlags: 0
@@ -3830,6 +3860,7 @@ MonoBehaviour:
   blockDirection_A: 3
   blockDirection_B: 1
   BuildingType: 11
+  buildingSubType: 0
 --- !u!1 &7427383815434081664
 GameObject:
   m_ObjectHideFlags: 0
@@ -4012,6 +4043,7 @@ MonoBehaviour:
   blockDirection_A: 0
   blockDirection_B: 4
   BuildingType: 5
+  buildingSubType: 0
 --- !u!1 &7984122908658295562
 GameObject:
   m_ObjectHideFlags: 0
@@ -4292,6 +4324,7 @@ MonoBehaviour:
   blockDirection_A: 1
   blockDirection_B: 3
   BuildingType: 3
+  buildingSubType: 0
 --- !u!1 &8235306130934246321
 GameObject:
   m_ObjectHideFlags: 0
@@ -4474,6 +4507,7 @@ MonoBehaviour:
   blockDirection_A: 0
   blockDirection_B: 4
   BuildingType: 12
+  buildingSubType: 0
 --- !u!1001 &232243794548338521
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4613,7 +4647,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   buildingType: 12
   buildingSubType: 0
-  isStrange: 0
   blockDirection_A: 0
   blockDirection_B: 1
   blockParent: {fileID: 4763889419513853119}
@@ -4756,7 +4789,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   buildingType: 10
   buildingSubType: 0
-  isStrange: 0
   blockDirection_A: 1
   blockDirection_B: 1
   blockParent: {fileID: 4763889419513853119}
@@ -4900,7 +4932,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   buildingType: 12
   buildingSubType: 0
-  isStrange: 0
   blockDirection_A: 0
   blockDirection_B: 4
   blockParent: {fileID: 4763889419513853119}
@@ -5173,7 +5204,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   buildingType: 11
   buildingSubType: 0
-  isStrange: 0
   blockDirection_A: 1
   blockDirection_B: 1
   blockParent: {fileID: 4763889419513853119}
@@ -5311,7 +5341,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   buildingType: 3
   buildingSubType: 0
-  isStrange: 0
   blockDirection_A: 3
   blockDirection_B: 3
   blockParent: {fileID: 4763889419513853119}
@@ -5454,7 +5483,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   buildingType: 11
   buildingSubType: 0
-  isStrange: 0
   blockDirection_A: 3
   blockDirection_B: 3
   blockParent: {fileID: 4763889419513853119}
@@ -5602,7 +5630,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   buildingType: 1
   buildingSubType: 0
-  isStrange: 0
   blockDirection_A: 3
   blockDirection_B: 3
   blockParent: {fileID: 4763889419513853119}
@@ -5746,7 +5773,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   buildingType: 5
   buildingSubType: 0
-  isStrange: 0
   blockDirection_A: 0
   blockDirection_B: 2
   blockParent: {fileID: 4763889419513853119}
@@ -5890,7 +5916,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   buildingType: 5
   buildingSubType: 0
-  isStrange: 0
   blockDirection_A: 0
   blockDirection_B: 1
   blockParent: {fileID: 4763889419513853119}
@@ -6033,7 +6058,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   buildingType: 3
   buildingSubType: 0
-  isStrange: 0
   blockDirection_A: 1
   blockDirection_B: 3
   blockParent: {fileID: 4763889419513853119}
@@ -6176,7 +6200,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   buildingType: 1
   buildingSubType: 0
-  isStrange: 0
   blockDirection_A: 1
   blockDirection_B: 1
   blockParent: {fileID: 4763889419513853119}
@@ -6315,7 +6338,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   buildingType: 12
   buildingSubType: 0
-  isStrange: 0
   blockDirection_A: 0
   blockDirection_B: 3
   blockParent: {fileID: 4763889419513853119}
@@ -6458,7 +6480,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   buildingType: 3
   buildingSubType: 0
-  isStrange: 0
   blockDirection_A: 3
   blockDirection_B: 1
   blockParent: {fileID: 4763889419513853119}
@@ -6601,7 +6622,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   buildingType: 10
   buildingSubType: 0
-  isStrange: 0
   blockDirection_A: 1
   blockDirection_B: 3
   blockParent: {fileID: 4763889419513853119}
@@ -6744,7 +6764,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   buildingType: 10
   buildingSubType: 0
-  isStrange: 0
   blockDirection_A: 3
   blockDirection_B: 1
   blockParent: {fileID: 4763889419513853119}
@@ -6893,7 +6912,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   buildingType: 12
   buildingSubType: 0
-  isStrange: 0
   blockDirection_A: 0
   blockDirection_B: 2
   blockParent: {fileID: 4763889419513853119}
@@ -7029,7 +7047,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   buildingType: 6
   buildingSubType: 0
-  isStrange: 0
   blockDirection_A: 0
   blockDirection_B: 2
   blockParent: {fileID: 4763889419513853119}
@@ -7167,7 +7184,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   buildingType: 3
   buildingSubType: 0
-  isStrange: 0
   blockDirection_A: 1
   blockDirection_B: 1
   blockParent: {fileID: 4763889419513853119}
@@ -7315,7 +7331,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   buildingType: 8
   buildingSubType: 0
-  isStrange: 0
   blockDirection_A: 0
   blockDirection_B: 1
   blockParent: {fileID: 4763889419513853119}
@@ -7458,7 +7473,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   buildingType: 13
   buildingSubType: 0
-  isStrange: 0
   blockDirection_A: 0
   blockDirection_B: 2
   blockParent: {fileID: 0}
@@ -7601,7 +7615,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   buildingType: 11
   buildingSubType: 0
-  isStrange: 0
   blockDirection_A: 3
   blockDirection_B: 1
   blockParent: {fileID: 4763889419513853119}
@@ -7749,7 +7762,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   buildingType: 10
   buildingSubType: 0
-  isStrange: 0
   blockDirection_A: 3
   blockDirection_B: 3
   blockParent: {fileID: 4763889419513853119}
@@ -7887,7 +7899,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   buildingType: 1
   buildingSubType: 0
-  isStrange: 0
   blockDirection_A: 1
   blockDirection_B: 3
   blockParent: {fileID: 4763889419513853119}
@@ -8031,7 +8042,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   buildingType: 5
   buildingSubType: 0
-  isStrange: 0
   blockDirection_A: 0
   blockDirection_B: 4
   blockParent: {fileID: 4763889419513853119}
@@ -8167,7 +8177,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   buildingType: 6
   buildingSubType: 0
-  isStrange: 0
   blockDirection_A: 0
   blockDirection_B: 4
   blockParent: {fileID: 4763889419513853119}
@@ -8315,7 +8324,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   buildingType: 1
   buildingSubType: 0
-  isStrange: 0
   blockDirection_A: 3
   blockDirection_B: 1
   blockParent: {fileID: 4763889419513853119}
@@ -8458,7 +8466,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   buildingType: 11
   buildingSubType: 0
-  isStrange: 0
   blockDirection_A: 1
   blockDirection_B: 3
   blockParent: {fileID: 4763889419513853119}
@@ -8601,7 +8608,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   buildingType: 13
   buildingSubType: 0
-  isStrange: 0
   blockDirection_A: 0
   blockDirection_B: 4
   blockParent: {fileID: 0}
@@ -8745,7 +8751,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   buildingType: 5
   buildingSubType: 0
-  isStrange: 0
   blockDirection_A: 0
   blockDirection_B: 3
   blockParent: {fileID: 4763889419513853119}

@@ -83,6 +83,14 @@ public class InventoryManager : MonoBehaviour
 
         //Set Player position - The "LoadData()" doesen't activate in the relevant playerMovement script
         MainManager.instance.player.transform.SetPositionAndRotation(DataManager.instance.playerPos_Store, DataManager.instance.playerRot_Store);
+
+        //Set Building Requirements
+        BuildingManager.instance.SetBuildingRequirements(BuildingManager.instance.GetBuildingBlock(BuildingManager.instance.buildingType_Selected, BuildingManager.instance.buildingMaterial_Selected), BuildingManager.instance.buildingRequirement_Parent);
+        if (HotbarManager.instance.selectedItem == Items.BuildingHammer)
+        {
+            BuildingManager.instance.buildingRequirement_Parent.SetActive(true);
+        }
+        BuildingManager.instance.BuildingHammer_isActive = true;
     }
     public void SaveData()
     {
@@ -135,8 +143,6 @@ public class InventoryManager : MonoBehaviour
         //If item is being moved to another inventory
         if (itemIsMoved)
         {
-            //print("1000. item : " + obj.GetComponent<ItemSlot>().itemName + " is added to inventory: " + inventory);
-
             item.inventoryIndex = inventory;
             item.itemName = obj.GetComponent<ItemSlot>().itemName;
             item.itemSize = MainManager.instance.GetItem(obj.GetComponent<ItemSlot>().itemName).itemSize;
@@ -186,6 +192,8 @@ public class InventoryManager : MonoBehaviour
         PrepareInventoryUI(inventory, itemIsMoved);
         RemoveInventoriesUI();
 
+        BuildingManager.instance.SetBuildingRequirements(BuildingManager.instance.GetBuildingBlock(BuildingManager.instance.buildingType_Selected, BuildingManager.instance.buildingMaterial_Selected), BuildingManager.instance.buildingRequirement_Parent);
+
         return true;
     }
     public bool AddItemToInventory(int inventory, Items itemName)
@@ -228,6 +236,8 @@ public class InventoryManager : MonoBehaviour
         PrepareInventoryUI(inventory, false);
         RemoveInventoriesUI();
 
+        BuildingManager.instance.SetBuildingRequirements(BuildingManager.instance.GetBuildingBlock(BuildingManager.instance.buildingType_Selected, BuildingManager.instance.buildingMaterial_Selected), BuildingManager.instance.buildingRequirement_Parent);
+
         return true;
     }
     public void RemoveItemFromInventory(int inventory, Items itemName)
@@ -246,10 +256,9 @@ public class InventoryManager : MonoBehaviour
 
         RemoveInventoriesUI();
         PrepareInventoryUI(inventory, false);
-        //SortInventory(inventory);
 
         //Spawn item into the World
-        print("Spawn item into the world");
+        //print("Spawn item into the world");
         worldItemList.Add(Instantiate(MainManager.instance.GetItem(itemName).worldObjectPrefab, handDropPoint.transform.position, Quaternion.identity) as GameObject);
         worldItemList[worldItemList.Count - 1].transform.parent = worldObject_Parent.transform;
 
@@ -262,10 +271,12 @@ public class InventoryManager : MonoBehaviour
         {
             CheckHotbarItemInInventory();
         }
+
+        BuildingManager.instance.SetBuildingRequirements(BuildingManager.instance.GetBuildingBlock(BuildingManager.instance.buildingType_Selected, BuildingManager.instance.buildingMaterial_Selected), BuildingManager.instance.buildingRequirement_Parent);
     }
     public void RemoveItemFromInventory(int inventory, Items itemName, bool itemIsMoved)
     {
-        print("200. item : " + itemName + " is removed from inventory: " + inventory);
+        //print("200. item : " + itemName + " is removed from inventory: " + inventory);
 
         for (int i = 0; i < inventories[inventory].itemsInInventory.Count; i++)
         {
@@ -279,6 +290,8 @@ public class InventoryManager : MonoBehaviour
 
         RemoveInventoriesUI();
         PrepareInventoryUI(inventory, true);
+
+        BuildingManager.instance.SetBuildingRequirements(BuildingManager.instance.GetBuildingBlock(BuildingManager.instance.buildingType_Selected, BuildingManager.instance.buildingMaterial_Selected), BuildingManager.instance.buildingRequirement_Parent);
     }
 
     public void MoveItemToInventory(int inventory, GameObject obj)
@@ -307,7 +320,7 @@ public class InventoryManager : MonoBehaviour
 
     public void CheckHotbarItemInInventory()
     {
-        print("100. CheckHotbarItemInInventory");
+        //print("100. CheckHotbarItemInInventory");
 
         for (int i = 0; i < HotbarManager.instance.hotbarList.Count; i++)
         {
@@ -316,8 +329,8 @@ public class InventoryManager : MonoBehaviour
             //Check if HotbarItem is in the inventory
             for (int j = 0; j < inventories[0].itemsInInventory.Count; j++)
             {
-                if (HotbarManager.instance.hotbarList[i].GetComponent<HotbarSlot>().hotbarItem != Items.None
-                    && HotbarManager.instance.hotbarList[i].GetComponent<HotbarSlot>().hotbarItem == inventories[0].itemsInInventory[j].itemName)
+                if (HotbarManager.instance.hotbarList[i].GetComponent<HotbarSlot>().hotbarItemName != Items.None
+                    && HotbarManager.instance.hotbarList[i].GetComponent<HotbarSlot>().hotbarItemName == inventories[0].itemsInInventory[j].itemName)
                 {
                     isIncluded = true;
 
@@ -328,9 +341,13 @@ public class InventoryManager : MonoBehaviour
             //If HotbarItem isn't in the inventory, remove it from the Hotbar
             if (!isIncluded)
             {
+                if (HotbarManager.instance.selectedItem == HotbarManager.instance.hotbarList[i].GetComponent<HotbarSlot>().hotbarItemName)
+                {
+                    HotbarManager.instance.selectedItem = Items.None;
+                }
+
                 HotbarManager.instance.hotbarList[i].GetComponent<HotbarSlot>().RemoVeHotbarSlotImage();
                 HotbarManager.instance.hotbarList[i].GetComponent<HotbarSlot>().ResetHotbarItem();
-                HotbarManager.instance.selectedItem = Items.None;
             }
         }
     }
@@ -585,16 +602,18 @@ public class InventoryManager : MonoBehaviour
         }
     } // Under PrepareInventoryUI
 
-    void RemoveInventoriesUI()
+    public void RemoveInventoriesUI()
     {
         print("Reset Both Inventories");
 
         for (int i = 0; i < itemSlotList_Player.Count; i++)
         {
+            itemSlotList_Player[i].SetActive(true);
             itemSlotList_Player[i].GetComponent<ItemSlot>().DestroyItemSlot();
         }
         for (int i = 0; i < itemSlotList_Chest.Count; i++)
         {
+            itemSlotList_Chest[i].SetActive(true);
             itemSlotList_Chest[i].GetComponent<ItemSlot>().DestroyItemSlot();
         }
 

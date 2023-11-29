@@ -16,6 +16,14 @@ public class BuildingBlock_UI : MonoBehaviour, IPointerEnterHandler
 
         BuildingSystemMenu.instance.SetSelectedImage(gameObject.GetComponent<Image>().sprite);
 
+        BuildingBlock_Parent tempParent = BuildingManager.instance.GetBuildingBlock(BuildingType, BuildingMaterial);
+        if (tempParent != null)
+        {
+            //Set requirements for both BuildingMenu and on main screen
+            BuildingManager.instance.SetBuildingRequirements(tempParent, BuildingSystemMenu.instance.buildingRequirement_Parent);
+            BuildingManager.instance.SetBuildingRequirements(BuildingManager.instance.GetBuildingBlock(BuildingManager.instance.buildingType_Selected, BuildingManager.instance.buildingMaterial_Selected), BuildingManager.instance.buildingRequirement_Parent);
+        }
+
         BuildingManager.instance.SaveData();
     }
 }

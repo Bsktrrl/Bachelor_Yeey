@@ -1356,6 +1356,16 @@ MonoBehaviour:
   - {fileID: 696973117289340678}
   - {fileID: 4177897476023406944}
   - {fileID: 4688048886702877941}
+  buildingRequirementList:
+  - itemName: 1
+    amount: 1
+  - itemName: 3
+    amount: 1
+  removeBuildingRequirementList:
+  - itemName: 1
+    amount: 1
+  - itemName: 3
+    amount: 1
 --- !u!1 &4816388688956754001
 GameObject:
   m_ObjectHideFlags: 0
