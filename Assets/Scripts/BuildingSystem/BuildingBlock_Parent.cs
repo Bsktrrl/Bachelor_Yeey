@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class BuildingBlock_Parent : MonoBehaviour
 {
+    public int blockID;
     public BuildingType buildingType;
     public BuildingSubType buildingSubType;
     public BuildingMaterial buildingMaterial;
@@ -16,6 +17,7 @@ public class BuildingBlock_Parent : MonoBehaviour
 
     public List<BuildingBlockRequirement> buildingRequirementList = new List<BuildingBlockRequirement>();
     public List<BuildingBlockRequirement> removeBuildingRequirementList = new List<BuildingBlockRequirement>();
+
 
 
     //--------------------

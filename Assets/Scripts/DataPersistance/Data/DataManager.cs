@@ -30,6 +30,7 @@ public class DataManager : MonoBehaviour, IDataPersistance
     public List<Items> hotbarItem_StoreList = new List<Items>();
 
     //BuidingSystem
+    [HideInInspector] public List<BuildingBlockSaveList> buildingBlockList_StoreList = new List<BuildingBlockSaveList>();
     [HideInInspector] public BuildingType buildingType_Store = new BuildingType();
     [HideInInspector] public BuildingMaterial buildingMaterial_Store = new BuildingMaterial();
 
@@ -66,6 +67,7 @@ public class DataManager : MonoBehaviour, IDataPersistance
         this.hotbarItem_StoreList = gameData.hotbarItem_SaveList;
         this.selectedSlot_Store = gameData.selectedSlot_Save;
 
+        this.buildingBlockList_StoreList = gameData.buildingBlockList_SaveList;
         this.buildingType_Store = gameData.buildingType_Save;
         this.buildingMaterial_Store = gameData.buildingMaterial_Save;
 
@@ -87,6 +89,7 @@ public class DataManager : MonoBehaviour, IDataPersistance
         gameData.hotbarItem_SaveList = this.hotbarItem_StoreList;
         gameData.selectedSlot_Save = this.selectedSlot_Store;
 
+        gameData.buildingBlockList_SaveList = this.buildingBlockList_StoreList;
         gameData.buildingType_Save = this.buildingType_Store;
         gameData.buildingMaterial_Save = this.buildingMaterial_Store;
 

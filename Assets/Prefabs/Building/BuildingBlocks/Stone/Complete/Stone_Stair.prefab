@@ -2110,6 +2110,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cc8c77a97bd5b9944a2142f8cbd96fe7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  blockID: 25
   buildingType: 12
   buildingSubType: 0
   buildingMaterial: 2
@@ -2174,6 +2175,8 @@ MonoBehaviour:
   - {fileID: 8680815479573487778}
   - {fileID: 6001820109515455558}
   - {fileID: 182836398745093748}
+  buildingRequirementList: []
+  removeBuildingRequirementList: []
 --- !u!1 &4949373295826052274
 GameObject:
   m_ObjectHideFlags: 0

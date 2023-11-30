@@ -19,6 +19,7 @@ public class GameData
     public List<Items> hotbarItem_SaveList = new List<Items>();
 
     //BuidingSystem
+    [HideInInspector] public List<BuildingBlockSaveList> buildingBlockList_SaveList = new List<BuildingBlockSaveList>();
     [HideInInspector] public BuildingType buildingType_Save = new BuildingType();
     [HideInInspector] public BuildingMaterial buildingMaterial_Save = new BuildingMaterial();
 
@@ -29,6 +30,7 @@ public class GameData
     public GameData()
     {
         //Input All Lists to clear
+        this.buildingBlockList_SaveList.Clear();
         this.Inventories_SaveList.Clear();
         this.hotbarItem_SaveList.Clear();
     }

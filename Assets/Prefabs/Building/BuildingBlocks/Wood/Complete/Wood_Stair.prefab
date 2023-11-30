@@ -2110,6 +2110,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cc8c77a97bd5b9944a2142f8cbd96fe7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  blockID: 12
   buildingType: 12
   buildingSubType: 0
   buildingMaterial: 1

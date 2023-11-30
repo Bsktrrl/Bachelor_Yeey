@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -8,6 +9,7 @@ public class BuildingManager : MonoBehaviour
 
     public GameObject buildingBlock_Parent;
     public List<GameObject> buildingBlockList = new List<GameObject>();
+    public List<BuildingBlockSaveList> buildingBlockSaveList = new List<BuildingBlockSaveList>();
 
     [Header("Ghost")]
     public GameObject buildingBlockLookingAt_Axe;
@@ -241,7 +243,7 @@ public class BuildingManager : MonoBehaviour
 
     public void LoadData()
     {
-        print("Load_Buildings");
+        print("Load_BuildingBlocks");
 
         //Set data based on what's saved
         buildingType_Selected = DataManager.instance.buildingType_Store;
@@ -265,11 +267,44 @@ public class BuildingManager : MonoBehaviour
                 break;
             }
         }
+
+        //Setup BuildingBlockList
+        buildingBlockSaveList = DataManager.instance.buildingBlockList_StoreList;
+        for (int i = 0; i < buildingBlockList.Count; i++)
+        {
+            Destroy(buildingBlockList[i]);
+        }
+        buildingBlockList.Clear();
+
+        for (int i = 0; i < buildingBlockSaveList.Count; i++)
+        {
+            buildingBlockList.Add(Instantiate(SetupBuildingBlockFromSave(buildingBlockSaveList[i]), buildingBlockSaveList[i].buildingBlock_Position, buildingBlockSaveList[i].buildingBlock_Rotation) as GameObject);
+            buildingBlockList[buildingBlockList.Count - 1].transform.parent = buildingBlock_Parent.transform;
+
+            buildingBlockList[buildingBlockList.Count - 1].GetComponent<BuildingBlock_Parent>().blockID = buildingBlockSaveList[i].buildingID;
+        }
     }
     public void SaveData()
     {
+        //Save buildingBlocks into a saveable list
+        List<BuildingBlockSaveList> tempList = new List<BuildingBlockSaveList>();
+        for (int i = 0; i < buildingBlockList.Count; i++)
+        {
+            BuildingBlockSaveList temp = new BuildingBlockSaveList();
+
+            temp.buildingID = buildingBlockList[i].GetComponent<BuildingBlock_Parent>().blockID;
+            temp.buildingBlock_Position = buildingBlockList[i].transform.position;
+            temp.buildingBlock_Rotation = buildingBlockList[i].transform.rotation;
+
+            tempList.Add(temp);
+        }
+        DataManager.instance.buildingBlockList_StoreList = tempList;
+
+        //Save selected Building Type and Material
         DataManager.instance.buildingType_Store = buildingType_Selected;
         DataManager.instance.buildingMaterial_Store = buildingMaterial_Selected;
+
+        print("Save buildingBlocks");
     }
 
 
@@ -1531,14 +1566,17 @@ public class BuildingManager : MonoBehaviour
 
                 //Remove items from inventory
                 BuildingBlock_Parent tempParent = GetBuildingBlock(buildingType_Selected, buildingMaterial_Selected);
-                for (int i = 0; i < tempParent.buildingRequirementList.Count; i++)
+                if (tempParent.buildingRequirementList != null)
                 {
-                    for (int k = 0; k < tempParent.buildingRequirementList[i].amount; k++)
+                    for (int i = 0; i < tempParent.buildingRequirementList.Count; i++)
                     {
-                        InventoryManager.instance.RemoveItemFromInventory(0, tempParent.buildingRequirementList[i].itemName, false);
+                        for (int k = 0; k < tempParent.buildingRequirementList[i].amount; k++)
+                        {
+                            InventoryManager.instance.RemoveItemFromInventory(0, tempParent.buildingRequirementList[i].itemName, false);
+                        }
                     }
                 }
-
+                
                 //Update the Hotbar
                 InventoryManager.instance.CheckHotbarItemInInventory();
                 InventoryManager.instance.RemoveInventoriesUI();
@@ -1547,6 +1585,8 @@ public class BuildingManager : MonoBehaviour
                 lastBuildingBlock_LookedAt = null;
                 buildingBlockCanBePlaced = false;
                 SetAllGhostState_Off();
+
+                SaveData();
             }
 
             //If buildingBlock cannot be placed
@@ -1650,6 +1690,8 @@ public class BuildingManager : MonoBehaviour
                                 {
                                     buildingRemoveRequirement_Parent.SetActive(false);
                                 }
+
+                                SaveData();
 
                                 break;
                             }
@@ -1764,6 +1806,12 @@ public class BuildingManager : MonoBehaviour
         }
         buildingRequirement_List.Clear();
 
+        //Set "enoughItemsToBuild" = true if there isn't any required materials to build the block
+        if (blockParent.buildingRequirementList.Count <= 0)
+        {
+            enoughItemsToBuild = true;
+        }
+
         //Setup new list of Requirements
         for (int i = 0; i < blockParent.buildingRequirementList.Count; i++)
         {
@@ -1832,4 +1880,109 @@ public class BuildingManager : MonoBehaviour
 
         buildingRemoveRequirement_Parent.SetActive(true);
     }
+
+
+    //--------------------
+
+
+    GameObject SetupBuildingBlockFromSave(BuildingBlockSaveList block)
+    {
+        switch (block.buildingID)
+        {
+            //Wood
+            case 0:
+                return builingBlock_Wood_Floor;
+            case 1:
+                return builingBlock_Wood_Floor_Triangle;
+            case 2:
+                return builingBlock_Wood_Wall;
+            case 3:
+                return builingBlock_Wood_Wall_Diagonal;
+            case 4:
+                return builingBlock_Wood_Ramp;
+            case 5:
+                return builingBlock_Wood_Ramp_Corner;
+            case 6:
+                return builingBlock_Wood_Ramp_Triangle;
+            case 7:
+                return builingBlock_Wood_Wall_Triangle;
+            case 8:
+                return builingBlock_Wood_Fence;
+            case 9:
+                return builingBlock_Wood_Fence_Diagonaly;
+            case 10:
+                return builingBlock_Wood_Window;
+            case 11:
+                return builingBlock_Wood_Door;
+            case 12:
+                return builingBlock_Wood_Stair;
+
+            //Stone
+            case 13:
+                return builingBlock_Stone_Floor;
+            case 14:
+                return builingBlock_Stone_Floor_Triangle;
+            case 15:
+                return builingBlock_Stone_Wall;
+            case 16:
+                return builingBlock_Stone_Wall_Diagonal;
+            case 17:
+                return builingBlock_Stone_Ramp;
+            case 18:
+                return builingBlock_Stone_Ramp_Corner;
+            case 19:
+                return builingBlock_Stone_Ramp_Triangle;
+            case 20:
+                return builingBlock_Stone_Wall_Triangle;
+            case 21:
+                return builingBlock_Stone_Fence;
+            case 22:
+                return builingBlock_Stone_Fence_Diagonaly;
+            case 23:
+                return builingBlock_Stone_Window;
+            case 24:
+                return builingBlock_Stone_Door;
+            case 25:
+                return builingBlock_Stone_Stair;
+
+            //Iron
+            case 26:
+                return builingBlock_Iron_Floor;
+            case 27:
+                return builingBlock_Iron_Floor_Triangle;
+            case 28:
+                return builingBlock_Iron_Wall;
+            case 29:
+                return builingBlock_Iron_Wall_Diagonal;
+            case 30:
+                return builingBlock_Iron_Ramp;
+            case 31:
+                return builingBlock_Iron_Ramp_Corner;
+            case 32:
+                return builingBlock_Iron_Ramp_Triangle;
+            case 33:
+                return builingBlock_Iron_Wall_Triangle;
+            case 34:
+                return builingBlock_Iron_Fence;
+            case 35:
+                return builingBlock_Iron_Fence_Diagonaly;
+            case 36:
+                return builingBlock_Iron_Window;
+            case 37:
+                return builingBlock_Iron_Door;
+            case 38:
+                return builingBlock_Iron_Stair;
+
+            default:
+                return null;
+        }
+    }
+}
+
+[Serializable]
+public struct BuildingBlockSaveList
+{
+    public int buildingID;
+    public Vector3 buildingBlock_Position;
+    public Quaternion buildingBlock_Rotation;
 }
