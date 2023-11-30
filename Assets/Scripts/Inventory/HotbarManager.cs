@@ -146,7 +146,7 @@ public class HotbarManager : MonoBehaviour
             EuipmentList.Clear();
 
             //Add the correct model to the hand
-            EuipmentList.Add(Instantiate(MainManager.instance.GetItem(selectedItem).equippedPrefab, Vector3.zero, Quaternion.identity, EquipmentHolder.transform));
+            EuipmentList.Add(Instantiate(MainManager.instance.GetItem(selectedItem).equippedPrefab, Vector3.zero, EquipmentHolder.transform.rotation, EquipmentHolder.transform));
         }
 
         //Remove BuildingmMenu

@@ -10,6 +10,7 @@ public class GameData
     [HideInInspector] public Quaternion playerRot_Save = new Quaternion();
 
     //WorldObjects
+    [HideInInspector] public List<WorldObject> worldObject_SaveList = new List<WorldObject>();
 
     //Inventories
     public List<Inventory> Inventories_SaveList = new List<Inventory>();
@@ -30,7 +31,10 @@ public class GameData
     public GameData()
     {
         //Input All Lists to clear
+        this.worldObject_SaveList.Clear();
+
         this.buildingBlockList_SaveList.Clear();
+
         this.Inventories_SaveList.Clear();
         this.hotbarItem_SaveList.Clear();
     }

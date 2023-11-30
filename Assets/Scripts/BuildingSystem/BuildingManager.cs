@@ -9,7 +9,7 @@ public class BuildingManager : MonoBehaviour
 
     public GameObject buildingBlock_Parent;
     public List<GameObject> buildingBlockList = new List<GameObject>();
-    public List<BuildingBlockSaveList> buildingBlockSaveList = new List<BuildingBlockSaveList>();
+    [HideInInspector] public List<BuildingBlockSaveList> buildingBlockSaveList = new List<BuildingBlockSaveList>();
 
     [Header("Ghost")]
     public GameObject buildingBlockLookingAt_Axe;
@@ -24,7 +24,6 @@ public class BuildingManager : MonoBehaviour
 
     [Header("Selected")]
     public BuildingType buildingType_Selected = BuildingType.None;
-
     public BuildingMaterial buildingMaterial_Selected = BuildingMaterial.None;
 
     [SerializeField] Vector2 BuildingDistance;
@@ -269,13 +268,13 @@ public class BuildingManager : MonoBehaviour
         }
 
         //Setup BuildingBlockList
-        buildingBlockSaveList = DataManager.instance.buildingBlockList_StoreList;
         for (int i = 0; i < buildingBlockList.Count; i++)
         {
             Destroy(buildingBlockList[i]);
         }
         buildingBlockList.Clear();
 
+        buildingBlockSaveList = DataManager.instance.buildingBlockList_StoreList;
         for (int i = 0; i < buildingBlockSaveList.Count; i++)
         {
             buildingBlockList.Add(Instantiate(SetupBuildingBlockFromSave(buildingBlockSaveList[i]), buildingBlockSaveList[i].buildingBlock_Position, buildingBlockSaveList[i].buildingBlock_Rotation) as GameObject);
@@ -944,10 +943,8 @@ public class BuildingManager : MonoBehaviour
 
     void BuidingBlockCanBePlacedCheck(BuildingBlock_Parent blockLookingAt, int i, BuildingType buildingType, BuildingSubType buildingSubType, Material material_Can, Material material_Cannot)
     {
-        if (blockLookingAt.ghostList[i].GetComponent<Building_Ghost>().buildingType != buildingType
-            /*|| blockLookingAt.ghostList[i].GetComponent<Building_Ghost>().buildingSubType != buildingSubType*/)
+        if (blockLookingAt.ghostList[i].GetComponent<Building_Ghost>().buildingType != buildingType)
         {
-            print("1000. Return!!! - BuidingBlockCanBePlacedCheck");
             return;
         }
 
@@ -967,8 +964,6 @@ public class BuildingManager : MonoBehaviour
         {
             timer += Time.smoothDeltaTime;
         }
-
-        //print("CheckOverlappingGhost(): " + CheckOverlappingGhost() + " | BuildingType: " + blockLookingAt.ghostList[i].GetComponent<Building_Ghost>().buildingType + " = " + buildingType);
 
         //Can be placed
         if (/*!CheckOverlappingGhost() &&*/ timer >= 0.2f)
@@ -997,21 +992,8 @@ public class BuildingManager : MonoBehaviour
         //Cannot be placed
         else
         {
-            //Insert functionality to prevent a selected ghost to be placed, and change its color to red
-            //Or maybe not?! - To decrease the Materials needed to be made
-            #region
-            //if()...
-            //buildingBlock.ghostList[i].GetComponent<MeshRenderer>().material = cannotPlace_Material;
-            //buildingBlock.ghostList[i].GetComponent<Building_Ghost>().isSelected = true;
-            //buildingBlock.ghostList[i].SetActive(true);
-            //buildingBlockCanBePlaced = false;
-            #endregion
-
             buildingBlockCanBePlaced = false;
             SetAllGhostState_Off();
-            //SetGhostState_OFF(buildingBlock, i);
-
-            //print("10. Doesn't make it");
         }
     }
     Mesh GetCorrectGhostMesh()
@@ -1621,7 +1603,14 @@ public class BuildingManager : MonoBehaviour
                 if (buildingBlockLookingAt_Axe != hitTransform.gameObject)
                 {
                     buildingBlockLookingAt_Axe = hitTransform.gameObject;
-                    SetBuildingRemoveRequirements(hitTransform.gameObject.GetComponent<BuildingBlock>().buidingBlock_Parent.GetComponent<BuildingBlock_Parent>());
+
+                    if (buildingBlockLookingAt_Axe.GetComponent<BuildingBlock>() != null)
+                    {
+                        if (buildingBlockLookingAt_Axe.GetComponent<BuildingBlock>().buidingBlock_Parent.GetComponent<BuildingBlock_Parent>() != null)
+                        {
+                            SetBuildingRemoveRequirements(buildingBlockLookingAt_Axe.GetComponent<BuildingBlock>().buidingBlock_Parent.GetComponent<BuildingBlock_Parent>());
+                        }
+                    }
                 }
             }
             else

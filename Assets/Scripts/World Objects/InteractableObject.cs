@@ -11,6 +11,7 @@ public class InteractableObject : MonoBehaviour
     [Header("Stats")]
     public Items itemName;
     [SerializeField] InteracteableType interacteableType;
+    public bool isMachine;
 
     [Header("If Object is an Inventory")]
     [SerializeField] int inventoryIndex;
@@ -50,6 +51,17 @@ public class InteractableObject : MonoBehaviour
                 //Check If item can be added
                 if (InventoryManager.instance.AddItemToInventory(0, gameObject, false))
                 {
+                    //Remove Object from the worldObjectList
+                    for (int i = 0; i < InventoryManager.instance.worldObjectList.Count; i++)
+                    {
+                        if (gameObject == InventoryManager.instance.worldObjectList[i].gameObject)
+                        {
+                            InventoryManager.instance.worldObjectList.RemoveAt(i);
+
+                            break;
+                        }
+                    }
+
                     //Unsubscribe from Event
                     PlayerButtonManager.objectInterraction_isPressedDown -= ObjectInteraction;
 

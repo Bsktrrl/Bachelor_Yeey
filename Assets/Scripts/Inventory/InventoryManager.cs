@@ -7,8 +7,6 @@ public class InventoryManager : MonoBehaviour
 {
     public static InventoryManager instance { get; private set; } //Singleton
 
-    [SerializeField] Item_SO item_SO;
-
     [Header("Inventory")]
     public Vector2 inventorySize;
     public int cellsize = 100;
@@ -27,7 +25,8 @@ public class InventoryManager : MonoBehaviour
 
     [Header("Lists")]
     public List<Inventory> inventories = new List<Inventory>();
-    public List<GameObject> worldItemList = new List<GameObject>();
+    public List<GameObject> worldObjectList = new List<GameObject>();
+    public List<WorldObject> worldObjectSaveList = new List<WorldObject>();
 
     public List<GameObject> itemSlotList_Player = new List<GameObject>();
     public List<GameObject> itemSlotList_Chest = new List<GameObject>();
@@ -91,14 +90,53 @@ public class InventoryManager : MonoBehaviour
             BuildingManager.instance.buildingRequirement_Parent.SetActive(true);
         }
         BuildingManager.instance.BuildingHammer_isActive = true;
+
+        //Setup WorldObjectList
+        #region
+        for (int i = 0; i < worldObjectList.Count; i++)
+        {
+            Destroy(worldObjectList[i]);
+        }
+        worldObjectList.Clear();
+
+        worldObjectSaveList = DataManager.instance.worldObject_StoreList;
+        for (int i = 0; i < worldObjectSaveList.Count; i++)
+        {
+            worldObjectList.Add(Instantiate(SetupWorldObjectFromSave(worldObjectSaveList[i]), worldObjectSaveList[i].objectPosition, worldObjectSaveList[i].objectRotation) as GameObject);
+            worldObjectList[worldObjectList.Count - 1].transform.parent = worldObject_Parent.transform;
+
+            //If it's not a stationary Object, activate Gravity
+            if (!worldObjectList[worldObjectList.Count - 1].GetComponent<InteractableObject>().isMachine)
+            {
+                worldObjectList[worldObjectList.Count - 1].GetComponent<Rigidbody>().isKinematic = false;
+                worldObjectList[worldObjectList.Count - 1].GetComponent<Rigidbody>().useGravity = true;
+            }
+        }
+        #endregion
     }
     public void SaveData()
     {
         DataManager.instance.Inventories_StoreList = inventories;
+
+        //Save WorldObject into a saveable list
+        List<WorldObject> tempList = new List<WorldObject>();
+        for (int i = 0; i < worldObjectList.Count; i++)
+        {
+            WorldObject temp = new WorldObject();
+
+            temp.objectName = worldObjectList[i].GetComponent<InteractableObject>().itemName;
+            temp.objectPosition = worldObjectList[i].transform.position;
+            temp.objectRotation = worldObjectList[i].transform.rotation;
+
+            tempList.Add(temp);
+        }
+        DataManager.instance.worldObject_StoreList = tempList;
     }
     public void SaveData(ref GameData gameData)
     {
         DataManager.instance.Inventories_StoreList = inventories;
+        DataManager.instance.worldObject_StoreList = worldObjectSaveList;
+
         print("Save_Inventories");
     }
 
@@ -258,13 +296,12 @@ public class InventoryManager : MonoBehaviour
         PrepareInventoryUI(inventory, false);
 
         //Spawn item into the World
-        //print("Spawn item into the world");
-        worldItemList.Add(Instantiate(MainManager.instance.GetItem(itemName).worldObjectPrefab, handDropPoint.transform.position, Quaternion.identity) as GameObject);
-        worldItemList[worldItemList.Count - 1].transform.parent = worldObject_Parent.transform;
+        worldObjectList.Add(Instantiate(MainManager.instance.GetItem(itemName).worldObjectPrefab, handDropPoint.transform.position, Quaternion.identity) as GameObject);
+        worldObjectList[worldObjectList.Count - 1].transform.parent = worldObject_Parent.transform;
 
         //Set Gravity true on the worldObject
-        worldItemList[worldItemList.Count - 1].GetComponent<Rigidbody>().isKinematic = false;
-        worldItemList[worldItemList.Count - 1].GetComponent<Rigidbody>().useGravity = true;
+        worldObjectList[worldObjectList.Count - 1].GetComponent<Rigidbody>().isKinematic = false;
+        worldObjectList[worldObjectList.Count - 1].GetComponent<Rigidbody>().useGravity = true;
 
         //If item is removed from the inventory, update the Hotbar
         if (inventory <= 0)
@@ -273,6 +310,8 @@ public class InventoryManager : MonoBehaviour
         }
 
         BuildingManager.instance.SetBuildingRequirements(BuildingManager.instance.GetBuildingBlock(BuildingManager.instance.buildingType_Selected, BuildingManager.instance.buildingMaterial_Selected), BuildingManager.instance.buildingRequirement_Parent);
+
+        SaveData();
     }
     public void RemoveItemFromInventory(int inventory, Items itemName, bool itemIsMoved)
     {
@@ -626,6 +665,22 @@ public class InventoryManager : MonoBehaviour
     //--------------------
 
 
+    GameObject SetupWorldObjectFromSave(WorldObject worldObj)
+    {
+        if (worldObj.objectName != Items.None)
+        {
+            return MainManager.instance.GetItem(worldObj.objectName).worldObjectPrefab;
+        }
+        else
+        {
+            return null;
+        }
+    }
+
+
+    //--------------------
+
+
     #region Open/Close Inventory Menu
     public void OpenPlayerInventory()
     {
@@ -682,4 +737,12 @@ public class InventoryItem
 
     public int inventoryIndex;
     public int itemID; //Find all other item in the UI grid with this ID
+}
+
+[Serializable]
+public struct WorldObject
+{
+    public Items objectName;
+    public Vector3 objectPosition;
+    public Quaternion objectRotation;
 }

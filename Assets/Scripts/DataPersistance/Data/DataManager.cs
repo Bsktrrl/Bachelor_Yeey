@@ -21,6 +21,7 @@ public class DataManager : MonoBehaviour, IDataPersistance
     [HideInInspector] public Quaternion playerRot_Store = new Quaternion();
 
     //WorldObjects
+    [HideInInspector] public List<WorldObject> worldObject_StoreList = new List<WorldObject>();
 
     //Inventories
     [HideInInspector] public List<Inventory> Inventories_StoreList = new List<Inventory>();
@@ -62,6 +63,8 @@ public class DataManager : MonoBehaviour, IDataPersistance
         this.playerPos_Store = gameData.playerPos_Save;
         this.playerRot_Store = gameData.playerRot_Save;
 
+        this.worldObject_StoreList = gameData.worldObject_SaveList;
+
         this.Inventories_StoreList = gameData.Inventories_SaveList;
 
         this.hotbarItem_StoreList = gameData.hotbarItem_SaveList;
@@ -83,6 +86,8 @@ public class DataManager : MonoBehaviour, IDataPersistance
         //Input what to save
         gameData.playerPos_Save = MainManager.instance.player.transform.position;
         gameData.playerRot_Save = MainManager.instance.player.transform.rotation;
+
+        gameData.worldObject_SaveList = this.worldObject_StoreList;
 
         gameData.Inventories_SaveList = this.Inventories_StoreList;
 
