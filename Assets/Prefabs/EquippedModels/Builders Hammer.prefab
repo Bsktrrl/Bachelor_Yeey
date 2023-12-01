@@ -133,6 +133,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2c583ca34ced47f4ea13120f39f27412, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  layerMask_Ground:
+    serializedVersion: 2
+    m_Bits: 256
+  ghostObject: {fileID: 0}
 --- !u!114 &1417224262918884002
 MonoBehaviour:
   m_ObjectHideFlags: 0

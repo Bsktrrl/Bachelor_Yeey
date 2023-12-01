@@ -24,6 +24,14 @@ public class BuildingBlock_UI : MonoBehaviour, IPointerEnterHandler
             BuildingManager.instance.SetBuildingRequirements(BuildingManager.instance.GetBuildingBlock(BuildingManager.instance.buildingType_Selected, BuildingManager.instance.buildingMaterial_Selected), BuildingManager.instance.buildingRequirement_Parent);
         }
 
+        //Update "Free Block" if Hammer is selected
+        if (EquippmentManager.instance.toolHolderParent.GetComponentInChildren<BuildingHammer>() != null)
+        {
+            EquippmentManager.instance.toolHolderParent.GetComponentInChildren<BuildingHammer>().SetNewSelectedBlock();
+
+            print("200. New Selected Block Set: Type: " + BuildingType + " | Material: " + BuildingMaterial);
+        }
+
         BuildingManager.instance.SaveData();
     }
 }

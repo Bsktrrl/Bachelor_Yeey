@@ -6,13 +6,6 @@ public class PlayerButtonManager : MonoBehaviour
     //Singleton
     public static PlayerButtonManager instance { get; set; } //Singleton
     
-    //public ButtonClickedState buttonClickedState = ButtonClickedState.None;
-    //public InventoryButtonState inventoryButtonState = InventoryButtonState.None;
-
-    //public static Action leftMouse_isPressedDown;
-    //public static Action rightMouse_isPressedDown;
-    //public static Action leftMouse_isPressedUp;
-    //public static Action rightMouse_isPressedUp;
     public static Action OpenPlayerInventory_isPressedDown;
     public static Action ClosePlayerInventory_isPressedDown;
     public static Action objectInterraction_isPressedDown;
@@ -62,7 +55,7 @@ public class PlayerButtonManager : MonoBehaviour
     {
         //BuildingSystem
         #region
-        if (Input.GetKeyDown(KeyCode.R) && MainManager.instance.gameStates == GameStates.Building && MainManager.instance.menuStates == MenuStates.None)
+        if (Input.GetKey(KeyCode.R) && MainManager.instance.gameStates == GameStates.Building && MainManager.instance.menuStates == MenuStates.None)
         {
             isPressed_BuildingRotate?.Invoke();
         }

@@ -5065,6 +5065,7 @@ MonoBehaviour:
   buildingRequirement_List: []
   buildingRemoveRequirement_List: []
   enoughItemsToBuild: 0
+  tempBlock_Parent: {fileID: 4602759004965088085}
 --- !u!1 &76071830703620184
 GameObject:
   m_ObjectHideFlags: 0
@@ -8414,6 +8415,7 @@ Transform:
   - {fileID: 76071831216754006}
   - {fileID: 76071831133967854}
   - {fileID: 2655092570908434407}
+  - {fileID: 4246570395988190486}
   m_Father: {fileID: 76071831427399275}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -9874,6 +9876,37 @@ MonoBehaviour:
   m_Spacing: {x: 0, y: 10}
   m_Constraint: 0
   m_ConstraintCount: 2
+--- !u!1 &4602759004965088085
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4246570395988190486}
+  m_Layer: 0
+  m_Name: TempBlockParent
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4246570395988190486
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4602759004965088085}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 76071831411672501}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &5477774947984057983
 GameObject:
   m_ObjectHideFlags: 0
